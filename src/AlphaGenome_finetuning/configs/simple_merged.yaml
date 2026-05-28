@@ -1,0 +1,139 @@
+heads:
+- id: CutnTag
+  source: predefined
+  kind: atac
+  targets:
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K27acDay1_100M_norm.bw
+    label: K27acDay1
+    nonzero_mean: 22.31
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K27acDay5_100M_norm.bw
+    label: K27acDay5
+    nonzero_mean: 15.284
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day1_100M_norm.bw
+    label: K4Day1
+    nonzero_mean: 5.328
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day2_100M_norm.bw
+    label: K4Day2
+    nonzero_mean: 7.413
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day5_100M_norm.bw
+    label: K4Day5
+    nonzero_mean: 25.891
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day6_100M_norm.bw
+    label: K4Day6
+    nonzero_mean: 19.9
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/cutntag_4Day1_100M_norm.bw
+    label: cutntag_4Day1
+    nonzero_mean: 5.453
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/cutntag_4Day2_100M_norm.bw
+    label: cutntag_4Day2
+    nonzero_mean: 7.862
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/cutntag_4Day5_100M_norm.bw
+    label: cutntag_4Day5
+    nonzero_mean: 29.044
+- id: multiome_ATAC
+  source: predefined
+  kind: atac
+  targets:
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Cardiac_mesoderm_100M_norm.bw
+    label: ATAC_Cardiac_mesoderm
+    nonzero_mean: 1.724
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Cardiac_progenitors_100M_norm.bw
+    label: ATAC_Cardiac_progenitors
+    nonzero_mean: 0.433
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Cardiomyocytes_100M_norm.bw
+    label: ATAC_Cardiomyocytes
+    nonzero_mean: 0.717
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Early_cardiomyocytes_100M_norm.bw
+    label: ATAC_Early_cardiomyocytes
+    nonzero_mean: 0.405
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Early_endoderm_100M_norm.bw
+    label: ATAC_Early_endoderm
+    nonzero_mean: 3.166
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Early_fibroblasts_100M_norm.bw
+    label: ATAC_Early_fibroblasts
+    nonzero_mean: 0.665
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Ectoderm_100M_norm.bw
+    label: ATAC_Ectoderm
+    nonzero_mean: 4.849
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Endoderm_100M_norm.bw
+    label: ATAC_Endoderm
+    nonzero_mean: 1.189
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Endothelial_cells_100M_norm.bw
+    label: ATAC_Endothelial_cells
+    nonzero_mean: 3.61
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Fibroblasts_100M_norm.bw
+    label: ATAC_Fibroblasts
+    nonzero_mean: 1.725
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Mesendoderm_100M_norm.bw
+    label: ATAC_Mesendoderm
+    nonzero_mean: 1.644
+- id: multiome_RNA
+  source: predefined
+  kind: rna_seq
+  targets:
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_mesoderm_minus_100M.bw
+    label: RNA_Cardiac_mesoderm_minus
+    nonzero_mean: 9.171
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_mesoderm_plus_100M.bw
+    label: RNA_Cardiac_mesoderm_plus
+    nonzero_mean: 9.316
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_progenitors_minus_100M.bw
+    label: RNA_Cardiac_progenitors_minus
+    nonzero_mean: 0.807
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_progenitors_plus_100M.bw
+    label: RNA_Cardiac_progenitors_plus
+    nonzero_mean: 0.832
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiomyocytes_minus_100M.bw
+    label: RNA_Cardiomyocytes_minus
+    nonzero_mean: 1.631
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiomyocytes_plus_100M.bw
+    label: RNA_Cardiomyocytes_plus
+    nonzero_mean: 1.791
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_cardiomyocytes_minus_100M.bw
+    label: RNA_Early_cardiomyocytes_minus
+    nonzero_mean: 0.833
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_cardiomyocytes_plus_100M.bw
+    label: RNA_Early_cardiomyocytes_plus
+    nonzero_mean: 0.886
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_endoderm_minus_100M.bw
+    label: RNA_Early_endoderm_minus
+    nonzero_mean: 6.25
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_endoderm_plus_100M.bw
+    label: RNA_Early_endoderm_plus
+    nonzero_mean: 6.414
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_fibroblasts_minus_100M.bw
+    label: RNA_Early_fibroblasts_minus
+    nonzero_mean: 1.395
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_fibroblasts_plus_100M.bw
+    label: RNA_Early_fibroblasts_plus
+    nonzero_mean: 1.454
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Ectoderm_minus_100M.bw
+    label: RNA_Ectoderm_minus
+    nonzero_mean: 14.329
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Ectoderm_plus_100M.bw
+    label: RNA_Ectoderm_plus
+    nonzero_mean: 14.891
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endoderm_minus_100M.bw
+    label: RNA_Endoderm_minus
+    nonzero_mean: 2.969
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endoderm_plus_100M.bw
+    label: RNA_Endoderm_plus
+    nonzero_mean: 3.07
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endothelial_cells_minus_100M.bw
+    label: RNA_Endothelial_cells_minus
+    nonzero_mean: 8.133
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endothelial_cells_plus_100M.bw
+    label: RNA_Endothelial_cells_plus
+    nonzero_mean: 8.414
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Fibroblasts_minus_100M.bw
+    label: RNA_Fibroblasts_minus
+    nonzero_mean: 4.704
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Fibroblasts_plus_100M.bw
+    label: RNA_Fibroblasts_plus
+    nonzero_mean: 4.891
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Mesendoderm_minus_100M.bw
+    label: RNA_Mesendoderm_minus
+    nonzero_mean: 8.269
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Mesendoderm_plus_100M.bw
+    label: RNA_Mesendoderm_plus
+    nonzero_mean: 8.438

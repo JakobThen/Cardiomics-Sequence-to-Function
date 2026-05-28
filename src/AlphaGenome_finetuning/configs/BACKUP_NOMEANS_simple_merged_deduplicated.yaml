@@ -1,0 +1,97 @@
+heads:
+- id: CutnTag
+  source: predefined
+  kind: atac
+  targets:
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K27acDay1_100M_norm.bw
+    label: K27acDay1
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K27acDay5_100M_norm.bw
+    label: K27acDay5
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day1_100M_norm.bw
+    label: K4Day1
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day2_100M_norm.bw
+    label: K4Day2
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day5_100M_norm.bw
+    label: K4Day5
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/K4Day6_100M_norm.bw
+    label: K4Day6
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/cutntag_4Day1_100M_norm.bw
+    label: cutntag_4Day1
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/cutntag_4Day2_100M_norm.bw
+    label: cutntag_4Day2
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/CutnTag_bigwig/cutntag_4Day5_100M_norm.bw
+    label: cutntag_4Day5
+- id: multiome_ATAC
+  source: predefined
+  kind: atac
+  targets:
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Cardiac_mesoderm_100M_norm.bw
+    label: ATAC_Cardiac_mesoderm
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Cardiac_progenitors_100M_norm.bw
+    label: ATAC_Cardiac_progenitors
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Cardiomyocytes_100M_norm.bw
+    label: ATAC_Cardiomyocytes
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Early_cardiomyocytes_100M_norm.bw
+    label: ATAC_Early_cardiomyocytes
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Early_endoderm_100M_norm.bw
+    label: ATAC_Early_endoderm
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Early_fibroblasts_100M_norm.bw
+    label: ATAC_Early_fibroblasts
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Ectoderm_100M_norm.bw
+    label: ATAC_Ectoderm
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Endoderm_100M_norm.bw
+    label: ATAC_Endoderm
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Endothelial_cells_100M_norm.bw
+    label: ATAC_Endothelial_cells
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Fibroblasts_100M_norm.bw
+    label: ATAC_Fibroblasts
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_ATAC_bigwig/ATAC_Mesendoderm_100M_norm.bw
+    label: ATAC_Mesendoderm
+- id: multiome_RNA
+  source: predefined
+  kind: rna_seq
+  targets:
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_mesoderm_minus_100M.bw
+    label: RNA_Cardiac_mesoderm_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_mesoderm_plus_100M.bw
+    label: RNA_Cardiac_mesoderm_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_progenitors_minus_100M.bw
+    label: RNA_Cardiac_progenitors_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiac_progenitors_plus_100M.bw
+    label: RNA_Cardiac_progenitors_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiomyocytes_minus_100M.bw
+    label: RNA_Cardiomyocytes_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Cardiomyocytes_plus_100M.bw
+    label: RNA_Cardiomyocytes_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_cardiomyocytes_minus_100M.bw
+    label: RNA_Early_cardiomyocytes_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_cardiomyocytes_plus_100M.bw
+    label: RNA_Early_cardiomyocytes_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_endoderm_minus_100M.bw
+    label: RNA_Early_endoderm_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_endoderm_plus_100M.bw
+    label: RNA_Early_endoderm_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_fibroblasts_minus_100M.bw
+    label: RNA_Early_fibroblasts_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Early_fibroblasts_plus_100M.bw
+    label: RNA_Early_fibroblasts_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Ectoderm_minus_100M.bw
+    label: RNA_Ectoderm_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Ectoderm_plus_100M.bw
+    label: RNA_Ectoderm_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endoderm_minus_100M.bw
+    label: RNA_Endoderm_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endoderm_plus_100M.bw
+    label: RNA_Endoderm_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endothelial_cells_minus_100M.bw
+    label: RNA_Endothelial_cells_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Endothelial_cells_plus_100M.bw
+    label: RNA_Endothelial_cells_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Fibroblasts_minus_100M.bw
+    label: RNA_Fibroblasts_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Fibroblasts_plus_100M.bw
+    label: RNA_Fibroblasts_plus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Mesendoderm_minus_100M.bw
+    label: RNA_Mesendoderm_minus
+  - path: /g/steinmetz/projects/variant2function_project/data/processed/seq2fun_train_input_baseres/multiome_RNA_3prime_bigwig/RNA_Mesendoderm_plus_100M.bw
+    label: RNA_Mesendoderm_plus
