@@ -1,3 +1,14 @@
+"""
+Purpose: Evaluates a fine-tuned AlphaGenome model using streaming correlation 
+        analysis. It loads a specified checkpoint, performs multi-GPU 
+        distributed inference across test intervals, computes metrics against 
+        BigWig tracks, and optionally saves the predictions to an HDF5 file.
+Input:   --fasta_path, --config, --input_dir, --out_dir, --checkpoint_dir, 
+        and optional arguments for data folds, batch size, and minimal testing.
+Output:  Evaluation metrics/plots saved to out_dir, and optionally an HDF5 
+        file containing test interval predictions.
+"""
+
 import os
 import sys
 import h5py
@@ -26,19 +37,6 @@ if parent_dir not in sys.path:
 
 from utils.eval.streamed_correlation_analysis import evaluate_from_inference
 from utils.eval.track_prediction import process_track_metadata
-
-"""
-    Code by Jakob
-
-    Purpose: Evaluates a fine-tuned AlphaGenome model using streaming correlation 
-            analysis. It loads a specified checkpoint, performs multi-GPU 
-            distributed inference across test intervals, computes metrics against 
-            BigWig tracks, and optionally saves the predictions to an HDF5 file.
-    Input:   --fasta_path, --config, --input_dir, --out_dir, --checkpoint_dir, 
-            and optional arguments for data folds, batch size, and minimal testing.
-    Output:  Evaluation metrics/plots saved to out_dir, and optionally an HDF5 
-            file containing test interval predictions.
-"""
 
 # ---------------------------------------------------------------------------
 # Helpers
