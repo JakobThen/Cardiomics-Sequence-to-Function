@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>AlphaGenome Finetuning Pipeline &#8212; cardiomics-sequence-to-function 0.00.01 documentation</title>
+    <title>AlphaGenome Finetuning Pipeline &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
   
   
   
@@ -40,13 +40,15 @@
   <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script src="_static/documentation_options.js?v=e2ea8b45"></script>
+    <script src="_static/documentation_options.js?v=38b20e68"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'AlphaGenome_ft_pipeline';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src" href="api/modules.html" />
+    <link rel="prev" title="Cardiomics-Sequence-to-Function Documentation" href="index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -98,8 +100,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -126,7 +126,7 @@
   
   
   
-    <p class="title logo__title">cardiomics-sequence-to-function 0.00.01 documentation</p>
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -138,7 +138,23 @@
 </button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">src</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
     </div>
 </nav></div>
     </div>
@@ -282,8 +298,8 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-nonzero-means-per-bw">00_compute_nonzero_means_per_bw</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-config-file">01_make_config_file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">Nonzero-mean computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">Config file generation</a></li>
 </ul>
             </nav>
         </div>
@@ -298,8 +314,8 @@
   <section id="alphagenome-finetuning-pipeline">
 <h1>AlphaGenome Finetuning Pipeline<a class="headerlink" href="#alphagenome-finetuning-pipeline" title="Link to this heading">#</a></h1>
 <p>This section details the shell and SLURM scripts used to execute the AlphaGenome finetuning pipeline.</p>
-<section id="compute-nonzero-means-per-bw">
-<h2>00_compute_nonzero_means_per_bw<a class="headerlink" href="#compute-nonzero-means-per-bw" title="Link to this heading">#</a></h2>
+<section id="nonzero-mean-computation">
+<h2>Nonzero-mean computation<a class="headerlink" href="#nonzero-mean-computation" title="Link to this heading">#</a></h2>
 <p>Script to compute the nonzero-track means per .bw file used for the AlphaGenome squashed scale
 data transformation.</p>
 <div class="literal-block-wrapper docutils container" id="id1">
@@ -394,8 +410,8 @@ data transformation.</p>
 </div>
 </div>
 </section>
-<section id="make-config-file">
-<h2>01_make_config_file<a class="headerlink" href="#make-config-file" title="Link to this heading">#</a></h2>
+<section id="config-file-generation">
+<h2>Config file generation<a class="headerlink" href="#config-file-generation" title="Link to this heading">#</a></h2>
 <p>Creates a .yaml config file containg the head and track configureation for AlphaGenome finetuning.</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/01_make_config_file.sh</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
@@ -460,6 +476,24 @@ data transformation.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Cardiomics-Sequence-to-Function Documentation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api/modules.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">src</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -478,8 +512,8 @@ data transformation.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-nonzero-means-per-bw">00_compute_nonzero_means_per_bw</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-config-file">01_make_config_file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">Nonzero-mean computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">Config file generation</a></li>
 </ul>
   </nav></div>
 

@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.finetuning.AlphaGenome.finetune_heads &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/finetuning/AlphaGenome/finetune_heads';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/modules.html">src</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.finetuning.AlphaGenome.finetune_heads</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Fine-tuning script for the AlphaGenome model.</span>
+
+<span class="sd">This script sets up and executes the training pipeline for fine-tuning </span>
+<span class="sd">an AlphaGenome model. It loads a specified configuration, prepares data </span>
+<span class="sd">intervals from BigWig files, registers necessary model heads, and runs </span>
+<span class="sd">the training loop with frozen backbones (by default).</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_model_with_heads</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft.finetune.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_targets_config</span><span class="p">,</span> <span class="n">prepare_head_specs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft.finetune.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_intervals_from_fold</span><span class="p">,</span> <span class="n">BigWigDataModule</span><span class="p">,</span> <span class="n">build_fasta_index</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft.finetune.train</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_predefined_heads</span><span class="p">,</span> <span class="n">train</span>
+
+
+<div class="viewcode-block" id="get_parser">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.get_parser">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_parser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates and configures the argument parser for the fine-tuning script.</span>
+<span class="sd">    </span>
+<span class="sd">    This function is separated to allow Sphinx extensions (like `sphinxarg.ext`) </span>
+<span class="sd">    to auto-generate CLI documentation natively without executing the script.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        argparse.ArgumentParser: The configured argument parser object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;AlphaGenome Finetuning Script&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># -------------------------------------------------------------------------------------------</span>
+    <span class="c1"># Core I/O Arguments</span>
+    <span class="c1"># -------------------------------------------------------------------------------------------</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--fasta_path&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the genome.fa file&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the target YAML config file&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--base_dir&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Base directory for resolving config paths (e.g., the local tmp dir)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--checkpoint_dir&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Directory to save checkpoints&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># -------------------------------------------------------------------------------------------</span>
+    <span class="c1"># Data &amp; Model Options</span>
+    <span class="c1"># -------------------------------------------------------------------------------------------</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--fold&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Data fold to use (0, 1, 2, 3)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--window_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1_048_576</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Window size in bp (default: 1 Mbp)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--organism&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;HOMO_SAPIENS&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Target organism&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--model_version&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;fold_1&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Base model version (e.g., fold_1, all_folds)&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># -------------------------------------------------------------------------------------------</span>
+    <span class="c1"># Training Hyperparameters</span>
+    <span class="c1"># -------------------------------------------------------------------------------------------</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Global batch size (must be divisible by N_GPUs)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--epochs&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of training epochs&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--lr&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">3e-4</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Learning rate&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--weight_decay&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Weight decay&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--seed&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Random seed&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--patience&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Early stopping patience&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--min_delta&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Early stopping min delta&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parser</span></div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executes the fine-tuning pipeline.</span>
+
+<span class="sd">    This function performs input validation (including FASTA indexing), loads </span>
+<span class="sd">    the model configuration, prepares the data module, freezes the model </span>
+<span class="sd">    backbone (if configured), and initiates the training loop.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (argparse.Namespace): Parsed command-line arguments containing </span>
+<span class="sd">            paths, hyperparameters, and model configurations.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If the specified FASTA file or targets configuration </span>
+<span class="sd">            file does not exist at the provided paths.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Derived variables</span>
+    <span class="n">FASTA_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">fasta_path</span><span class="p">)</span>
+    <span class="n">TARGETS_CONFIG_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">base_dir</span><span class="p">)</span>
+    <span class="n">CHECKPOINT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span><span class="p">)</span>
+
+    <span class="c1"># Standard fixed training options</span>
+    <span class="n">SHUFFLE</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">DROP_LAST</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">MAX_TRAIN_STEPS</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">VERBOSE</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">HEADS_ONLY</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">BEST_METRIC</span> <span class="o">=</span> <span class="s2">&quot;valid_loss&quot;</span>
+    <span class="n">BEST_METRIC_MODE</span> <span class="o">=</span> <span class="s2">&quot;min&quot;</span>
+
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="c1"># Validate I/O</span>
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="n">FASTA_INDEX_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">FASTA_PATH</span><span class="si">}</span><span class="s2">.fai&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">FASTA_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">FASTA_INDEX_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Building FASTA index: </span><span class="si">{</span><span class="n">FASTA_INDEX_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">build_fasta_index</span><span class="p">(</span><span class="n">FASTA_PATH</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">FASTA_INDEX_PATH</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found FASTA index: </span><span class="si">{</span><span class="n">FASTA_INDEX_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Skip FASTA indexing because FASTA is missing.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span><span class="n">FASTA_PATH</span><span class="p">,</span> <span class="n">TARGETS_CONFIG_PATH</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Required file not found: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">CHECKPOINT_DIR</span> <span class="o">=</span> <span class="n">CHECKPOINT_DIR</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+    <span class="n">CHECKPOINT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input validation passed.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="c1"># Model config</span>
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="n">config_dict</span> <span class="o">=</span> <span class="n">load_targets_config</span><span class="p">(</span>
+        <span class="n">TARGETS_CONFIG_PATH</span><span class="p">,</span>
+        <span class="n">base_dir</span><span class="o">=</span><span class="n">BASE_DIR</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Build head specifications from the config.</span>
+    <span class="n">head_specs</span> <span class="o">=</span> <span class="n">prepare_head_specs</span><span class="p">(</span><span class="n">config_dict</span><span class="p">)</span>
+    <span class="n">register_predefined_heads</span><span class="p">(</span><span class="n">head_specs</span><span class="p">)</span>
+
+    <span class="c1"># Create dataframe of intervals for the specified fold and window size</span>
+    <span class="n">intervals</span> <span class="o">=</span> <span class="n">prepare_intervals_from_fold</span><span class="p">(</span>
+        <span class="n">fold</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">fold</span><span class="p">,</span>
+        <span class="n">window_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">window_size</span><span class="p">,</span>
+        <span class="n">organism</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">organism</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Heads:&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">spec</span><span class="o">.</span><span class="n">head_id</span> <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">head_specs</span><span class="p">],</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">split</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">,</span> <span class="s2">&quot;valid&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">split</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">split</span><span class="p">,</span><span class="w"> </span><span class="p">[]))</span><span class="si">}</span><span class="s2"> intervals&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Create model with new heads</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">create_model_with_heads</span><span class="p">(</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">model_version</span><span class="p">,</span>
+        <span class="n">heads</span><span class="o">=</span><span class="p">[</span><span class="n">spec</span><span class="o">.</span><span class="n">head_id</span> <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">head_specs</span><span class="p">],</span>
+        <span class="n">detach_backbone</span><span class="o">=</span><span class="n">HEADS_ONLY</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">HEADS_ONLY</span><span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">freeze_backbone</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model backbone frozen. Fine-tuning heads only.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model backbone UNFROZEN. Running full fine-tuning.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model ready.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Create data module</span>
+    <span class="n">data_module</span> <span class="o">=</span> <span class="n">BigWigDataModule</span><span class="p">(</span>
+        <span class="n">intervals</span><span class="o">=</span><span class="n">intervals</span><span class="p">,</span>
+        <span class="n">fasta_path</span><span class="o">=</span><span class="n">FASTA_PATH</span><span class="p">,</span>
+        <span class="n">head_specs</span><span class="o">=</span><span class="n">head_specs</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span>
+        <span class="n">shuffle</span><span class="o">=</span><span class="n">SHUFFLE</span><span class="p">,</span>
+        <span class="n">drop_last</span><span class="o">=</span><span class="n">DROP_LAST</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data module ready. Starting training...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="c1"># Start Model training</span>
+    <span class="c1"># ------------------------------------------------------------------------------------</span>
+    <span class="n">train</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">data_module</span><span class="p">,</span>
+        <span class="n">head_specs</span><span class="p">,</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">lr</span><span class="p">,</span>
+        <span class="n">weight_decay</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">weight_decay</span><span class="p">,</span>
+        <span class="n">num_epochs</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">epochs</span><span class="p">,</span>
+        <span class="n">seed</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+        <span class="n">max_train_steps</span><span class="o">=</span><span class="n">MAX_TRAIN_STEPS</span><span class="p">,</span>
+        <span class="n">heads_only</span><span class="o">=</span><span class="n">HEADS_ONLY</span><span class="p">,</span>
+        <span class="n">checkpoint_dir</span><span class="o">=</span><span class="n">CHECKPOINT_DIR</span><span class="p">,</span>
+        <span class="n">organism</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">organism</span><span class="p">,</span>
+        <span class="n">best_metric</span><span class="o">=</span><span class="n">BEST_METRIC</span><span class="p">,</span>
+        <span class="n">best_metric_mode</span><span class="o">=</span><span class="n">BEST_METRIC_MODE</span><span class="p">,</span>
+        <span class="n">early_stopping_patience</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">patience</span><span class="p">,</span>
+        <span class="n">early_stopping_min_delta</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">min_delta</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="n">VERBOSE</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
