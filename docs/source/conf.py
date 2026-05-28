@@ -42,11 +42,5 @@ autodoc_mock_imports = [
     "jax",
     "numpy",
     "pandas",
-    "PyYAML",
-    "pathlib",
-    "collections",
-    "yaml",
-    "subprocess",
-    "time",
-    "argparse"
+    "yaml"
 ]
