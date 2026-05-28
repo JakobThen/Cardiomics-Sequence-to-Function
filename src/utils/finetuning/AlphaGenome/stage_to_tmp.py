@@ -1,10 +1,29 @@
+"""Utility script for staging AlphaGenome data to a local compute node.
+
+This script reads a master YAML configuration file, extracts the paths of all 
+required BigWig files, and efficiently copies them to a local temporary directory 
+(e.g., `/tmp` on a compute node) using `rsync`. It then generates a new temporary 
+YAML configuration file with updated paths pointing to the locally staged data, 
+which significantly reduces I/O bottlenecks during distributed training or evaluation.
+"""
+from __future__ import annotations
+
 import yaml
 import subprocess
 import time
 import argparse
 from pathlib import Path
 
-def main():
+
+def get_parser() -> argparse.ArgumentParser:
+    """Creates and configures the argument parser for the staging script.
+    
+    This function is isolated to allow Sphinx extensions (`sphinxarg.ext`) 
+    to auto-generate CLI documentation natively without executing the script.
+
+    Returns:
+        argparse.ArgumentParser: The configured argument parser object.
+    """
     parser = argparse.ArgumentParser(description="Stage AlphaGenome data to local tmp and update YAML config.")
     
     # Required arguments
@@ -17,8 +36,25 @@ def main():
     parser.add_argument("--out_yaml", type=str, default=None, 
                         help="Path for the output temporary YAML (defaults to <tmp_dir>/tmp_bw_config.yaml)")
 
-    args = parser.parse_args()
+    return parser
 
+
+def main(args: argparse.Namespace) -> None:
+    """Executes the data staging and configuration update pipeline.
+
+    Reads the master YAML configuration to identify required BigWig files, 
+    executes an `rsync` system call to transfer them to the specified temporary 
+    directory, and writes a modified YAML configuration file referencing the 
+    newly staged file paths.
+
+    Args:
+        args (argparse.Namespace): Parsed command-line arguments containing 
+            paths for the master config, output config, and temporary directory.
+
+    Raises:
+        RuntimeError: If the underlying `rsync` subprocess fails to transfer 
+            the files.
+    """
     # Define paths based on arguments
     master_yaml_path = Path(args.master_yaml)
     tmp_dir = Path(args.tmp_dir)
@@ -68,5 +104,8 @@ def main():
         
     print(f"Temporary config written to: {tmp_yaml_path}")
 
+
 if __name__ == "__main__":
-    main()
+    parser = get_parser()
+    args = parser.parse_args()
+    main(args)

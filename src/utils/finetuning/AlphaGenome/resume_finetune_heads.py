@@ -1,3 +1,10 @@
+"""Resumes fine-tuning for an existing AlphaGenome model checkpoint.
+
+This script sets up and executes the training pipeline to continue fine-tuning 
+an AlphaGenome model from a previously saved checkpoint. It loads the specified 
+configuration, prepares data intervals from BigWig files, loads the model 
+weights onto the GPU, and resumes the training loop.
+"""
 from __future__ import annotations
 
 import argparse
@@ -9,8 +16,17 @@ from alphagenome_ft.finetune.data import prepare_intervals_from_fold, BigWigData
 from alphagenome_ft.finetune.train import register_predefined_heads, train
 from alphagenome.models import dna_model as ag_dna_model
 
-def main():
-    parser = argparse.ArgumentParser(description="AlphaGenome Finetuning Script")
+
+def get_parser() -> argparse.ArgumentParser:
+    """Creates and configures the argument parser for resuming fine-tuning.
+    
+    This function is separated to allow Sphinx extensions (like `sphinxarg.ext`) 
+    to auto-generate CLI documentation natively without executing the script.
+
+    Returns:
+        argparse.ArgumentParser: The configured argument parser object.
+    """
+    parser = argparse.ArgumentParser(description="AlphaGenome Resume Finetuning Script")
     
     # -------------------------------------------------------------------------------------------
     # Core I/O Arguments
@@ -18,8 +34,8 @@ def main():
     parser.add_argument("--fasta_path", type=str, required=True, help="Path to the genome.fa file")
     parser.add_argument("--config", type=str, required=True, help="Path to the target YAML config file")
     parser.add_argument("--base_dir", type=str, required=True, help="Base directory for resolving config paths (e.g., the local tmp dir)")
-    parser.add_argument("--in_checkpoint_dir", type=str, required=True, help="Directory to save checkpoints")
-    parser.add_argument("--out_checkpoint_dir", type=str, required=True, help="Directory to save checkpoints")
+    parser.add_argument("--in_checkpoint_dir", type=str, required=True, help="Directory containing the checkpoint to resume from")
+    parser.add_argument("--out_checkpoint_dir", type=str, required=True, help="Directory to save new checkpoints")
     
     # -------------------------------------------------------------------------------------------
     # Data & Model Options
@@ -40,8 +56,24 @@ def main():
     parser.add_argument("--patience", type=int, default=5, help="Early stopping patience")
     parser.add_argument("--min_delta", type=float, default=0.0, help="Early stopping min delta")
 
-    args = parser.parse_args()
+    return parser
 
+
+def main(args: argparse.Namespace) -> None:
+    """Executes the pipeline to resume model fine-tuning.
+
+    This function performs input validation (including FASTA indexing), loads 
+    the target configuration, prepares the data module, loads the existing 
+    model checkpoint onto the GPU, and resumes the training loop.
+
+    Args:
+        args (argparse.Namespace): Parsed command-line arguments containing 
+            paths, hyperparameters, and model configurations.
+
+    Raises:
+        FileNotFoundError: If the specified FASTA file or targets configuration 
+            file does not exist at the provided paths.
+    """
     # Derived variables
     FASTA_PATH = Path(args.fasta_path)
     TARGETS_CONFIG_PATH = Path(args.config)
@@ -102,14 +134,14 @@ def main():
     for split in ("train", "valid", "test"):
         print(f"{split}: {len(intervals.get(split, []))} intervals", flush=True)
 
-    # Create model with new heads
-    print("Loading model onto GPU...", flush = True)
+    # Load existing model from checkpoint
+    print("Loading model onto GPU...", flush=True)
     model = load_checkpoint(
         IN_CHECKPOINT_DIR / "last",
         base_model_version=args.model_version,
         init_seq_len=args.window_size
     )
-    print("Model loaded successfully.", flush = True)
+    print("Model loaded successfully.", flush=True)
 
     if HEADS_ONLY:
         model.freeze_backbone()
@@ -129,7 +161,7 @@ def main():
         drop_last=DROP_LAST,
     )
 
-    print("Data module ready. Starting training...", flush=True)
+    print("Data module ready. Resuming training...", flush=True)
 
     # ------------------------------------------------------------------------------------
     # Start Model training
@@ -153,5 +185,8 @@ def main():
         verbose=VERBOSE,
     )
 
+
 if __name__ == "__main__":
-    main()
+    parser = get_parser()
+    args = parser.parse_args()
+    main(args)

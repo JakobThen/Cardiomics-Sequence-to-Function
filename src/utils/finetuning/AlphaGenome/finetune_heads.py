@@ -1,3 +1,10 @@
+"""Fine-tuning script for the AlphaGenome model.
+
+This script sets up and executes the training pipeline for fine-tuning 
+an AlphaGenome model. It loads a specified configuration, prepares data 
+intervals from BigWig files, registers necessary model heads, and runs 
+the training loop with frozen backbones (by default).
+"""
 from __future__ import annotations
 
 import argparse
@@ -8,7 +15,16 @@ from alphagenome_ft.finetune.config import load_targets_config, prepare_head_spe
 from alphagenome_ft.finetune.data import prepare_intervals_from_fold, BigWigDataModule, build_fasta_index
 from alphagenome_ft.finetune.train import register_predefined_heads, train
 
-def main():
+
+def get_parser() -> argparse.ArgumentParser:
+    """Creates and configures the argument parser for the fine-tuning script.
+    
+    This function is separated to allow Sphinx extensions (like `sphinxarg.ext`) 
+    to auto-generate CLI documentation natively without executing the script.
+
+    Returns:
+        argparse.ArgumentParser: The configured argument parser object.
+    """
     parser = argparse.ArgumentParser(description="AlphaGenome Finetuning Script")
     
     # -------------------------------------------------------------------------------------------
@@ -38,8 +54,24 @@ def main():
     parser.add_argument("--patience", type=int, default=5, help="Early stopping patience")
     parser.add_argument("--min_delta", type=float, default=0.0, help="Early stopping min delta")
 
-    args = parser.parse_args()
+    return parser
 
+
+def main(args: argparse.Namespace) -> None:
+    """Executes the fine-tuning pipeline.
+
+    This function performs input validation (including FASTA indexing), loads 
+    the model configuration, prepares the data module, freezes the model 
+    backbone (if configured), and initiates the training loop.
+
+    Args:
+        args (argparse.Namespace): Parsed command-line arguments containing 
+            paths, hyperparameters, and model configurations.
+
+    Raises:
+        FileNotFoundError: If the specified FASTA file or targets configuration 
+            file does not exist at the provided paths.
+    """
     # Derived variables
     FASTA_PATH = Path(args.fasta_path)
     TARGETS_CONFIG_PATH = Path(args.config)
@@ -148,5 +180,8 @@ def main():
         verbose=VERBOSE,
     )
 
+
 if __name__ == "__main__":
-    main()
+    parser = get_parser()
+    args = parser.parse_args()
+    main(args)

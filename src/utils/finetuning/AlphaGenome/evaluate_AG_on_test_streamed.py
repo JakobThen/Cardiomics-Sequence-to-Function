@@ -1,12 +1,8 @@
-"""
-Purpose: Evaluates a fine-tuned AlphaGenome model using streaming correlation 
-        analysis. It loads a specified checkpoint, performs multi-GPU 
-        distributed inference across test intervals, computes metrics against 
-        BigWig tracks, and optionally saves the predictions to an HDF5 file.
-Input:   --fasta_path, --config, --input_dir, --out_dir, --checkpoint_dir, 
-        and optional arguments for data folds, batch size, and minimal testing.
-Output:  Evaluation metrics/plots saved to out_dir, and optionally an HDF5 
-        file containing test interval predictions.
+"""Evaluates a fine-tuned AlphaGenome model using streaming correlation analysis.
+
+It loads a specified checkpoint, performs multi-GPU distributed inference across 
+test intervals, computes metrics against BigWig tracks, and optionally saves 
+the predictions to an HDF5 file.
 """
 
 import os
@@ -43,10 +39,22 @@ from utils.eval.track_prediction import process_track_metadata
 # ---------------------------------------------------------------------------
 
 class HDF5BatchWriter:
-    """
-    Iterative saving class designed to handle massive output arrays. 
+    """Iterative saving class designed to handle massive output arrays. 
+    
     By writing to disk iteratively, we avoid out-of-memory (OOM) errors 
     when dealing with 1bp resolution data across thousands of intervals.
+
+    Args:
+        out_dir (str or Path): Directory where the HDF5 file will be saved.
+        file_prefix (str): Prefix for the generated HDF5 file name.
+        total_samples (int): Total number of samples (intervals) to pre-allocate.
+        
+    Attributes:
+        out_dir (Path): Resolved path for output.
+        h5_path (Path): Full path to the targeted `.h5` file.
+        total_samples (int): Total expected size of the first dimension.
+        file (h5py.File): Open file handle for writing.
+        datasets (dict): Dictionary tracking initialized datasets per head.
     """
     def __init__(self, out_dir, file_prefix, total_samples):
         self.out_dir = Path(out_dir)
@@ -59,6 +67,17 @@ class HDF5BatchWriter:
         self.datasets = {}
 
     def write_batch(self, head_name, batch_preds, start_idx):
+        """Writes a batch of predictions for a specific head to disk.
+        
+        Dynamically creates the dataset if it is the first batch received for 
+        the given model head.
+
+        Args:
+            head_name (str): Identifier for the model output head.
+            batch_preds (np.ndarray): Predictions array for the current batch.
+            start_idx (int): The starting index along the sample dimension where 
+                this batch should be inserted.
+        """
         # Create the dataset dynamically upon receiving the first batch for a specific head
         if head_name not in self.datasets:
             full_shape = (self.total_samples, *batch_preds.shape[1:])
@@ -72,6 +91,15 @@ class HDF5BatchWriter:
         self.datasets[head_name][start_idx:end_idx] = batch_preds
     
     def write_metadata(self, intervals_df, tracks_df):
+        """Saves interval and track metadata to the HDF5 file.
+        
+        Converts string/object dtypes to byte strings (`'S'`) to ensure 
+        compatibility with HDF5 standards.
+
+        Args:
+            intervals_df (pd.DataFrame): DataFrame containing interval coordinates.
+            tracks_df (pd.DataFrame): DataFrame containing track metadata.
+        """
         print("Writing metadata to HDF5...", flush=True)
         
         # Save intervals as HDF5 datasets
@@ -92,13 +120,26 @@ class HDF5BatchWriter:
             track_grp.create_dataset(col, data=data)
 
     def close(self):
+        """Safely closes the underlying HDF5 file handle."""
         self.file.close()
         print("Successfully saved and closed HDF5 file!", flush=True)
 
 def get_prediction_key(raw_p, bin_size=128, return_scaled=True):
-    """
-    AlphaGenome predicts at multiple resolutions simultaneously and data scales. 
-    This helper identifies the correct dictionary key for our desired resolution.
+    """Identifies the correct dictionary key for the desired embedding resolution.
+    
+    AlphaGenome predicts at multiple resolutions and data scales simultaneously. 
+    This helper finds the key matching the target target bin size.
+
+    Args:
+        raw_p (dict): Raw prediction dictionary from the model.
+        bin_size (int, optional): The target bin size/resolution. Defaults to 128.
+        return_scaled (bool, optional): Whether to look for scaled predictions. Defaults to True.
+
+    Returns:
+        str: The matching key found in the prediction dictionary.
+
+    Raises:
+        KeyError: If no matching prediction key is found in the dictionary.
     """
     prefix = "scaled_predictions" if return_scaled else "predictions"
     preferred = [f"{prefix}_{bin_size}bp", f"{prefix}_{128 if bin_size == 1 else 1}bp"]
@@ -108,9 +149,20 @@ def get_prediction_key(raw_p, bin_size=128, return_scaled=True):
     raise KeyError(f"No matching prediction key found. Tried: {preferred}.")
 
 def get_aligned_nonzero_means(tracks_df: pd.DataFrame, config_dict: dict) -> np.ndarray:
-    """
-    Extracts precomputed nonzero track means from the config dictionary and 
-    strictly aligns them to the tracks DataFrame to ensure calculations match the correct files.
+    """Extracts precomputed nonzero track means and aligns them to the tracks DataFrame.
+    
+    Strictly aligns the means based on file paths to ensure calculations match 
+    the correct BigWig files.
+
+    Args:
+        tracks_df (pd.DataFrame): DataFrame containing track metadata including paths.
+        config_dict (dict): Target configuration dictionary containing head definitions.
+
+    Returns:
+        np.ndarray: A 1D array of aligned nonzero mean values.
+
+    Raises:
+        KeyError: If a path listed in `tracks_df` is missing from the configuration.
     """
     path_to_mean = {}
     for head in config_dict.get('heads', []):
@@ -132,7 +184,15 @@ def get_aligned_nonzero_means(tracks_df: pd.DataFrame, config_dict: dict) -> np.
 # Main pipeline
 # ---------------------------------------------------------------------------
 
-def input_args():
+def get_parser():
+    """Creates and configures the argument parser for the evaluation script.
+    
+    Separated from the main execution logic to allow Sphinx's argparse extension
+    (`sphinxarg.ext`) to auto-generate CLI documentation natively.
+
+    Returns:
+        argparse.ArgumentParser: The configured argument parser object.
+    """
     parser = argparse.ArgumentParser(description="AlphaGenome Finetuned Streaming Evaluation Script")
 
     # Core I/O Arguments
@@ -155,9 +215,21 @@ def input_args():
     parser.add_argument("--save_predictions", type=bool, default=False, help="Whether to save test interval predictions to HDF5.")
     parser.add_argument("--minimal_test", type=bool, default=False, help="Truncate run to the first 8 intervals for quick debugging.")
 
-    return parser.parse_args()
+    return parser
 
 def main(args):
+    """Executes the main evaluation pipeline.
+
+    Sets up hardware, prepares data intervals and metadata, loads the model
+    and its sharding configuration, and executes multi-GPU streaming evaluation.
+
+    Args:
+        args (argparse.Namespace): Parsed command-line arguments.
+
+    Raises:
+        RuntimeError: If JAX defaults to CPU execution.
+        FileNotFoundError: If a required BigWig file is missing from the directory.
+    """
     # ---------------------------------------------------------------------------
     # 1. Setup & Hardware Config
     # ---------------------------------------------------------------------------
@@ -182,6 +254,7 @@ def main(args):
     BIN_SIZE = args.resolution
     MIN_TEST = args.minimal_test
     SAVE_PREDICTIONS = args.save_predictions
+    BATCH_SIZE = args.batch_size # Extracted from args to resolve missing variable
 
     DROP_LAST = True 
     RETURN_SCALED = True 
@@ -211,7 +284,7 @@ def main(args):
         for iv in test_intervals_list[:total_saved_intervals]
     ])
 
-    # Minimal test flag sets 2batches per GPU for rapid prototyping
+    # Minimal test flag sets 2 batches per GPU for rapid prototyping
     if MIN_TEST:
         n = min(BATCH_SIZE * 8, total_saved_intervals)
         print(f"WARNING: USING MINIMAL TEST WITH ONLY THE FIRST {n} TEST INTERVALS!!!", flush=True)    
@@ -344,5 +417,6 @@ def main(args):
         h5_writer.close()
 
 if __name__ == "__main__":
-    args = input_args()
+    parser = get_parser()
+    args = parser.parse_args()
     main(args)
