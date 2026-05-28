@@ -7,3 +7,4 @@ sphinx-argparse==0.5.2
 # Sphinx Themes
 pydata-sphinx-theme==0.16.1
 sphinx-book-theme==1.2.0
+myst-nb
