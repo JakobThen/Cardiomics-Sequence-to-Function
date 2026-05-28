@@ -8,7 +8,7 @@ on pseudobulked scMultiome and bulk CutnTag data.
    :maxdepth: 2
    :caption: Contents:
 
-   input_prep_pipeline.
+   input_prep_pipeline
    AlphaGenome_ft_pipeline
    api/modules
 

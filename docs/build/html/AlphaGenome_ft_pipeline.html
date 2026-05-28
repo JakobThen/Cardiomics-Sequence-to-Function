@@ -48,7 +48,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="src" href="api/modules.html" />
-    <link rel="prev" title="Cardiomics-Sequence-to-Function Documentation" href="index.html" />
+    <link rel="prev" title="Model Input Generation Pipeline" href="input_prep_pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -140,6 +140,7 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">AlphaGenome Finetuning Pipeline</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">src</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -298,8 +299,9 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">Nonzero-mean computation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">Config file generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">0. Nonzero-mean computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">1. Config file generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning-evaluation">3. Finetuning evaluation</a></li>
 </ul>
             </nav>
         </div>
@@ -313,11 +315,17 @@
                   
   <section id="alphagenome-finetuning-pipeline">
 <h1>AlphaGenome Finetuning Pipeline<a class="headerlink" href="#alphagenome-finetuning-pipeline" title="Link to this heading">#</a></h1>
-<p>This section details the shell and SLURM scripts used to execute the AlphaGenome finetuning pipeline.</p>
+<p>CLI-input based python script and shell wrappers to build and run an AlphaGenome finetuning pipeline
+and evaluate the model outputs on test intervals.</p>
 <section id="nonzero-mean-computation">
-<h2>Nonzero-mean computation<a class="headerlink" href="#nonzero-mean-computation" title="Link to this heading">#</a></h2>
-<p>Script to compute the nonzero-track means per .bw file used for the AlphaGenome squashed scale
-data transformation.</p>
+<h2>0. Nonzero-mean computation<a class="headerlink" href="#nonzero-mean-computation" title="Link to this heading">#</a></h2>
+<p>Assuming we already generated base resolution bigwig fiel sfor all modalities.
+Before starign we need to compute the nonezero track mean for proper input scaling.
+THis is handled directly in bash.
+Computes the mean of non-zero track values for BigWig (.bw) files,
+specifically restricted to canonical chromosomes (chr1-22, X, Y).
+* Input:   $1 - Directory containing input .bw files
+* Output:  $2 - CSV file capturing basename, non-zero mean, and full path</p>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/00_compute_nonzero_means_per_bw.sh</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
@@ -411,8 +419,18 @@ data transformation.</p>
 </div>
 </section>
 <section id="config-file-generation">
-<h2>Config file generation<a class="headerlink" href="#config-file-generation" title="Link to this heading">#</a></h2>
-<p>Creates a .yaml config file containg the head and track configureation for AlphaGenome finetuning.</p>
+<h2>1. Config file generation<a class="headerlink" href="#config-file-generation" title="Link to this heading">#</a></h2>
+<p>Now we create a .ymal config file specifying the tracks and heads to finetune.
+Python script:
+.. argparse:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">module</span><span class="p">:</span> <span class="n">utils</span><span class="o">/</span><span class="n">preprocessing</span><span class="o">/</span><span class="n">make_AG_input_config</span><span class="o">.</span><span class="n">py</span>
+<span class="p">:</span><span class="n">func</span><span class="p">:</span> <span class="n">get_parser</span>
+<span class="p">:</span><span class="n">prog</span><span class="p">:</span> <span class="n">make_AG_input_config</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Alternatiely we can submit using a bash wrapper execute the Python config generator.
+* Input:   Hardcoded variables pointing to directories and metadata
+* Output:  A formatted .yaml configuration file (e.g., test_config.yaml)</p>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/01_make_config_file.sh</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
@@ -463,6 +481,9 @@ data transformation.</p>
 </div>
 </div>
 </section>
+<section id="finetuning-evaluation">
+<h2>3. Finetuning evaluation<a class="headerlink" href="#finetuning-evaluation" title="Link to this heading">#</a></h2>
+</section>
 </section>
 
 
@@ -477,12 +498,12 @@ data transformation.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="input_prep_pipeline.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Cardiomics-Sequence-to-Function Documentation</p>
+        <p class="prev-next-title">Model Input Generation Pipeline</p>
       </div>
     </a>
     <a class="right-next"
@@ -512,8 +533,9 @@ data transformation.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">Nonzero-mean computation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">Config file generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">0. Nonzero-mean computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">1. Config file generation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning-evaluation">3. Finetuning evaluation</a></li>
 </ul>
   </nav></div>
 
