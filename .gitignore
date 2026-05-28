@@ -1,6 +1,7 @@
 # HPC Cluster Logs
 *.out
 *.err
+*.log
 
 # Large Data Files
 *.h5
@@ -10,7 +11,8 @@
 *.bam
 *.parquet
 *.narrowPeak
-metadata/GRCh38_gencode_release29_genome_fasta/
+*.bed
+input_data/metadata/GRCh38_gencode_release29_genome_fasta/
 
 # Python / Jupyter Artifacts
 __pycache__/
