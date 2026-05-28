@@ -4,7 +4,7 @@ AlphaGenome Finetuning Pipeline
 This section details the shell and SLURM scripts used to execute the AlphaGenome finetuning pipeline. 
 
 
-00_compute_nonzero_means_per_bw
+Nonzero-mean computation
 ----------------------------------
 
 Script to compute the nonzero-track means per .bw file used for the AlphaGenome squashed scale 
@@ -16,8 +16,8 @@ data transformation.
    :caption: src/AlphaGenome_finetuning/00_compute_nonzero_means_per_bw.sh
 
 
-01_make_config_file
----------------------
+Config file generation
+------------------------
 
 Creates a .yaml config file containg the head and track configureation for AlphaGenome finetuning.
 
