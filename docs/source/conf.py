@@ -9,7 +9,7 @@
 import os
 import sys
 # Tell Sphinx to look one folder up to find your Python modules
-sys.path.insert(0, os.path.abspath('../..')) 
+sys.path.insert(0, os.path.abspath('../../src')) 
 
 project = 'cardiomics-sequence-to-function'
 copyright = '2026, Jakob Then'
@@ -42,5 +42,7 @@ autodoc_mock_imports = [
     "jax",
     "numpy",
     "pandas",
-    "yaml"
+    "yaml",
+    "torch",
+    "pytorch_lightning"
 ]
