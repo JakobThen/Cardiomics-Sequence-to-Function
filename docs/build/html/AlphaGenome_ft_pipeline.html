@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>AlphaGenome Finetuning Pipeline &#8212; cardiomics-sequence-to-function 0.00.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=e2ea8b45"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'AlphaGenome_ft_pipeline';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.00.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/AlphaGenome_ft_pipeline.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>AlphaGenome Finetuning Pipeline</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-nonzero-means-per-bw">00_compute_nonzero_means_per_bw</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-config-file">01_make_config_file</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="alphagenome-finetuning-pipeline">
+<h1>AlphaGenome Finetuning Pipeline<a class="headerlink" href="#alphagenome-finetuning-pipeline" title="Link to this heading">#</a></h1>
+<p>This section details the shell and SLURM scripts used to execute the AlphaGenome finetuning pipeline.</p>
+<section id="compute-nonzero-means-per-bw">
+<h2>00_compute_nonzero_means_per_bw<a class="headerlink" href="#compute-nonzero-means-per-bw" title="Link to this heading">#</a></h2>
+<p>Script to compute the nonzero-track means per .bw file used for the AlphaGenome squashed scale
+data transformation.</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/00_compute_nonzero_means_per_bw.sh</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 3</span><span class="c1"># Code by Jakob Then</span>
+<span class="linenos"> 4</span><span class="c1"># </span>
+<span class="linenos"> 5</span><span class="c1"># Purpose: Computes the mean of non-zero track values for BigWig (.bw) files, </span>
+<span class="linenos"> 6</span><span class="c1">#          specifically restricted to canonical chromosomes (chr1-22, X, Y). </span>
+<span class="linenos"> 7</span><span class="c1">#          Designed for AlphaGenome finetuning data preparation.</span>
+<span class="linenos"> 8</span><span class="c1"># Input:   $1 - Directory containing input .bw files</span>
+<span class="linenos"> 9</span><span class="c1"># Output:  $2 - CSV file capturing basename, non-zero mean, and full path</span>
+<span class="linenos">10</span><span class="c1"># ==============================================================================</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># SLURM Configuration</span>
+<span class="linenos">13</span><span class="c1">#SBATCH --job-name=bw_mean_calc</span>
+<span class="linenos">14</span><span class="c1">#SBATCH --output=logs/bw_mean_%j.log</span>
+<span class="linenos">15</span><span class="c1">#SBATCH --error=logs/bw_mean_%j.err</span>
+<span class="linenos">16</span><span class="c1">#SBATCH --time=04:00:00          # Adjust depending on the total number of BigWig files</span>
+<span class="linenos">17</span><span class="c1">#SBATCH --cpus-per-task=1        # Sequential processing per file</span>
+<span class="linenos">18</span><span class="c1">#SBATCH --mem=64G                # Allocated generously to load large chromosome arrays into memory safely</span>
+<span class="linenos">19</span><span class="c1">#SBATCH --partition=bigmem       # Ensure this matches your specific cluster topology</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># Example usage:</span>
+<span class="linenos">22</span><span class="c1"># sbatch 00_compute_nonzero_means_per_bw.sh input_data/AlphaGenome_Borzoi_input input_data/metadata/bw_nonzero_means.csv</span>
+<span class="linenos">23</span>
+<span class="linenos">24</span><span class="nb">source</span><span class="w"> </span>/g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
+<span class="linenos">25</span><span class="c1">#source env/initiate_alphagenome_ft_env.sh</span>
+<span class="linenos">26</span><span class="nb">source</span><span class="w"> </span>/g/steinmetz/projects/variant2function_project/env/alphagenome_ft//initiate_alphagenome_ft_env.sh
+<span class="linenos">27</span>
+<span class="linenos">28</span><span class="c1"># Validate CLI arguments to prevent empty variable execution errors</span>
+<span class="linenos">29</span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$#</span><span class="s2">&quot;</span><span class="w"> </span>-ne<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="linenos">30</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Usage: sbatch </span><span class="nv">$0</span><span class="s2"> &lt;input_directory&gt; &lt;output_file.csv&gt;&quot;</span>
+<span class="linenos">31</span><span class="w">    </span><span class="nb">exit</span><span class="w"> </span><span class="m">1</span>
+<span class="linenos">32</span><span class="k">fi</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="nv">INPUT_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$1</span><span class="s2">&quot;</span>
+<span class="linenos">35</span><span class="nv">OUTPUT_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$2</span><span class="s2">&quot;</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting job on </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos">38</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Input directory: </span><span class="nv">$INPUT_DIR</span><span class="s2">&quot;</span>
+<span class="linenos">39</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Output file: </span><span class="nv">$OUTPUT_FILE</span><span class="s2">&quot;</span>
+<span class="linenos">40</span>
+<span class="linenos">41</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;basename,nonzero_mean_canonical,full_path&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OUTPUT_FILE</span><span class="s2">&quot;</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span><span class="c1"># Iterate through all BigWig files in the target directory</span>
+<span class="linenos">44</span>find<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$INPUT_DIR</span><span class="s2">&quot;</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.bw&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>bw_file<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="linenos">45</span><span class="w">    </span>
+<span class="linenos">46</span><span class="w">    </span><span class="nv">base_name</span><span class="o">=</span><span class="k">$(</span>basename<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$bw_file</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="linenos">47</span><span class="w">    </span>
+<span class="linenos">48</span><span class="w">    </span><span class="c1"># Calculate non-zero means using an inline Python script. </span>
+<span class="linenos">49</span><span class="w">    </span><span class="nv">nonzero_mean</span><span class="o">=</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;</span>
+<span class="linenos">50</span><span class="s1">import sys, pyBigWig, numpy as np</span>
+<span class="linenos">51</span>
+<span class="linenos">52</span><span class="s1"># Restrict analysis strictly to canonical chromosomes to prevent skewed means from alt-contigs or unplaced scaffolds</span>
+<span class="linenos">53</span><span class="s1">valid_chroms = set([f&quot;chr{i}&quot; for i in range(1, 23)] + [&quot;chrX&quot;, &quot;chrY&quot;])</span>
+<span class="linenos">54</span>
+<span class="linenos">55</span><span class="s1">try:</span>
+<span class="linenos">56</span><span class="s1">    bw = pyBigWig.open(sys.argv[1])</span>
+<span class="linenos">57</span><span class="s1">    total_sum = 0</span>
+<span class="linenos">58</span><span class="s1">    total_count = 0</span>
+<span class="linenos">59</span><span class="s1">    </span>
+<span class="linenos">60</span><span class="s1">    for chrom, length in bw.chroms().items():</span>
+<span class="linenos">61</span><span class="s1">        if chrom not in valid_chroms:</span>
+<span class="linenos">62</span><span class="s1">            continue</span>
+<span class="linenos">63</span><span class="s1">            </span>
+<span class="linenos">64</span><span class="s1">        # Load chromosome values into a numpy array for fast, vectorized filtering</span>
+<span class="linenos">65</span><span class="s1">        vals = bw.values(chrom, 0, length, numpy=True)</span>
+<span class="linenos">66</span><span class="s1">        </span>
+<span class="linenos">67</span><span class="s1">        # Filter out zeroes and NaN values (unmapped regions)</span>
+<span class="linenos">68</span><span class="s1">        nz = vals[(vals != 0) &amp; (~np.isnan(vals))]</span>
+<span class="linenos">69</span><span class="s1">        </span>
+<span class="linenos">70</span><span class="s1">        total_sum += nz.sum()</span>
+<span class="linenos">71</span><span class="s1">        total_count += len(nz)</span>
+<span class="linenos">72</span><span class="s1">        </span>
+<span class="linenos">73</span><span class="s1">    mean_val = total_sum / total_count if total_count &gt; 0 else &quot;NaN&quot;</span>
+<span class="linenos">74</span><span class="s1">    print(mean_val)</span>
+<span class="linenos">75</span><span class="s1">    bw.close()</span>
+<span class="linenos">76</span><span class="s1">except Exception as e:</span>
+<span class="linenos">77</span><span class="s1">    print(&quot;Error_Reading_File&quot;)</span>
+<span class="linenos">78</span><span class="s1">&#39;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$bw_file</span><span class="s2">&quot;</span><span class="k">)</span>
+<span class="linenos">79</span>
+<span class="linenos">80</span><span class="w">    </span><span class="c1"># Append results incrementally to prevent data loss if the SLURM job times out unexpectedly</span>
+<span class="linenos">81</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$base_name</span><span class="s2">,</span><span class="nv">$nonzero_mean</span><span class="s2">,</span><span class="nv">$bw_file</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$OUTPUT_FILE</span><span class="s2">&quot;</span>
+<span class="linenos">82</span><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Processed: </span><span class="nv">$base_name</span><span class="s2">&quot;</span>
+<span class="linenos">83</span><span class="k">done</span>
+<span class="linenos">84</span>
+<span class="linenos">85</span>conda<span class="w"> </span>deactivate
+<span class="linenos">86</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Job finished on </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">. Results saved to </span><span class="nv">$OUTPUT_FILE</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="make-config-file">
+<h2>01_make_config_file<a class="headerlink" href="#make-config-file" title="Link to this heading">#</a></h2>
+<p>Creates a .yaml config file containg the head and track configureation for AlphaGenome finetuning.</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/01_make_config_file.sh</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos"> 2</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 3</span><span class="c1"># Code by Jakob Then</span>
+<span class="linenos"> 4</span><span class="c1"># </span>
+<span class="linenos"> 5</span><span class="c1"># Purpose: Wrapper script to execute the Python config generator for </span>
+<span class="linenos"> 6</span><span class="c1">#          AlphaGenome finetuning. It feeds predefined paths and modality</span>
+<span class="linenos"> 7</span><span class="c1">#          lists into the Python parser to generate the final YAML.</span>
+<span class="linenos"> 8</span><span class="c1"># Input:   Hardcoded variables pointing to directories and metadata</span>
+<span class="linenos"> 9</span><span class="c1"># Output:  A formatted .yaml configuration file (e.g., test_config.yaml)</span>
+<span class="linenos">10</span><span class="c1"># ==============================================================================</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="c1"># SLURM Configuration</span>
+<span class="linenos">13</span><span class="c1">#SBATCH --job-name=make_config</span>
+<span class="linenos">14</span><span class="c1">#SBATCH --output=logs/make_config_%j.log </span>
+<span class="linenos">15</span><span class="c1">#SBATCH --error=logs/make_config_%j.err</span>
+<span class="linenos">16</span><span class="c1">#SBATCH --time=01:00:00          </span>
+<span class="linenos">17</span><span class="c1">#SBATCH --cpus-per-task=1        # Sequential processing per file</span>
+<span class="linenos">18</span><span class="c1">#SBATCH --mem=16G                </span>
+<span class="linenos">19</span><span class="c1">#SBATCH --partition=bigmem       # Ensure this matches your specific cluster topology</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span><span class="c1"># Setup core paths and variables</span>
+<span class="linenos">22</span><span class="nv">TARGETS_CONFIG_PATH</span><span class="o">=</span><span class="s2">&quot;configs/test_config.yaml&quot;</span>
+<span class="linenos">23</span><span class="nv">DATA_DIR</span><span class="o">=</span><span class="s2">&quot;../../input_data/AlphaGenome_Borzoi_input&quot;</span>
+<span class="linenos">24</span><span class="nv">NONZERO_MEANS_PATH</span><span class="o">=</span><span class="s2">&quot;../../input_data/bw_nonzero_means.csv&quot;</span>
+<span class="linenos">25</span><span class="c1">#folders in DATA_DIR</span>
+<span class="linenos">26</span><span class="nv">MODALITIES</span><span class="o">=(</span>
+<span class="linenos">27</span><span class="w">    </span><span class="s2">&quot;multiome_RNA_3prime_bigwig_deduplicated&quot;</span><span class="w"> </span>
+<span class="linenos">28</span><span class="w">    </span><span class="s2">&quot;multiome_ATAC_bigwig_deduplicated&quot;</span><span class="w"> </span>
+<span class="linenos">29</span><span class="w">    </span><span class="s2">&quot;CutnTag_bigwig&quot;</span>
+<span class="linenos">30</span><span class="o">)</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="c1"># Load conda environments</span>
+<span class="linenos">33</span><span class="nb">source</span><span class="w"> </span>/g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
+<span class="linenos">34</span><span class="nb">source</span><span class="w"> </span>env/initiate_alphagenome_ft_env.sh
+<span class="linenos">35</span>
+<span class="linenos">36</span><span class="c1"># Execute the Python config builder</span>
+<span class="linenos">37</span>python<span class="w"> </span>../utils/preprocessing/make_AG_input_config.py<span class="w"> </span><span class="se">\</span>
+<span class="linenos">38</span><span class="w">    </span>--data_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">DATA_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos">39</span><span class="w">    </span>--config_prefix<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">TARGETS_CONFIG_PATH</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos">40</span><span class="w">    </span>--modality_folders<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">MODALITIES</span><span class="p">[@]</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos">41</span><span class="w">    </span>--norm_tag<span class="w"> </span><span class="s2">&quot;_100M&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos">42</span><span class="w">    </span>--nonzero_means<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">NONZERO_MEANS_PATH</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos">43</span>
+<span class="linenos">44</span>conda<span class="w"> </span>deactivate
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compute-nonzero-means-per-bw">00_compute_nonzero_means_per_bw</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-config-file">01_make_config_file</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
