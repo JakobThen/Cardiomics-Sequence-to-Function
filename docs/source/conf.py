@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 project = 'cardiomics-sequence-to-function'
 copyright = '2026, Jakob Then'
 author = 'Jakob Then'
-release = '0.00.01'
+release = '0.01'
 
 extensions = [
     'sphinx.ext.autodoc',     # Pulls in documentation from docstrings
