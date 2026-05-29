@@ -10,7 +10,7 @@ Assuming we already generated base resolution bigwig fiel sfor all modalities.
 Before starign we need to compute the nonezero track mean for proper input scaling.
 THis is handled directly in bash. 
 Computes the mean of non-zero track values for BigWig (.bw) files, 
-specifically restricted to canonical chromosomes (chr1-22, X, Y). 
+specifically restricted to canonical chromosomes (chr1-22, X). 
 * Input:   $1 - Directory containing input .bw files
 * Output:  $2 - CSV file capturing basename, non-zero mean, and full path
 
@@ -25,7 +25,7 @@ specifically restricted to canonical chromosomes (chr1-22, X, Y).
 Now we create a .ymal config file specifying the tracks and heads to finetune.
 Python script:
 .. argparse::
-   :module: utils/preprocessing/make_AG_input_config.py
+   :module: utils.preprocessing.make_AG_input_config
    :func: get_parser
    :prog: make_AG_input_config.py
 

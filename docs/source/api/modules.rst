@@ -1,7 +1,12 @@
-src
-===
+utils
+=====
 
 .. toctree::
    :maxdepth: 4
 
-   utils
+   ISM
+   VEP
+   eval
+   finetuning
+   io
+   preprocessing

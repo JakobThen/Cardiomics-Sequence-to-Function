@@ -47,7 +47,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'AlphaGenome_ft_pipeline';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="src" href="api/modules.html" />
+    <link rel="next" title="utils" href="api/modules.html" />
     <link rel="prev" title="Model Input Generation Pipeline" href="input_prep_pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -142,16 +142,16 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">src</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/utils.VEP.html">utils.VEP package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/ISM.html">ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/VEP.html">VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/eval.html">eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api/finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="api/utils.preprocessing.html">utils.preprocessing package</a></li>
-</ul>
-</details></li>
+<li class="toctree-l2"><a class="reference internal" href="api/io.html">io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/preprocessing.html">preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -323,7 +323,7 @@ and evaluate the model outputs on test intervals.</p>
 Before starign we need to compute the nonezero track mean for proper input scaling.
 THis is handled directly in bash.
 Computes the mean of non-zero track values for BigWig (.bw) files,
-specifically restricted to canonical chromosomes (chr1-22, X, Y).
+specifically restricted to canonical chromosomes (chr1-22, X).
 * Input:   $1 - Directory containing input .bw files
 * Output:  $2 - CSV file capturing basename, non-zero mean, and full path</p>
 <div class="literal-block-wrapper docutils container" id="id1">
@@ -423,7 +423,7 @@ specifically restricted to canonical chromosomes (chr1-22, X, Y).
 <p>Now we create a .ymal config file specifying the tracks and heads to finetune.
 Python script:
 .. argparse:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">module</span><span class="p">:</span> <span class="n">utils</span><span class="o">/</span><span class="n">preprocessing</span><span class="o">/</span><span class="n">make_AG_input_config</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">module</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">make_AG_input_config</span>
 <span class="p">:</span><span class="n">func</span><span class="p">:</span> <span class="n">get_parser</span>
 <span class="p">:</span><span class="n">prog</span><span class="p">:</span> <span class="n">make_AG_input_config</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
@@ -511,7 +511,7 @@ Python script:
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">src</p>
+        <p class="prev-next-title">utils</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

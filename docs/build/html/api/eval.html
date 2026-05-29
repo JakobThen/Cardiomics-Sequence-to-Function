@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>utils package &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+    <title>eval package &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
   
   
   
@@ -44,9 +44,11 @@
     <script src="../_static/doctools.js?v=fd6eb6e6"></script>
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'api/utils';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/eval';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="finetuning package" href="finetuning.html" />
+    <link rel="prev" title="VEP package" href="VEP.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -98,8 +100,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -139,13 +139,13 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="ISM.html">ISM package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eval.html">eval package</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">eval package</a></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l3"><a class="reference internal" href="finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
 </ul>
@@ -213,7 +213,7 @@
       
       
       
-      <li><a href="../_sources/api/utils.rst" target="_blank"
+      <li><a href="../_sources/api/eval.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +289,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>utils package</h1>
+    <h1>eval package</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -299,8 +299,12 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-accumulators-module">eval.accumulators module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-streamed-correlation-analysis-module">eval.streamed_correlation_analysis module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-track-correlation-module">eval.track_correlation module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-track-prediction-module">eval.track_prediction module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-eval">Module contents</a></li>
 </ul>
             </nav>
         </div>
@@ -312,54 +316,25 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="utils-package">
-<h1>utils package<a class="headerlink" href="#utils-package" title="Link to this heading">#</a></h1>
-<section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#utils-vep-04-ag-ft-vep-module">utils.VEP.04_AG_ft_VEP module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#module-utils.VEP">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#module-utils.finetuning">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#utils.preprocessing.make_AG_input_config.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#utils.preprocessing.make_AG_input_config.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#module-utils.preprocessing">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#preprocessing-package">Preprocessing Package</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</div>
+  <section id="eval-package">
+<h1>eval package<a class="headerlink" href="#eval-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="module-utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Link to this heading">#</a></h2>
+<section id="eval-accumulators-module">
+<h2>eval.accumulators module<a class="headerlink" href="#eval-accumulators-module" title="Link to this heading">#</a></h2>
+</section>
+<section id="eval-streamed-correlation-analysis-module">
+<h2>eval.streamed_correlation_analysis module<a class="headerlink" href="#eval-streamed-correlation-analysis-module" title="Link to this heading">#</a></h2>
+</section>
+<section id="eval-track-correlation-module">
+<h2>eval.track_correlation module<a class="headerlink" href="#eval-track-correlation-module" title="Link to this heading">#</a></h2>
+</section>
+<section id="eval-track-prediction-module">
+<h2>eval.track_prediction module<a class="headerlink" href="#eval-track-prediction-module" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-eval">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-eval" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -374,6 +349,24 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="VEP.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">VEP package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="finetuning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">finetuning package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -392,8 +385,12 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-accumulators-module">eval.accumulators module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-streamed-correlation-analysis-module">eval.streamed_correlation_analysis module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-track-correlation-module">eval.track_correlation module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval-track-prediction-module">eval.track_prediction module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-eval">Module contents</a></li>
 </ul>
   </nav></div>
 

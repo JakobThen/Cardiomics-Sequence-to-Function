@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>src &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+    <title>utils &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
   
   
   
@@ -47,7 +47,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/modules';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="utils package" href="utils.html" />
+    <link rel="next" title="ISM package" href="ISM.html" />
     <link rel="prev" title="AlphaGenome Finetuning Pipeline" href="../AlphaGenome_ft_pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -140,17 +140,18 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">src</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">utils</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="ISM.html">ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VEP.html">VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eval.html">eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a></li>
-</ul>
-</details></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html">io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -286,7 +287,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>src</h1>
+    <h1>utils</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -300,32 +301,254 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="src">
-<h1>src<a class="headerlink" href="#src" title="Link to this heading">#</a></h1>
+  <section id="utils">
+<h1>utils<a class="headerlink" href="#utils" title="Link to this heading">#</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.VEP.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.VEP.html#utils-vep-04-ag-ft-vep-module">utils.VEP.04_AG_ft_VEP module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.VEP.html#module-utils.VEP">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ISM.html">ISM package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ISM.html#module-contents">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.html#module-utils.finetuning">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="VEP.html">VEP package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="VEP.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VEP.html#vep-04-ag-ft-vep-module">VEP.04_AG_ft_VEP module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VEP.html#vep-plotting-module">VEP.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VEP.html#vep-processing-module">VEP.processing module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="VEP.html#module-VEP">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.preprocessing.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.preprocessing.html#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.preprocessing.html#module-utils.preprocessing">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eval.html">eval package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="eval.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eval.html#eval-accumulators-module">eval.accumulators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eval.html#eval-streamed-correlation-analysis-module">eval.streamed_correlation_analysis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eval.html#eval-track-correlation-module">eval.track_correlation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eval.html#eval-track-prediction-module">eval.track_prediction module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="eval.html#module-eval">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="finetuning.html">finetuning package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="finetuning.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#finetuning-alphagenome-old-03-evaluate-on-test-not-streamed-module">finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#finetuning-alphagenome-evaluate-ag-on-test-streamed-module">finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#finetuning-alphagenome-finetune-heads-module">finetuning.AlphaGenome.finetune_heads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#finetuning-alphagenome-resume-finetune-heads-module">finetuning.AlphaGenome.resume_finetune_heads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#finetuning-alphagenome-stage-to-tmp-module">finetuning.AlphaGenome.stage_to_tmp module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="finetuning.AlphaGenome.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="finetuning.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">io package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="io.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#io-batch-bw-loader-module">io.batch_bw_loader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#io-data-input-module">io.data_input module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#io-data-output-module">io.data_output module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#io-variant-annotation-module">io.variant_annotation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="io.html#module-io">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BlockingIOError"><code class="docutils literal notranslate"><span class="pre">BlockingIOError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BufferedIOBase"><code class="docutils literal notranslate"><span class="pre">BufferedIOBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BufferedRWPair"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.close"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.closed"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.flush"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.isatty"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.peek"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.peek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.read"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.read1"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.read1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.readable"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.readinto"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.readinto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.readinto1"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.readinto1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.writable"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRWPair.write"><code class="docutils literal notranslate"><span class="pre">BufferedRWPair.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BufferedRandom"><code class="docutils literal notranslate"><span class="pre">BufferedRandom</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.close"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.closed"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.detach"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.detach()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.fileno"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.fileno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.flush"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.isatty"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.mode"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.name"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.peek"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.peek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.raw"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.raw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.read"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.read1"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.read1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.readable"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.readinto"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.readinto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.readinto1"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.readinto1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.readline"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.readline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.seek"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.seekable"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.tell"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.truncate"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.truncate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.writable"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedRandom.write"><code class="docutils literal notranslate"><span class="pre">BufferedRandom.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BufferedReader"><code class="docutils literal notranslate"><span class="pre">BufferedReader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.close"><code class="docutils literal notranslate"><span class="pre">BufferedReader.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.closed"><code class="docutils literal notranslate"><span class="pre">BufferedReader.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.detach"><code class="docutils literal notranslate"><span class="pre">BufferedReader.detach()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.fileno"><code class="docutils literal notranslate"><span class="pre">BufferedReader.fileno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.flush"><code class="docutils literal notranslate"><span class="pre">BufferedReader.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.isatty"><code class="docutils literal notranslate"><span class="pre">BufferedReader.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.mode"><code class="docutils literal notranslate"><span class="pre">BufferedReader.mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.name"><code class="docutils literal notranslate"><span class="pre">BufferedReader.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.peek"><code class="docutils literal notranslate"><span class="pre">BufferedReader.peek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.raw"><code class="docutils literal notranslate"><span class="pre">BufferedReader.raw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.read"><code class="docutils literal notranslate"><span class="pre">BufferedReader.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.read1"><code class="docutils literal notranslate"><span class="pre">BufferedReader.read1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.readable"><code class="docutils literal notranslate"><span class="pre">BufferedReader.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.readinto"><code class="docutils literal notranslate"><span class="pre">BufferedReader.readinto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.readinto1"><code class="docutils literal notranslate"><span class="pre">BufferedReader.readinto1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.readline"><code class="docutils literal notranslate"><span class="pre">BufferedReader.readline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.seek"><code class="docutils literal notranslate"><span class="pre">BufferedReader.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.seekable"><code class="docutils literal notranslate"><span class="pre">BufferedReader.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.tell"><code class="docutils literal notranslate"><span class="pre">BufferedReader.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedReader.truncate"><code class="docutils literal notranslate"><span class="pre">BufferedReader.truncate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BufferedWriter"><code class="docutils literal notranslate"><span class="pre">BufferedWriter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.close"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.closed"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.detach"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.detach()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.fileno"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.fileno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.flush"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.isatty"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.mode"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.name"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.raw"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.raw</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.seek"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.seekable"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.tell"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.truncate"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.truncate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.writable"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BufferedWriter.write"><code class="docutils literal notranslate"><span class="pre">BufferedWriter.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.BytesIO"><code class="docutils literal notranslate"><span class="pre">BytesIO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.close"><code class="docutils literal notranslate"><span class="pre">BytesIO.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.closed"><code class="docutils literal notranslate"><span class="pre">BytesIO.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.flush"><code class="docutils literal notranslate"><span class="pre">BytesIO.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.getbuffer"><code class="docutils literal notranslate"><span class="pre">BytesIO.getbuffer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.getvalue"><code class="docutils literal notranslate"><span class="pre">BytesIO.getvalue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.isatty"><code class="docutils literal notranslate"><span class="pre">BytesIO.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.read"><code class="docutils literal notranslate"><span class="pre">BytesIO.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.read1"><code class="docutils literal notranslate"><span class="pre">BytesIO.read1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.readable"><code class="docutils literal notranslate"><span class="pre">BytesIO.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.readinto"><code class="docutils literal notranslate"><span class="pre">BytesIO.readinto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.readline"><code class="docutils literal notranslate"><span class="pre">BytesIO.readline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.readlines"><code class="docutils literal notranslate"><span class="pre">BytesIO.readlines()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.seek"><code class="docutils literal notranslate"><span class="pre">BytesIO.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.seekable"><code class="docutils literal notranslate"><span class="pre">BytesIO.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.tell"><code class="docutils literal notranslate"><span class="pre">BytesIO.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.truncate"><code class="docutils literal notranslate"><span class="pre">BytesIO.truncate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.writable"><code class="docutils literal notranslate"><span class="pre">BytesIO.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.write"><code class="docutils literal notranslate"><span class="pre">BytesIO.write()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.BytesIO.writelines"><code class="docutils literal notranslate"><span class="pre">BytesIO.writelines()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.FileIO"><code class="docutils literal notranslate"><span class="pre">FileIO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.close"><code class="docutils literal notranslate"><span class="pre">FileIO.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.closed"><code class="docutils literal notranslate"><span class="pre">FileIO.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.closefd"><code class="docutils literal notranslate"><span class="pre">FileIO.closefd</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.fileno"><code class="docutils literal notranslate"><span class="pre">FileIO.fileno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.isatty"><code class="docutils literal notranslate"><span class="pre">FileIO.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.mode"><code class="docutils literal notranslate"><span class="pre">FileIO.mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.read"><code class="docutils literal notranslate"><span class="pre">FileIO.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.readable"><code class="docutils literal notranslate"><span class="pre">FileIO.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.readall"><code class="docutils literal notranslate"><span class="pre">FileIO.readall()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.readinto"><code class="docutils literal notranslate"><span class="pre">FileIO.readinto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.seek"><code class="docutils literal notranslate"><span class="pre">FileIO.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.seekable"><code class="docutils literal notranslate"><span class="pre">FileIO.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.tell"><code class="docutils literal notranslate"><span class="pre">FileIO.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.truncate"><code class="docutils literal notranslate"><span class="pre">FileIO.truncate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.writable"><code class="docutils literal notranslate"><span class="pre">FileIO.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.FileIO.write"><code class="docutils literal notranslate"><span class="pre">FileIO.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.IOBase"><code class="docutils literal notranslate"><span class="pre">IOBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.IncrementalNewlineDecoder"><code class="docutils literal notranslate"><span class="pre">IncrementalNewlineDecoder</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.IncrementalNewlineDecoder.decode"><code class="docutils literal notranslate"><span class="pre">IncrementalNewlineDecoder.decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.IncrementalNewlineDecoder.getstate"><code class="docutils literal notranslate"><span class="pre">IncrementalNewlineDecoder.getstate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.IncrementalNewlineDecoder.newlines"><code class="docutils literal notranslate"><span class="pre">IncrementalNewlineDecoder.newlines</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.IncrementalNewlineDecoder.reset"><code class="docutils literal notranslate"><span class="pre">IncrementalNewlineDecoder.reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.IncrementalNewlineDecoder.setstate"><code class="docutils literal notranslate"><span class="pre">IncrementalNewlineDecoder.setstate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.RawIOBase"><code class="docutils literal notranslate"><span class="pre">RawIOBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.Reader"><code class="docutils literal notranslate"><span class="pre">Reader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.Reader.read"><code class="docutils literal notranslate"><span class="pre">Reader.read()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.StringIO"><code class="docutils literal notranslate"><span class="pre">StringIO</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.close"><code class="docutils literal notranslate"><span class="pre">StringIO.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.closed"><code class="docutils literal notranslate"><span class="pre">StringIO.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.getvalue"><code class="docutils literal notranslate"><span class="pre">StringIO.getvalue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.line_buffering"><code class="docutils literal notranslate"><span class="pre">StringIO.line_buffering</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.newlines"><code class="docutils literal notranslate"><span class="pre">StringIO.newlines</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.read"><code class="docutils literal notranslate"><span class="pre">StringIO.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.readable"><code class="docutils literal notranslate"><span class="pre">StringIO.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.readline"><code class="docutils literal notranslate"><span class="pre">StringIO.readline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.seek"><code class="docutils literal notranslate"><span class="pre">StringIO.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.seekable"><code class="docutils literal notranslate"><span class="pre">StringIO.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.tell"><code class="docutils literal notranslate"><span class="pre">StringIO.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.truncate"><code class="docutils literal notranslate"><span class="pre">StringIO.truncate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.writable"><code class="docutils literal notranslate"><span class="pre">StringIO.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.StringIO.write"><code class="docutils literal notranslate"><span class="pre">StringIO.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.TextIOBase"><code class="docutils literal notranslate"><span class="pre">TextIOBase</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.TextIOWrapper"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.buffer"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.buffer</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.close"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.closed"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.closed</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.detach"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.detach()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.encoding"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.encoding</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.errors"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.fileno"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.fileno()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.flush"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.flush()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.isatty"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.isatty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.line_buffering"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.line_buffering</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.name"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.newlines"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.newlines</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.read"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.read()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.readable"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.readable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.readline"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.readline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.reconfigure"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.reconfigure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.seek"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.seek()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.seekable"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.seekable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.tell"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.tell()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.truncate"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.truncate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.writable"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.writable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.write"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.write()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.TextIOWrapper.write_through"><code class="docutils literal notranslate"><span class="pre">TextIOWrapper.write_through</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.UnsupportedOperation"><code class="docutils literal notranslate"><span class="pre">UnsupportedOperation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.Writer"><code class="docutils literal notranslate"><span class="pre">Writer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="io.html#io.Writer.write"><code class="docutils literal notranslate"><span class="pre">Writer.write()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.open"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.open_code"><code class="docutils literal notranslate"><span class="pre">open_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="io.html#io.text_encoding"><code class="docutils literal notranslate"><span class="pre">text_encoding()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="preprocessing.html">preprocessing package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#preprocessing-make-ag-input-config-module">preprocessing.make_AG_input_config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocessing.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -353,11 +576,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="utils.html"
+       href="ISM.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">utils package</p>
+        <p class="prev-next-title">ISM package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
