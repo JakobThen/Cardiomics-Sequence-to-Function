@@ -1,3 +1,4 @@
+"""Plotting functions and processing helpers to analyze and visualize model track prediction performance"""
 import gc
 import numpy as np
 import pandas as pd

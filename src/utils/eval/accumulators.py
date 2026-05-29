@@ -1,10 +1,9 @@
+"""
+Classes to handle per batch metrics for model evaluation during test inferce or analysis from h5 model outputs. 
+Contains streamed pearson correaltion, streamed gene correlation, best interval tracking and interval sampling for scatter plots.
+"""
 import numpy as np
 import pandas as pd
-
-"""
-    Classes to handle per batch metrics for model evaluation during test inferce or analysis from h5 model outputs. 
-    Conatians streamd pearson correaltion, streamed gene correlation, best interval tracking and interval sampling for scatter plots.
-"""
 
 class StreamingPearsonAccumulator:
     """

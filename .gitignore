@@ -21,3 +21,7 @@ __pycache__/
 
 #Documentation
 docs/_build/
+
+#Old scripts
+src/utils/finetuning/AlphaGenome/OLD_03_evaluate_on_test_NOT_STREAMED.py
+src/utils/finetuning/AlphaGenome/OLD-03_evaluate_on_test_streamed_128bp.py

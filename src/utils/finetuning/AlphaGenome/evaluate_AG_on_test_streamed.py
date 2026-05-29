@@ -31,8 +31,8 @@ parent_dir = os.path.abspath("/home/then")
 if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
-from utils.eval.streamed_correlation_analysis import evaluate_from_inference
-from utils.eval.track_prediction import process_track_metadata
+from eval.streamed_correlation_analysis import evaluate_from_inference
+from eval.track_prediction import process_track_metadata
 
 # ---------------------------------------------------------------------------
 # Helpers

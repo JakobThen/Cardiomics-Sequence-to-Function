@@ -46,5 +46,6 @@ autodoc_mock_imports = [
     "torch",
     "pytorch_lightning",
     "matplotlib",
-    "alphagenome_research"
+    "alphagenome_research",
+    "seaborn"
 ]
