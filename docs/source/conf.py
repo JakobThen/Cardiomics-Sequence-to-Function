@@ -44,5 +44,7 @@ autodoc_mock_imports = [
     "pandas",
     "yaml",
     "torch",
-    "pytorch_lightning"
+    "pytorch_lightning",
+    "matplotlib",
+    "alphagenome_research"
 ]
