@@ -299,9 +299,18 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">0. Nonzero-mean computation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">1. Config file generation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning-evaluation">3. Finetuning evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-zero-mean-computation">Non-zero Mean Computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">1. Config File Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config-get_parser-named-arguments">Named Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning">2. Fine-tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads-get_parser-named-arguments">Named Arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp-get_parser-named-arguments">Named Arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments">Named Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-evaluation">3. Fine-tuning Evaluation</a></li>
 </ul>
             </nav>
         </div>
@@ -315,17 +324,22 @@
                   
   <section id="alphagenome-finetuning-pipeline">
 <h1>AlphaGenome Finetuning Pipeline<a class="headerlink" href="#alphagenome-finetuning-pipeline" title="Link to this heading">#</a></h1>
-<p>CLI-input based python script and shell wrappers to build and run an AlphaGenome finetuning pipeline
-and evaluate the model outputs on test intervals.</p>
-<section id="nonzero-mean-computation">
-<h2>0. Nonzero-mean computation<a class="headerlink" href="#nonzero-mean-computation" title="Link to this heading">#</a></h2>
-<p>Assuming we already generated base resolution bigwig fiel sfor all modalities.
-Before starign we need to compute the nonezero track mean for proper input scaling.
-THis is handled directly in bash.
-Computes the mean of non-zero track values for BigWig (.bw) files,
-specifically restricted to canonical chromosomes (chr1-22, X).
-* Input:   $1 - Directory containing input .bw files
-* Output:  $2 - CSV file capturing basename, non-zero mean, and full path</p>
+<p><strong>CLI-based Python scripts and shell wrappers to build and run an AlphaGenome fine-tuning pipeline
+and evaluate the model outputs on test intervals.</strong></p>
+<p>This tutorial demonstrates how to fine-tune the heads of an AlphaGenome model from previously prepared
+BigWig files (see the <a class="reference internal" href="input_prep_pipeline.html"><span class="doc">Model Input Generation Pipeline</span></a> guide). Heads must be fine-tuned following the 4-fold split
+defined in the original paper. This example shows how to train a single fold. For accurate predictions,
+models should be trained on all four folds and their predictions averaged.</p>
+<section id="non-zero-mean-computation">
+<h2>Non-zero Mean Computation<a class="headerlink" href="#non-zero-mean-computation" title="Link to this heading">#</a></h2>
+<p>Assuming base-resolution BigWig (<code class="docutils literal notranslate"><span class="pre">.bw</span></code>) files are already generated for all modalities, we first need
+to compute the non-zero track mean for proper input scaling. This is handled directly in bash.</p>
+<p>Computes the mean of non-zero track values for BigWig files, specifically restricted to canonical
+chromosomes (chr1-22, X).</p>
+<ul class="simple">
+<li><p><strong>Input:</strong> <code class="docutils literal notranslate"><span class="pre">$1</span></code> - Directory containing input <code class="docutils literal notranslate"><span class="pre">.bw</span></code> files</p></li>
+<li><p><strong>Output:</strong> <code class="docutils literal notranslate"><span class="pre">$2</span></code> - CSV file capturing basename, non-zero mean, and full path</p></li>
+</ul>
 <div class="literal-block-wrapper docutils container" id="id1">
 <div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/00_compute_nonzero_means_per_bw.sh</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
@@ -419,18 +433,45 @@ specifically restricted to canonical chromosomes (chr1-22, X).
 </div>
 </section>
 <section id="config-file-generation">
-<h2>1. Config file generation<a class="headerlink" href="#config-file-generation" title="Link to this heading">#</a></h2>
-<p>Now we create a .ymal config file specifying the tracks and heads to finetune.
-Python script:
-.. argparse:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">module</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">make_AG_input_config</span>
-<span class="p">:</span><span class="n">func</span><span class="p">:</span> <span class="n">get_parser</span>
-<span class="p">:</span><span class="n">prog</span><span class="p">:</span> <span class="n">make_AG_input_config</span><span class="o">.</span><span class="n">py</span>
+<h2>1. Config File Generation<a class="headerlink" href="#config-file-generation" title="Link to this heading">#</a></h2>
+<p>Next, we create a <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> configuration file specifying the tracks and heads to fine-tune.</p>
+<p>We specify a directory and modality subfolders corresponding to the output heads. This Python script
+loads all <code class="docutils literal notranslate"><span class="pre">.bw</span></code> files in the directory as tracks for the heads and generates a configuration <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> file.
+This file is used every time we initialize the model to attach the fine-tuned heads to the pre-trained trunk.</p>
+<p>Python script:</p>
+<p><p>Generate AG finetuning YAML config</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mmake_AG_input_config.py[0m [[32m-h[0m] [36m--data_dir [33mDATA_DIR[0m [[36m--config_prefix [33mCONFIG_PREFIX[0m] [36m--modality_folders [33mMODALITY_FOLDERS [MODALITY_FOLDERS ...][0m [[36m--nonzero_means [33mNONZERO_MEANS[0m]
+                               [[36m--norm_tag [33mNORM_TAG[0m]
 </pre></div>
 </div>
-<p>Alternatiely we can submit using a bash wrapper execute the Python config generator.
-* Input:   Hardcoded variables pointing to directories and metadata
-* Output:  A formatted .yaml configuration file (e.g., test_config.yaml)</p>
+<section id="utils.preprocessing.make_AG_input_config-get_parser-named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#utils.preprocessing.make_AG_input_config-get_parser-named-arguments" title="Link to this heading">#</a></h3>
+<dl class="option-list">
+<dt><kbd>--data_dir</kbd></dt>
+<dd><p>Base path to bigwig input data directories</p>
+</dd>
+<dt><kbd>--config_prefix</kbd></dt>
+<dd><p>Path and name of the output YAML file</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'config.yaml'</span></code></p>
+</dd>
+<dt><kbd>--modality_folders</kbd></dt>
+<dd><p>List of subfolders in data_dir corresponding to modalities. Must contain ATAC, RNA, or CutnTag in name.</p>
+</dd>
+<dt><kbd>--nonzero_means</kbd></dt>
+<dd><p>CSV file generated by 00_compute_nonzero_means_per_bw.sh</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'input_data/metadata/bw_nonzero_means.csv'</span></code></p>
+</dd>
+<dt><kbd>--norm_tag</kbd></dt>
+<dd><p>Tag to filter and clean normalized bigwig files (default: None)</p>
+</dd>
+</dl>
+</section>
+<p>Alternatively, we can use a bash wrapper to execute the Python config generator.</p>
+<ul class="simple">
+<li><p><strong>Input:</strong> Hardcoded variables pointing to directories and metadata</p></li>
+<li><p><strong>Output:</strong> A formatted <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> configuration file (e.g., <code class="docutils literal notranslate"><span class="pre">test_config.yaml</span></code>)</p></li>
+</ul>
 <div class="literal-block-wrapper docutils container" id="id2">
 <div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/01_make_config_file.sh</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="ch">#!/bin/bash</span>
@@ -481,8 +522,414 @@ Python script:
 </div>
 </div>
 </section>
-<section id="finetuning-evaluation">
-<h2>3. Finetuning evaluation<a class="headerlink" href="#finetuning-evaluation" title="Link to this heading">#</a></h2>
+<section id="fine-tuning">
+<h2>2. Fine-tuning<a class="headerlink" href="#fine-tuning" title="Link to this heading">#</a></h2>
+<p>After the configuration file is generated, we can begin fine-tuning our AlphaGenome model.
+The fine-tuning is handled by the following script:</p>
+<p><p>AlphaGenome Finetuning Script</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mfinetune_heads.py[0m [[32m-h[0m] [36m--fasta_path [33mFASTA_PATH[0m [36m--config [33mCONFIG[0m [36m--base_dir [33mBASE_DIR[0m [36m--checkpoint_dir [33mCHECKPOINT_DIR[0m [[36m--fold [33mFOLD[0m] [[36m--window_size [33mWINDOW_SIZE[0m] [[36m--organism [33mORGANISM[0m]
+                         [[36m--model_version [33mMODEL_VERSION[0m] [[36m--batch_size [33mBATCH_SIZE[0m] [[36m--epochs [33mEPOCHS[0m] [[36m--lr [33mLR[0m] [[36m--weight_decay [33mWEIGHT_DECAY[0m] [[36m--seed [33mSEED[0m] [[36m--patience [33mPATIENCE[0m]
+                         [[36m--min_delta [33mMIN_DELTA[0m]
+</pre></div>
+</div>
+<section id="utils.finetuning.AlphaGenome.finetune_heads-get_parser-named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#utils.finetuning.AlphaGenome.finetune_heads-get_parser-named-arguments" title="Link to this heading">#</a></h3>
+<dl class="option-list">
+<dt><kbd>--fasta_path</kbd></dt>
+<dd><p>Path to the genome.fa file</p>
+</dd>
+<dt><kbd>--config</kbd></dt>
+<dd><p>Path to the target YAML config file</p>
+</dd>
+<dt><kbd>--base_dir</kbd></dt>
+<dd><p>Base directory for resolving config paths (e.g., the local tmp dir)</p>
+</dd>
+<dt><kbd>--checkpoint_dir</kbd></dt>
+<dd><p>Directory to save checkpoints</p>
+</dd>
+<dt><kbd>--fold</kbd></dt>
+<dd><p>Data fold to use (0, 1, 2, 3)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'1'</span></code></p>
+</dd>
+<dt><kbd>--window_size</kbd></dt>
+<dd><p>Window size in bp (default: 1 Mbp)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">1048576</span></code></p>
+</dd>
+<dt><kbd>--organism</kbd></dt>
+<dd><p>Target organism</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'HOMO_SAPIENS'</span></code></p>
+</dd>
+<dt><kbd>--model_version</kbd></dt>
+<dd><p>Base model version (e.g., fold_1, all_folds)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'fold_1'</span></code></p>
+</dd>
+<dt><kbd>--batch_size</kbd></dt>
+<dd><p>Global batch size (must be divisible by N_GPUs)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">16</span></code></p>
+</dd>
+<dt><kbd>--epochs</kbd></dt>
+<dd><p>Number of training epochs</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+</dd>
+<dt><kbd>--lr</kbd></dt>
+<dd><p>Learning rate</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.0003</span></code></p>
+</dd>
+<dt><kbd>--weight_decay</kbd></dt>
+<dd><p>Weight decay</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.01</span></code></p>
+</dd>
+<dt><kbd>--seed</kbd></dt>
+<dd><p>Random seed</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">42</span></code></p>
+</dd>
+<dt><kbd>--patience</kbd></dt>
+<dd><p>Early stopping patience</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+</dd>
+<dt><kbd>--min_delta</kbd></dt>
+<dd><p>Early stopping min delta</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
+</dd>
+</dl>
+</section>
+<p>To make this run quickly on any cluster, it is highly recommended to stage the BigWig data to the
+<code class="docutils literal notranslate"><span class="pre">tmp</span></code> directory of the GPU node before starting the fine-tuning.</p>
+<p>We can do this with the following helper script, which stages the <code class="docutils literal notranslate"><span class="pre">.bw</span></code> files specified in the
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> from the input directory to a <code class="docutils literal notranslate"><span class="pre">tmp</span></code> directory on the node. It also generates a new
+<code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> in the <code class="docutils literal notranslate"><span class="pre">tmp</span></code> directory with updated data paths pointing to the staged <code class="docutils literal notranslate"><span class="pre">.bw</span></code> files.</p>
+<p><p>Stage AlphaGenome data to local tmp and update YAML config.</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mstage_to_tmp.py[0m [[32m-h[0m] [36m--master_yaml [33mMASTER_YAML[0m [36m--tmp_dir [33mTMP_DIR[0m [[36m--out_yaml [33mOUT_YAML[0m]
+</pre></div>
+</div>
+<section id="utils.finetuning.AlphaGenome.stage_to_tmp-get_parser-named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#utils.finetuning.AlphaGenome.stage_to_tmp-get_parser-named-arguments" title="Link to this heading">#</a></h3>
+<dl class="option-list">
+<dt><kbd>--master_yaml</kbd></dt>
+<dd><p>Path to the input master YAML config</p>
+</dd>
+<dt><kbd>--tmp_dir</kbd></dt>
+<dd><p>Path to the local tmp directory on the compute node</p>
+</dd>
+<dt><kbd>--out_yaml</kbd></dt>
+<dd><p>Path for the output temporary YAML (defaults to &lt;tmp_dir&gt;/tmp_bw_config.yaml)</p>
+</dd>
+</dl>
+</section>
+<p>As an example, this bash script can be used to execute the entire data staging and fine-tuning
+process on a SLURM cluster:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/02_submit_finetune_heads.sh</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos">  2</span><span class="c1"># ==============================================================================</span>
+<span class="linenos">  3</span><span class="c1"># Code by Jakob Then</span>
+<span class="linenos">  4</span><span class="c1"># </span>
+<span class="linenos">  5</span><span class="c1"># Purpose: Wrapper script to finetune heads in AlphaGenome. Stages data to a temporary </span>
+<span class="linenos">  6</span><span class="c1">#          directory on the GPU node for highly accelerated data loading.</span>
+<span class="linenos">  7</span><span class="c1"># Input:   Hardcoded variables pointing to bigwig directories, metadata, </span>
+<span class="linenos">  8</span><span class="c1">#          and the input config file.</span>
+<span class="linenos">  9</span><span class="c1"># Output:  Checkpoints for the best and last model epoch saved to OUTPUT_DIR.</span>
+<span class="linenos"> 10</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 11</span>
+<span class="linenos"> 12</span><span class="c1"># SLURM Configuration</span>
+<span class="linenos"> 13</span><span class="c1">#SBATCH -J AG_finetune_heads        </span>
+<span class="linenos"> 14</span><span class="c1">#SBATCH -N 1                        # Single node for 8-GPU training</span>
+<span class="linenos"> 15</span><span class="c1">#SBATCH -p gpu-training             </span>
+<span class="linenos"> 16</span><span class="c1">#SBATCH --qos=high</span>
+<span class="linenos"> 17</span><span class="c1">#SBATCH --gpus=8                    </span>
+<span class="linenos"> 18</span><span class="c1">#SBATCH --cpus-per-gpu=8       </span>
+<span class="linenos"> 19</span><span class="c1">#SBATCH --mem-per-gpu=180G          </span>
+<span class="linenos"> 20</span><span class="c1">#SBATCH -C (&quot;gpu=B200&quot;|&quot;gpu=H200&quot;|&quot;gpu=H100&quot;|&quot;gpu=A100&quot;)  </span>
+<span class="linenos"> 21</span><span class="c1">#SBATCH -t 6-00:00:00               # 6-day maximum runtime limit </span>
+<span class="linenos"> 22</span><span class="c1">#SBATCH --output=logs/finetune_heads_%j.out</span>
+<span class="linenos"> 23</span><span class="c1">#SBATCH --error=logs/finetune_heads_%j.err</span>
+<span class="linenos"> 24</span>
+<span class="linenos"> 25</span><span class="c1"># Setup core paths and training hyperparameters</span>
+<span class="linenos"> 26</span><span class="nv">DATA_DIR</span><span class="o">=</span><span class="s2">&quot;../../input_data/AlphaGenome_Borzoi_input&quot;</span>
+<span class="linenos"> 27</span><span class="nv">OUTPUT_DIR</span><span class="o">=</span><span class="s2">&quot;../../models/AlphaGenome_ft&quot;</span>
+<span class="linenos"> 28</span><span class="nv">INPUT_CONFIG_FILE</span><span class="o">=</span><span class="s2">&quot;configs/simple_merged_deduplicated.yaml&quot;</span>
+<span class="linenos"> 29</span><span class="nv">GENOME_FASTA</span><span class="o">=</span><span class="s2">&quot;../../input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.fa&quot;</span>
+<span class="linenos"> 30</span>
+<span class="linenos"> 31</span><span class="c1"># Dynamically assign a node-local temp directory based on the unique Slurm job ID</span>
+<span class="linenos"> 32</span><span class="nv">LOCAL_TMP_DIR</span><span class="o">=</span><span class="s2">&quot;/tmp/alphagenome_bws_</span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="c1">#adjust to node tmp dir if needed</span>
+<span class="linenos"> 33</span>
+<span class="linenos"> 34</span><span class="nv">BATCH_SIZE</span><span class="o">=</span><span class="m">16</span><span class="w">  </span><span class="c1"># Represents 2 intervals per GPU. Adjust if out-of-memory errors occur, but fine for H100s. Must be a multiple of n_GPUS</span>
+<span class="linenos"> 35</span><span class="nv">MAX_EPOCHS</span><span class="o">=</span><span class="m">10</span><span class="w"> </span>
+<span class="linenos"> 36</span>
+<span class="linenos"> 37</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos"> 38</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting AlphaGenome Finetuning Job&quot;</span>
+<span class="linenos"> 39</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos"> 40</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Date:           </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos"> 41</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;User:           </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos"> 42</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Job ID:         </span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 43</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Execution Node: </span><span class="si">${</span><span class="nv">SLURMD_NODENAME</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 44</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos"> 45</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="linenos"> 46</span>
+<span class="linenos"> 47</span><span class="c1"># Load Conda environment</span>
+<span class="linenos"> 48</span><span class="nb">source</span><span class="w"> </span>/g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
+<span class="linenos"> 49</span><span class="nb">source</span><span class="w"> </span>/g/steinmetz/projects/variant2function_project/env/alphagenome_ft/initiate_alphagenome_ft_env.sh
+<span class="linenos"> 50</span><span class="c1">#source ../../env/initiate_alphagenome_ft_env.sh</span>
+<span class="linenos"> 51</span>
+<span class="linenos"> 52</span><span class="c1"># Confirm correct JAX and CUDA setup before we start copying massive files</span>
+<span class="linenos"> 53</span>bash<span class="w"> </span>../../env/test_alphagenome_ft_env_config.sh
+<span class="linenos"> 54</span>
+<span class="linenos"> 55</span><span class="c1"># Enable XLA autotune caching. This benchmarks operations on the specific GPU </span>
+<span class="linenos"> 56</span><span class="c1"># architecture to find the fastest execution paths, saving time on restarts.</span>
+<span class="linenos"> 57</span><span class="nb">export</span><span class="w"> </span><span class="nv">XLA_FLAGS</span><span class="o">=</span><span class="s2">&quot;--xla_gpu_per_fusion_autotune_cache_dir=xla_cache&quot;</span>
+<span class="linenos"> 58</span>
+<span class="linenos"> 59</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 60</span><span class="c1"># I/O OPTIMIZATION: Node-local Data Staging</span>
+<span class="linenos"> 61</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 62</span>
+<span class="linenos"> 63</span><span class="c1"># ALWAYS clean up the local /tmp directory when the script exits</span>
+<span class="linenos"> 64</span><span class="nb">trap</span><span class="w"> </span><span class="s1">&#39;echo &quot;Cleaning up node-local tmp directory...&quot;; rm -rf &quot;${LOCAL_TMP_DIR}&quot;; echo &quot;Cleanup complete.&quot;&#39;</span><span class="w"> </span>EXIT
+<span class="linenos"> 65</span>
+<span class="linenos"> 66</span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span><span class="c1"># Stage genome .fa and its .fai index.</span>
+<span class="linenos"> 69</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Staging Genome files to </span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">...&quot;</span>
+<span class="linenos"> 70</span>rsync<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GENOME_FASTA</span><span class="si">}</span><span class="s2">&quot;</span>*<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span>/
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span><span class="c1"># Stage BigWig files and generate a new temporary YAML config that points</span>
+<span class="linenos"> 73</span><span class="c1"># the model to the local /tmp/ paths instead of the slow network drive.</span>
+<span class="linenos"> 74</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Staging BigWig files and generating temp YAML...&quot;</span>
+<span class="linenos"> 75</span><span class="nv">LOCAL_YAML</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">/running_config.yaml&quot;</span>
+<span class="linenos"> 76</span>python<span class="w"> </span>../utils/finetuning/AlphaGenome/stage_to_tmp.py<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 77</span><span class="w">    </span>--master_yaml<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">INPUT_CONFIG_FILE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 78</span><span class="w">    </span>--tmp_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 79</span><span class="w">    </span>--out_yaml<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_YAML</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 80</span>
+<span class="linenos"> 81</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 82</span><span class="c1"># MODEL TRAINING</span>
+<span class="linenos"> 83</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 84</span>
+<span class="linenos"> 85</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting model finetuning...&quot;</span>
+<span class="linenos"> 86</span><span class="c1"># Using srun here ensures proper CPU/GPU binding and resource distribution within the allocated SLURM step.</span>
+<span class="linenos"> 87</span>srun<span class="w"> </span>python<span class="w"> </span>../utils/finetuning/AlphaGenome/finetune_heads.py<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 88</span><span class="w">    </span>--fasta_path<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">/genome.fa&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 89</span><span class="w">    </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_YAML</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 90</span><span class="w">    </span>--base_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 91</span><span class="w">    </span>--checkpoint_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 92</span><span class="w">    </span>--batch_size<span class="w"> </span><span class="nv">$BATCH_SIZE</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 93</span><span class="w">    </span>--epochs<span class="w"> </span><span class="nv">$MAX_EPOCHS</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 94</span><span class="w">    </span>--lr<span class="w"> </span>3e-4
+<span class="linenos"> 95</span>
+<span class="linenos"> 96</span><span class="c1"># Cleanup</span>
+<span class="linenos"> 97</span>conda<span class="w"> </span>deactivate
+<span class="linenos"> 98</span>
+<span class="linenos"> 99</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="linenos">100</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos">101</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Training done! Ending job on: </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos">102</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>In cases where fine-tuning fails or is aborted (due to a low max epoch count, timeout errors, etc.),
+or if the user desires iterative fine-tuning with altered learning rates, loss weights, or additional
+unfrozen layers, we created a resume fine-tuning script. This allows you to restart the fine-tuning
+from an existing model checkpoint.</p>
+<p><strong>Caution:</strong> This script currently resets optimizer states (parameters optimized during validation steps)
+and only loads weights and biases. Expect small spikes in loss during the first few epochs.</p>
+<p><p>AlphaGenome Resume Finetuning Script</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mresume_finetune_heads.py[0m [[32m-h[0m] [36m--fasta_path [33mFASTA_PATH[0m [36m--config [33mCONFIG[0m [36m--base_dir [33mBASE_DIR[0m [36m--in_checkpoint_dir [33mIN_CHECKPOINT_DIR[0m [36m--out_checkpoint_dir [33mOUT_CHECKPOINT_DIR[0m
+                                [[36m--fold [33mFOLD[0m] [[36m--window_size [33mWINDOW_SIZE[0m] [[36m--organism [33mORGANISM[0m] [[36m--model_version [33mMODEL_VERSION[0m] [[36m--batch_size [33mBATCH_SIZE[0m] [[36m--epochs [33mEPOCHS[0m] [[36m--lr [33mLR[0m]
+                                [[36m--weight_decay [33mWEIGHT_DECAY[0m] [[36m--seed [33mSEED[0m] [[36m--patience [33mPATIENCE[0m] [[36m--min_delta [33mMIN_DELTA[0m]
+</pre></div>
+</div>
+<section id="utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments" title="Link to this heading">#</a></h3>
+<dl class="option-list">
+<dt><kbd>--fasta_path</kbd></dt>
+<dd><p>Path to the genome.fa file</p>
+</dd>
+<dt><kbd>--config</kbd></dt>
+<dd><p>Path to the target YAML config file</p>
+</dd>
+<dt><kbd>--base_dir</kbd></dt>
+<dd><p>Base directory for resolving config paths (e.g., the local tmp dir)</p>
+</dd>
+<dt><kbd>--in_checkpoint_dir</kbd></dt>
+<dd><p>Directory containing the checkpoint to resume from</p>
+</dd>
+<dt><kbd>--out_checkpoint_dir</kbd></dt>
+<dd><p>Directory to save new checkpoints</p>
+</dd>
+<dt><kbd>--fold</kbd></dt>
+<dd><p>Data fold to use (0, 1, 2, 3)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'1'</span></code></p>
+</dd>
+<dt><kbd>--window_size</kbd></dt>
+<dd><p>Window size in bp (default: 1 Mbp)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">1048576</span></code></p>
+</dd>
+<dt><kbd>--organism</kbd></dt>
+<dd><p>Target organism</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'HOMO_SAPIENS'</span></code></p>
+</dd>
+<dt><kbd>--model_version</kbd></dt>
+<dd><p>Base model version (e.g., fold_1, all_folds)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'fold_1'</span></code></p>
+</dd>
+<dt><kbd>--batch_size</kbd></dt>
+<dd><p>Global batch size (must be divisible by N_GPUs)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">16</span></code></p>
+</dd>
+<dt><kbd>--epochs</kbd></dt>
+<dd><p>Number of training epochs</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">10</span></code></p>
+</dd>
+<dt><kbd>--lr</kbd></dt>
+<dd><p>Learning rate</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.0003</span></code></p>
+</dd>
+<dt><kbd>--weight_decay</kbd></dt>
+<dd><p>Weight decay</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.01</span></code></p>
+</dd>
+<dt><kbd>--seed</kbd></dt>
+<dd><p>Random seed</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">42</span></code></p>
+</dd>
+<dt><kbd>--patience</kbd></dt>
+<dd><p>Early stopping patience</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">5</span></code></p>
+</dd>
+<dt><kbd>--min_delta</kbd></dt>
+<dd><p>Early stopping min delta</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p>
+</dd>
+</dl>
+</section>
+<p>An example of a full bash wrapper for resuming a job can be found at:
+<code class="docutils literal notranslate"><span class="pre">../../src/AlphaGenome_finetuning/02b_resume_submit_finetune_heads.sh</span></code></p>
+</section>
+<section id="fine-tuning-evaluation">
+<h2>3. Fine-tuning Evaluation<a class="headerlink" href="#fine-tuning-evaluation" title="Link to this heading">#</a></h2>
+<p>After fine-tuning is complete, we need to ensure its success by assessing the model’s predictions
+on its test intervals. To avoid having to store all output predictions (which can exceed 1TB at 1bp
+resolution as compressed <code class="docutils literal notranslate"><span class="pre">.h5</span></code> files), the correlation is computed in a streamed manner while making
+forward passes, keeping a running sum for every batch of outputs.</p>
+<p>This script integrates the evaluation pipeline (shared across models, found at <code class="docutils literal notranslate"><span class="pre">../../src/utils/eval</span></code>)
+with AlphaGenome forward passes.</p>
+<p>To speed up computation, this can be integrated with data staging (just like the fine-tuning step)
+using a bash script like this:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">src/AlphaGenome_finetuning/03_submit_test_eval.sh</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="ch">#!/bin/bash</span>
+<span class="linenos">  2</span><span class="c1"># ==============================================================================</span>
+<span class="linenos">  3</span><span class="c1"># Code by Jakob Then</span>
+<span class="linenos">  4</span><span class="c1"># </span>
+<span class="linenos">  5</span><span class="c1"># Purpose: Wrapper script to evaluate the track predcition performance of finetune</span>
+<span class="linenos">  6</span><span class="c1">#          heads in AlphaGenome on test intervals. Stages data to a temporary</span>
+<span class="linenos">  7</span><span class="c1">#          directory on the GPU node for highly accelerated data loading. Make</span>
+<span class="linenos">  8</span><span class="c1">#          forward passes on batches of test intervals and simulatanouesly computes</span>
+<span class="linenos">  9</span><span class="c1">#          correaltion and other evaluation metrics using streaming accumulators to</span>
+<span class="linenos"> 10</span><span class="c1">#          avoid out-of-mem issues and saving 1TB of tmp data.</span>
+<span class="linenos"> 11</span><span class="c1"># Input:   Hardcoded variables pointing to bigwig directories, metadata, </span>
+<span class="linenos"> 12</span><span class="c1">#          and the input config file plus best finetuning chepoint.</span>
+<span class="linenos"> 13</span><span class="c1"># Output:  Test evaulationmetric files and figures stored in the output directroy.</span>
+<span class="linenos"> 14</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 15</span>
+<span class="linenos"> 16</span><span class="c1"># SLURM Configuration</span>
+<span class="linenos"> 17</span><span class="c1">#SBATCH -J AG_test_eval        </span>
+<span class="linenos"> 18</span><span class="c1">#SBATCH -N 1                        </span>
+<span class="linenos"> 19</span><span class="c1">#SBATCH -p gpu-training             </span>
+<span class="linenos"> 20</span><span class="c1">#SBATCH --qos=high</span>
+<span class="linenos"> 21</span><span class="c1">#SBATCH --gpus=8                    </span>
+<span class="linenos"> 22</span><span class="c1">#SBATCH --cpus-per-gpu=8       </span>
+<span class="linenos"> 23</span><span class="c1">#SBATCH --mem-per-gpu=64G          </span>
+<span class="linenos"> 24</span><span class="c1">#SBATCH -t 1-00:00:00               </span>
+<span class="linenos"> 25</span><span class="c1">#SBATCH --output=logs/AG_test_eval%j.out</span>
+<span class="linenos"> 26</span><span class="c1">#SBATCH --error=logs/AG_test_eval%j.err</span>
+<span class="linenos"> 27</span>
+<span class="linenos"> 28</span><span class="c1"># Setup core paths</span>
+<span class="linenos"> 29</span><span class="nv">DATA_DIR</span><span class="o">=</span><span class="s2">&quot;../../input_data/AlphaGenome_Borzoi_input&quot;</span>
+<span class="linenos"> 30</span><span class="nv">CKPT_DIR</span><span class="o">=</span><span class="s2">&quot;../../models/AlphaGenome_ft&quot;</span><span class="w"> </span><span class="c1">#automatically finds best checkpoint</span>
+<span class="linenos"> 31</span><span class="nv">OUTPUT_DIR</span><span class="o">=</span><span class="s2">&quot;../../results/model_evaluation/AlphaGenome_ft&quot;</span>
+<span class="linenos"> 32</span><span class="nv">INPUT_CONFIG_FILE</span><span class="o">=</span><span class="s2">&quot;configs/simple_merged_deduplicated.yaml&quot;</span>
+<span class="linenos"> 33</span><span class="nv">GENOME_FASTA</span><span class="o">=</span><span class="s2">&quot;../../input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.fa&quot;</span>
+<span class="linenos"> 34</span><span class="nv">GTF_FILE</span><span class="o">=</span><span class="s2">&quot;../../input_data/metadata/GRCh38_gencode_release29_genome_fasta/genes.gtf&quot;</span>
+<span class="linenos"> 35</span>
+<span class="linenos"> 36</span><span class="nv">RESOLUTION</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="c1">#1 (decoder) or 128 (transformer) based on what model embedding  to evaluate</span>
+<span class="linenos"> 37</span><span class="nv">BATCH_SIZE</span><span class="o">=</span><span class="m">16</span>
+<span class="linenos"> 38</span>
+<span class="linenos"> 39</span><span class="c1"># Dynamically assign a node-local temp directory based on the unique Slurm job ID</span>
+<span class="linenos"> 40</span><span class="nv">LOCAL_TMP_DIR</span><span class="o">=</span><span class="s2">&quot;/tmp/alphagenome_bws_</span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="c1">#adjust to node tmp dir if needed</span>
+<span class="linenos"> 41</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos"> 44</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Starting AlphaGenome Finetuned Evaluation&quot;</span>
+<span class="linenos"> 45</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos"> 46</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Date:           </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos"> 47</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;User:           </span><span class="k">$(</span>whoami<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos"> 48</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Job ID:         </span><span class="si">${</span><span class="nv">SLURM_JOB_ID</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 49</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Execution Node: </span><span class="si">${</span><span class="nv">SLURMD_NODENAME</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 50</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos"> 51</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="linenos"> 52</span>
+<span class="linenos"> 53</span><span class="c1"># Load Conda environment</span>
+<span class="linenos"> 54</span><span class="nb">source</span><span class="w"> </span>/g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
+<span class="linenos"> 55</span><span class="nb">source</span><span class="w"> </span>/g/steinmetz/projects/variant2function_project/env/alphagenome_ft/initiate_alphagenome_ft_env.sh
+<span class="linenos"> 56</span><span class="c1">#source ../../env/initiate_alphagenome_ft_env.sh</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span><span class="c1"># Confirm correct JAX and CUDA setup before we start copying massive files</span>
+<span class="linenos"> 59</span>bash<span class="w"> </span>../../env/test_alphagenome_ft_env_config.sh
+<span class="linenos"> 60</span>
+<span class="linenos"> 61</span><span class="c1"># Enable XLA autotune caching. This benchmarks operations on the specific GPU </span>
+<span class="linenos"> 62</span><span class="c1"># architecture to find the fastest execution paths, saving time on restarts.</span>
+<span class="linenos"> 63</span><span class="nb">export</span><span class="w"> </span><span class="nv">XLA_FLAGS</span><span class="o">=</span><span class="s2">&quot;--xla_gpu_per_fusion_autotune_cache_dir=xla_cache&quot;</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 66</span><span class="c1"># I/O OPTIMIZATION: Node-local Data Staging</span>
+<span class="linenos"> 67</span><span class="c1"># ==============================================================================</span>
+<span class="linenos"> 68</span>
+<span class="linenos"> 69</span><span class="c1"># ALWAYS clean up the local /tmp directory when the script exits</span>
+<span class="linenos"> 70</span><span class="nb">trap</span><span class="w"> </span><span class="s1">&#39;echo &quot;Cleaning up node-local tmp directory...&quot;; rm -rf &quot;${LOCAL_TMP_DIR}&quot;; echo &quot;Cleanup complete.&quot;&#39;</span><span class="w"> </span>EXIT
+<span class="linenos"> 71</span>
+<span class="linenos"> 72</span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 73</span>
+<span class="linenos"> 74</span><span class="c1"># Stage genome .fa and its .fai index.</span>
+<span class="linenos"> 75</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Staging Genome files to </span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">...&quot;</span>
+<span class="linenos"> 76</span>rsync<span class="w"> </span>-a<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GENOME_FASTA</span><span class="si">}</span><span class="s2">&quot;</span>*<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span>/
+<span class="linenos"> 77</span>
+<span class="linenos"> 78</span><span class="c1"># Stage BigWig files and generate a new temporary YAML config that points</span>
+<span class="linenos"> 79</span><span class="c1"># the model to the local /tmp/ paths instead of the slow network drive.</span>
+<span class="linenos"> 80</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Staging BigWig files and generating temp YAML...&quot;</span>
+<span class="linenos"> 81</span><span class="nv">LOCAL_YAML</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">/running_config.yaml&quot;</span>
+<span class="linenos"> 82</span>python<span class="w"> </span>../utils/finetuning/AlphaGenome/stage_to_tmp.py<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 83</span><span class="w">    </span>--master_yaml<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">INPUT_CONFIG_FILE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 84</span><span class="w">    </span>--tmp_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 85</span><span class="w">    </span>--out_yaml<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_YAML</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="linenos"> 86</span>
+<span class="linenos"> 87</span><span class="c1">#Run processing script</span>
+<span class="linenos"> 88</span>srun<span class="w"> </span>python<span class="w"> </span>../utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.py<span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 89</span><span class="w">    </span>--fasta_path<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GENOME_FASTA</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 90</span><span class="w">    </span>--config<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_YAML</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 91</span><span class="w">    </span>--input_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">LOCAL_TMP_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 92</span><span class="w">    </span>--out_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">OUTPUT_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 93</span><span class="w">    </span>--checkpoint_dir<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">CKPT_DIR</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 94</span><span class="w">    </span>--gtf_file<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">GTF_FILE</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 95</span><span class="w">    </span>--fold<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 96</span><span class="w">    </span>--model_version<span class="w"> </span><span class="s2">&quot;fold_1&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 97</span><span class="w">    </span>--batch_size<span class="w"> </span><span class="nv">$BATCH_SIZE</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 98</span><span class="w">    </span>--resolution<span class="w"> </span><span class="nv">$RESOLUTION</span><span class="w"> </span><span class="se">\</span>
+<span class="linenos"> 99</span><span class="w">    </span>--save_predictions<span class="w"> </span>False<span class="w"> </span><span class="se">\</span>
+<span class="linenos">100</span><span class="w">    </span>--minimal_test<span class="w"> </span>False
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="c1"># Cleanup</span>
+<span class="linenos">103</span>conda<span class="w"> </span>deactivate
+<span class="linenos">104</span>
+<span class="linenos">105</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="linenos">106</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+<span class="linenos">107</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Eval done! Ending job on: </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&quot;</span>
+<span class="linenos">108</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;======================================================&quot;</span>
+</pre></div>
+</div>
+</div>
 </section>
 </section>
 
@@ -533,9 +980,18 @@ Python script:
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nonzero-mean-computation">0. Nonzero-mean computation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">1. Config file generation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning-evaluation">3. Finetuning evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-zero-mean-computation">Non-zero Mean Computation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#config-file-generation">1. Config File Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config-get_parser-named-arguments">Named Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning">2. Fine-tuning</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads-get_parser-named-arguments">Named Arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp-get_parser-named-arguments">Named Arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments">Named Arguments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-evaluation">3. Fine-tuning Evaluation</a></li>
 </ul>
   </nav></div>
 
