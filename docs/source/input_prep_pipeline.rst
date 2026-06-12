@@ -45,8 +45,10 @@ compute base-resolution bigwigs for AlphaGenome/Borzoi.
 Leverages chromBPNet derived pipeline and transfers it to Cut&Tag.
 Reads are normalized to 100M counts per .bw file.
 Input:   INPUT_SOURCE can be either:
-          1. A directory path (will scan for all .bam files)
-          2. A text file containing manually curated full paths to .bam files
+
+         * A directory path (will scan for all .bam files)
+         * A text file containing manually curated full paths to .bam files
+
 Output:  Generates job configs and submits make_CutnTag_bw.slurm array jobs.
 
 .. literalinclude:: ../../src/model_input_prep/03_submit_CutnTag_BigWig_prep.sh

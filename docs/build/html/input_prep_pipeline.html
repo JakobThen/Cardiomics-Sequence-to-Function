@@ -142,16 +142,16 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/ISM.html">ISM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/eval.html">eval package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api/finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="api/io.html">io package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/preprocessing.html">preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.preprocessing.html">utils.preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -584,10 +584,10 @@ Leverages chromBPNet derived pipeline and transfers it to Cut&amp;Tag.
 Reads are normalized to 100M counts per .bw file.
 Input:   INPUT_SOURCE can be either:</p>
 <blockquote>
-<div><ol class="arabic simple">
+<div><ul class="simple">
 <li><p>A directory path (will scan for all .bam files)</p></li>
 <li><p>A text file containing manually curated full paths to .bam files</p></li>
-</ol>
+</ul>
 </div></blockquote>
 <p>Output:  Generates job configs and submits make_CutnTag_bw.slurm array jobs.</p>
 <div class="literal-block-wrapper docutils container" id="id3">

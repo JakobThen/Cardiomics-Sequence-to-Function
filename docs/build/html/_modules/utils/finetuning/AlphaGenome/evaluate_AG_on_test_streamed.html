@@ -1,0 +1,770 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Evaluates a fine-tuned AlphaGenome model using streaming correlation analysis.</span>
+
+<span class="sd">It loads a specified checkpoint, performs multi-GPU distributed inference across </span>
+<span class="sd">test intervals, computes metrics against BigWig tracks, and optionally saves </span>
+<span class="sd">the predictions to an HDF5 file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas.api.types</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_string_dtype</span><span class="p">,</span> <span class="n">is_object_dtype</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jax.experimental</span><span class="w"> </span><span class="kn">import</span> <span class="n">mesh_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jax.sharding</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mesh</span><span class="p">,</span> <span class="n">PartitionSpec</span> <span class="k">as</span> <span class="n">P</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_checkpoint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft.finetune.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_targets_config</span><span class="p">,</span> <span class="n">prepare_head_specs</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft.finetune.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">prepare_intervals_from_fold</span><span class="p">,</span> <span class="n">BigWigDataModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome_ft.finetune.train</span><span class="w"> </span><span class="kn">import</span> <span class="n">register_predefined_heads</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">dna_model</span> <span class="k">as</span> <span class="n">ag_dna_model</span>
+
+<span class="c1"># Temporarily append the parent directory to sys.path so we can import local utilities</span>
+<span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;/home/then&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">parent_dir</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_dir</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">eval.streamed_correlation_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">evaluate_from_inference</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">eval.track_prediction</span><span class="w"> </span><span class="kn">import</span> <span class="n">process_track_metadata</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Helpers</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="HDF5BatchWriter">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">HDF5BatchWriter</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Iterative saving class designed to handle massive output arrays. </span>
+<span class="sd">    </span>
+<span class="sd">    By writing to disk iteratively, we avoid out-of-memory (OOM) errors </span>
+<span class="sd">    when dealing with 1bp resolution data across thousands of intervals.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        out_dir (str or Path): Directory where the HDF5 file will be saved.</span>
+<span class="sd">        file_prefix (str): Prefix for the generated HDF5 file name.</span>
+<span class="sd">        total_samples (int): Total number of samples (intervals) to pre-allocate.</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        out_dir (Path): Resolved path for output.</span>
+<span class="sd">        h5_path (Path): Full path to the targeted `.h5` file.</span>
+<span class="sd">        total_samples (int): Total expected size of the first dimension.</span>
+<span class="sd">        file (h5py.File): Open file handle for writing.</span>
+<span class="sd">        datasets (dict): Dictionary tracking initialized datasets per head.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">file_prefix</span><span class="p">,</span> <span class="n">total_samples</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h5_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">out_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">file_prefix</span><span class="si">}</span><span class="s2">.h5&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span> <span class="o">=</span> <span class="n">total_samples</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Opening HDF5 file for iterative writing at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_path</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="HDF5BatchWriter.write_batch">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head_name</span><span class="p">,</span> <span class="n">batch_preds</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Writes a batch of predictions for a specific head to disk.</span>
+<span class="sd">        </span>
+<span class="sd">        Dynamically creates the dataset if it is the first batch received for </span>
+<span class="sd">        the given model head.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            head_name (str): Identifier for the model output head.</span>
+<span class="sd">            batch_preds (np.ndarray): Predictions array for the current batch.</span>
+<span class="sd">            start_idx (int): The starting index along the sample dimension where </span>
+<span class="sd">                this batch should be inserted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Create the dataset dynamically upon receiving the first batch for a specific head</span>
+        <span class="k">if</span> <span class="n">head_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
+            <span class="n">full_shape</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_samples</span><span class="p">,</span> <span class="o">*</span><span class="n">batch_preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="n">head_grp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">head_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">head_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">head_grp</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span>
+                <span class="s2">&quot;predictions&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">full_shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">batch_preds</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span>
+            <span class="p">)</span>
+        
+        <span class="c1"># Calculate the chunk slice and dump the data to disk</span>
+        <span class="n">end_idx</span> <span class="o">=</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="n">batch_preds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">head_name</span><span class="p">][</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">batch_preds</span></div>
+
+    
+<div class="viewcode-block" id="HDF5BatchWriter.write_metadata">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intervals_df</span><span class="p">,</span> <span class="n">tracks_df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Saves interval and track metadata to the HDF5 file.</span>
+<span class="sd">        </span>
+<span class="sd">        Converts string/object dtypes to byte strings (`&#39;S&#39;`) to ensure </span>
+<span class="sd">        compatibility with HDF5 standards.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            intervals_df (pd.DataFrame): DataFrame containing interval coordinates.</span>
+<span class="sd">            tracks_df (pd.DataFrame): DataFrame containing track metadata.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Writing metadata to HDF5...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Save intervals as HDF5 datasets</span>
+        <span class="n">interval_grp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s2">&quot;intervals&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">intervals_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="c1"># HDF5 requires string arrays to be explicitly typed as bytes (&#39;S&#39;)</span>
+            <span class="k">if</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="ow">or</span> <span class="n">is_object_dtype</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+            <span class="n">interval_grp</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+            
+        <span class="c1"># Save tracks as HDF5 datasets</span>
+        <span class="n">track_grp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="s2">&quot;tracks&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">tracks_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="k">if</span> <span class="n">is_string_dtype</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">[</span><span class="n">col</span><span class="p">])</span> <span class="ow">or</span> <span class="n">is_object_dtype</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">[</span><span class="n">col</span><span class="p">]):</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+            <span class="n">track_grp</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HDF5BatchWriter.close">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Safely closes the underlying HDF5 file handle.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully saved and closed HDF5 file!&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="get_prediction_key">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_prediction_key</span><span class="p">(</span><span class="n">raw_p</span><span class="p">,</span> <span class="n">bin_size</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">return_scaled</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Identifies the correct dictionary key for the desired embedding resolution.</span>
+<span class="sd">    </span>
+<span class="sd">    AlphaGenome predicts at multiple resolutions and data scales simultaneously. </span>
+<span class="sd">    This helper finds the key matching the target target bin size.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        raw_p (dict): Raw prediction dictionary from the model.</span>
+<span class="sd">        bin_size (int, optional): The target bin size/resolution. Defaults to 128.</span>
+<span class="sd">        return_scaled (bool, optional): Whether to look for scaled predictions. Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        str: The matching key found in the prediction dictionary.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyError: If no matching prediction key is found in the dictionary.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;scaled_predictions&quot;</span> <span class="k">if</span> <span class="n">return_scaled</span> <span class="k">else</span> <span class="s2">&quot;predictions&quot;</span>
+    <span class="n">preferred</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">bin_size</span><span class="si">}</span><span class="s2">bp&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="mi">128</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">bin_size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">bp&quot;</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">preferred</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">raw_p</span><span class="p">:</span> <span class="k">return</span> <span class="n">key</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No matching prediction key found. Tried: </span><span class="si">{</span><span class="n">preferred</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_aligned_nonzero_means">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_aligned_nonzero_means</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracts precomputed nonzero track means and aligns them to the tracks DataFrame.</span>
+<span class="sd">    </span>
+<span class="sd">    Strictly aligns the means based on file paths to ensure calculations match </span>
+<span class="sd">    the correct BigWig files.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tracks_df (pd.DataFrame): DataFrame containing track metadata including paths.</span>
+<span class="sd">        config_dict (dict): Target configuration dictionary containing head definitions.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: A 1D array of aligned nonzero mean values.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        KeyError: If a path listed in `tracks_df` is missing from the configuration.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path_to_mean</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;heads&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">head</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;targets&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">)</span>
+            <span class="n">mean_val</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;nonzero_mean&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">mean_val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">path_to_mean</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_val</span>
+                
+    <span class="n">aligned_means</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">path_to_mean</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Path from tracks_df not found in config dictionary: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">aligned_means</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path_to_mean</span><span class="p">[</span><span class="n">path</span><span class="p">])</span>
+        
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">aligned_means</span><span class="p">)</span></div>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Main pipeline</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="get_parser">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_parser</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates and configures the argument parser for the evaluation script.</span>
+<span class="sd">    </span>
+<span class="sd">    Separated from the main execution logic to allow Sphinx&#39;s argparse extension</span>
+<span class="sd">    (`sphinxarg.ext`) to auto-generate CLI documentation natively.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        argparse.ArgumentParser: The configured argument parser object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;AlphaGenome Finetuned Streaming Evaluation Script&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Core I/O Arguments</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--fasta_path&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the genome.fa file&quot;</span><span class="p">)</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--config&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the target YAML config file&quot;</span><span class="p">)</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--input_dir&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Directory containing input BigWig files&quot;</span><span class="p">)</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--out_dir&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output directory for figures and results&quot;</span><span class="p">)</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--checkpoint_dir&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Directory containing the best model checkpoint&quot;</span><span class="p">)</span> 
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--gtf_file&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Optional GTF file for Gene-based correlation mapping&quot;</span><span class="p">)</span> 
+    
+    <span class="c1"># Data &amp; Model Options</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--fold&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Data fold to use (0, 1, 2, 3)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--window_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1_048_576</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Window size in bp (must map to an AlphaGenome config)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--organism&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;HOMO_SAPIENS&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Target organism&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--model_version&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;fold_1&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Base model version (e.g., fold_1, all_folds)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--batch_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Global batch size (must be divisible by N_GPUs)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Evaluation Options</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--resolution&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Embedding resolution to evaluate (1, 128)&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--save_predictions&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Whether to save test interval predictions to HDF5.&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--minimal_test&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Truncate run to the first 8 intervals for quick debugging.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parser</span></div>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../../../api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executes the main evaluation pipeline.</span>
+
+<span class="sd">    Sets up hardware, prepares data intervals and metadata, loads the model</span>
+<span class="sd">    and its sharding configuration, and executes multi-GPU streaming evaluation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        args (argparse.Namespace): Parsed command-line arguments.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If JAX defaults to CPU execution.</span>
+<span class="sd">        FileNotFoundError: If a required BigWig file is missing from the directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># 1. Setup &amp; Hardware Config</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;JAX is using: </span><span class="si">{</span><span class="n">jax</span><span class="o">.</span><span class="n">devices</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">jax</span><span class="o">.</span><span class="n">devices</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">platform</span> <span class="o">==</span> <span class="s1">&#39;cpu&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;JAX is defaulting to CPU! Please check your CUDA installation.&quot;</span><span class="p">)</span>
+        
+    <span class="c1"># Standardize input variables</span>
+    <span class="n">FASTA_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">fasta_path</span><span class="p">)</span>
+    <span class="n">TARGETS_CONFIG_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">BW_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">input_dir</span><span class="p">)</span>
+    <span class="n">CHECKPOINT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">checkpoint_dir</span><span class="p">)</span>
+    <span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">out_dir</span><span class="p">)</span>
+    <span class="n">GTF_FILE</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gtf_file</span><span class="p">)</span> <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">gtf_file</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="n">FOLD</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">fold</span>
+    <span class="n">MODEL_VERSION</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">model_version</span>
+    <span class="n">ORGANISM</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">organism</span>
+    <span class="n">ORGANISM_IDX</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">ORGANISM</span> <span class="o">==</span> <span class="s2">&quot;HOMO_SAPIENS&quot;</span> <span class="k">else</span> <span class="mi">1</span>
+    
+    <span class="n">WINDOW_SIZE</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">window_size</span>
+    <span class="n">BIN_SIZE</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">resolution</span>
+    <span class="n">MIN_TEST</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">minimal_test</span>
+    <span class="n">SAVE_PREDICTIONS</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">save_predictions</span>
+    <span class="n">BATCH_SIZE</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">batch_size</span> <span class="c1"># Extracted from args to resolve missing variable</span>
+
+    <span class="n">DROP_LAST</span> <span class="o">=</span> <span class="kc">True</span> 
+    <span class="n">RETURN_SCALED</span> <span class="o">=</span> <span class="kc">True</span> 
+    
+    <span class="n">OUTPUT_DATA_PREFIX</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;AG_fold</span><span class="si">{</span><span class="n">FOLD</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">BIN_SIZE</span><span class="si">}</span><span class="s2">bp_test_eval_</span><span class="si">{</span><span class="n">CHECKPOINT_DIR</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># 2. Prepare Data &amp; Metadata</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">config_dict</span> <span class="o">=</span> <span class="n">load_targets_config</span><span class="p">(</span><span class="n">TARGETS_CONFIG_PATH</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/tmp/then_alphagenome_bws/&quot;</span><span class="p">))</span>
+    <span class="n">head_specs</span> <span class="o">=</span> <span class="n">prepare_head_specs</span><span class="p">(</span><span class="n">config_dict</span><span class="p">)</span>
+    <span class="n">register_predefined_heads</span><span class="p">(</span><span class="n">head_specs</span><span class="p">)</span>
+
+    <span class="n">intervals</span> <span class="o">=</span> <span class="n">prepare_intervals_from_fold</span><span class="p">(</span><span class="n">fold</span><span class="o">=</span><span class="n">FOLD</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="n">WINDOW_SIZE</span><span class="p">,</span> <span class="n">organism</span><span class="o">=</span><span class="n">ORGANISM</span><span class="p">)</span>
+    <span class="n">test_intervals_list</span> <span class="o">=</span> <span class="n">intervals</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="n">total_test_intervals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">test_intervals_list</span><span class="p">)</span>
+
+    <span class="c1"># Calculate exact interval boundaries to prevent batch shape mismatches if DROP_LAST is active</span>
+    <span class="k">if</span> <span class="n">DROP_LAST</span><span class="p">:</span>
+        <span class="n">total_saved_intervals</span> <span class="o">=</span> <span class="p">(</span><span class="n">total_test_intervals</span> <span class="o">//</span> <span class="n">BATCH_SIZE</span><span class="p">)</span> <span class="o">*</span> <span class="n">BATCH_SIZE</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">total_saved_intervals</span> <span class="o">=</span> <span class="n">total_test_intervals</span>
+
+    <span class="c1"># Build the tracking DataFrame for intervals</span>
+    <span class="n">intervals_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span>
+        <span class="p">{</span><span class="s2">&quot;chrom&quot;</span><span class="p">:</span> <span class="n">iv</span><span class="o">.</span><span class="n">chromosome</span><span class="p">,</span> <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">iv</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">:</span> <span class="n">iv</span><span class="o">.</span><span class="n">end</span><span class="p">}</span> 
+        <span class="k">for</span> <span class="n">iv</span> <span class="ow">in</span> <span class="n">test_intervals_list</span><span class="p">[:</span><span class="n">total_saved_intervals</span><span class="p">]</span>
+    <span class="p">])</span>
+
+    <span class="c1"># Minimal test flag sets 2 batches per GPU for rapid prototyping</span>
+    <span class="k">if</span> <span class="n">MIN_TEST</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">BATCH_SIZE</span> <span class="o">*</span> <span class="mi">8</span><span class="p">,</span> <span class="n">total_saved_intervals</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: USING MINIMAL TEST WITH ONLY THE FIRST </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> TEST INTERVALS!!!&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+        <span class="n">total_saved_intervals</span> <span class="o">=</span> <span class="n">n</span>
+        <span class="n">test_intervals_list</span> <span class="o">=</span> <span class="n">test_intervals_list</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+        <span class="n">intervals_df</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="n">n</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="n">intervals</span><span class="p">[</span><span class="s2">&quot;test&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_intervals_list</span>
+        <span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="s2">&quot;MIN_TEST&quot;</span>
+        <span class="n">OUTPUT_DATA_PREFIX</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;MIN_TEST_AG_fold</span><span class="si">{</span><span class="n">FOLD</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">BIN_SIZE</span><span class="si">}</span><span class="s2">bp_test_eval_</span><span class="si">{</span><span class="n">CHECKPOINT_DIR</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">total_saved_intervals</span><span class="si">}</span><span class="s2"> test intervals.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Initialize data module (creates train/val/test splits, but only test is inferred)</span>
+    <span class="n">data_module</span> <span class="o">=</span> <span class="n">BigWigDataModule</span><span class="p">(</span>
+        <span class="n">intervals</span><span class="o">=</span><span class="n">intervals</span><span class="p">,</span> <span class="n">fasta_path</span><span class="o">=</span><span class="n">FASTA_PATH</span><span class="p">,</span> <span class="n">head_specs</span><span class="o">=</span><span class="n">head_specs</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">drop_last</span><span class="o">=</span><span class="n">DROP_LAST</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Collate track metadata across all specified heads</span>
+    <span class="n">tracks_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">config_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;heads&#39;</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">tracks_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">head</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;targets&#39;</span><span class="p">,</span> <span class="p">[])))</span>
+        
+    <span class="n">tracks_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">tracks_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">tracks_df</span> <span class="o">=</span> <span class="n">process_track_metadata</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">)</span>
+    <span class="n">tracks_df</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Map BigWig paths and ensure strict ordering alignment with tracks_df</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scanning BigWig directory...&quot;</span><span class="p">)</span>
+    <span class="n">bw_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">BW_DIR</span><span class="o">.</span><span class="n">rglob</span><span class="p">(</span><span class="s2">&quot;*.bw&quot;</span><span class="p">))</span>
+    <span class="n">bw_paths_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">bw_files</span><span class="p">}</span>
+
+    <span class="n">aligned_paths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">fname</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bw_paths_dict</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing BigWig for track: </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">aligned_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bw_paths_dict</span><span class="p">[</span><span class="n">fname</span><span class="p">])</span>
+
+    <span class="n">bw_paths_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;path&#39;</span><span class="p">:</span> <span class="n">aligned_paths</span><span class="p">})</span>
+    <span class="n">bw_paths_df</span><span class="p">[</span><span class="s2">&quot;nonzero_means&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_aligned_nonzero_means</span><span class="p">(</span><span class="n">bw_paths_df</span><span class="p">,</span> <span class="n">config_dict</span><span class="p">)</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># 3. Load Model &amp; Setup JAX Device Mesh</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading model onto GPU...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">CHECKPOINT_DIR</span> <span class="o">/</span> <span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">base_model_version</span><span class="o">=</span><span class="n">MODEL_VERSION</span><span class="p">,</span> <span class="n">init_seq_len</span><span class="o">=</span><span class="n">WINDOW_SIZE</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Model loaded successfully.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Extract strand reindexing array and pin it to the correct device</span>
+    <span class="n">organism_enum</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ag_dna_model</span><span class="o">.</span><span class="n">Organism</span><span class="p">,</span> <span class="n">ORGANISM</span><span class="p">)</span>
+    <span class="n">strand_reindexing</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">device_put</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">_metadata</span><span class="p">[</span><span class="n">organism_enum</span><span class="p">]</span><span class="o">.</span><span class="n">strand_reindexing</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">_device_context</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+
+    <span class="c1"># Configure multi-GPU sharding layout</span>
+    <span class="n">num_devices</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">local_device_count</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting up </span><span class="si">{</span><span class="n">num_devices</span><span class="si">}</span><span class="s2">-GPU Device Mesh for evaluation...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">devices</span> <span class="o">=</span> <span class="n">mesh_utils</span><span class="o">.</span><span class="n">create_device_mesh</span><span class="p">((</span><span class="n">num_devices</span><span class="p">,))</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">(</span><span class="n">devices</span><span class="p">,</span> <span class="n">axis_names</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,))</span>
+    <span class="n">data_sharding</span><span class="p">,</span> <span class="n">replicated_sharding</span> <span class="o">=</span> <span class="n">P</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">),</span> <span class="n">P</span><span class="p">()</span>
+
+    <span class="c1"># JIT-compile the parallel prediction function, sharding the data axis across GPUs</span>
+    <span class="nd">@jax</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span>
+        <span class="n">in_shardings</span><span class="o">=</span><span class="p">(</span><span class="n">replicated_sharding</span><span class="p">,</span> <span class="n">replicated_sharding</span><span class="p">,</span> <span class="n">data_sharding</span><span class="p">,</span> <span class="n">data_sharding</span><span class="p">,</span> <span class="n">data_sharding</span><span class="p">,</span> <span class="n">replicated_sharding</span><span class="p">),</span>
+        <span class="n">out_shardings</span><span class="o">=</span><span class="n">replicated_sharding</span> 
+    <span class="p">)</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parallel_predict</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">seq_batch</span><span class="p">,</span> <span class="n">org_batch</span><span class="p">,</span> <span class="n">mask_batch</span><span class="p">,</span> <span class="n">strand_idx</span><span class="p">):</span>
+        <span class="n">raw_preds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_predict</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">seq_batch</span><span class="p">,</span> <span class="n">org_batch</span><span class="p">,</span> <span class="n">negative_strand_mask</span><span class="o">=</span><span class="n">mask_batch</span><span class="p">,</span> <span class="n">strand_reindexing</span><span class="o">=</span><span class="n">strand_idx</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">head</span><span class="o">.</span><span class="n">head_id</span><span class="p">:</span> <span class="n">raw_preds</span><span class="p">[</span><span class="n">head</span><span class="o">.</span><span class="n">head_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">head</span> <span class="ow">in</span> <span class="n">head_specs</span><span class="p">}</span>
+
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="c1"># 4. Evaluation Execution</span>
+    <span class="c1"># ---------------------------------------------------------------------------</span>
+    <span class="n">h5_writer</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">SAVE_PREDICTIONS</span><span class="p">:</span>
+        <span class="n">h5_writer</span> <span class="o">=</span> <span class="n">HDF5BatchWriter</span><span class="p">(</span><span class="n">OUT_DIR</span><span class="p">,</span> <span class="n">OUTPUT_DATA_PREFIX</span><span class="p">,</span> <span class="n">total_saved_intervals</span><span class="p">)</span>
+
+    <span class="c1"># Define the forward wrapper function expected by the evaluation pipeline</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">model_forward_fn</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">):</span>
+        <span class="c1"># Format and push inputs to the correct device/sharding spec</span>
+        <span class="n">seq</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">batch</span><span class="p">[</span><span class="s1">&#39;sequences&#39;</span><span class="p">])</span>
+        <span class="n">org_idx</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">seq</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="n">ORGANISM_IDX</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="n">neg_mask</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">seq</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">bool_</span><span class="p">)</span>
+        
+        <span class="n">seq_sharded</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">device_put</span><span class="p">(</span><span class="n">seq</span><span class="p">,</span> <span class="n">data_sharding</span><span class="p">)</span>
+        <span class="n">org_idx_sharded</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">device_put</span><span class="p">(</span><span class="n">org_idx</span><span class="p">,</span> <span class="n">data_sharding</span><span class="p">)</span>
+        <span class="n">neg_mask_sharded</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">device_put</span><span class="p">(</span><span class="n">neg_mask</span><span class="p">,</span> <span class="n">data_sharding</span><span class="p">)</span>
+        
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">parallel_predict</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">_params</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="n">seq_sharded</span><span class="p">,</span> <span class="n">org_idx_sharded</span><span class="p">,</span> <span class="n">neg_mask_sharded</span><span class="p">,</span> <span class="n">strand_reindexing</span><span class="p">)</span>
+        
+        <span class="n">head_arrays</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">head_spec</span> <span class="ow">in</span> <span class="n">head_specs</span><span class="p">:</span>
+            <span class="n">head_name</span> <span class="o">=</span> <span class="n">head_spec</span><span class="o">.</span><span class="n">head_id</span>
+            <span class="n">raw_p</span> <span class="o">=</span> <span class="n">preds</span><span class="p">[</span><span class="n">head_name</span><span class="p">]</span>
+            <span class="n">res_key</span> <span class="o">=</span> <span class="n">get_prediction_key</span><span class="p">(</span><span class="n">raw_p</span><span class="p">,</span> <span class="n">BIN_SIZE</span><span class="p">,</span> <span class="n">RETURN_SCALED</span><span class="p">)</span>
+            
+            <span class="c1"># Extract and transpose from (Batch, Bins, Head_Tracks) -&gt; (Batch, Head_Tracks, Bins)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">raw_p</span><span class="p">[</span><span class="n">res_key</span><span class="p">])</span> 
+            <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  
+            
+            <span class="k">if</span> <span class="n">SAVE_PREDICTIONS</span><span class="p">:</span>
+                <span class="n">h5_writer</span><span class="o">.</span><span class="n">write_batch</span><span class="p">(</span><span class="n">head_name</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">)</span>
+                
+            <span class="n">head_arrays</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+        <span class="c1"># Stitch all head outputs together into a single master array</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">head_arrays</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Execute the streaming evaluation inside the specific JAX context limits</span>
+    <span class="k">with</span> <span class="n">model</span><span class="o">.</span><span class="n">_device_context</span><span class="p">,</span> <span class="n">jax</span><span class="o">.</span><span class="n">set_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting Streaming Evaluation...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">evaluate_from_inference</span><span class="p">(</span>
+            <span class="n">data_module</span><span class="o">=</span><span class="n">data_module</span><span class="p">,</span>
+            <span class="n">model_forward_fn</span><span class="o">=</span><span class="n">model_forward_fn</span><span class="p">,</span>
+            <span class="n">intervals_df</span><span class="o">=</span><span class="n">intervals_df</span><span class="p">,</span>
+            <span class="n">tracks_df</span><span class="o">=</span><span class="n">tracks_df</span><span class="p">,</span>
+            <span class="n">bw_paths_df</span><span class="o">=</span><span class="n">bw_paths_df</span><span class="p">,</span>
+            <span class="n">bin_size</span><span class="o">=</span><span class="n">BIN_SIZE</span><span class="p">,</span>
+            <span class="n">out_dir</span><span class="o">=</span><span class="n">OUT_DIR</span><span class="p">,</span>
+            <span class="n">model_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;AG_ft_fold</span><span class="si">{</span><span class="n">FOLD</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">analysis_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">BIN_SIZE</span><span class="si">}</span><span class="s2">bp_embedding_test_eval_</span><span class="si">{</span><span class="n">CHECKPOINT_DIR</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">gtf_file</span><span class="o">=</span><span class="n">GTF_FILE</span><span class="p">,</span>
+            <span class="n">batch_size</span><span class="o">=</span><span class="n">BATCH_SIZE</span><span class="p">,</span>
+            <span class="n">is_squashed_scale</span><span class="o">=</span><span class="n">RETURN_SCALED</span>
+        <span class="p">)</span>
+        
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eval done :D&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">SAVE_PREDICTIONS</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saving predictions...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">h5_writer</span><span class="o">.</span><span class="n">write_metadata</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">,</span> <span class="n">tracks_df</span><span class="p">)</span>
+        <span class="n">h5_writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">get_parser</span><span class="p">()</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">main</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

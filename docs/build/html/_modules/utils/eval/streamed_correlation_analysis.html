@@ -1,0 +1,1062 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.eval.streamed_correlation_analysis &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/eval/streamed_correlation_analysis';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.eval.streamed_correlation_analysis</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Pipeline to run comprehensive model evaluation on test intervals from h5 saved model predictions or streaming from GPU inference batches during test inference.</span>
+
+<span class="sd">Model tracks need to be matched to individual .bw files.</span>
+<span class="sd">Assumes Intervals do not overlap and are the same size.</span>
+
+<span class="sd">Computes:</span>
+
+<span class="sd">* Pearson r across all concatenated intervals per tracks.</span>
+<span class="sd">* Gene centric metrics for RNA tracks:</span>
+
+<span class="sd">  * Pearson r across all genes, raw summed log1p exon counts.</span>
+<span class="sd">  * Pearson r across all genes, quantile norm raw across genes, gene mean subtracted.</span>
+<span class="sd">  * Pearson r across all tracks, quantile norm raw across genes, gene mean subtracted.</span>
+
+<span class="sd">* Basic QC metrics:</span>
+
+<span class="sd">  * Distribution of counts across intervals per track.</span>
+<span class="sd">  * Percentage of non-NaN bins per interval and track (NaN bins have no coverage in .bw at any position in the bin).</span>
+
+<span class="sd">Returns:</span>
+
+<span class="sd">* CSV file of pearson metrics and coverage per track.</span>
+<span class="sd">* Summary txt file.</span>
+<span class="sd">* Figures of the metrics above stored in ./fig.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="kn">import</span> <span class="n">Patch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+
+<span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;/home/then&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">parent_dir</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_dir</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.eval.accumulators</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">StreamingPearsonAccumulator</span><span class="p">,</span> 
+    <span class="n">StreamingGeneAccumulator</span><span class="p">,</span> 
+    <span class="n">BestIntervalTracker</span><span class="p">,</span> 
+    <span class="n">StreamingCoverageAccumulator</span>
+   <span class="c1"># ReservoirSampler</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.io.batch_bw_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BatchBigWigLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.io.data_input</span><span class="w"> </span><span class="kn">import</span> <span class="n">SelectiveSquashTransform</span><span class="p">,</span> <span class="n">get_streaming_non_zero_track_means</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.eval.track_correlation</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">quantile_normalize_RNA_counts</span><span class="p">,</span>
+    <span class="n">density_scatter</span><span class="p">,</span>
+    <span class="n">plot_correlation_beeswarm</span><span class="p">,</span>
+    <span class="n">compare_track_coverage</span><span class="p">,</span>
+    <span class="n">plot_strand_expression_heatmaps</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.eval.track_prediction</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_gtf</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># CORE LOOP (The Engine)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_run_analysis_loop</span><span class="p">(</span>
+    <span class="n">batch_iterator</span><span class="p">,</span> 
+    <span class="n">num_intervals</span><span class="p">,</span>
+    <span class="n">intervals_df</span><span class="p">,</span> 
+    <span class="n">tracks_df</span><span class="p">,</span> 
+    <span class="n">bw_paths_df</span><span class="p">,</span>
+    <span class="n">bin_size</span><span class="p">,</span> 
+    <span class="n">out_dir</span><span class="p">,</span> 
+    <span class="n">model_name</span><span class="p">,</span> 
+    <span class="n">analysis_name</span><span class="p">,</span>
+    <span class="n">gtf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">seq_len</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>    
+    <span class="n">label_len</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">is_squashed_scale</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Consumes batches of predictions, loads BigWigs on the fly, </span>
+<span class="sd">    and updates streaming accumulators. Defaults to squahsed scale predcition otherwise transforms accordingly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">num_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">)</span>
+    <span class="n">track_names</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    
+    <span class="c1"># Determine default lengths if not explicitly passed</span>
+    <span class="k">if</span> <span class="n">seq_len</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">seq_len</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">label_len</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">label_len</span> <span class="o">=</span> <span class="n">seq_len</span>
+    
+    <span class="c1"># Check modalities</span>
+    <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+        <span class="n">to_replace</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;(?i)^(cnt|c&amp;t|cut&amp;tag|cutntag)$&#39;</span><span class="p">,</span> 
+        <span class="n">value</span><span class="o">=</span><span class="s1">&#39;CnT&#39;</span><span class="p">,</span> 
+        <span class="n">regex</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span> <span class="c1">#cas isnensitve cnt standardization</span>
+    <span class="n">rna_mask</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;RNA&#39;</span>
+    <span class="n">atac_mask</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ATAC&#39;</span>
+    <span class="n">cnt_mask</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;CnT&#39;</span>
+    
+    <span class="c1"># 1. Initialize Accumulators</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Initializing Streaming Accumulators...&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">//</span> <span class="n">bin_size</span>
+    
+    <span class="n">pearson_acc</span> <span class="o">=</span> <span class="n">StreamingPearsonAccumulator</span><span class="p">(</span><span class="n">num_tracks</span><span class="p">,</span> <span class="n">track_names</span><span class="p">)</span>
+    <span class="n">best_tracker</span> <span class="o">=</span> <span class="n">BestIntervalTracker</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">)</span>
+    <span class="n">coverage_acc</span> <span class="o">=</span> <span class="n">StreamingCoverageAccumulator</span><span class="p">()</span>
+   <span class="c1"># reservoir = ReservoirSampler(num_tracks, k=10000)</span>
+    
+    <span class="c1"># Initialize Gene Accumulator ONLY if we have RNA tracks and a GTF</span>
+    <span class="n">gene_acc</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">rna_mask</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="ow">and</span> <span class="n">gtf_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gtf</span> <span class="o">=</span> <span class="n">get_gtf</span><span class="p">(</span><span class="n">gtf_file</span><span class="p">,</span> <span class="n">chrom_filter</span><span class="o">=</span><span class="s2">&quot;autosomesXY&quot;</span><span class="p">,</span>
+                      <span class="n">gene_type_filter</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;protein_coding&quot;</span><span class="p">,</span> <span class="s2">&quot;processed_transcript&quot;</span><span class="p">],</span>
+                      <span class="n">feature</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">exons_df</span> <span class="o">=</span> <span class="n">gtf</span><span class="p">[</span><span class="n">gtf</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;exon&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">gtf_df</span>   <span class="o">=</span> <span class="n">gtf</span><span class="p">[</span><span class="n">gtf</span><span class="p">[</span><span class="s2">&quot;feature&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;gene&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+              
+        <span class="n">exons_df</span><span class="p">[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">exons_df</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">],</span> <span class="n">exons_df</span><span class="p">[</span><span class="s2">&quot;end&quot;</span><span class="p">]))</span>
+        <span class="n">exon_groups</span> <span class="o">=</span> <span class="n">exons_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;gene_id&quot;</span><span class="p">)[</span><span class="s2">&quot;interval&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="n">gtf_df</span><span class="p">[</span><span class="s2">&quot;exon_intervals&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gtf_df</span><span class="p">[</span><span class="s2">&quot;gene_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">exon_groups</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[])</span>
+        <span class="n">gtf_df</span> <span class="o">=</span> <span class="n">gtf_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;gene_name&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Determine strands for RNA tracks</span>
+        <span class="n">track_strands</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="s2">&quot;plus&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="s2">&quot;minus&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">track_names</span><span class="p">]</span>
+        
+        <span class="n">gene_acc</span> <span class="o">=</span> <span class="n">StreamingGeneAccumulator</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">,</span> <span class="n">gtf_df</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">track_names</span><span class="p">,</span> <span class="n">track_strands</span><span class="p">)</span>
+        
+    <span class="c1">#Initilaize correct sqush transforms for current model. </span>
+    <span class="n">rna_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">rna_mask</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s2">&quot;BORZOI&quot;</span> <span class="ow">in</span> <span class="n">model_name</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span>
+        <span class="n">squash</span> <span class="o">=</span> <span class="n">SelectiveSquashTransform</span><span class="p">(</span><span class="n">rna_task_indices</span><span class="o">=</span><span class="n">rna_indices</span><span class="p">,</span> <span class="n">task_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="s2">&quot;Borzoi&quot;</span><span class="p">,</span> <span class="n">inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+        <span class="n">unsquash</span> <span class="o">=</span> <span class="n">SelectiveSquashTransform</span><span class="p">(</span><span class="n">rna_task_indices</span><span class="o">=</span><span class="n">rna_indices</span><span class="p">,</span> <span class="n">task_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="s2">&quot;Borzoi&quot;</span><span class="p">,</span> <span class="n">inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+    <span class="k">elif</span> <span class="p">(</span><span class="s2">&quot;ALPHAGENOME&quot;</span> <span class="ow">in</span> <span class="n">model_name</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="ow">or</span> <span class="p">(</span><span class="s2">&quot;AG&quot;</span> <span class="ow">in</span> <span class="n">model_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()):</span>
+        <span class="c1">#track_means = get_streaming_non_zero_track_means(bw_paths_df, intervals_df, bin_size) #make a quick pass over all bw files to compute the track mean</span>
+        <span class="k">if</span> <span class="s1">&#39;nonzero_means&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bw_paths_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;AlphaGenome requires &#39;nonzero_mean&#39; in bw_paths_df, but it was not found.&quot;</span><span class="p">)</span>
+        <span class="n">track_means</span> <span class="o">=</span> <span class="n">bw_paths_df</span><span class="p">[</span><span class="s1">&#39;nonzero_means&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">squash</span> <span class="o">=</span> <span class="n">SelectiveSquashTransform</span><span class="p">(</span><span class="n">rna_task_indices</span><span class="o">=</span><span class="n">rna_indices</span><span class="p">,</span> <span class="n">task_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="s2">&quot;AlphaGenome&quot;</span><span class="p">,</span><span class="n">track_means</span><span class="o">=</span><span class="n">track_means</span><span class="p">,</span><span class="n">inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  
+        <span class="n">unsquash</span> <span class="o">=</span> <span class="n">SelectiveSquashTransform</span><span class="p">(</span><span class="n">rna_task_indices</span><span class="o">=</span><span class="n">rna_indices</span><span class="p">,</span> <span class="n">task_axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">transform</span><span class="o">=</span><span class="s2">&quot;AlphaGenome&quot;</span><span class="p">,</span><span class="n">track_means</span><span class="o">=</span><span class="n">track_means</span><span class="p">,</span><span class="n">inverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;WARNING: model_name was not recognized as Borzoi or AlphaGenome, defaulting to no squash transformations.&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">squash</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>   <span class="k">return</span> <span class="n">X</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">unsquash</span><span class="p">(</span><span class="n">X</span><span class="p">):</span> <span class="k">return</span> <span class="n">X</span>
+
+    <span class="c1"># 2. Main Processing Loop</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting Streaming Evaluation over </span><span class="si">{</span><span class="n">num_intervals</span><span class="si">}</span><span class="s2"> intervals...&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">BatchBigWigLoader</span><span class="p">(</span><span class="n">bw_paths_df</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">)</span> <span class="k">as</span> <span class="n">bw_loader</span><span class="p">:</span>
+        
+        <span class="c1"># batch_iterator must yield: (start_idx, P_batch, coords_batch)</span>
+        <span class="k">for</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">P_batch</span><span class="p">,</span> <span class="n">coords_batch</span> <span class="ow">in</span> <span class="n">batch_iterator</span><span class="p">:</span>
+            
+            <span class="c1"># Load BigWig data concurrently for this batch</span>
+            <span class="n">T_batch_unsq</span> <span class="o">=</span> <span class="n">bw_loader</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">coords_batch</span><span class="p">)</span>
+            <span class="n">T_batch</span> <span class="o">=</span> <span class="n">squash</span><span class="p">(</span><span class="n">T_batch_unsq</span><span class="p">)</span>
+            
+            <span class="c1">#apply squash scale transforms</span>
+            <span class="k">if</span> <span class="n">is_squashed_scale</span><span class="p">:</span>
+                <span class="n">P_batch_unsq</span> <span class="o">=</span> <span class="n">unsquash</span><span class="p">(</span><span class="n">P_batch</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">P_batch_unsq</span> <span class="o">=</span> <span class="n">P_batch</span>
+                <span class="n">P_batch</span> <span class="o">=</span> <span class="n">squash</span><span class="p">(</span><span class="n">P_batch</span><span class="p">)</span>
+                           
+            <span class="c1"># Feed accumulators</span>
+            <span class="n">pearson_acc</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">P_batch</span><span class="p">,</span> <span class="n">T_batch</span><span class="p">)</span> <span class="c1">#cumpute pearson in squahed scale</span>
+            <span class="n">best_tracker</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">P_batch</span><span class="p">,</span> <span class="n">T_batch</span><span class="p">,</span> <span class="n">coords_batch</span><span class="p">)</span> <span class="c1">#compute pearson for best interval also in squashed scale</span>
+            <span class="n">coverage_acc</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">T_batch_unsq</span><span class="p">)</span> <span class="c1">#get the nan coverage percentage for the </span>
+         <span class="c1">#   reservoir.update(P_batch_unsq, T_batch_unsq) #keep unsquahed points in reservoir to later plot in log scale instead of squashed</span>
+            
+            <span class="k">if</span> <span class="n">gene_acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># We only need to compute gene sums for RNA tracks, but the accumulator </span>
+                <span class="c1"># handles masking internally if set up properly. </span>
+                <span class="n">gene_acc</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">P_batch_unsq</span><span class="p">,</span> <span class="n">T_batch_unsq</span><span class="p">)</span> <span class="c1">#pass unsquahed to gene accumulator to get log1p coutns for genes instead of squashed</span>
+                
+            <span class="n">current_processed</span> <span class="o">=</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">P_batch</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">current_processed</span> <span class="o">//</span> <span class="mi">1000</span> <span class="o">&gt;</span> <span class="n">start_idx</span> <span class="o">//</span> <span class="mi">1000</span> <span class="ow">or</span> <span class="n">current_processed</span> <span class="o">==</span> <span class="n">num_intervals</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processed </span><span class="si">{</span><span class="n">current_processed</span><span class="si">}</span><span class="s2"> / </span><span class="si">{</span><span class="n">num_intervals</span><span class="si">}</span><span class="s2"> intervals&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 3. Finalize and Generate Outputs</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Evaluation Complete. Generating outputs...&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1">#define nan coverage cutoffs for bw fiels based on binsize (the larger the bin the less sparse bins we get thus increase cutoff</span>
+    <span class="c1">#use pporbabalisitc saturation model</span>
+    <span class="c1"># baseline_nan_cutoff=0.01</span>
+    <span class="c1"># adj_nan_cutoff = 1 - (1 - baseline_nan_cutoff) ** (bin_size ** 0.678) #0.678 adjusted so that this 0.01 at binszie 1 and 0.1 at binsize 32 </span>
+    <span class="c1"># print(f&quot;Dynamic NaN BigWig Coverage Cutoff for Bin Size {bin_size}: {adj_nan_cutoff*100:.2f}%&quot;, flush=True)</span>
+    
+    <span class="n">adj_nan_cutoff</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1">#USE NO CUTOFF FOR NOW</span>
+    
+    <span class="n">interval_coverage_matrix</span> <span class="o">=</span> <span class="n">coverage_acc</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    
+    <span class="n">_generate_outputs</span><span class="p">(</span>
+        <span class="n">out_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span> <span class="n">analysis_name</span><span class="o">=</span><span class="n">analysis_name</span><span class="p">,</span>
+        <span class="n">tracks_df</span><span class="o">=</span><span class="n">tracks_df</span><span class="p">,</span> <span class="n">pearson_acc</span><span class="o">=</span><span class="n">pearson_acc</span><span class="p">,</span> <span class="n">best_tracker</span><span class="o">=</span><span class="n">best_tracker</span><span class="p">,</span> 
+      <span class="c1">#  reservoir=reservoir,</span>
+        <span class="n">gene_acc</span><span class="o">=</span><span class="n">gene_acc</span><span class="p">,</span> <span class="n">coverage_cutoff</span><span class="o">=</span><span class="n">adj_nan_cutoff</span><span class="p">,</span> <span class="n">interval_coverage_matrix</span><span class="o">=</span><span class="n">interval_coverage_matrix</span><span class="p">,</span> 
+        <span class="n">num_intervals</span><span class="o">=</span><span class="n">num_intervals</span><span class="p">,</span> <span class="n">seq_len</span><span class="o">=</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">label_len</span><span class="o">=</span><span class="n">label_len</span><span class="p">,</span> <span class="n">bin_size</span><span class="o">=</span><span class="n">bin_size</span>
+    <span class="p">)</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># OUTPUT GENERATION (Plots &amp; Summaries)</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_generate_outputs</span><span class="p">(</span>
+    <span class="n">out_dir</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">tracks_df</span><span class="p">,</span> 
+    <span class="n">pearson_acc</span><span class="p">,</span> <span class="n">best_tracker</span><span class="p">,</span> <span class="c1">#reservoir,</span>
+    <span class="n">gene_acc</span><span class="p">,</span> <span class="n">coverage_cutoff</span><span class="p">,</span> <span class="n">interval_coverage_matrix</span><span class="p">,</span>
+    <span class="n">num_intervals</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">label_len</span><span class="p">,</span> <span class="n">bin_size</span>
+<span class="p">):</span>
+    <span class="n">fig_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">model_name</span> <span class="o">/</span> <span class="n">analysis_name</span> <span class="o">/</span> <span class="s2">&quot;fig&quot;</span>
+    <span class="n">cor_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span> <span class="o">/</span> <span class="n">model_name</span> <span class="o">/</span> <span class="n">analysis_name</span>
+    <span class="n">fig_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">cor_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Base Metrics</span>
+    <span class="n">concat_r</span><span class="p">,</span> <span class="n">coverage</span> <span class="o">=</span> <span class="n">pearson_acc</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">coverage_cutoff</span><span class="p">)</span>
+    <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;concat_cor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">concat_r</span>
+    <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;coverage&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coverage</span>
+    
+    <span class="c1"># Gene Metrics</span>
+    <span class="n">raw_gene_cor</span><span class="p">,</span> <span class="n">norm_gene_cor</span><span class="p">,</span> <span class="n">norm_track_cor</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">gene_acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">gene_P</span><span class="p">,</span> <span class="n">gene_T</span> <span class="o">=</span> <span class="n">gene_acc</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">return_log1p</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">dup_mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">gene_P</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="c1"># Drop duplicate gene names</span>
+        <span class="n">gene_P</span><span class="p">,</span> <span class="n">gene_T</span> <span class="o">=</span> <span class="n">gene_P</span><span class="p">[</span><span class="n">dup_mask</span><span class="p">],</span> <span class="n">gene_T</span><span class="p">[</span><span class="n">dup_mask</span><span class="p">]</span>
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">gene_P</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">gene_T</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#Drop genes that are completely NaN across all tracks</span>
+        <span class="n">gene_P</span><span class="p">,</span> <span class="n">gene_T</span> <span class="o">=</span> <span class="n">gene_P</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">],</span> <span class="n">gene_T</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+        
+        <span class="c1"># Only compute correlation for actual RNA tracks to avoid NaN pollution</span>
+        <span class="n">rna_cols</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;RNA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">gP_rna</span><span class="p">,</span> <span class="n">gT_rna</span> <span class="o">=</span> <span class="n">gene_P</span><span class="p">[</span><span class="n">rna_cols</span><span class="p">],</span> <span class="n">gene_T</span><span class="p">[</span><span class="n">rna_cols</span><span class="p">]</span>
+        
+        <span class="n">raw_gene_cor</span> <span class="o">=</span> <span class="n">gT_rna</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">gP_rna</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+ 
+        <span class="n">gene_norm_P</span> <span class="o">=</span> <span class="n">quantile_normalize_RNA_counts</span><span class="p">(</span><span class="n">gP_rna</span><span class="p">)</span>
+        <span class="n">gene_norm_T</span> <span class="o">=</span> <span class="n">quantile_normalize_RNA_counts</span><span class="p">(</span><span class="n">gT_rna</span><span class="p">)</span>
+        <span class="n">norm_gene_cor</span> <span class="o">=</span> <span class="n">gene_norm_T</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">gene_norm_P</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+        <span class="n">norm_track_cor</span> <span class="o">=</span> <span class="n">gene_norm_T</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">corrwith</span><span class="p">(</span><span class="n">gene_norm_P</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># Save to tracks metadata</span>
+        <span class="n">tracks_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rna_cols</span><span class="p">,</span> <span class="s1">&#39;raw_gene_cor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">raw_gene_cor</span>
+        <span class="n">tracks_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">rna_cols</span><span class="p">,</span> <span class="s1">&#39;norm_gene_cor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm_gene_cor</span>
+    
+        <span class="c1"># GENE PLOTS</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Generating Gene-level plots...&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># Gene Expression Heatmap       </span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plot_strand_expression_heatmaps</span><span class="p">(</span>
+            <span class="n">gene_P</span><span class="o">=</span><span class="n">gP_rna</span><span class="p">,</span>
+            <span class="n">gene_T</span><span class="o">=</span><span class="n">gT_rna</span><span class="p">,</span>
+            <span class="n">gene_cors</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;raw gene r&#39;</span><span class="p">:</span> <span class="n">raw_gene_cor</span><span class="p">,</span> <span class="s1">&#39;norm gene r&#39;</span><span class="p">:</span> <span class="n">norm_gene_cor</span><span class="p">},</span>
+            <span class="n">gene_cors_by_gene</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;norm track r&#39;</span><span class="p">:</span> <span class="n">norm_track_cor</span><span class="p">},</span>   <span class="c1"># gene-indexed series</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;gene_expression_heatmap.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+        <span class="c1"># Gene Counts Scatter</span>
+        <span class="n">idx_max</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw&#39;</span><span class="p">:</span> <span class="n">raw_gene_cor</span><span class="o">.</span><span class="n">idxmax</span><span class="p">(),</span><span class="s1">&#39;gene&#39;</span><span class="p">:</span> <span class="n">norm_gene_cor</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()}</span>
+        <span class="n">idx_min</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;raw&#39;</span><span class="p">:</span> <span class="n">raw_gene_cor</span><span class="o">.</span><span class="n">idxmin</span><span class="p">(),</span><span class="s1">&#39;gene&#39;</span><span class="p">:</span> <span class="n">norm_gene_cor</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()}</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gene Counts Scatter (Max &amp; Min </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> Tracks)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+        <span class="n">density_scatter</span><span class="p">(</span><span class="n">gP_rna</span><span class="p">[</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]],</span> <span class="n">gT_rna</span><span class="p">[</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]],</span> 
+                        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Raw Max</span><span class="se">\n</span><span class="si">{</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">(r=</span><span class="si">{</span><span class="n">raw_gene_cor</span><span class="p">[</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">density_scatter</span><span class="p">(</span><span class="n">gene_norm_P</span><span class="p">[</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]],</span> <span class="n">gene_norm_T</span><span class="p">[</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]],</span> 
+                        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Norm Gene Max</span><span class="se">\n</span><span class="si">{</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">(r=</span><span class="si">{</span><span class="n">norm_gene_cor</span><span class="p">[</span><span class="n">idx_max</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">density_scatter</span><span class="p">(</span><span class="n">gP_rna</span><span class="p">[</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]],</span> <span class="n">gT_rna</span><span class="p">[</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]],</span> 
+                        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Raw Min</span><span class="se">\n</span><span class="si">{</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">(r=</span><span class="si">{</span><span class="n">raw_gene_cor</span><span class="p">[</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;raw&#39;</span><span class="p">]]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">density_scatter</span><span class="p">(</span><span class="n">gene_norm_P</span><span class="p">[</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]],</span> <span class="n">gene_norm_T</span><span class="p">[</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]],</span> 
+                        <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Norm Gene Min</span><span class="se">\n</span><span class="si">{</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">(r=</span><span class="si">{</span><span class="n">norm_gene_cor</span><span class="p">[</span><span class="n">idx_min</span><span class="p">[</span><span class="s1">&#39;gene&#39;</span><span class="p">]]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;gene_counts_scatter.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+                
+        <span class="c1">#Gene correlation figure</span>
+        <span class="n">rna_track_names</span> <span class="o">=</span> <span class="n">raw_gene_cor</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="o">+</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">raw_gene_cor</span><span class="p">)</span><span class="o">/</span><span class="mi">30</span><span class="p">)</span><span class="o">*</span><span class="mi">5</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> Gene Correlations Across Normalization Methods&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.98</span><span class="p">)</span>
+        <span class="c1"># Raw Gene Correlations</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">rna_track_names</span><span class="p">,</span> <span class="n">raw_gene_cor</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Raw Gene Correlations&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Pearson R&#39;</span><span class="p">)</span>
+        <span class="c1"># Normalized Across Genes</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">rna_track_names</span><span class="p">,</span> <span class="n">norm_gene_cor</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Normalized Across Genes&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Pearson R&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;gene_corr.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> 
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+    <span class="c1"># Save metrics CSV</span>
+    <span class="n">tracks_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">cor_dir</span> <span class="o">/</span> <span class="s2">&quot;track_correlations.csv&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Text Summary</span>
+    <span class="n">_write_summary</span><span class="p">(</span><span class="n">cor_dir</span><span class="p">,</span>
+                   <span class="n">model_name</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">tracks_df</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">coverage_cutoff</span><span class="p">,</span>
+                   <span class="n">concat_r</span><span class="p">,</span> <span class="n">raw_gene_cor</span><span class="p">,</span> <span class="n">norm_gene_cor</span><span class="p">,</span> <span class="n">norm_track_cor</span><span class="p">,</span>
+                  <span class="n">num_intervals</span><span class="o">=</span><span class="n">num_intervals</span><span class="p">,</span> <span class="n">num_tracks</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">),</span> <span class="n">seq_len</span><span class="o">=</span><span class="n">seq_len</span><span class="p">,</span> <span class="n">label_len</span><span class="o">=</span><span class="n">label_len</span><span class="p">,</span>  <span class="n">bin_size</span><span class="o">=</span><span class="n">bin_size</span><span class="p">)</span>      
+
+    <span class="c1"># Plots </span>
+    <span class="n">track_names</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">num_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">track_names</span><span class="p">)</span>
+    
+    <span class="c1"># CONCATENATED CORRELATION PER TRACK</span>
+    <span class="n">fig_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_tracks</span> <span class="o">/</span> <span class="mi">30</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">fig_width</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">modality_colors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ATAC&#39;</span><span class="p">:</span> <span class="s1">&#39;red&#39;</span><span class="p">,</span><span class="s1">&#39;RNA&#39;</span><span class="p">:</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span><span class="s1">&#39;CnT&#39;</span><span class="p">:</span> <span class="s1">&#39;green&#39;</span><span class="p">}</span>
+    <span class="n">rgba_colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">edge_colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">track_id</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">track_names</span><span class="p">):</span>
+        <span class="n">mod</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">cov</span> <span class="o">=</span> <span class="n">coverage</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="n">base_color</span> <span class="o">=</span> <span class="n">modality_colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">)</span> <span class="c1"># fallback to gray if unknown modality</span>
+        <span class="c1"># Check if it passes the coverage cutoff</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">cov</span><span class="p">)</span> <span class="ow">or</span> <span class="n">cov</span> <span class="o">&lt;</span> <span class="n">coverage_cutoff</span><span class="p">:</span>
+            <span class="n">rgba_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">base_color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">))</span> <span class="c1"># Faded</span>
+            <span class="n">edge_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rgba_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">base_color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">))</span> <span class="c1"># Solid</span>
+            <span class="n">edge_colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+    <span class="n">bar_positions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_tracks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">bar_positions</span><span class="p">,</span> <span class="n">concat_r</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgba_colors</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">edge_colors</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Add a baseline </span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Concatenated Pearson r&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">bar_positions</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">track_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Concatenated Pearson r per Track (</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">legend_elements</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ATAC&#39;</span><span class="p">),</span>
+        <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;RNA&#39;</span><span class="p">),</span>
+        <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;CnT&#39;</span><span class="p">),</span>
+        <span class="n">Patch</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">hatch</span><span class="o">=</span><span class="s1">&#39;///&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;&lt; </span><span class="si">{</span><span class="n">coverage_cutoff</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">% Valid Bins&#39;</span><span class="p">)</span> 
+    <span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">legend_elements</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;concatenated_correlation_barplot.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    
+    <span class="c1"># QC: COVERAGE DISTRIBUTION PLOT   </span>
+    <span class="n">filtered_interval_coverage_matrix</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">col</span><span class="p">)]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">interval_coverage_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">]</span>     <span class="c1"># Filter out NaNs (if any intervals were totally skipped/failed) for the boxplot</span>
+    <span class="n">fig_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="n">num_tracks</span> <span class="o">/</span> <span class="mi">30</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">fig_width</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">coverage_cutoff</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Track Cutoff (</span><span class="si">{</span><span class="n">coverage_cutoff</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">%)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">filtered_interval_coverage_matrix</span><span class="p">,</span> <span class="n">flierprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markerfacecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Covered Bins per Interval&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_tracks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span> <span class="n">labels</span><span class="o">=</span><span class="n">track_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Internal Coverage: Percentage of non-NaN Bins per Interval (</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;QC_coverage_distribution_across_intervals.pdf&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span> 
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1">#     # Concatenated Scatter (using reservoir sample)</span>
+<span class="c1">#     fig, axes = plt.subplots(1, 3, figsize=(15, 4))</span>
+<span class="c1">#     for ax_idx, mod in enumerate([&#39;ATAC&#39;, &#39;RNA&#39;, &#39;CnT&#39;]):</span>
+<span class="c1">#         mask = (tracks_df[&#39;Assay_type&#39;] == mod).values</span>
+<span class="c1">#         if not mask.any(): continue</span>
+        
+<span class="c1">#         mod_r = concat_r[mask]</span>
+<span class="c1">#         if mod_r.isna().all(): continue</span>
+            
+<span class="c1">#         best_track_name = mod_r.idxmax()</span>
+<span class="c1">#         t_idx = tracks_df.index.get_loc(best_track_name)</span>
+        
+<span class="c1">#         p_samp = np.log1p(reservoir.reservoir_P[t_idx])</span>
+<span class="c1">#         t_samp = np.log1p(reservoir.reservoir_T[t_idx])</span>
+        
+<span class="c1">#         valid = ~np.isnan(p_samp) &amp; ~np.isnan(t_samp)</span>
+<span class="c1">#         if valid.sum() &gt; 0:</span>
+<span class="c1">#             density_scatter(p_samp[valid], t_samp[valid], ax=axes[ax_idx], </span>
+<span class="c1">#                             title=f&quot;Best {mod}: {best_track_name}\n(r={mod_r.max():.3f})&quot;)</span>
+<span class="c1">#     plt.tight_layout()</span>
+<span class="c1">#     plt.savefig(fig_dir / &quot;concatenated_counts_scatter.pdf&quot;, dpi=300)</span>
+<span class="c1">#     plt.close()</span>
+
+    <span class="c1"># Best Interval Coverage Tracks</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ax_idx</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s1">&#39;ATAC&#39;</span><span class="p">,</span> <span class="s1">&#39;RNA&#39;</span><span class="p">,</span> <span class="s1">&#39;CnT&#39;</span><span class="p">]):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">best_tracker</span><span class="o">.</span><span class="n">best_data</span><span class="p">[</span><span class="n">mod</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">continue</span>
+            
+        <span class="c1"># We plot the first track of that modality for the best interval</span>
+        <span class="n">compare_track_coverage</span><span class="p">(</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;P&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> 
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span>
+            <span class="n">pos</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;coord&quot;</span><span class="p">],</span>
+            <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">ax_idx</span><span class="p">],</span>
+            <span class="n">log_transform</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="c1">#because we pass squashed scale counts we dont do log tranform  </span>
+            <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Best </span><span class="si">{</span><span class="n">mod</span><span class="si">}</span><span class="s2"> Interval: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;coord&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;individual_track_coverage.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c1"># Summary Beeswarm</span>
+    <span class="n">plot_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">concat_r</span><span class="p">[</span><span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">mod</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span> <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ATAC&#39;</span><span class="p">,</span> <span class="s1">&#39;RNA&#39;</span><span class="p">,</span> <span class="s1">&#39;CnT&#39;</span><span class="p">]]</span>
+    <span class="k">if</span> <span class="n">gene_acc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+        <span class="n">plot_correlation_beeswarm</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ATAC&#39;</span><span class="p">,</span> <span class="s1">&#39;RNA&#39;</span><span class="p">,</span> <span class="s1">&#39;CnT&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> Concatenated Correlations&quot;</span><span class="p">)</span>
+        <span class="n">plot_correlation_beeswarm</span><span class="p">([</span><span class="n">raw_gene_cor</span><span class="p">,</span><span class="n">norm_gene_cor</span><span class="p">,</span> <span class="n">norm_track_cor</span><span class="p">],</span>
+                                  <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;raw gene&quot;</span><span class="p">,</span> <span class="s2">&quot;norm gene&quot;</span><span class="p">,</span> <span class="s2">&quot;norm track&quot;</span><span class="p">],</span>
+                                  <span class="n">ax</span><span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                                  <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> Resolution Correlations&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;summary_beeswarm.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+        <span class="n">plot_correlation_beeswarm</span><span class="p">(</span><span class="n">plot_data</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ATAC&#39;</span><span class="p">,</span> <span class="s1">&#39;RNA&#39;</span><span class="p">,</span> <span class="s1">&#39;CnT&#39;</span><span class="p">],</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="s2"> Concat Correlations&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s2">&quot;summary_beeswarm.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_write_summary</span><span class="p">(</span><span class="n">cor_dir</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">tracks_df</span><span class="p">,</span> <span class="n">coverage</span><span class="p">,</span> <span class="n">coverage_cutoff</span><span class="p">,</span> <span class="n">concat_r</span><span class="p">,</span> 
+                   <span class="n">raw_gene_cor</span><span class="p">,</span> <span class="n">norm_gene_cor</span><span class="p">,</span> <span class="n">norm_track_cor</span><span class="p">,</span> 
+                   <span class="n">num_intervals</span><span class="p">,</span> <span class="n">num_tracks</span><span class="p">,</span> <span class="n">seq_len</span><span class="p">,</span> <span class="n">label_len</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">):</span>
+    <span class="n">summary_path</span> <span class="o">=</span> <span class="n">cor_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">analysis_name</span><span class="si">}</span><span class="s2">_summary_metrics.txt&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">summary_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;====================================================</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Seq2Fun Streaming Evaluation Summary - </span><span class="si">{</span><span class="n">model_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Analysis Name: </span><span class="si">{</span><span class="n">analysis_name</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;====================================================</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;GLOBAL SETUP &amp; QC</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Intervals:      </span><span class="si">{</span><span class="n">num_intervals</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total Tracks:         </span><span class="si">{</span><span class="n">num_tracks</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Input Seq Length:     </span><span class="si">{</span><span class="n">seq_len</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Label Seq  Length:    </span><span class="si">{</span><span class="n">label_len</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Bin Size:             </span><span class="si">{</span><span class="n">bin_size</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>      
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Average Valid Bins (non-NaN): </span><span class="si">{</span><span class="n">coverage</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dynamic NaN Coverage Cutoff): </span><span class="si">{</span><span class="n">coverage_cutoff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">%</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;BIN-RESOLUTION (BY MODALITY)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ATAC&quot;</span><span class="p">,</span> <span class="s2">&quot;RNA&quot;</span><span class="p">,</span> <span class="s2">&quot;CnT&quot;</span><span class="p">]:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="p">[</span><span class="s1">&#39;Assay_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">mod</span>
+            <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">mod</span><span class="si">}</span><span class="s2">] Concatenated Pearson r | Median: </span><span class="si">{</span><span class="n">concat_r</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Max: </span><span class="si">{</span><span class="n">concat_r</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Min: </span><span class="si">{</span><span class="n">concat_r</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">raw_gene_cor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">GENE-RESOLUTION (RNA ONLY)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Raw Gene Median r:        </span><span class="si">{</span><span class="n">raw_gene_cor</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Norm-Gene Median r:       </span><span class="si">{</span><span class="n">norm_gene_cor</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Norm-Track Median r:      </span><span class="si">{</span><span class="n">norm_track_cor</span><span class="o">.</span><span class="n">median</span><span class="p">()</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;GENE-RESOLUTION</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;No RNA tracks detected. Gene metrics skipped.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Summary metrics written to: </span><span class="si">{</span><span class="n">summary_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># ENTRY POINTS</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="evaluate_from_inference">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.streamed_correlation_analysis.evaluate_from_inference">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_from_inference</span><span class="p">(</span>
+    <span class="n">data_module</span><span class="p">,</span> <span class="n">model_forward_fn</span><span class="p">,</span> <span class="n">intervals_df</span><span class="p">,</span> <span class="n">tracks_df</span><span class="p">,</span> <span class="n">bw_paths_df</span><span class="p">,</span> 
+    <span class="n">bin_size</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">is_squashed_scale</span><span class="p">,</span> <span class="n">gtf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Runs a live validation/evaluation loop during model inference.</span>
+
+<span class="sd">    Iterates through the data module, invokes the model&#39;s forward function, and streams</span>
+<span class="sd">    batch predictions into metric accumulators to compute Pearson correlation and coverage</span>
+<span class="sd">    metrics without loading all predictions into memory.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data_module: PyTorch Lightning DataModule or custom data loader providing test batches.</span>
+<span class="sd">        model_forward_fn (callable): Forward pass function of the model that returns predictions</span>
+<span class="sd">            given a batch and starting global index.</span>
+<span class="sd">        intervals_df (pandas.DataFrame): DataFrame of coordinates for all evaluation intervals.</span>
+<span class="sd">        tracks_df (pandas.DataFrame): DataFrame of metadata/labels for all tracks.</span>
+<span class="sd">        bw_paths_df (pandas.DataFrame): DataFrame mapping tracks to target BigWig file paths.</span>
+<span class="sd">        bin_size (int): Resolution of predictions/targets in base pairs.</span>
+<span class="sd">        out_dir (str or Path): Directory where output metrics and plots will be written.</span>
+<span class="sd">        model_name (str): Identifier name of the model being evaluated.</span>
+<span class="sd">        analysis_name (str): Prefix/suffix identifier for this specific evaluation run.</span>
+<span class="sd">        is_squashed_scale (bool): Whether the model predictions are on a squashed scale.</span>
+<span class="sd">        gtf_file (str or Path, optional): GTF annotation file path for gene-level evaluations.</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">        batch_size (int, optional): Batch size of inputs. Defaults to 16.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># Create a generator that yields batches</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">batch_generator</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data_module</span><span class="o">.</span><span class="n">iter_batches</span><span class="p">(</span><span class="n">split</span><span class="o">=</span><span class="s2">&quot;test&quot;</span><span class="p">)):</span>
+            <span class="n">start_idx</span> <span class="o">=</span> <span class="n">batch_idx</span> <span class="o">*</span> <span class="n">batch_size</span>
+
+            <span class="c1"># Pass to your forward function</span>
+            <span class="n">P_batch</span> <span class="o">=</span> <span class="n">model_forward_fn</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">start_idx</span><span class="p">)</span>
+            
+            <span class="c1"># Extract coordinates for this batch</span>
+            <span class="c1"># Assuming batch has a way to get the interval coordinates</span>
+            <span class="n">coords_batch</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_idx</span> <span class="p">:</span> <span class="n">start_idx</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">P_batch</span><span class="p">)][[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            
+            <span class="k">yield</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">P_batch</span><span class="p">,</span> <span class="n">coords_batch</span>
+
+    <span class="n">_run_analysis_loop</span><span class="p">(</span>
+        <span class="n">batch_iterator</span><span class="o">=</span><span class="n">batch_generator</span><span class="p">(),</span>
+        <span class="n">num_intervals</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">),</span>
+        <span class="n">intervals_df</span><span class="o">=</span><span class="n">intervals_df</span><span class="p">,</span>
+        <span class="n">tracks_df</span><span class="o">=</span><span class="n">tracks_df</span><span class="p">,</span>
+        <span class="n">bw_paths_df</span><span class="o">=</span><span class="n">bw_paths_df</span><span class="p">,</span>
+        <span class="n">bin_size</span><span class="o">=</span><span class="n">bin_size</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">,</span>
+        <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+        <span class="n">analysis_name</span><span class="o">=</span><span class="n">analysis_name</span><span class="p">,</span>
+        <span class="n">gtf_file</span><span class="o">=</span><span class="n">gtf_file</span><span class="p">,</span>
+        <span class="n">is_squashed_scale</span> <span class="o">=</span> <span class="n">is_squashed_scale</span>
+    <span class="p">)</span></div>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># H5 STREAMING HELPERS</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_extract_h5_group_to_df</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to convert an HDF5 group of 1D datasets into a pandas DataFrame.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+    <span class="n">data_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">key</span><span class="p">][()]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">arr</span><span class="p">]</span>
+        <span class="n">data_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span>
+        
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data_dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_get_alignment_axes</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">num_intervals</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_tracks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">head_name</span><span class="o">=</span><span class="s2">&quot;Single Head&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Infers the axes mapping from the dataset shape on disk without loading it into RAM.</span>
+<span class="sd">    Returns the tuple (ax_intervals, ax_tracks, ax_bins) so slices can be transposed properly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">head_name</span><span class="si">}</span><span class="s2">] Expected 3D prediction array, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2">D.&quot;</span><span class="p">)</span>
+
+    <span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+    
+    <span class="c1"># find the intervals Axis</span>
+    <span class="k">if</span> <span class="n">num_intervals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">num_intervals</span><span class="p">:</span>
+            <span class="n">ax_intervals</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">elif</span> <span class="n">num_intervals</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">:</span>
+            <span class="n">ax_intervals</span> <span class="o">=</span> <span class="n">shape</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">num_intervals</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">head_name</span><span class="si">}</span><span class="s2">] Shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> does not contain an axis matching </span><span class="si">{</span><span class="n">num_intervals</span><span class="si">}</span><span class="s2"> intervals.&quot;</span><span class="p">)</span>
+            
+    <span class="c1"># find the Tracks Axis</span>
+    <span class="k">if</span> <span class="n">num_tracks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">remaining_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">ax_intervals</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">shape</span><span class="p">[</span><span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">num_tracks</span> <span class="ow">and</span> <span class="n">shape</span><span class="p">[</span><span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">num_tracks</span><span class="p">:</span>
+            <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">shape</span><span class="p">[</span><span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">num_tracks</span> <span class="ow">and</span> <span class="n">shape</span><span class="p">[</span><span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">!=</span> <span class="n">num_tracks</span><span class="p">:</span>
+            <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">shape</span><span class="p">[</span><span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">==</span> <span class="n">num_tracks</span> <span class="ow">and</span> <span class="n">shape</span><span class="p">[</span><span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">==</span> <span class="n">num_tracks</span><span class="p">:</span>
+            <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">head_name</span><span class="si">}</span><span class="s2">] Shape </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> does not contain an axis matching </span><span class="si">{</span><span class="n">num_tracks</span><span class="si">}</span><span class="s2"> tracks.&quot;</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">num_intervals</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">remaining_axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">ax_intervals</span><span class="p">]</span>
+        <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">remaining_axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">head_name</span><span class="si">}</span><span class="s2">] Auto-aligning axes: Mapping intervals-&gt;axis</span><span class="si">{</span><span class="n">ax_intervals</span><span class="si">}</span><span class="s2">, &quot;</span>
+              <span class="sa">f</span><span class="s2">&quot;tracks-&gt;axis</span><span class="si">{</span><span class="n">ax_tracks</span><span class="si">}</span><span class="s2">, bins-&gt;axis</span><span class="si">{</span><span class="n">ax_bins</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span>
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># HDF5 ENTRY POINT</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="evaluate_from_h5">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.streamed_correlation_analysis.evaluate_from_h5">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_from_h5</span><span class="p">(</span>
+    <span class="n">h5_path</span><span class="p">,</span> <span class="n">bw_paths_df</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">out_dir</span><span class="p">,</span> <span class="n">model_name</span><span class="p">,</span> <span class="n">analysis_name</span><span class="p">,</span> <span class="n">is_squashed_scale</span><span class="p">,</span>
+    <span class="n">gtf_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Runs a streaming evaluation on an already-saved HDF5 prediction file.</span>
+
+<span class="sd">    Loads model predictions lazily from disk in batches, matching intervals to target</span>
+<span class="sd">    BigWigs and computing Pearson correlation and gene-level expression statistics.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        h5_path (str or Path): Path to the saved HDF5 predictions file.</span>
+<span class="sd">        bw_paths_df (pandas.DataFrame): DataFrame mapping tracks to target BigWig file paths.</span>
+<span class="sd">        bin_size (int): Resolution of predictions/targets in base pairs.</span>
+<span class="sd">        out_dir (str or Path): Directory where output metrics and plots will be written.</span>
+<span class="sd">        model_name (str): Identifier name of the model.</span>
+<span class="sd">        analysis_name (str): Prefix/suffix identifier for this evaluation run.</span>
+<span class="sd">        is_squashed_scale (bool): Whether the model predictions are on a squashed scale.</span>
+<span class="sd">        gtf_file (str or Path, optional): GTF annotation file path for gene-level evaluations.</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">        batch_size (int, optional): Batch size for streaming chunks from disk. Defaults to 16.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">h5_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">h5_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;HDF5 file not found: </span><span class="si">{</span><span class="n">h5_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># First, let&#39;s open the file just to extract metadata</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">intervals_df</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">num_intervals</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s2">&quot;intervals&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">intervals_df</span> <span class="o">=</span> <span class="n">_extract_h5_group_to_df</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s2">&quot;intervals&quot;</span><span class="p">])</span>
+            <span class="c1"># Format columns to standard names just in case</span>
+            <span class="n">intervals_df</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;CHROM&quot;</span><span class="p">:</span> <span class="s2">&quot;chrom&quot;</span><span class="p">,</span> <span class="s2">&quot;#CHROM&quot;</span><span class="p">:</span> <span class="s2">&quot;chrom&quot;</span><span class="p">,</span> <span class="s2">&quot;Chrom&quot;</span><span class="p">:</span> <span class="s2">&quot;chrom&quot;</span><span class="p">,</span> <span class="s2">&quot;Chromosome&quot;</span><span class="p">:</span> <span class="s2">&quot;chrom&quot;</span><span class="p">,</span> <span class="s2">&quot;chromosome&quot;</span><span class="p">:</span> <span class="s2">&quot;chrom&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Start&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;START&quot;</span><span class="p">:</span> <span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;End&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;END&quot;</span><span class="p">:</span> <span class="s2">&quot;end&quot;</span>
+            <span class="p">})</span>
+            <span class="c1"># Ensure coordinates are integers</span>
+            <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+            <span class="n">num_intervals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;intervals&#39; group missing in </span><span class="si">{</span><span class="n">h5_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Map datasets and figure out alignments</span>
+        <span class="n">datasets_info</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">tracks_list</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">if</span> <span class="s2">&quot;predictions&quot;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># Single-Head (Borzoi)</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span>
+            <span class="n">t_df</span> <span class="o">=</span> <span class="n">_extract_h5_group_to_df</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tracks&quot;</span><span class="p">))</span>
+            <span class="n">num_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_df</span><span class="p">)</span> <span class="k">if</span> <span class="n">t_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">ax_map</span> <span class="o">=</span> <span class="n">_get_alignment_axes</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">num_intervals</span><span class="p">,</span> <span class="n">num_tracks</span><span class="p">,</span> <span class="s2">&quot;SingleHead&quot;</span><span class="p">)</span>
+            
+            <span class="n">datasets_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;ax_map&quot;</span><span class="p">:</span> <span class="n">ax_map</span><span class="p">})</span>
+            <span class="k">if</span> <span class="n">t_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">tracks_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_df</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Multi-Head (AG)</span>
+            <span class="k">for</span> <span class="n">head_name</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">head_name</span> <span class="o">==</span> <span class="s2">&quot;intervals&quot;</span><span class="p">:</span> <span class="k">continue</span> 
+                <span class="n">head_grp</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">head_name</span><span class="p">]</span>
+                <span class="k">if</span> <span class="s2">&quot;predictions&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">head_grp</span><span class="p">:</span> <span class="k">continue</span> 
+                
+                <span class="n">ds</span> <span class="o">=</span> <span class="n">head_grp</span><span class="p">[</span><span class="s2">&quot;predictions&quot;</span><span class="p">]</span>
+                <span class="n">t_df</span> <span class="o">=</span> <span class="n">_extract_h5_group_to_df</span><span class="p">(</span><span class="n">head_grp</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tracks&quot;</span><span class="p">))</span>
+                <span class="n">num_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_df</span><span class="p">)</span> <span class="k">if</span> <span class="n">t_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+                <span class="n">ax_map</span> <span class="o">=</span> <span class="n">_get_alignment_axes</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">num_intervals</span><span class="p">,</span> <span class="n">num_tracks</span><span class="p">,</span> <span class="n">head_name</span><span class="p">)</span>
+                
+                <span class="n">datasets_info</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="n">ds</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;ax_map&quot;</span><span class="p">:</span> <span class="n">ax_map</span><span class="p">})</span>
+                <span class="k">if</span> <span class="n">t_df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">tracks_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t_df</span><span class="p">)</span>
+                
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">datasets_info</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find any &#39;predictions&#39; datasets in </span><span class="si">{</span><span class="n">h5_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Concatenate tracks DataFrames row-wise</span>
+        <span class="k">if</span> <span class="n">tracks_list</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">tracks_list</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasets_info</span><span class="p">):</span>
+            <span class="n">tracks_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">tracks_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">utils.eval.track_prediction</span><span class="w"> </span><span class="kn">import</span> <span class="n">process_track_metadata</span>
+            <span class="n">tracks_df</span> <span class="o">=</span> <span class="n">process_track_metadata</span><span class="p">(</span><span class="n">tracks_df</span><span class="p">)</span>
+            <span class="n">tracks_df</span> <span class="o">=</span> <span class="n">tracks_df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Missing track metadata in </span><span class="si">{</span><span class="n">h5_path</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+    <span class="c1"># HANDLE BORZOI INTERVAL CROPPING</span>
+    <span class="c1"># Get the number of bins directly from the model predictions on disk</span>
+    <span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="n">datasets_info</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;ax_map&quot;</span><span class="p">]</span>
+    <span class="n">num_bins_p</span> <span class="o">=</span> <span class="n">datasets_info</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;shape&quot;</span><span class="p">][</span><span class="n">ax_bins</span><span class="p">]</span>
+    <span class="n">SEQ_LEN</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">LABEL_LEN</span> <span class="o">=</span> <span class="n">num_bins_p</span> <span class="o">*</span> <span class="n">bin_size</span>
+    <span class="k">if</span> <span class="n">SEQ_LEN</span> <span class="o">!=</span> <span class="n">LABEL_LEN</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: Resizing intervals from </span><span class="si">{</span><span class="n">SEQ_LEN</span><span class="si">}</span><span class="s2"> to </span><span class="si">{</span><span class="n">LABEL_LEN</span><span class="si">}</span><span class="s2"> to match prediction bins.&quot;</span><span class="p">,</span> <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">CROP</span> <span class="o">=</span> <span class="p">(</span><span class="n">SEQ_LEN</span> <span class="o">-</span> <span class="n">LABEL_LEN</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">CROP</span>
+        <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">CROP</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using SEQ_LEN: </span><span class="si">{</span><span class="n">SEQ_LEN</span><span class="si">}</span><span class="s2">, LABEL_LEN: </span><span class="si">{</span><span class="n">LABEL_LEN</span><span class="si">}</span><span class="s2">, BIN_SIZE: </span><span class="si">{</span><span class="n">bin_size</span><span class="si">}</span><span class="s2">, N_BINS: </span><span class="si">{</span><span class="n">num_bins_p</span><span class="si">}</span><span class="s2"> as inferred from h5 file.&quot;</span><span class="p">,</span>
+          <span class="n">flush</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> 
+
+    <span class="c1"># Create the generator that slices lazily</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">h5_generator</span><span class="p">():</span>
+        <span class="c1"># Keep file open during streaming</span>
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># Re-fetch dataset pointers for the open file session</span>
+            <span class="n">active_datasets</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">datasets_info</span><span class="p">:</span>
+                <span class="n">ds_path</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">]</span>
+                <span class="n">active_datasets</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                    <span class="s2">&quot;dataset&quot;</span><span class="p">:</span> <span class="n">f</span><span class="p">[</span><span class="n">ds_path</span><span class="p">],</span>
+                    <span class="s2">&quot;ax_map&quot;</span><span class="p">:</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;ax_map&quot;</span><span class="p">]</span>
+                <span class="p">})</span>
+
+            <span class="k">for</span> <span class="n">start_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_intervals</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+                <span class="n">end_idx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">start_idx</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">num_intervals</span><span class="p">)</span>
+                
+                <span class="n">batch_slices</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">active_datasets</span><span class="p">:</span>
+                    <span class="n">ds</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;dataset&quot;</span><span class="p">]</span>
+                    <span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="s2">&quot;ax_map&quot;</span><span class="p">]</span>
+                    
+                    <span class="c1"># Create a slicing tuple: slice(None) means &#39;:&#39;</span>
+                    <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="mi">3</span>
+                    <span class="n">slices</span><span class="p">[</span><span class="n">ax_intervals</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">start_idx</span><span class="p">,</span> <span class="n">end_idx</span><span class="p">)</span>
+                    
+                    <span class="c1"># Read only the batch from disk!</span>
+                    <span class="n">p_chunk</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">slices</span><span class="p">)]</span>
+                    
+                    <span class="c1"># Transpose to (Intervals, Tracks, Bins) if needed</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span><span class="p">)</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                        <span class="n">p_chunk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">p_chunk</span><span class="p">,</span> <span class="p">(</span><span class="n">ax_intervals</span><span class="p">,</span> <span class="n">ax_tracks</span><span class="p">,</span> <span class="n">ax_bins</span><span class="p">))</span>
+                        
+                    <span class="n">batch_slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_chunk</span><span class="p">)</span>
+                
+                <span class="c1"># Concatenate along the tracks axis</span>
+                <span class="n">P_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">batch_slices</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                
+                <span class="c1"># Get coordinates</span>
+                <span class="n">coords_batch</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="p">][[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+                
+                <span class="k">yield</span> <span class="n">start_idx</span><span class="p">,</span> <span class="n">P_batch</span><span class="p">,</span> <span class="n">coords_batch</span>
+
+    <span class="c1"># Hand off to the core loop</span>
+    <span class="n">_run_analysis_loop</span><span class="p">(</span>
+        <span class="n">batch_iterator</span><span class="o">=</span><span class="n">h5_generator</span><span class="p">(),</span>
+        <span class="n">num_intervals</span><span class="o">=</span><span class="n">num_intervals</span><span class="p">,</span>
+        <span class="n">intervals_df</span><span class="o">=</span><span class="n">intervals_df</span><span class="p">,</span>
+        <span class="n">tracks_df</span><span class="o">=</span><span class="n">tracks_df</span><span class="p">,</span>
+        <span class="n">bw_paths_df</span><span class="o">=</span><span class="n">bw_paths_df</span><span class="p">,</span>
+        <span class="n">bin_size</span><span class="o">=</span><span class="n">bin_size</span><span class="p">,</span>
+        <span class="n">out_dir</span><span class="o">=</span><span class="n">out_dir</span><span class="p">,</span>
+        <span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+        <span class="n">analysis_name</span><span class="o">=</span><span class="n">analysis_name</span><span class="p">,</span>
+        <span class="n">gtf_file</span><span class="o">=</span><span class="n">gtf_file</span><span class="p">,</span>
+        <span class="n">seq_len</span><span class="o">=</span><span class="n">SEQ_LEN</span><span class="p">,</span>
+        <span class="n">label_len</span><span class="o">=</span><span class="n">LABEL_LEN</span><span class="p">,</span>
+        <span class="n">is_squashed_scale</span> <span class="o">=</span> <span class="n">is_squashed_scale</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

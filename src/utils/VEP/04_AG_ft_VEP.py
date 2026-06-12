@@ -1,6 +1,10 @@
-#Code by Jakob Then
-#Script to run batch VEP from a VCF file using a custom AG model
-#Using center mask scorering for CutnTag and ATAC and exon mask scoring for RNA
+"""
+Variant Effect Prediction (VEP) Script
+
+This script loads a fine-tuned AlphaGenome model and runs batch Variant Effect
+Prediction (VEP) on variants from an input VCF file. It uses center mask scoring
+for CutnTag and ATAC-seq tracks, and exon mask scoring for RNA-seq tracks.
+"""
 
 import os
 import numpy as np
@@ -63,7 +67,28 @@ CHROM_SIZES = dict(zip(chrom_size_df['chrom'], chrom_size_df['end']))
 # 3. define helper functions
 #define new varaint effect batch genrate that works with our heads
 def variant_batch_generator(df, fasta_path, batch_size, window_size, organism="HOMO_SAPIENS"):
-    """Yields batches of (REF_one_hot, ALT_one_hot, indel_masks, variant_ids)"""
+    """Yields batches of encoded reference and alternate sequences for variant effect scoring.
+
+    Extracts genomic sequences centered on variants, applies indel shifting and padding
+    if necessary, and one-hot encodes the sequences.
+
+    Args:
+        df (pandas.DataFrame): DataFrame containing variant information (CHROM, POS, REF, ALT, variant_id).
+        fasta_path (str or Path): Path to the reference genome FASTA file.
+        batch_size (int): Number of variants to yield in each batch.
+        window_size (int): Size of the genomic window centered on the variant.
+        organism (str, optional): Target organism name. Defaults to "HOMO_SAPIENS".
+
+    Yields:
+        tuple:
+            - np.ndarray: One-hot encoded reference sequences.
+            - np.ndarray: One-hot encoded alternate sequences.
+            - list of IndelMask: Indel alignment masks.
+            - list of Variant: AlphaGenome variant objects.
+            - list of Interval: Target interval coordinates.
+            - list of str: Variant identifiers.
+            - int: The actual size of the batch (excluding padding).
+    """
     extractor = fasta_lib.FastaExtractor(str(fasta_path))
     encoder = one_hot_encoder.DNAOneHotEncoder(dtype=np.float32)
     

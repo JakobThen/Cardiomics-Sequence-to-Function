@@ -1,0 +1,1150 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.eval.track_correlation &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/eval/track_correlation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.eval.track_correlation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Plotting functions and processing helpers to analyze and visualize model track prediction performance&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">gc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_kde</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ticker</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.figure</span><span class="w"> </span><span class="kn">import</span> <span class="n">Figure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.axes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.axes_grid1</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_axes_locatable</span>
+
+<div class="viewcode-block" id="compute_na_masked_pearson_distribution">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.compute_na_masked_pearson_distribution">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compute_na_masked_pearson_distribution</span><span class="p">(</span><span class="n">P</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">min_valid_pct</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">return_sum_counts</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the Pearson correlation coefficient matrix between predictions and targets.</span>
+
+<span class="sd">    Computes correlation coefficients between all prediction tracks and target tracks across</span>
+<span class="sd">    non-NaN bins, using vectorized operations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        P (np.ndarray): Predictions array of shape `(intervals, P_tracks, bins)`.</span>
+<span class="sd">        T (np.ndarray): Targets array of shape `(intervals, T_tracks, bins)`.</span>
+<span class="sd">        min_valid_pct (float, optional): Minimum required valid (non-NaN) bins fraction</span>
+<span class="sd">            per interval for calculating correlation. Defaults to 0.1.</span>
+<span class="sd">        return_sum_counts (bool, optional): If True, returns target and prediction sum matrices.</span>
+<span class="sd">            Defaults to False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray or tuple:</span>
+<span class="sd">            - np.ndarray: Pearson correlation matrix of shape `(intervals, P_tracks, T_tracks)`.</span>
+<span class="sd">            - np.ndarray: Sum of targets per interval/track (if `return_sum_counts=True`).</span>
+<span class="sd">            - np.ndarray: Sum of predictions per interval/track (if `return_sum_counts=True`).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create masks and safe-T</span>
+    <span class="n">T_valid_mask</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">T</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="c1"># 1.0 if valid, 0.0 if NaN</span>
+    <span class="n">T_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>             <span class="c1"># Safe for math; masked out later</span>
+    
+    <span class="c1"># Count valid elements per batch (summing over Bins at axis=2)</span>
+    <span class="c1"># Resulting shape: (Batch, 1, N_tracks) to broadcast against M_tracks</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">T_valid_mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">C_safe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate sums per interval</span>
+    <span class="c1"># Einsum variables: b=batch, m=P_tracks, n=T_tracks, l=bins (now at the end)</span>
+    <span class="n">sum_P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bml,bnl-&gt;bmn&#39;</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">T_valid_mask</span><span class="p">)</span>
+    <span class="n">mu_P</span> <span class="o">=</span> <span class="n">sum_P</span> <span class="o">/</span> <span class="n">C_safe</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_sum_counts</span><span class="p">:</span> <span class="k">del</span> <span class="n">sum_P</span>
+    <span class="n">sum_P2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bml,bnl-&gt;bmn&#39;</span><span class="p">,</span> <span class="n">P</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">T_valid_mask</span><span class="p">)</span>
+    
+    <span class="k">del</span> <span class="n">T_valid_mask</span><span class="p">;</span> <span class="n">gc</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> 
+    
+    <span class="n">sum_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">T_0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">mu_T</span> <span class="o">=</span> <span class="n">sum_T</span> <span class="o">/</span> <span class="n">C_safe</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">return_sum_counts</span><span class="p">:</span> <span class="k">del</span> <span class="n">sum_T</span>
+    <span class="n">sum_T2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">T_0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">2</span><span class="p">)[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    
+    <span class="n">sum_PT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bml,bnl-&gt;bmn&#39;</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">T_0</span><span class="p">)</span>
+    
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">sum_PT</span> <span class="o">-</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="n">mu_P</span> <span class="o">*</span> <span class="n">mu_T</span><span class="p">)</span>
+    <span class="n">var_P</span> <span class="o">=</span> <span class="n">sum_P2</span> <span class="o">-</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="n">mu_P</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">var_T</span> <span class="o">=</span> <span class="n">sum_T2</span> <span class="o">-</span> <span class="p">(</span><span class="n">C</span> <span class="o">*</span> <span class="p">(</span><span class="n">mu_T</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    
+    <span class="n">std_product</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">var_P</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">var_T</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">valid_combo_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">C</span> <span class="o">&gt;=</span> <span class="nb">int</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">min_valid_pct</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">std_product</span> <span class="o">&gt;</span> <span class="mf">1e-12</span><span class="p">)</span>
+    
+    <span class="c1"># R_indiv shape: (Batch, M_pred_tracks, N_bw_tracks)</span>
+    <span class="n">R_indiv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">std_product</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="n">valid_combo_mask</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">return_sum_counts</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">sum_T</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">sum_P</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span> <span class="n">sum_T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span><span class="n">sum_T</span><span class="p">,</span> <span class="n">sum_P</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>     <span class="c1"># Broadcast sum_T to match sum_P&#39;s 3D shape (Batch, M, N) so they align in the long dataframe</span>
+        <span class="k">return</span> <span class="n">R_indiv</span><span class="p">,</span> <span class="n">sum_T</span><span class="p">,</span> <span class="n">sum_P</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">R_indiv</span></div>
+
+
+
+<span class="c1">#quantlile normalizeing the df for nromlaized correaltion analysis</span>
+<div class="viewcode-block" id="quantile_normalize_RNA_counts">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.quantile_normalize_RNA_counts">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">quantile_normalize_RNA_counts</span><span class="p">(</span><span class="n">log_counts_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Quantile normalizes RNA counts across tracks and centers them by gene means.</span>
+
+<span class="sd">    Aligns count distributions across tracks to a shared target distribution</span>
+<span class="sd">    (the mean distribution across tracks) and centers them by subtracting the average</span>
+<span class="sd">    count of each gene. Robust to NaN values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        log_counts_data (pandas.DataFrame or np.ndarray): Input counts table of shape</span>
+<span class="sd">            `(genes, tracks)`. Expects log-transformed counts.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pandas.DataFrame or np.ndarray: Normalized and gene-centered counts matching the input type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">is_df</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">log_counts_data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">log_counts_data</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_df</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">log_counts_data</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">sorted_genes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="c1"># # context manager to suppress warnings if a row is entirely NaN</span>
+    <span class="c1"># with np.errstate(mean=&#39;ignore&#39;, invalid=&#39;ignore&#39;):</span>
+    <span class="n">gene_target_distribution</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">sorted_genes</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">temp_df</span> <span class="o">=</span> <span class="n">log_counts_data</span> <span class="k">if</span> <span class="n">is_df</span> <span class="k">else</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+    <span class="n">gene_ranks</span> <span class="o">=</span> <span class="n">temp_df</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;min&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">norm_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">col_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">valid_mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">arr</span><span class="p">[:,</span> <span class="n">col_idx</span><span class="p">])</span>
+        <span class="n">valid_ranks</span> <span class="o">=</span> <span class="n">gene_ranks</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">norm_pred</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">,</span> <span class="n">col_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">gene_target_distribution</span><span class="p">[</span><span class="n">valid_ranks</span><span class="p">]</span>
+   
+    <span class="c1"># Center the predictions ignoring NaNs</span>
+    <span class="c1">#with np.errstate(mean=&#39;ignore&#39;, invalid=&#39;ignore&#39;):</span>
+    <span class="n">gene_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">norm_pred</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">centered_norm_pred</span> <span class="o">=</span> <span class="n">norm_pred</span> <span class="o">-</span> <span class="n">gene_means</span>
+    
+    <span class="k">if</span> <span class="n">is_df</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">centered_norm_pred</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">log_counts_data</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">log_counts_data</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">centered_norm_pred</span></div>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_filter</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.ndimage</span><span class="w"> </span><span class="kn">import</span> <span class="n">gaussian_filter</span>
+
+<div class="viewcode-block" id="density_scatter">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.density_scatter">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">density_scatter</span><span class="p">(</span>
+    <span class="n">pred</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> 
+    <span class="n">obs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> 
+    <span class="n">ax</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> 
+    <span class="n">xlabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">ylabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">density</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>         
+    <span class="n">smooth_sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span> 
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a square scatter plot of predicted vs observed values, colored by point density.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="n">valid_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not enough valid points to plot after removing NaNs/Infs.&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">density</span><span class="p">:</span>
+        <span class="n">H</span><span class="p">,</span> <span class="n">xedges</span><span class="p">,</span> <span class="n">yedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)</span>
+        <span class="n">H_smoothed</span> <span class="o">=</span> <span class="n">gaussian_filter</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">smooth_sigma</span><span class="p">)</span>
+        
+        <span class="c1"># FIX: Clip directly to the generated dimensions of H_smoothed</span>
+        <span class="c1"># This guarantees you never get an out-of-bounds error regardless of the bins used</span>
+        <span class="n">x_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">xedges</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">H_smoothed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">y_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">yedges</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">H_smoothed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        
+        <span class="n">z</span> <span class="o">=</span> <span class="n">H_smoothed</span><span class="p">[</span><span class="n">x_idx</span><span class="p">,</span> <span class="n">y_idx</span><span class="p">]</span>
+
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="n">rasterized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">min_val</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+    <span class="n">max_val</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+    <span class="n">pad</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_val</span> <span class="o">-</span> <span class="n">min_val</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.05</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">pad</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">,</span> <span class="n">adjustable</span><span class="o">=</span><span class="s1">&#39;box&#39;</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">pad</span><span class="p">],</span> 
+        <span class="p">[</span><span class="n">min_val</span> <span class="o">-</span> <span class="n">pad</span><span class="p">,</span> <span class="n">max_val</span> <span class="o">+</span> <span class="n">pad</span><span class="p">],</span> 
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">,</span> 
+        <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> 
+        <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> 
+        <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span> <span class="k">if</span> <span class="n">xlabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;log predicted counts&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span> <span class="k">if</span> <span class="n">ylabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;log observed counts&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="plot_correlation_beeswarm">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.plot_correlation_beeswarm">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_correlation_beeswarm</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> 
+    <span class="n">labels</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> 
+    <span class="n">ax</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">figsize</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">tuple</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">ylabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates side-by-side beeswarm plots for categorical data, highlighting the mean.</span>
+<span class="sd">    Automatically scales y-limits and handles both flat and grouped inputs.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        values: Can be either:</span>
+<span class="sd">                1. A single 1D array of values (e.g., [0.9, 0.8, 0.5...]).</span>
+<span class="sd">                2. A list/tuple of arrays (e.g., [arr_A, arr_B]).</span>
+<span class="sd">        labels: Can be either:</span>
+<span class="sd">                1. A 1D array of labels matching the length of values (e.g., [&#39;A&#39;, &#39;A&#39;, &#39;B&#39;...]).</span>
+<span class="sd">                2. A list of category names matching the number of arrays in values (e.g., [&#39;A&#39;, &#39;B&#39;]).</span>
+<span class="sd">        ax: Matplotlib axes object. If None, creates a new figure and axis.</span>
+<span class="sd">        figsize: Tuple specifying (width, height). Defaults to (1 + n, 5).</span>
+<span class="sd">        ylabel: Custom y-axis label. Defaults to &#39;Pearson Correlation&#39;.</span>
+<span class="sd">        title: Optional title for the plot.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        ax: The matplotlib Axes object containing the plot.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">is_grouped_input</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">first_elem</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">first_elem</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">first_elem</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">is_grouped_input</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">if</span> <span class="n">is_grouped_input</span><span class="p">:</span>
+        <span class="n">flat_values</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">flat_labels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+            <span class="n">arr_flat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">flat_values</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">arr_flat</span><span class="p">)</span>
+            <span class="c1"># Duplicate the category label for every item in this array</span>
+            <span class="n">flat_labels</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">arr_flat</span><span class="p">))</span> 
+            
+        <span class="c1"># Reassign to our standard variables</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">flat_values</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">flat_labels</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="n">values</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">labels</span><span class="p">})</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>    
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No valid data points left to plot after dropping NaNs.&quot;</span><span class="p">)</span>
+        
+    <span class="n">unique_labels</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_labels</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">figsize</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">+</span> <span class="mf">0.6</span><span class="o">*</span><span class="n">n</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># Minimum width of 5, scales up with n</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+    <span class="n">sns</span><span class="o">.</span><span class="n">swarmplot</span><span class="p">(</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> 
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> 
+        <span class="n">y</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> 
+        <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> 
+        <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;husl&#39;</span><span class="p">,</span> 
+        <span class="n">size</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>         
+        <span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span>
+        <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+
+    <span class="n">means</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">)[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">plotted_categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">tick</span><span class="o">.</span><span class="n">get_text</span><span class="p">()</span> <span class="k">for</span> <span class="n">tick</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">()]</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">category</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">plotted_categories</span><span class="p">):</span>
+        <span class="n">mean_val</span> <span class="o">=</span> <span class="n">means</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">category</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">mean_val</span><span class="p">):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">mean_val</span><span class="p">,</span> 
+                <span class="n">xmin</span><span class="o">=</span><span class="n">i</span> <span class="o">-</span> <span class="mf">0.1</span><span class="p">,</span> 
+                <span class="n">xmax</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">,</span> 
+                <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+                <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span> 
+            <span class="p">)</span>
+
+    <span class="n">min_val</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">min_val</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">min_val</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> 
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span> <span class="k">if</span> <span class="n">ylabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;Pearson Correlation&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticks</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="plot_interval_correlation_heatmap">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.plot_interval_correlation_heatmap">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_interval_correlation_heatmap</span><span class="p">(</span>
+    <span class="n">R_indiv</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">intervals_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">track_names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">coverage_per_track</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]],</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Individual Pearson Correlation per Interval and Track&#39;</span><span class="p">,</span>
+    <span class="n">cmap</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Figure</span><span class="p">,</span> <span class="n">Axes</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates an annotated heatmap of interval-track correlations.</span>
+<span class="sd">    </span>
+<span class="sd">    The heatmap is automatically sorted by genomic position (chromosome, then start).</span>
+<span class="sd">    It includes a left-side annotation for track coverage, and top annotations for </span>
+<span class="sd">    chromosome and start positions.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        R_indiv (np.ndarray): 2D array of correlations of shape (n_intervals, n_tracks).</span>
+<span class="sd">        intervals_df (pd.DataFrame): DataFrame of shape (n_intervals, ...). Must </span>
+<span class="sd">                                     contain &#39;chrom&#39; and &#39;start&#39; columns.</span>
+<span class="sd">        track_names (List[str]): List of track names, length equal to n_tracks.</span>
+<span class="sd">        coverage_per_track (Union[np.ndarray, List[float]]): 1D array of coverage </span>
+<span class="sd">                                                             values (0 to 1), length equal to n_tracks.</span>
+<span class="sd">        title (str): The main title of the plot.</span>
+<span class="sd">        cmap (str): The matplotlib colormap to use for the main correlation heatmap.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Figure, Axes]: The matplotlib Figure and main Axes object.</span>
+<span class="sd">    </span>
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the dimensions of the inputs do not align.</span>
+<span class="sd">        KeyError: If &#39;chrom&#39; or &#39;start&#39; are missing from intervals_df.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 0. Safety Checks</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">n_intervals</span><span class="p">,</span> <span class="n">n_tracks</span> <span class="o">=</span> <span class="n">R_indiv</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_intervals</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;intervals_df length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">)</span><span class="si">}</span><span class="s2">) does not match R_indiv rows (</span><span class="si">{</span><span class="n">n_intervals</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">track_names</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_tracks</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;track_names length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">track_names</span><span class="p">)</span><span class="si">}</span><span class="s2">) does not match R_indiv columns (</span><span class="si">{</span><span class="n">n_tracks</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coverage_per_track</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_tracks</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;coverage_per_track length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">coverage_per_track</span><span class="p">)</span><span class="si">}</span><span class="s2">) does not match n_tracks (</span><span class="si">{</span><span class="n">n_tracks</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">{</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">}</span><span class="o">.</span><span class="n">issubset</span><span class="p">(</span><span class="n">intervals_df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;intervals_df must contain &#39;chrom&#39; and &#39;start&#39; columns.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 1. Sort the Data</span>
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># Work on a copy to avoid mutating the original DataFrame</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="p">[[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="n">chrom_order</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;chr</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">&#39;chrX&#39;</span><span class="p">,</span> <span class="s1">&#39;chrY&#39;</span><span class="p">,</span> <span class="s1">&#39;chrM&#39;</span><span class="p">]</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">],</span> 
+        <span class="n">categories</span><span class="o">=</span><span class="n">chrom_order</span><span class="p">,</span> 
+        <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    
+    <span class="n">sorted_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">])</span>
+    <span class="n">sort_idx</span> <span class="o">=</span> <span class="n">sorted_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    
+    <span class="c1"># Reorder the main array (Columns/Intervals)</span>
+    <span class="c1"># R_indiv is (intervals, tracks), so R_indiv.T is (tracks, intervals)</span>
+    <span class="n">R_sorted</span> <span class="o">=</span> <span class="n">R_indiv</span><span class="o">.</span><span class="n">T</span><span class="p">[:,</span> <span class="n">sort_idx</span><span class="p">]</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 2. Prepare Annotation Data</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">cov_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coverage_per_track</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">chrom_integers</span> <span class="o">=</span> <span class="n">sorted_df</span><span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">start_values</span> <span class="o">=</span> <span class="n">sorted_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 3. Setup Figure and Divider</span>
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># Dynamically scale height based on number of tracks</span>
+    <span class="n">fig_height</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track_names</span><span class="p">)</span> <span class="o">/</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax_main</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="n">fig_height</span><span class="p">))</span>
+
+    <span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax_main</span><span class="p">)</span>
+
+    <span class="n">ax_left</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;2%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">ax_top_start</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;2%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    <span class="n">ax_top_chrom</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;2%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
+    
+    <span class="n">cax_main</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;1%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>       
+    <span class="n">cax_stacked</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;1%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>   
+    <span class="n">cax_stacked</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span> 
+    
+    <span class="n">cax_chrom</span> <span class="o">=</span> <span class="n">cax_stacked</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">])</span> 
+    <span class="n">cax_start</span> <span class="o">=</span> <span class="n">cax_stacked</span><span class="o">.</span><span class="n">inset_axes</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.00</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">])</span> 
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 4. Plot the Data</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">im_main</span> <span class="o">=</span> <span class="n">ax_main</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">R_sorted</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="n">im_left</span> <span class="o">=</span> <span class="n">ax_left</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cov_array</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Reds&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">im_start</span> <span class="o">=</span> <span class="n">ax_top_start</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">start_values</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+    <span class="n">im_chrom</span> <span class="o">=</span> <span class="n">ax_top_chrom</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">chrom_integers</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab20&#39;</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 5. Clean Up Axes, Ticks, and Labels</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">ax_main</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax_main</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">ax_main</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Intervals (Sorted by Chrom &amp; Start)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    
+    <span class="n">ax_left</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax_left</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">track_names</span><span class="p">)))</span>
+    <span class="n">ax_left</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">track_names</span><span class="p">)</span>
+    <span class="n">ax_left</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tracks&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax_left</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Coverage</span><span class="se">\n</span><span class="s1">(non NaN bin %)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    
+    <span class="n">ax_top_start</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax_top_start</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">ax_top_start</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    
+    <span class="n">ax_top_chrom</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+    <span class="n">ax_top_chrom</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+    <span class="n">ax_top_chrom</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Chrom&#39;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax_top_chrom</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 6. Assign and Format Colorbars</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im_main</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax_main</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interval Pearson R&#39;</span><span class="p">)</span>
+    
+    <span class="n">cb_chrom</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im_chrom</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax_chrom</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interval Chromosome&#39;</span><span class="p">)</span>
+    <span class="n">unique_chroms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">chrom_integers</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> 
+    <span class="n">cb_chrom</span><span class="o">.</span><span class="n">set_ticks</span><span class="p">(</span><span class="n">unique_chroms</span><span class="p">)</span>
+    <span class="n">cb_chrom</span><span class="o">.</span><span class="n">set_ticklabels</span><span class="p">([</span><span class="n">chrom_order</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unique_chroms</span><span class="p">])</span>
+    <span class="n">cb_chrom</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span> 
+    
+    <span class="n">cb_start</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im_start</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax_start</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Interval Start Position&#39;</span><span class="p">)</span>
+    <span class="n">cb_start</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">M&quot;</span><span class="p">))</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 7. Add Chromosome Boundaries</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">chrom_changes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">chrom_integers</span><span class="p">[</span><span class="mi">0</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">chrom_integers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">boundary</span> <span class="ow">in</span> <span class="n">chrom_changes</span><span class="p">:</span>
+        <span class="n">ax_main</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">boundary</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax_main</span></div>
+
+
+<div class="viewcode-block" id="compare_track_coverage">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.compare_track_coverage">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_track_coverage</span><span class="p">(</span>
+    <span class="n">preds</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">obs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Axes</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pos</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">log_transform</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">xlabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ylabel</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Figure</span><span class="p">,</span> <span class="n">Axes</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots predicted against observed coverage for a genomic interval as overlapping tracks.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        preds: Array-like of predicted values (plotted on top).</span>
+<span class="sd">        obs: Array-like of observed values (plotted underneath).</span>
+<span class="sd">        ax: Optional matplotlib Axes. If None, creates a new Figure and Axes.</span>
+<span class="sd">        pos: Optional tuple of (chrom, start, end). If None, uses relative coordinates.</span>
+<span class="sd">        title: Optional title for the plot.</span>
+<span class="sd">        log_transform: If True, applies np.log1p to both arrays.</span>
+<span class="sd">        xlabel: Custom x-axis label. Defaults to &#39;Genomic Position&#39; or &#39;Relative Position&#39;.</span>
+<span class="sd">        ylabel: Custom y-axis label. Defaults to &#39;Coverage (log1p counts)&#39; or &#39;Coverage (counts)&#39;.</span>
+<span class="sd">        figsize: Tuple specifying figure dimensions if ax is not provided.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Figure, Axes]: The matplotlib Figure and Axes object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">preds_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">obs_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">preds_arr</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">obs_arr</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Length mismatch: preds (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">preds_arr</span><span class="p">)</span><span class="si">}</span><span class="s2">) vs obs (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">obs_arr</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        
+    <span class="n">n_bins</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">preds_arr</span><span class="p">)</span>
+    
+    <span class="c1">#compute cor</span>
+    <span class="n">valid_mask</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">preds_arr</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">obs_arr</span><span class="p">)</span>
+    <span class="n">T_valid</span> <span class="o">=</span> <span class="n">obs_arr</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+    <span class="n">P_valid</span> <span class="o">=</span> <span class="n">preds_arr</span><span class="p">[</span><span class="n">valid_mask</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">T_valid</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">P_valid</span><span class="p">,</span> <span class="n">T_valid</span><span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    
+    <span class="n">preds_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">preds_arr</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">obs_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">obs_arr</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">log_transform</span><span class="p">:</span>
+        <span class="n">preds_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">preds_arr</span><span class="p">)</span>
+        <span class="n">obs_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">obs_arr</span><span class="p">)</span>
+        <span class="n">default_ylabel</span> <span class="o">=</span> <span class="s2">&quot;Coverage (log1p)&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">default_ylabel</span> <span class="o">=</span> <span class="s2">&quot;Coverage (squashed scale)&quot;</span>
+        
+    <span class="c1"># Genomic Coordinates (X-axis)</span>
+    <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">chrom</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">pos</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">)</span> <span class="o">%</span> <span class="n">n_bins</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: Interval length (</span><span class="si">{</span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">}</span><span class="s2">) is not perfectly divisible by n_bins (</span><span class="si">{</span><span class="n">n_bins</span><span class="si">}</span><span class="s2">). Check your positions.&quot;</span><span class="p">)</span>
+        <span class="n">x_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">default_xlabel</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Interval </span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">end</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x_coords</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_bins</span><span class="p">)</span>
+        <span class="n">default_xlabel</span> <span class="o">=</span> <span class="s2">&quot;Relative Bin Position&quot;</span>
+        
+    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">figure</span>
+  
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">obs_arr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;darkblue&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Observed&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">preds_arr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predicted&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_coords</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span> <span class="k">if</span> <span class="n">ylabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">default_ylabel</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span> <span class="k">if</span> <span class="n">xlabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">default_xlabel</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">pos</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="mf">1e6</span><span class="p">:</span>
+             <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">M&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="mf">1e3</span><span class="p">:</span>
+             <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">ticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="o">/</span><span class="mf">1e3</span><span class="si">:</span><span class="s2">g</span><span class="si">}</span><span class="s2">k&quot;</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">title</span><span class="p">:</span> <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> (r = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;r = </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>   </div>
+
+
+<div class="viewcode-block" id="plot_strand_expression_heatmaps">
+<a class="viewcode-back" href="../../../api/utils.eval.html#utils.eval.track_correlation.plot_strand_expression_heatmaps">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_strand_expression_heatmaps</span><span class="p">(</span>
+    <span class="n">gene_P</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">gene_T</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">gene_cors</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">],</span>
+    <span class="n">gene_cors_by_gene</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  
+    <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="n">cmap_exp</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+    <span class="n">cmap_cent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;RdBu_r&#39;</span><span class="p">,</span>
+    <span class="n">cmap_cor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;magma&#39;</span><span class="p">,</span>
+    <span class="n">label_exp</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;log1p(Sum Exon Counts)&#39;</span><span class="p">,</span>
+    <span class="n">label_cent</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Gene Centered Exon Counts [Δ]&#39;</span><span class="p">,</span>
+    <span class="n">label_cor</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Pearson r&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Figure</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates interleaved heatmaps of gene expression, centered expression, and correlations.</span>
+
+<span class="sd">    Interleaves predicted and observed expression profiles for plus and minus strand genes,</span>
+<span class="sd">    sorted by descending average expression. Side heatmaps display track-level correlations,</span>
+<span class="sd">    and optional top heatmaps show gene-level correlations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gene_P (pandas.DataFrame): Predicted gene expression matrix of shape `(genes, tracks)`.</span>
+<span class="sd">        gene_T (pandas.DataFrame): Observed gene expression matrix of shape `(genes, tracks)`.</span>
+<span class="sd">        gene_cors (dict of str to pandas.Series): Dict of track-level correlation series</span>
+<span class="sd">            (keys are metrics, values are series indexed by track).</span>
+<span class="sd">        gene_cors_by_gene (dict of str to pandas.Series, optional): Dict of gene-level</span>
+<span class="sd">            correlation series (keys are metrics, values are series indexed by gene).</span>
+<span class="sd">            Defaults to None.</span>
+<span class="sd">        figsize (Tuple[int, int], optional): Matplotlib figure size. Defaults to (26, 15).</span>
+<span class="sd">        cmap_exp (str, optional): Colormap for absolute expression. Defaults to &#39;viridis&#39;.</span>
+<span class="sd">        cmap_cent (str, optional): Colormap for gene-centered expression. Defaults to &#39;RdBu_r&#39;.</span>
+<span class="sd">        cmap_cor (str, optional): Colormap for correlation heatmaps. Defaults to &#39;magma&#39;.</span>
+<span class="sd">        label_exp (str, optional): Label for the expression colorbar.</span>
+<span class="sd">            Defaults to &#39;log1p(Sum Exon Counts)&#39;.</span>
+<span class="sd">        label_cent (str, optional): Label for the centered expression colorbar.</span>
+<span class="sd">            Defaults to &#39;Gene Centered Exon Counts [Δ]&#39;.</span>
+<span class="sd">        label_cor (str, optional): Label for the correlation colorbar. Defaults to &#39;Pearson r&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        matplotlib.figure.Figure: The generated figure containing the heatmaps.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 1. Data Preparation &amp; Masking</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">track_names</span> <span class="o">=</span> <span class="n">gene_P</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">is_plus_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">True</span> <span class="k">if</span> <span class="s2">&quot;plus&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="kc">False</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">track_names</span><span class="p">])</span>
+
+    <span class="n">pP</span> <span class="o">=</span> <span class="n">gene_P</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">is_plus_mask</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">pT</span> <span class="o">=</span> <span class="n">gene_T</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">is_plus_mask</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">mP</span> <span class="o">=</span> <span class="n">gene_P</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">is_plus_mask</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">mT</span> <span class="o">=</span> <span class="n">gene_T</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">is_plus_mask</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+
+    <span class="n">plus_sorted_genes</span>  <span class="o">=</span> <span class="n">pT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+    <span class="n">minus_sorted_genes</span> <span class="o">=</span> <span class="n">mT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">index</span>
+
+    <span class="n">pP</span><span class="p">,</span> <span class="n">pT</span> <span class="o">=</span> <span class="n">pP</span><span class="p">[</span><span class="n">plus_sorted_genes</span><span class="p">],</span>   <span class="n">pT</span><span class="p">[</span><span class="n">plus_sorted_genes</span><span class="p">]</span>
+    <span class="n">mP</span><span class="p">,</span> <span class="n">mT</span> <span class="o">=</span> <span class="n">mP</span><span class="p">[</span><span class="n">minus_sorted_genes</span><span class="p">],</span>  <span class="n">mT</span><span class="p">[</span><span class="n">minus_sorted_genes</span><span class="p">]</span>
+
+    <span class="n">pP_cent</span><span class="p">,</span> <span class="n">pT_cent</span> <span class="o">=</span> <span class="n">pP</span> <span class="o">-</span> <span class="n">pP</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">pT</span> <span class="o">-</span> <span class="n">pT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">mP_cent</span><span class="p">,</span> <span class="n">mT_cent</span> <span class="o">=</span> <span class="n">mP</span> <span class="o">-</span> <span class="n">mP</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">mT</span> <span class="o">-</span> <span class="n">mT</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 2. Internal Helpers</span>
+    <span class="c1"># ==========================================</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interleave_pt</span><span class="p">(</span><span class="n">P_df</span><span class="p">,</span> <span class="n">T_df</span><span class="p">):</span>
+        <span class="n">P_vals</span><span class="p">,</span> <span class="n">T_vals</span> <span class="o">=</span> <span class="n">P_df</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">T_df</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">n_tracks</span><span class="p">,</span> <span class="n">n_genes</span> <span class="o">=</span> <span class="n">P_vals</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">interleaved</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_tracks</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n_genes</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">P_vals</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="n">interleaved</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">P_vals</span>
+        <span class="n">interleaved</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">T_vals</span>
+        <span class="n">track_labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_minus&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_plus&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.bw&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">P_df</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">track_ticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">n_tracks</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">row_ticks</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_tracks</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">row_labels</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Pred&quot;</span><span class="p">,</span> <span class="s2">&quot;Obs&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_tracks</span>
+        <span class="k">return</span> <span class="n">interleaved</span><span class="p">,</span> <span class="n">track_labels</span><span class="p">,</span> <span class="n">track_ticks</span><span class="p">,</span> <span class="n">row_labels</span><span class="p">,</span> <span class="n">row_ticks</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_cor_matrix</span><span class="p">(</span><span class="n">P_df</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Track-level correlations, interleaved to match Pred/Obs rows.&quot;&quot;&quot;</span>
+        <span class="n">n_tracks</span>  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">P_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">cor_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">gene_cors</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">cor_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_tracks</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cor_names</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cor_names</span><span class="p">):</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="n">gene_cors</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">P_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">cor_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span>
+            <span class="n">cor_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vals</span>
+        <span class="k">return</span> <span class="n">cor_matrix</span><span class="p">,</span> <span class="n">cor_names</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">build_gene_annot_matrix</span><span class="p">(</span><span class="n">sorted_genes</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gene-level correlations → (n_gene_cors, n_genes) matrix.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">gene_cors_by_gene</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[]</span>
+        <span class="n">names</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">gene_cors_by_gene</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">gene_cors_by_gene</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">sorted_genes</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+                           <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">names</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">matrix</span><span class="p">,</span> <span class="n">names</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 3. Matrix Generation &amp; Scaling</span>
+    <span class="c1"># ==========================================</span>
+    <span class="n">plus_matrix</span><span class="p">,</span>      <span class="n">p_labels</span><span class="p">,</span> <span class="n">p_ticks</span><span class="p">,</span> <span class="n">row_labels</span><span class="p">,</span> <span class="n">row_ticks</span> <span class="o">=</span> <span class="n">interleave_pt</span><span class="p">(</span><span class="n">pP</span><span class="p">,</span> <span class="n">pT</span><span class="p">)</span>
+    <span class="n">minus_matrix</span><span class="p">,</span>     <span class="n">m_labels</span><span class="p">,</span> <span class="n">m_ticks</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span>          <span class="n">_</span>         <span class="o">=</span> <span class="n">interleave_pt</span><span class="p">(</span><span class="n">mP</span><span class="p">,</span> <span class="n">mT</span><span class="p">)</span>
+    <span class="n">plus_cent_matrix</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span>  <span class="o">=</span> <span class="n">interleave_pt</span><span class="p">(</span><span class="n">pP_cent</span><span class="p">,</span> <span class="n">pT_cent</span><span class="p">)</span>
+    <span class="n">minus_cent_matrix</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span> <span class="o">=</span> <span class="n">interleave_pt</span><span class="p">(</span><span class="n">mP_cent</span><span class="p">,</span> <span class="n">mT_cent</span><span class="p">)</span>
+
+    <span class="n">plus_cor_matrix</span><span class="p">,</span>  <span class="n">cor_names</span> <span class="o">=</span> <span class="n">build_cor_matrix</span><span class="p">(</span><span class="n">pP</span><span class="p">)</span>
+    <span class="n">minus_cor_matrix</span><span class="p">,</span> <span class="n">_</span>         <span class="o">=</span> <span class="n">build_cor_matrix</span><span class="p">(</span><span class="n">mP</span><span class="p">)</span>
+
+    <span class="n">plus_gene_matrix</span><span class="p">,</span>  <span class="n">gene_annot_names</span> <span class="o">=</span> <span class="n">build_gene_annot_matrix</span><span class="p">(</span><span class="n">plus_sorted_genes</span><span class="p">)</span>
+    <span class="n">minus_gene_matrix</span><span class="p">,</span> <span class="n">_</span>                <span class="o">=</span> <span class="n">build_gene_annot_matrix</span><span class="p">(</span><span class="n">minus_sorted_genes</span><span class="p">)</span>
+    <span class="n">has_gene_annot</span> <span class="o">=</span> <span class="n">gene_cors_by_gene</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">gene_cors_by_gene</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+    <span class="c1"># Global colour bounds</span>
+    <span class="n">all_exp</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">plus_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">minus_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+    <span class="n">exp_vmin</span><span class="p">,</span> <span class="n">exp_vmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">all_exp</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">all_exp</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
+
+    <span class="n">all_cent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">plus_cent_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">minus_cent_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">()])</span>
+    <span class="n">cent_vmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanpercentile</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">all_cent</span><span class="p">),</span> <span class="mi">99</span><span class="p">)</span>
+    <span class="n">cent_vmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">cent_vmax</span>
+
+    <span class="c1"># Include gene-level annotations in the shared correlation colour scale</span>
+    <span class="n">all_cor_parts</span> <span class="o">=</span> <span class="p">[</span><span class="n">plus_cor_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">minus_cor_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+    <span class="k">if</span> <span class="n">has_gene_annot</span><span class="p">:</span>
+        <span class="n">all_cor_parts</span> <span class="o">+=</span> <span class="p">[</span><span class="n">plus_gene_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">minus_gene_matrix</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+    <span class="n">all_cor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_cor_parts</span><span class="p">)</span>
+    <span class="n">cor_vmin</span><span class="p">,</span> <span class="n">cor_vmax</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">all_cor</span><span class="p">)),</span> <span class="mi">1</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 4. Layout Setup</span>
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># Gene annotation rows get a small height fraction; expression rows get 1.</span>
+    <span class="c1"># Layout (6 rows when annotation present, 4 rows otherwise):</span>
+    <span class="c1">#   0: gene annot – plus</span>
+    <span class="c1">#   1: p1  (plus raw)</span>
+    <span class="c1">#   2: p2  (plus centred)</span>
+    <span class="c1">#   3: gene annot – minus</span>
+    <span class="c1">#   4: m1  (minus raw)</span>
+    <span class="c1">#   5: m2  (minus centred)</span>
+    <span class="n">n_gene_annot_rows</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">gene_cors_by_gene</span><span class="p">)</span> <span class="k">if</span> <span class="n">has_gene_annot</span> <span class="k">else</span> <span class="mi">0</span>
+    <span class="n">annot_h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.12</span><span class="p">,</span> <span class="mf">0.12</span> <span class="o">*</span> <span class="n">n_gene_annot_rows</span><span class="p">)</span>  <span class="c1"># scales with number of annotations</span>
+
+    <span class="k">if</span> <span class="n">has_gene_annot</span><span class="p">:</span>
+        <span class="n">n_rows</span> <span class="o">=</span> <span class="mi">6</span>
+        <span class="n">height_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="n">annot_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">annot_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">row_idx</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;annot_p&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;p1&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;p2&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;annot_m&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n_rows</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">height_ratios</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">row_idx</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;p1&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;p2&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;m1&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;m2&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+    <span class="n">gs</span>  <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span>
+        <span class="n">n_rows</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">],</span>
+        <span class="n">height_ratios</span><span class="o">=</span><span class="n">height_ratios</span><span class="p">,</span>
+        <span class="n">wspace</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_row_axes</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">axes_map</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;p1&#39;</span><span class="p">:</span> <span class="n">make_row_axes</span><span class="p">(</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;p1&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;p2&#39;</span><span class="p">:</span> <span class="n">make_row_axes</span><span class="p">(</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;p2&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;m1&#39;</span><span class="p">:</span> <span class="n">make_row_axes</span><span class="p">(</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]),</span>
+        <span class="s1">&#39;m2&#39;</span><span class="p">:</span> <span class="n">make_row_axes</span><span class="p">(</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]),</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">has_gene_annot</span><span class="p">:</span>
+        <span class="c1"># annotation axes span only the expression column (col 1);</span>
+        <span class="c1"># col 0 is hidden for these thin rows</span>
+        <span class="n">ax_annot_p</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;annot_p&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_annot_m</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;annot_m&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="c1"># hide the unused left cell</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="p">[</span><span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;annot_p&#39;</span><span class="p">],</span> <span class="n">row_idx</span><span class="p">[</span><span class="s1">&#39;annot_m&#39;</span><span class="p">]]:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">gs_cb</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpecFromSubplotSpec</span><span class="p">(</span>
+        <span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subplot_spec</span><span class="o">=</span><span class="n">gs</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.6</span>
+    <span class="p">)</span>
+    <span class="n">cax_cor</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs_cb</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">cax_exp</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs_cb</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+    <span class="n">cax_cent</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs_cb</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 5. Gene-Annotation Plotter (NEW)</span>
+    <span class="c1"># ==========================================</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_gene_annotation</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">gene_matrix</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Renders a (n_cors × n_genes) row-annotation heatmap.&quot;&quot;&quot;</span>
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">gene_matrix</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                       <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_cor</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">cor_vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">cor_vmax</span><span class="p">,</span>
+                       <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">im</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 6. Row Plotter (unchanged internally)</span>
+    <span class="c1"># ==========================================</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_row</span><span class="p">(</span><span class="n">ax_cor</span><span class="p">,</span> <span class="n">ax_exp</span><span class="p">,</span> <span class="n">cor_matrix</span><span class="p">,</span> <span class="n">exp_matrix</span><span class="p">,</span>
+                 <span class="n">labels</span><span class="p">,</span> <span class="n">ticks</span><span class="p">,</span> <span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">show_x</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">im_c</span> <span class="o">=</span> <span class="n">ax_cor</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cor_matrix</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                             <span class="n">cmap</span><span class="o">=</span><span class="n">cmap_cor</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">cor_vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">cor_vmax</span><span class="p">)</span>
+        <span class="n">ax_cor</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">ticks</span><span class="p">)</span>
+        <span class="n">ax_cor</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">ax_cor</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax_cor</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">cor_names</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">show_x</span><span class="p">:</span>
+            <span class="n">ax_cor</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">cor_names</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax_cor</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+
+        <span class="n">im_e</span> <span class="o">=</span> <span class="n">ax_exp</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">exp_matrix</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+                             <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_gene_annot</span><span class="p">:</span>   <span class="c1"># title moves to annotation row when present</span>
+            <span class="n">ax_exp</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">ax_exp</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+        <span class="n">ax_exp</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="k">if</span> <span class="n">show_x</span><span class="p">:</span>
+            <span class="n">ax_exp</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Genes (Sorted Descending)&#39;</span><span class="p">)</span>
+
+        <span class="n">ax_right</span> <span class="o">=</span> <span class="n">ax_exp</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+        <span class="n">ax_right</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ax_exp</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">())</span>
+        <span class="n">ax_right</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="n">row_ticks</span><span class="p">)</span>
+        <span class="n">ax_right</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">row_labels</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">fontstyle</span><span class="o">=</span><span class="s1">&#39;italic&#39;</span><span class="p">)</span>
+        <span class="n">ax_right</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">y_div</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">exp_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">ax_cor</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y_div</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">ax_exp</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y_div</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">im_c</span><span class="p">,</span> <span class="n">im_e</span>
+
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># 7. Execute Plotting</span>
+    <span class="c1"># ==========================================</span>
+    <span class="c1"># Gene-level annotations (drawn first so titles land correctly)</span>
+    <span class="k">if</span> <span class="n">has_gene_annot</span><span class="p">:</span>
+        <span class="n">plot_gene_annotation</span><span class="p">(</span><span class="n">ax_annot_p</span><span class="p">,</span> <span class="n">plus_gene_matrix</span><span class="p">,</span>  <span class="n">gene_annot_names</span><span class="p">,</span> <span class="s1">&#39;Plus Strand Genes&#39;</span><span class="p">)</span>
+        <span class="n">plot_gene_annotation</span><span class="p">(</span><span class="n">ax_annot_m</span><span class="p">,</span> <span class="n">minus_gene_matrix</span><span class="p">,</span> <span class="n">gene_annot_names</span><span class="p">,</span> <span class="s1">&#39;Minus Strand Genes&#39;</span><span class="p">)</span>
+
+    <span class="n">im_cor</span><span class="p">,</span> <span class="n">im_exp</span> <span class="o">=</span> <span class="n">plot_row</span><span class="p">(</span><span class="o">*</span><span class="n">axes_map</span><span class="p">[</span><span class="s1">&#39;p1&#39;</span><span class="p">],</span> <span class="n">plus_cor_matrix</span><span class="p">,</span>   <span class="n">plus_matrix</span><span class="p">,</span>
+                              <span class="n">p_labels</span><span class="p">,</span> <span class="n">p_ticks</span><span class="p">,</span> <span class="n">cmap_exp</span><span class="p">,</span> <span class="n">exp_vmin</span><span class="p">,</span> <span class="n">exp_vmax</span><span class="p">,</span>
+                              <span class="s1">&#39;Plus Strand Genes&#39;</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span>      <span class="n">im_cent</span> <span class="o">=</span> <span class="n">plot_row</span><span class="p">(</span><span class="o">*</span><span class="n">axes_map</span><span class="p">[</span><span class="s1">&#39;p2&#39;</span><span class="p">],</span> <span class="n">plus_cor_matrix</span><span class="p">,</span>  <span class="n">plus_cent_matrix</span><span class="p">,</span>
+                               <span class="n">p_labels</span><span class="p">,</span> <span class="n">p_ticks</span><span class="p">,</span> <span class="n">cmap_cent</span><span class="p">,</span> <span class="n">cent_vmin</span><span class="p">,</span> <span class="n">cent_vmax</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">plot_row</span><span class="p">(</span><span class="o">*</span><span class="n">axes_map</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">minus_cor_matrix</span><span class="p">,</span> <span class="n">minus_matrix</span><span class="p">,</span>
+             <span class="n">m_labels</span><span class="p">,</span> <span class="n">m_ticks</span><span class="p">,</span> <span class="n">cmap_exp</span><span class="p">,</span> <span class="n">exp_vmin</span><span class="p">,</span> <span class="n">exp_vmax</span><span class="p">,</span> <span class="s1">&#39;Minus Strand Genes&#39;</span><span class="p">)</span>
+    <span class="n">plot_row</span><span class="p">(</span><span class="o">*</span><span class="n">axes_map</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">minus_cor_matrix</span><span class="p">,</span> <span class="n">minus_cent_matrix</span><span class="p">,</span>
+             <span class="n">m_labels</span><span class="p">,</span> <span class="n">m_ticks</span><span class="p">,</span> <span class="n">cmap_cent</span><span class="p">,</span> <span class="n">cent_vmin</span><span class="p">,</span> <span class="n">cent_vmax</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">show_x</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Colorbars</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im_cor</span><span class="p">,</span>  <span class="n">cax</span><span class="o">=</span><span class="n">cax_cor</span><span class="p">,</span>  <span class="n">label</span><span class="o">=</span><span class="n">label_cor</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im_exp</span><span class="p">,</span>  <span class="n">cax</span><span class="o">=</span><span class="n">cax_exp</span><span class="p">,</span>  <span class="n">label</span><span class="o">=</span><span class="n">label_exp</span><span class="p">)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im_cent</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax_cent</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label_cent</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

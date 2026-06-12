@@ -47,6 +47,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/utils.finetuning';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="utils.finetuning.AlphaGenome package" href="utils.finetuning.AlphaGenome.html" />
+    <link rel="prev" title="utils.eval package" href="utils.eval.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -137,19 +139,19 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="ISM.html">ISM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eval.html">eval package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="utils.html">utils package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">utils.finetuning package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="io.html">io package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -298,7 +300,13 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning-package">Finetuning Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpackages:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -318,9 +326,24 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.out_dir"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.out_dir</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.h5_path"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.h5_path</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.total_samples"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.total_samples</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.file"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.datasets"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.datasets</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.write_batch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.write_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means"><code class="docutils literal notranslate"><span class="pre">get_aligned_nonzero_means()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key"><code class="docutils literal notranslate"><span class="pre">get_prediction_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
@@ -336,7 +359,13 @@
 <li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#cli-scripts">CLI Scripts:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -344,6 +373,18 @@
 </section>
 <section id="module-utils.finetuning">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.finetuning" title="Link to this heading">#</a></h2>
+<section id="finetuning-package">
+<h3>Finetuning Package<a class="headerlink" href="#finetuning-package" title="Link to this heading">#</a></h3>
+<p>This package contains tools and pipelines for finetuning sequence-to-function models,
+specifically focusing on the AlphaGenome architecture.</p>
+<section id="id1">
+<h4>Subpackages:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>AlphaGenome</cite>: Utilities and CLI scripts to run finetuning, resume training, stage
+data directories, and run streaming evaluation.</p></li>
+</ul>
+</section>
+</section>
 </section>
 </section>
 
@@ -358,6 +399,24 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="utils.eval.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">utils.eval package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.finetuning.AlphaGenome.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">utils.finetuning.AlphaGenome package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -377,7 +436,13 @@
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finetuning-package">Finetuning Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpackages:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

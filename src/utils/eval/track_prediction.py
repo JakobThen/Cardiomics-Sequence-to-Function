@@ -83,8 +83,13 @@ def get_gtf(
         
 def merge_bin_intervals(intervals):
     """Merges overlapping or adjacent bin intervals to prevent double-counting.
-    Handles this issue: Exon A spans base pairs 10 to 40. This means it falls into Bins 0 and 1.
-    Exon B spans base pairs 50 to 80. This falls into Bins 1 and 2. This prevents this"""
+
+    Args:
+        intervals (list of tuple): List of bin coordinate ranges as `[(start, end), ...]`.
+
+    Returns:
+        list of tuple: Merged bin coordinate ranges.
+    """
     if not intervals:
         return []
     # Sort by start bin
@@ -240,6 +245,20 @@ def get_counts_from_bw(
     num_bins: int,
     bin_size: int
 ) -> Tuple[int, np.ndarray]:
+    """Reads signal values from a single BigWig file across multiple coordinates.
+
+    Args:
+        track_idx (int): Index of the track being loaded.
+        bw_path (str or Path): Path to the BigWig file.
+        coords (list of tuple): List of genomic coordinates `[(chrom, start, end), ...]`.
+        num_bins (int): Number of bins to divide each genomic interval into.
+        bin_size (int): Size of each bin in base pairs.
+
+    Returns:
+        tuple:
+            - int: The track index.
+            - np.ndarray: Extracted counts array of shape `(num_intervals, num_bins)`.
+    """
     track_data = np.full((len(coords), num_bins), np.nan, dtype=np.float32)
     try:
         bw_file = pyBigWig.open(str(bw_path)) 
@@ -273,9 +292,20 @@ def get_counts_from_bws(
     n_workers: int = 1, 
     bin_size: int = 1  
 ) -> np.ndarray:
-    '''
-    Extracts bigwig counts from multiple bigwig files over identical intervals in parallel.
-    '''
+    """Extracts signal values from multiple BigWig files in parallel.
+
+    Extracts signal counts over identical genomic intervals from a list of BigWigs
+    using multiprocessing.
+
+    Args:
+        bw_paths (Iterable of str or Path): List of BigWig file paths.
+        coordinates_df (pandas.DataFrame): Coordinates DataFrame (must have chrom, start, end).
+        n_workers (int, optional): Number of parallel processes to spawn. Defaults to 1.
+        bin_size (int, optional): Bin size in base pairs. Defaults to 1.
+
+    Returns:
+        np.ndarray: A 3D array of shape `(num_intervals, num_tracks, num_bins)` containing the signals.
+    """
     assert all(c in coordinates_df.columns for c in ['chrom', 'start', 'end']), "coordinates_df must contain 'chrom', 'start', and 'end'."
     
     lengths = coordinates_df["end"] - coordinates_df["start"]
@@ -394,10 +424,19 @@ def _align_prediction_axes(P, num_intervals=None, num_tracks=None, head_name="Si
 
 
 def load_predictions_from_h5(h5_path):
-    """
-    Reads an HDF5 file containing genomic predictions and metadata.
-    Handles single-head and multi-head files, and automatically realigns 
-    scrambled array dimensions to (intervals x tracks x bins).
+    """Loads prediction arrays and metadata from an HDF5 file.
+
+    Handles both single-head (e.g. Borzoi) and multi-head (e.g. AlphaGenome) prediction
+    files, and automatically transposes arrays to shape `(intervals, tracks, bins)`.
+
+    Args:
+        h5_path (str or Path): Path to the HDF5 prediction file.
+
+    Returns:
+        tuple:
+            - np.ndarray: Predictions array of shape `(intervals, tracks, bins)`.
+            - pandas.DataFrame: DataFrame containing genomic intervals.
+            - pandas.DataFrame: DataFrame containing track labels.
     """
     h5_path = Path(h5_path)
     if not h5_path.exists():
@@ -470,9 +509,18 @@ def load_predictions_from_h5(h5_path):
 
 
 def process_track_metadata(tracks_df, folder_to_assay=None):
-    """
-    Finds the .bw column in a tracks DataFrame, standardizes filename/path columns, 
-    and extracts cell_type and Assay_type metadata.
+    """Parses track DataFrame to identify BigWig columns and extract metadata.
+
+    Identifies the column containing BigWig filenames, extracts Assay types (ATAC, RNA, CnT),
+    folders, cell types, and generates unique track IDs.
+
+    Args:
+        tracks_df (pandas.DataFrame): Metadata table of the tracks.
+        folder_to_assay (dict, optional): Optional mapping from folders to assay types.
+            Defaults to None.
+
+    Returns:
+        pandas.DataFrame: The standardized and annotated track metadata DataFrame.
     """
     df = tracks_df.copy()
     

@@ -1,0 +1,949 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.io.variant_annotation &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/io/variant_annotation';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.io.variant_annotation</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Variant Annotation Module</span>
+
+<span class="sd">This module provides functions to annotate a pandas DataFrame of genetic variants </span>
+<span class="sd">(VCF-style) with various genomic features, conservation scores, and coding effects.</span>
+
+<span class="sd">Expected Input Data Format:</span>
+<span class="sd">---------------------------</span>
+<span class="sd">The core input to most of these functions is a pandas DataFrame representing genetic </span>
+<span class="sd">variants. At a minimum, this DataFrame must contain the following columns:</span>
+
+<span class="sd">* **Chrom** or **Chromosome** (str): The chromosome (e.g., &#39;1&#39;, &#39;chr1&#39;, &#39;X&#39;).</span>
+<span class="sd">* **Pos** (int): The 1-based genomic position of the variant.</span>
+<span class="sd">* **Ref** (str): The reference allele.</span>
+<span class="sd">* **Alt** (str): The alternate allele.</span>
+
+<span class="sd">Some downstream functions (like coding effects) rely on the output of upstream </span>
+<span class="sd">functions (like GTF feature annotation), which will be explicitly noted in their </span>
+<span class="sd">respective docstrings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pyranges</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pr</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ncls</span><span class="w"> </span><span class="kn">import</span> <span class="n">NCLS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm.auto</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pyBigWig</span> 
+
+
+<span class="c1"># --- Constants ---</span>
+<span class="n">CONSEQUENCE_RANK</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;transcript_ablation&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;splice_acceptor_variant&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;splice_donor_variant&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s1">&#39;stop_gained&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;frameshift_variant&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;stop_lost&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;start_lost&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="s1">&#39;transcript_amplification&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;feature_elongation&#39;</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="s1">&#39;feature_truncation&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;inframe_insertion&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;inframe_deletion&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">&#39;missense_variant&#39;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+    <span class="s1">&#39;protein_altering_variant&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="s1">&#39;splice_donor_5th_base_variant&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="s1">&#39;splice_region_variant&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span> <span class="s1">&#39;splice_donor_region_variant&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="s1">&#39;splice_polypyrimidine_tract_variant&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;incomplete_terminal_codon_variant&#39;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+    <span class="s1">&#39;start_retained_variant&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;stop_retained_variant&#39;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span> <span class="s1">&#39;synonymous_variant&#39;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+    <span class="s1">&#39;coding_sequence_variant&#39;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;mature_miRNA_variant&#39;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;5_prime_UTR_variant&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+    <span class="s1">&#39;3_prime_UTR_variant&#39;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span> <span class="s1">&#39;non_coding_transcript_exon_variant&#39;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+    <span class="s1">&#39;intron_variant&#39;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span> <span class="s1">&#39;NMD_transcript_variant&#39;</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="s1">&#39;non_coding_transcript_variant&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+    <span class="s1">&#39;coding_transcript_variant&#39;</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span> <span class="s1">&#39;upstream_gene_variant&#39;</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="s1">&#39;downstream_gene_variant&#39;</span><span class="p">:</span> <span class="mi">33</span><span class="p">,</span> <span class="s1">&#39;TFBS_ablation&#39;</span><span class="p">:</span> <span class="mi">34</span><span class="p">,</span> <span class="s1">&#39;TFBS_amplification&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+    <span class="s1">&#39;TF_binding_site_variant&#39;</span><span class="p">:</span> <span class="mi">36</span><span class="p">,</span> <span class="s1">&#39;regulatory_region_ablation&#39;</span><span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+    <span class="s1">&#39;regulatory_region_amplification&#39;</span><span class="p">:</span> <span class="mi">38</span><span class="p">,</span> <span class="s1">&#39;regulatory_region_variant&#39;</span><span class="p">:</span> <span class="mi">39</span><span class="p">,</span>
+    <span class="s1">&#39;intergenic_variant&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;sequence_variant&#39;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">IMPACT</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;transcript_ablation&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;splice_acceptor_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;splice_donor_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;stop_gained&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;frameshift_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;stop_lost&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;start_lost&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;transcript_amplification&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;feature_elongation&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;feature_truncation&#39;</span><span class="p">:</span> <span class="s1">&#39;HIGH&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;inframe_insertion&#39;</span><span class="p">:</span> <span class="s1">&#39;MODERATE&#39;</span><span class="p">,</span> <span class="s1">&#39;inframe_deletion&#39;</span><span class="p">:</span> <span class="s1">&#39;MODERATE&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;missense_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODERATE&#39;</span><span class="p">,</span> <span class="s1">&#39;protein_altering_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODERATE&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;splice_donor_5th_base_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span> <span class="s1">&#39;splice_region_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;splice_donor_region_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span> <span class="s1">&#39;splice_polypyrimidine_tract_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;incomplete_terminal_codon_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span> <span class="s1">&#39;start_retained_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;stop_retained_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span> <span class="s1">&#39;synonymous_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;coding_sequence_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;mature_miRNA_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;5_prime_UTR_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;3_prime_UTR_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;non_coding_transcript_exon_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;intron_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NMD_transcript_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;non_coding_transcript_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;coding_transcript_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;upstream_gene_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;downstream_gene_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;TFBS_ablation&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TFBS_amplification&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;TF_binding_site_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;regulatory_region_ablation&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;regulatory_region_amplification&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;regulatory_region_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span> <span class="s1">&#39;intergenic_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sequence_variant&#39;</span><span class="p">:</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+
+<span class="c1">#helper to load</span>
+<div class="viewcode-block" id="standardize_vcf_columns">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.standardize_vcf_columns">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">standardize_vcf_columns</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Standardizes column names to the expected internal format (&#39;Chromosome&#39;, &#39;Pos&#39;, &#39;Ref&#39;, &#39;Alt&#39;).</span>
+<span class="sd">    Handles common case/naming variations like &#39;#CHROM&#39;, &#39;CHROM&#39;, &#39;chr&#39;, &#39;POS&#39;, &#39;position&#39;, etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rename_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">col_upper</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">col_upper</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;CHROM&#39;</span><span class="p">,</span> <span class="s1">&#39;#CHROM&#39;</span><span class="p">,</span> <span class="s1">&#39;CHROMOSOME&#39;</span><span class="p">,</span> <span class="s1">&#39;CHR&#39;</span><span class="p">,</span> <span class="s1">&#39;SEQNAMES&#39;</span><span class="p">]:</span>
+            <span class="n">rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Chromosome&#39;</span>
+        <span class="k">elif</span> <span class="n">col_upper</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;POS&#39;</span><span class="p">,</span> <span class="s1">&#39;POSITION&#39;</span><span class="p">]:</span>
+            <span class="n">rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Pos&#39;</span>
+        <span class="k">elif</span> <span class="n">col_upper</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;REF&#39;</span><span class="p">,</span> <span class="s1">&#39;REFERENCE&#39;</span><span class="p">]:</span>
+            <span class="n">rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Ref&#39;</span>
+        <span class="k">elif</span> <span class="n">col_upper</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;ALT&#39;</span><span class="p">,</span> <span class="s1">&#39;ALTERNATE&#39;</span> <span class="s1">&#39;ALTERNATIVE&#39;</span><span class="p">]:</span>
+            <span class="n">rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Alt&#39;</span>
+        <span class="k">elif</span> <span class="n">col_upper</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;START&#39;</span><span class="p">]:</span>
+            <span class="n">rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Start&#39;</span>
+        <span class="k">elif</span> <span class="n">col_upper</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;END&#39;</span><span class="p">]:</span>
+            <span class="n">rename_dict</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;End&#39;</span>
+            
+    <span class="k">if</span> <span class="n">rename_dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">rename_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span></div>
+
+
+
+<div class="viewcode-block" id="vcf_to_pr">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.vcf_to_pr">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">vcf_to_pr</span><span class="p">(</span><span class="n">vcf_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a VCF-style pandas DataFrame into a PyRanges object.</span>
+<span class="sd">    </span>
+<span class="sd">    Translates 1-based &#39;Pos&#39; coordinates to 0-based half-open intervals (&#39;Start&#39;, &#39;End&#39;) </span>
+<span class="sd">    required by PyRanges.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        vcf_df (pd.DataFrame): Input dataframe. Must contain &#39;Chrom&#39; (or &#39;Chromosome&#39;) </span>
+<span class="sd">                               and &#39;Pos&#39; columns.</span>
+<span class="sd">                               </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pr.PyRanges: PyRanges object containing the standard interval coordinates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">vcf_pr</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">vcf_df</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    
+    <span class="n">vcf_pr</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vcf_pr</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">vcf_pr</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vcf_pr</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">(</span><span class="n">vcf_pr</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_ccre_data">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.load_ccre_data">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_ccre_data</span><span class="p">(</span><span class="n">ccre_file</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads ENCODE candidate cis-Regulatory Elements (cCRE) data.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ccre_file (str): Path to the gzipped tab-separated cCRE file.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pr.PyRanges: A PyRanges object containing annotated cCRE genomic coordinates.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ccre_cols</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Chromosome&quot;</span><span class="p">,</span> <span class="s2">&quot;Start&quot;</span><span class="p">,</span> <span class="s2">&quot;End&quot;</span><span class="p">,</span> <span class="s2">&quot;cCRE_id&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;strand&quot;</span><span class="p">,</span> 
+        <span class="s2">&quot;thickStart&quot;</span><span class="p">,</span> <span class="s2">&quot;thickEnd&quot;</span><span class="p">,</span> <span class="s2">&quot;reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;cCRE_class&quot;</span><span class="p">,</span> 
+        <span class="s2">&quot;DNase_maxZ&quot;</span><span class="p">,</span> <span class="s2">&quot;H3K4me3_maxZ&quot;</span><span class="p">,</span> <span class="s2">&quot;H3K27ac_maxZ&quot;</span><span class="p">,</span> <span class="s2">&quot;CTCF_maxZ&quot;</span>
+    <span class="p">]</span>
+    <span class="n">ccre_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ccre_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">ccre_cols</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">&#39;gzip&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">(</span><span class="n">ccre_df</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="annotate_cCREs">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.annotate_cCREs">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_cCREs</span><span class="p">(</span><span class="n">ccre_pr</span><span class="p">:</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">,</span> <span class="n">vcf_pr</span><span class="p">:</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotates variants with ENCODE candidate cis-Regulatory Elements (cCREs).</span>
+
+<span class="sd">    Performs a left genomic overlap join of variants against the preloaded cCREs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ccre_pr (pr.PyRanges): Preloaded cCRE features.</span>
+<span class="sd">        vcf_pr (pr.PyRanges): PyRanges containing variant coordinates.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: A DataFrame of variants annotated with cCRE identifiers and classes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">annotated</span> <span class="o">=</span> <span class="n">vcf_pr</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ccre_pr</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">annotated</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;-1&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    
+    <span class="n">columns_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Start_b&quot;</span><span class="p">,</span> <span class="s2">&quot;End_b&quot;</span><span class="p">,</span> <span class="s2">&quot;reserved&quot;</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">,</span> <span class="s2">&quot;strand&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns_to_drop</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="annotate_gtf_features">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.annotate_gtf_features">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_gtf_features</span><span class="p">(</span><span class="n">variants_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">gtf_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Annotates variants with the most specific overlapping GTF feature and calculates </span>
+<span class="sd">    absolute distance to the closest Transcription Start Site (TSS).</span>
+<span class="sd">    </span>
+<span class="sd">    Hierarchy (most to least specific):</span>
+<span class="sd">    start_codon / stop_codon &gt; CDS &gt; UTR &gt; exon &gt; intron &gt; gene</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        variants_df (pd.DataFrame): Variant dataframe. Must contain &#39;Chromosome&#39;, </span>
+<span class="sd">                                    &#39;Start&#39;, and &#39;End&#39; columns (0-based coordinates).</span>
+<span class="sd">        gtf_df (pd.DataFrame): GTF dataframe parsed into standard columns (&#39;chrom&#39;, </span>
+<span class="sd">                               &#39;start&#39;, &#39;end&#39;, &#39;feature&#39;, &#39;strand&#39;, &#39;gene_name&#39;, &#39;gene_type&#39;).</span>
+<span class="sd">                               </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame aligned with the input index, containing columns: </span>
+<span class="sd">                      &#39;gtf_feature&#39;, &#39;gene_name&#39;, &#39;gene_type&#39;, and &#39;closest_TSS&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">variants_df</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">variants_df</span><span class="p">)</span>
+    
+    <span class="n">PRIORITY</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;start_codon&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;stop_codon&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;CDS&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;UTR&#39;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+        <span class="s1">&#39;exon&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;intron&#39;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;gene&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">RELEVANT</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;start_codon&#39;</span><span class="p">,</span> <span class="s1">&#39;stop_codon&#39;</span><span class="p">,</span> <span class="s1">&#39;CDS&#39;</span><span class="p">,</span> <span class="s1">&#39;UTR&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">,</span> <span class="s1">&#39;transcript&#39;</span><span class="p">,</span> <span class="s1">&#39;gene&#39;</span><span class="p">}</span>
+
+    <span class="n">gtf_sub</span> <span class="o">=</span> <span class="n">gtf_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+        <span class="n">gtf_df</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">RELEVANT</span><span class="p">),</span> 
+        <span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_name&#39;</span><span class="p">,</span> <span class="s1">&#39;gene_type&#39;</span><span class="p">]</span>
+    <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    
+    <span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>  
+    <span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;mapped_feature&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;transcript&#39;</span><span class="p">:</span> <span class="s1">&#39;intron&#39;</span><span class="p">})</span>
+    <span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;priority&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;mapped_feature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">PRIORITY</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+
+    <span class="n">tx_mask</span> <span class="o">=</span> <span class="n">gtf_df</span><span class="p">[</span><span class="s1">&#39;feature&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;transcript&#39;</span>
+    <span class="n">tss_df</span> <span class="o">=</span> <span class="n">gtf_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">tx_mask</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">,</span> <span class="s1">&#39;strand&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">tss_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tss_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">tss_df</span><span class="p">[</span><span class="s1">&#39;tss&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tss_df</span><span class="p">[</span><span class="s1">&#39;strand&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">tss_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">],</span> <span class="n">tss_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">tss_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">chrom</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">grp</span><span class="p">[</span><span class="s1">&#39;tss&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span> <span class="k">for</span> <span class="n">chrom</span><span class="p">,</span> <span class="n">grp</span> <span class="ow">in</span> <span class="n">tss_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">)}</span>
+
+    <span class="n">var_pos</span> <span class="o">=</span> <span class="n">variants_df</span><span class="p">[[</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">n_vars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_pos</span><span class="p">)</span>
+    <span class="n">best_priority</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_vars</span><span class="p">,</span> <span class="mi">999</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+    <span class="n">best_feature</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_vars</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>   
+    <span class="n">best_gene_name</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_vars</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">best_gene_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_vars</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">best_closest_tss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_vars</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">chrom</span><span class="p">,</span> <span class="n">vg</span> <span class="ow">in</span> <span class="n">var_pos</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">pos_idx</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">v_starts</span> <span class="o">=</span> <span class="n">vg</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">v_ends</span> <span class="o">=</span> <span class="n">vg</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">local_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vg</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">chrom</span> <span class="ow">in</span> <span class="n">tss_dict</span><span class="p">:</span>
+            <span class="n">c_tss</span> <span class="o">=</span> <span class="n">tss_dict</span><span class="p">[</span><span class="n">chrom</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_tss</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">v_mid</span> <span class="o">=</span> <span class="n">v_starts</span> <span class="o">+</span> <span class="p">(</span><span class="n">v_ends</span> <span class="o">-</span> <span class="n">v_starts</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">c_tss</span><span class="p">,</span> <span class="n">v_mid</span><span class="p">)</span>
+                <span class="n">idx1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_tss</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">idx0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_tss</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">dist</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c_tss</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v_mid</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">c_tss</span><span class="p">[</span><span class="n">idx0</span><span class="p">]</span> <span class="o">-</span> <span class="n">v_mid</span><span class="p">))</span>
+                <span class="n">best_closest_tss</span><span class="p">[</span><span class="n">pos_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span>
+
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">gtf_sub</span><span class="p">[</span><span class="n">gtf_sub</span><span class="p">[</span><span class="s1">&#39;chrom&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">chrom</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">gc</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">gc</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">g_starts</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">g_ends</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">g_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gc</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">g_prio</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;priority&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+        <span class="n">g_feat</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;mapped_feature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="n">g_gname</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;gene_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>                       
+        <span class="n">g_gtype</span> <span class="o">=</span> <span class="n">gc</span><span class="p">[</span><span class="s1">&#39;gene_type&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>                       
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">NCLS</span><span class="p">(</span><span class="n">g_starts</span><span class="p">,</span> <span class="n">g_ends</span><span class="p">,</span> <span class="n">g_ids</span><span class="p">)</span>
+        <span class="n">hit_v</span><span class="p">,</span> <span class="n">hit_g</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">all_overlaps_both</span><span class="p">(</span><span class="n">v_starts</span><span class="p">,</span> <span class="n">v_ends</span><span class="p">,</span> <span class="n">local_ids</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hit_v</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">best</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+                <span class="s1">&#39;lv&#39;</span><span class="p">:</span> <span class="n">hit_v</span><span class="p">,</span>
+                <span class="s1">&#39;prio&#39;</span><span class="p">:</span> <span class="n">g_prio</span><span class="p">[</span><span class="n">hit_g</span><span class="p">],</span>
+                <span class="s1">&#39;feat&#39;</span><span class="p">:</span> <span class="n">g_feat</span><span class="p">[</span><span class="n">hit_g</span><span class="p">],</span>
+                <span class="s1">&#39;gname&#39;</span><span class="p">:</span> <span class="n">g_gname</span><span class="p">[</span><span class="n">hit_g</span><span class="p">],</span>                             
+                <span class="s1">&#39;gtype&#39;</span><span class="p">:</span> <span class="n">g_gtype</span><span class="p">[</span><span class="n">hit_g</span><span class="p">],</span>                             
+            <span class="p">})</span>
+            <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;prio&#39;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;lv&#39;</span><span class="p">,</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="n">global_idx</span> <span class="o">=</span> <span class="n">pos_idx</span><span class="p">[</span><span class="n">best</span><span class="p">[</span><span class="s1">&#39;lv&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()]</span>
+        <span class="n">best_priority</span><span class="p">[</span><span class="n">global_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;prio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="n">best_feature</span><span class="p">[</span><span class="n">global_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;feat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+        <span class="n">best_gene_name</span><span class="p">[</span><span class="n">global_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;gname&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>       
+        <span class="n">best_gene_type</span><span class="p">[</span><span class="n">global_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">best</span><span class="p">[</span><span class="s1">&#39;gtype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>       
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;gtf_feature&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">best_feature</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+        <span class="s1">&#39;gene_name&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">best_gene_name</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+        <span class="s1">&#39;gene_type&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">best_gene_type</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+        <span class="s1">&#39;closest_TSS&#39;</span><span class="p">:</span> <span class="n">best_closest_tss</span>
+    <span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">variants_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="annotate_phyloP_score">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.annotate_phyloP_score">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_phyloP_score</span><span class="p">(</span><span class="n">var_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">phylo_bw</span><span class="p">:</span> <span class="n">pyBigWig</span><span class="o">.</span><span class="n">pyBigWig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts phyloP conservation scores for variants from a BigWig file.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        var_df (pd.DataFrame): Variant dataframe containing &#39;Chromosome&#39;, &#39;Start&#39;, </span>
+<span class="sd">                               and &#39;End&#39; columns.</span>
+<span class="sd">        phylo_bw (pyBigWig.pyBigWig): An open pyBigWig file object containing phyloP scores.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Series: Series containing phyloP scores, aligned with the input dataframe index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">var_df</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">var_df</span><span class="p">)</span>
+    <span class="n">valid_chroms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">phylo_bw</span><span class="o">.</span><span class="n">chroms</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_phylop_chrom</span><span class="p">(</span><span class="n">group</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+        <span class="n">chrom</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">chrom</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_chroms</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="n">starts</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">ends</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ends</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">starts</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">span</span> <span class="o">&lt;</span> <span class="mi">10_000_000</span><span class="p">:</span>     
+            <span class="n">region_start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starts</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+            <span class="n">region_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ends</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="n">phylo_bw</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">chrom</span><span class="p">,</span> <span class="n">region_start</span><span class="p">,</span> <span class="n">region_end</span><span class="p">),</span>
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+                <span class="p">)</span>
+                <span class="n">offsets</span> <span class="o">=</span> <span class="n">starts</span> <span class="o">-</span> <span class="n">region_start</span> 
+                <span class="n">scores</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="n">offsets</span><span class="p">]</span>
+                <span class="n">scores</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">scores</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span> 
+
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">ends</span><span class="o">.</span><span class="n">tolist</span><span class="p">())):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">vals</span> <span class="o">=</span> <span class="n">phylo_bw</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">chrom</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">vals</span> <span class="ow">and</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="n">phyloP</span> <span class="o">=</span> <span class="n">var_df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">group_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_phylop_chrom</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">phyloP</span></div>
+
+
+
+<div class="viewcode-block" id="annotate_coding_effect">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.annotate_coding_effect">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_coding_effect</span><span class="p">(</span><span class="n">variants_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">sleep</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Queries the Ensembl VEP REST API for coding consequence, amino acid changes, and impact.</span>
+<span class="sd">    </span>
+<span class="sd">    Note: This function filters internally to only request VEP data for variants </span>
+<span class="sd">    already annotated as coding (CDS, start/stop codon, exon).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        variants_df (pd.DataFrame): Must contain &#39;Chromosome&#39;, &#39;Pos&#39;, &#39;Ref&#39;, &#39;Alt&#39;, </span>
+<span class="sd">                                    and &#39;gtf_feature&#39;.</span>
+<span class="sd">        batch_size (int): Number of variants to query in a single API POST request.</span>
+<span class="sd">        sleep (float): Wait time in seconds between API requests to prevent rate limiting.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Contains columns &#39;all_effects&#39;, &#39;coding_effect&#39;, &#39;aa_change&#39;, </span>
+<span class="sd">                      and &#39;impact&#39; aligned to the input variants_df index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">variants_df</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">variants_df</span><span class="p">)</span>
+    
+    <span class="n">CODING_FEATURES</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CDS&#39;</span><span class="p">,</span> <span class="s1">&#39;start_codon&#39;</span><span class="p">,</span> <span class="s1">&#39;stop_codon&#39;</span><span class="p">,</span> <span class="s1">&#39;exon&#39;</span><span class="p">}</span>
+    <span class="n">SERVER</span> <span class="o">=</span> <span class="s2">&quot;https://rest.ensembl.org/vep/human/region&quot;</span>
+    <span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">,</span> <span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">}</span>
+
+    <span class="n">coding_mask</span> <span class="o">=</span> <span class="n">variants_df</span><span class="p">[</span><span class="s1">&#39;gtf_feature&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">CODING_FEATURES</span><span class="p">)</span>
+    <span class="n">coding</span> <span class="o">=</span> <span class="n">variants_df</span><span class="p">[</span><span class="n">coding_mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s1">&#39;all_effects&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variants_df</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+        <span class="s1">&#39;coding_effect&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variants_df</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+        <span class="s1">&#39;aa_change&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variants_df</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+        <span class="s1">&#39;impact&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">variants_df</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">),</span>
+    <span class="p">},</span> <span class="n">index</span><span class="o">=</span><span class="n">variants_df</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">coding</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No coding variants found.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_vep</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">chrom</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;chr&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">])</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Ref&#39;</span><span class="p">])</span>
+        <span class="n">alt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;Alt&#39;</span><span class="p">])</span>
+
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">ref</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">alt</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">ref</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">alt</span> <span class="o">=</span> <span class="n">alt</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">pos</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2"> . </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">alt</span><span class="si">}</span><span class="s2"> . . .&quot;</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">ref</span> <span class="o">==</span> <span class="n">alt</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">alt</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="si">}</span><span class="s2"> . . .&quot;</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">alt</span> <span class="o">==</span> <span class="n">ref</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ref</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="si">}</span><span class="s2"> - . . .&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">pos</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ref</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">alt</span><span class="si">}</span><span class="s2"> . . .&quot;</span>
+
+    <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;_vep&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coding</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">to_vep</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="n">dupes</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;_vep&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">dupes</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: </span><span class="si">{</span><span class="n">dupes</span><span class="si">}</span><span class="s2"> duplicate VEP strings — these will not match correctly&quot;</span><span class="p">)</span>
+
+    <span class="n">idx_list</span> <span class="o">=</span> <span class="n">coding</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">var_list</span> <span class="o">=</span> <span class="n">coding</span><span class="p">[</span><span class="s1">&#39;_vep&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">n_batches</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">var_list</span><span class="p">)</span> <span class="o">+</span> <span class="n">batch_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="n">batch_size</span>
+
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span>
+        <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">var_list</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">),</span>
+        <span class="n">total</span><span class="o">=</span><span class="n">n_batches</span><span class="p">,</span>
+        <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;VEP annotation&quot;</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;batch&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pbar</span><span class="p">:</span>
+        <span class="n">batch_idx</span> <span class="o">=</span> <span class="n">idx_list</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]</span>
+        <span class="n">batch_vars</span> <span class="o">=</span> <span class="n">var_list</span><span class="p">[</span><span class="n">i</span> <span class="p">:</span> <span class="n">i</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]</span>
+        <span class="n">pbar</span><span class="o">.</span><span class="n">set_postfix</span><span class="p">({</span><span class="s1">&#39;variants&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">batch_size</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">var_list</span><span class="p">))</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">var_list</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+                    <span class="n">SERVER</span><span class="p">,</span>
+                    <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">,</span>
+                    <span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;variants&quot;</span><span class="p">:</span> <span class="n">batch_vars</span><span class="p">},</span>
+                    <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="n">response</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                    <span class="k">break</span>
+                <span class="k">elif</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">429</span><span class="p">:</span>
+                    <span class="n">wait</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rate limited — waiting </span><span class="si">{</span><span class="n">wait</span><span class="si">}</span><span class="s2">s&quot;</span><span class="p">)</span>
+                    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pbar</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch </span><span class="si">{</span><span class="n">i</span><span class="o">//</span><span class="n">batch_size</span><span class="si">}</span><span class="s2">: HTTP </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> — skipping&quot;</span><span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">pbar</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Batch </span><span class="si">{</span><span class="n">i</span><span class="o">//</span><span class="n">batch_size</span><span class="si">}</span><span class="s2"> attempt </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+            
+        <span class="n">vep_to_idx</span> <span class="o">=</span> <span class="p">{</span><span class="n">vep_str</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">vep_str</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">batch_idx</span><span class="p">,</span> <span class="n">batch_vars</span><span class="p">)}</span>
+
+        <span class="k">for</span> <span class="n">var_result</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+            <span class="n">input_str</span> <span class="o">=</span> <span class="n">var_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">vep_to_idx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">input_str</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">idx</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">consequences</span> <span class="o">=</span> <span class="n">var_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;transcript_consequences&#39;</span><span class="p">,</span> <span class="p">[])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">consequences</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">all_terms</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="p">{</span><span class="n">term</span> <span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">consequences</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">tc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;consequence_terms&#39;</span><span class="p">,</span> <span class="p">[])},</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">CONSEQUENCE_RANK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">999</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">all_terms</span><span class="p">:</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;all_effects&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">all_terms</span><span class="p">)</span>
+
+            <span class="n">best_term</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">all_terms</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">CONSEQUENCE_RANK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">999</span><span class="p">))</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;coding_effect&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">best_term</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;impact&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">IMPACT</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">best_term</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+            <span class="n">best_tc</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                <span class="n">consequences</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">tc</span><span class="p">:</span> <span class="nb">min</span><span class="p">((</span><span class="n">CONSEQUENCE_RANK</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="mi">999</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;consequence_terms&#39;</span><span class="p">,</span> <span class="p">[])),</span> <span class="n">default</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">aa_raw</span> <span class="o">=</span> <span class="n">best_tc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;amino_acids&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">aa_raw</span><span class="p">:</span>
+                <span class="n">parts</span> <span class="o">=</span> <span class="n">aa_raw</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">ref_aa</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">&#39;-&#39;</span>
+                    <span class="n">alt_aa</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">or</span> <span class="s1">&#39;-&#39;</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref_aa</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> <span class="n">ref_aa</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">ref_aa</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">alt_aa</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span> <span class="n">alt_aa</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">alt_aa</span><span class="si">}</span><span class="s2">)&quot;</span>
+                    <span class="n">out</span><span class="o">.</span><span class="n">at</span><span class="p">[</span><span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;aa_change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ref_aa</span><span class="si">}</span><span class="s2">&gt;</span><span class="si">{</span><span class="n">alt_aa</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep</span><span class="p">)</span>
+    <span class="n">pbar</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">effects</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s1">&#39;coding_effect&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">effects</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Coding consequence breakdown:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">effects</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">rename_axis</span><span class="p">(</span><span class="s1">&#39;consequence&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;count&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Impact breakdown:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;impact&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">([</span><span class="s1">&#39;HIGH&#39;</span><span class="p">,</span> <span class="s1">&#39;MODERATE&#39;</span><span class="p">,</span> <span class="s1">&#39;LOW&#39;</span><span class="p">,</span> <span class="s1">&#39;MODIFIER&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;impact&#39;</span><span class="p">,</span> <span class="s1">&#39;impact&#39;</span><span class="p">:</span> <span class="s1">&#39;count&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">to_string</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="annotate_cadd_snv_scores">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.annotate_cadd_snv_scores">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_cadd_snv_scores</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">bw_paths</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts CADD PHRED scores for SNVs from allele-specific BigWig files.</span>
+<span class="sd">    </span>
+<span class="sd">    Filters out Indels automatically, mapping the remaining single nucleotide variants </span>
+<span class="sd">    to their corresponding target allele BigWig track.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        df (pd.DataFrame): DataFrame containing &#39;Chromosome&#39;, &#39;Pos&#39;, &#39;Ref&#39;, and &#39;Alt&#39;.</span>
+<span class="sd">        bw_paths (Dict[str, str]): Dictionary mapping the alternate alleles to their </span>
+<span class="sd">                                   specific BigWig paths, e.g.:</span>
+<span class="sd">                                   {&#39;A&#39;: &#39;cadd1.7PhredSnvA.bw&#39;, &#39;C&#39;: &#39;...&#39;}</span>
+<span class="sd">                                   </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Contains only the filtered SNVs alongside their coordinates, </span>
+<span class="sd">                      alleles, and the resulting &#39;CADD_PHRED_score&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="s1">&#39;Pos&#39;</span><span class="p">,</span> <span class="s1">&#39;Ref&#39;</span><span class="p">,</span> <span class="s1">&#39;Alt&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span> <span class="c1">#selct dowwn to minmal set to spead up query</span>
+    
+    <span class="n">bws</span> <span class="o">=</span> <span class="p">{</span><span class="n">allele</span><span class="p">:</span> <span class="n">pyBigWig</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">allele</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">bw_paths</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>   
+    
+    <span class="n">is_snv</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Ref&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Alt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">len</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">df_snvs</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">is_snv</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_snvs</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_snvs</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">df_snvs</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_snvs</span><span class="p">[</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span>
+    <span class="n">df_snvs</span><span class="p">[</span><span class="s1">&#39;CADD_PHRED_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>   
+    
+    <span class="k">for</span> <span class="p">(</span><span class="n">chrom</span><span class="p">,</span> <span class="n">alt</span><span class="p">),</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">df_snvs</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="s1">&#39;Alt&#39;</span><span class="p">],</span> <span class="n">observed</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">alt</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">bws</span><span class="p">:</span>
+            <span class="k">continue</span>
+            
+        <span class="n">bw</span> <span class="o">=</span> <span class="n">bws</span><span class="p">[</span><span class="n">alt</span><span class="p">]</span>
+        <span class="n">valid_chroms</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">bw</span><span class="o">.</span><span class="n">chroms</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">query_chrom</span> <span class="o">=</span> <span class="n">chrom</span> <span class="k">if</span> <span class="n">chrom</span> <span class="ow">in</span> <span class="n">valid_chroms</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;chr</span><span class="si">{</span><span class="n">chrom</span><span class="si">}</span><span class="s2">&quot;</span>
+        
+        <span class="k">if</span> <span class="n">query_chrom</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">valid_chroms</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="n">starts</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">ends</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+        <span class="n">span</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ends</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">starts</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">span</span> <span class="o">&lt;</span> <span class="mi">10_000_000</span><span class="p">:</span>     
+            <span class="n">region_start</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">starts</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+            <span class="n">region_end</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ends</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">buf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                    <span class="n">bw</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">query_chrom</span><span class="p">,</span> <span class="n">region_start</span><span class="p">,</span> <span class="n">region_end</span><span class="p">),</span> 
+                    <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span>
+                <span class="p">)</span>
+                <span class="n">offsets</span> <span class="o">=</span> <span class="n">starts</span> <span class="o">-</span> <span class="n">region_start</span>  
+                <span class="n">scores</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="n">offsets</span><span class="p">]</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="k">pass</span> 
+
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">ends</span><span class="o">.</span><span class="n">tolist</span><span class="p">())):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">vals</span> <span class="o">=</span> <span class="n">bw</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">query_chrom</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">vals</span> <span class="ow">and</span> <span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">vals</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                    
+        <span class="n">df_snvs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;CADD_PHRED_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">out</span>
+
+    <span class="k">for</span> <span class="n">bw</span> <span class="ow">in</span> <span class="n">bws</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">bw</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">df_snvs</span><span class="p">[[</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="s1">&#39;Ref&#39;</span><span class="p">,</span> <span class="s1">&#39;Alt&#39;</span><span class="p">,</span> <span class="s1">&#39;Pos&#39;</span><span class="p">,</span> <span class="s1">&#39;CADD_PHRED_score&#39;</span><span class="p">]]</span></div>
+
+
+
+<div class="viewcode-block" id="annotate_cardioid_enhancer_overlap">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.variant_annotation.annotate_cardioid_enhancer_overlap">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">annotate_cardioid_enhancer_overlap</span><span class="p">(</span><span class="n">variants_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">regions_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Annotates variants with overlapping cardioid enhancer regions.</span>
+
+<span class="sd">    Determines which variants fall within the specified enhancer regions, appending</span>
+<span class="sd">    their regulatory positions, cell type specificity, and H3K27ac histone modification status.</span>
+<span class="sd">    Duplicates are resolved by prioritizing H3K27ac positive overlaps.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        variants_df (pd.DataFrame): DataFrame containing genetic variants (must have CHROM and POS).</span>
+<span class="sd">        regions_df (pd.DataFrame): DataFrame containing enhancer regions (must have seqnames, start, and end).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: DataFrame of overlapping variants annotated with enhancer regulatory position,</span>
+<span class="sd">        histone status, and cell types.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">v_temp</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">variants_df</span><span class="p">)</span>
+    <span class="n">v_temp</span><span class="p">[</span><span class="s1">&#39;Start&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_temp</span><span class="p">[</span><span class="s1">&#39;End&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">pr_variants</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">(</span><span class="n">v_temp</span><span class="p">)</span>
+
+    <span class="n">r_cols_to_keep</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Chromosome&#39;</span><span class="p">,</span> <span class="s1">&#39;Start&#39;</span><span class="p">,</span> <span class="s1">&#39;End&#39;</span><span class="p">,</span> <span class="s1">&#39;regulatory_position&#39;</span><span class="p">,</span> <span class="s1">&#39;isH3K27ac&#39;</span><span class="p">,</span> <span class="s1">&#39;celltype&#39;</span><span class="p">]</span>
+    
+    <span class="n">r_temp</span> <span class="o">=</span> <span class="n">standardize_vcf_columns</span><span class="p">(</span><span class="n">regions_df</span><span class="p">)</span>
+    <span class="n">r_temp</span> <span class="o">=</span> <span class="n">r_temp</span><span class="p">[</span><span class="n">r_cols_to_keep</span><span class="p">]</span>
+    <span class="n">pr_regions</span> <span class="o">=</span> <span class="n">pr</span><span class="o">.</span><span class="n">PyRanges</span><span class="p">(</span><span class="n">r_temp</span><span class="p">)</span>
+
+    <span class="n">overlapping_pr</span> <span class="o">=</span> <span class="n">pr_variants</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pr_regions</span><span class="p">)</span>
+    <span class="n">final_variants</span> <span class="o">=</span> <span class="n">overlapping_pr</span><span class="o">.</span><span class="n">df</span>
+
+    <span class="n">cols_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;_b&#39;</span><span class="p">)]</span>
+    <span class="n">final_variants</span> <span class="o">=</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">cols_to_drop</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+    <span class="n">final_variants</span> <span class="o">=</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;isH3K27ac&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">final_variants</span> <span class="o">=</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;variant_id&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="s1">&#39;celltype&#39;</span> <span class="ow">in</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">final_variants</span><span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_variants</span><span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>       
+        <span class="n">final_variants</span><span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_variants</span><span class="p">[</span><span class="s1">&#39;celltype&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[</span><span class="si">{}</span><span class="se">\&#39;</span><span class="s1">&quot;]&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">final_variants</span> <span class="o">=</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;celltype&#39;</span><span class="p">:</span> <span class="s1">&#39;celltypes_in_enhancer&#39;</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">final_variants</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;regulatory_position&quot;</span><span class="p">:</span> <span class="s2">&quot;enhancer_regulatory_position&quot;</span><span class="p">,</span> <span class="s2">&quot;isH3K27ac&quot;</span><span class="p">:</span> <span class="s2">&quot;is_cardioid_H3K27ac&quot;</span><span class="p">})</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

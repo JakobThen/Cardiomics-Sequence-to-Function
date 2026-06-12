@@ -1,0 +1,686 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.ISM &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/ISM';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.ISM</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">h5py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">anndata</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">ad</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">sparse</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome</span><span class="w"> </span><span class="kn">import</span> <span class="n">colab_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">gene_annotation</span><span class="p">,</span> <span class="n">genome</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">transcript</span> <span class="k">as</span> <span class="n">transcript_utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome.interpretation</span><span class="w"> </span><span class="kn">import</span> <span class="n">ism</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">dna_client</span><span class="p">,</span> <span class="n">variant_scorers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">alphagenome.visualization</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_components</span>
+
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module to process and save In Silico Mutagenesis (ISM) results from AlphaGenome outputs.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="aggregate_adata_vars">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.aggregate_adata_vars">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">aggregate_adata_vars</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">:</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> 
+    <span class="n">groupby_cols</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ontology_curie&#39;</span><span class="p">,</span> <span class="s1">&#39;transcription_factor&#39;</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Groups AnnData variables by specified columns and computes the mean for .X.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        adata (ad.AnnData): Input AnnData object.</span>
+<span class="sd">        groupby_cols (list of str, optional): Columns in `.var` to group by.</span>
+<span class="sd">            Defaults to [&#39;ontology_curie&#39;, &#39;transcription_factor&#39;].</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ad.AnnData: Grouped AnnData object containing mean expression values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">grouped</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">groupby_cols</span><span class="p">)</span>
+    <span class="n">new_X_cols</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">new_var_rows</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="p">:</span>
+        <span class="n">X_sub</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">group</span><span class="o">.</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">X</span>
+        
+        <span class="c1"># Handle sparse vs dense matrix differences when computing the mean</span>
+        <span class="k">if</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">X_sub</span><span class="p">):</span>
+            <span class="n">col_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X_sub</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">col_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">X_sub</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            
+        <span class="n">new_X_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col_mean</span><span class="p">)</span>
+        
+        <span class="n">var_repr</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># Flatten tuple names into a single string for the new index</span>
+        <span class="n">var_repr</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">name</span><span class="p">])</span>
+        <span class="n">new_var_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var_repr</span><span class="p">)</span>
+        
+    <span class="n">new_adata</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">(</span>
+        <span class="n">X</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(</span><span class="n">new_X_cols</span><span class="p">),</span> 
+        <span class="n">obs</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> 
+        <span class="n">var</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">new_var_rows</span><span class="p">)</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Carry over unstructured data and embeddings</span>
+    <span class="n">new_adata</span><span class="o">.</span><span class="n">uns</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;obsm&#39;</span><span class="p">):</span>
+        <span class="n">new_adata</span><span class="o">.</span><span class="n">obsm</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+    <span class="k">return</span> <span class="n">new_adata</span></div>
+
+
+
+<div class="viewcode-block" id="average_all_stranded_expression">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.average_all_stranded_expression">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">average_all_stranded_expression</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Averages all tracks into a single track, respecting strand compatibility per gene.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        adata (ad.AnnData): Input AnnData object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ad.AnnData: Averaged AnnData object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">gene_strands</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s1">&#39;strand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">track_strands</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;strand&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    
+    <span class="c1"># Mask is True if strands match or if the track is unstranded (&#39;.&#39;)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">gene_strands</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">==</span> <span class="n">track_strands</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span> <span class="o">|</span> <span class="p">(</span><span class="n">track_strands</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Sum up valid expression values</span>
+    <span class="k">if</span> <span class="n">sparse</span><span class="o">.</span><span class="n">issparse</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">):</span>
+        <span class="n">valid_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">valid_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+    <span class="n">valid_count</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Safely compute the mean, replacing division-by-zero NaNs with 0.0</span>
+    <span class="k">with</span> <span class="n">np</span><span class="o">.</span><span class="n">errstate</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">):</span>
+        <span class="n">col_mean</span> <span class="o">=</span> <span class="n">valid_sum</span> <span class="o">/</span> <span class="n">valid_count</span>
+    <span class="n">col_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">col_mean</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    
+    <span class="c1"># Create the unified variable metadata</span>
+    <span class="n">new_var</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([{</span>
+        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;mean_expression_all_tracks&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;strand&#39;</span><span class="p">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;Assay title&#39;</span><span class="p">:</span> <span class="s1">&#39;Aggregated RNA-seq&#39;</span>
+    <span class="p">}],</span> <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mean_expression_all_tracks&#39;</span><span class="p">])</span>
+    
+    <span class="n">new_adata</span> <span class="o">=</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">(</span>
+        <span class="n">X</span><span class="o">=</span><span class="n">col_mean</span><span class="p">,</span> 
+        <span class="n">obs</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> 
+        <span class="n">var</span><span class="o">=</span><span class="n">new_var</span>
+    <span class="p">)</span>
+    
+    <span class="n">new_adata</span><span class="o">.</span><span class="n">uns</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="s1">&#39;obsm&#39;</span><span class="p">):</span>
+        <span class="n">new_adata</span><span class="o">.</span><span class="n">obsm</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        
+    <span class="k">return</span> <span class="n">new_adata</span></div>
+
+   
+
+<div class="viewcode-block" id="extract_var_score">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.extract_var_score">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_var_score</span><span class="p">(</span><span class="n">adata</span><span class="p">:</span> <span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">,</span> <span class="n">curie</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracts variable names and flattened scores for a given curie and assay type.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        adata (ad.AnnData): Input AnnData object.</span>
+<span class="sd">        curie (list of str): List of ontology curies to filter by.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple or None: A tuple containing:</span>
+<span class="sd">            - list of str: Target variable names.</span>
+<span class="sd">            - np.ndarray: Flattened score array.</span>
+
+<span class="sd">            Returns None if the assay type is unsupported.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">assay_type</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s2">&quot;Assay title&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">ontology_curie</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">curie</span><span class="p">))]</span>
+    
+    <span class="k">if</span> <span class="n">assay_type</span> <span class="o">==</span> <span class="s2">&quot;ATAC-seq&quot;</span><span class="p">:</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">aggregate_adata_vars</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;strand&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">([</span><span class="s2">&quot;ATAC&quot;</span><span class="p">],</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+        
+    <span class="k">elif</span> <span class="n">assay_type</span> <span class="o">==</span> <span class="s2">&quot;TF ChIP-seq&quot;</span><span class="p">:</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">aggregate_adata_vars</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;transcription_factor&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s1">&#39;transcription_factor&#39;</span><span class="p">]),</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+        
+    <span class="k">elif</span> <span class="n">assay_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;polyA plus RNA-seq&#39;</span><span class="p">,</span> <span class="s1">&#39;total RNA-seq&#39;</span><span class="p">]:</span>
+        <span class="c1"># Return empty arrays if no genes fall in the window</span>
+        <span class="k">if</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="p">([],</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]))</span>
+            
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">aggregate_adata_vars</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">groupby_cols</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;strand&#39;</span><span class="p">])</span>
+        <span class="n">adata</span> <span class="o">=</span> <span class="n">average_all_stranded_expression</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s2">&quot;gene_name&quot;</span><span class="p">]),</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: Modality &#39;</span><span class="si">{</span><span class="n">assay_type</span><span class="si">}</span><span class="s2">&#39; not handled yet.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+    
+
+<div class="viewcode-block" id="collect_ism_scores">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.collect_ism_scores">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">collect_ism_scores</span><span class="p">(</span>
+    <span class="n">ism_result</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">]],</span> 
+    <span class="n">curie</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> 
+    <span class="n">modality</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Passes over all variants for one modality to build an ISM score matrix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ism_result (list of list of ad.AnnData): Nested list of ISM results.</span>
+<span class="sd">        curie (list of str): Curie IDs.</span>
+<span class="sd">        modality (dict of str to int): Modality mapping.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict or None: A dictionary containing:</span>
+<span class="sd">            - &quot;targets&quot;: list of targets.</span>
+<span class="sd">            - &quot;variants&quot;: list of variant objects.</span>
+<span class="sd">            - &quot;scores&quot;: np.ndarray score matrix.</span>
+
+<span class="sd">            Returns None if no valid targets exist.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">m_idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">modality</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># Establish output shape based on the first variant</span>
+    <span class="n">first_pass</span> <span class="o">=</span> <span class="n">extract_var_score</span><span class="p">(</span><span class="n">ism_result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">m_idx</span><span class="p">],</span> <span class="n">curie</span><span class="o">=</span><span class="n">curie</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">first_pass</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_pass</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+        
+    <span class="n">first_targets</span><span class="p">,</span> <span class="n">first_scores</span> <span class="o">=</span> <span class="n">first_pass</span>
+
+    <span class="n">n_variants</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ism_result</span><span class="p">)</span>
+    <span class="n">n_targets</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">first_targets</span><span class="p">)</span>
+    
+    <span class="n">score_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">n_variants</span><span class="p">,</span> <span class="n">n_targets</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">variants</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Initialize with the first variant we already computed</span>
+    <span class="n">score_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">first_scores</span>
+    <span class="n">variants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ism_result</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">m_idx</span><span class="p">]</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s2">&quot;variant&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Process remaining variants</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">adata_list</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ism_result</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">scores</span> <span class="o">=</span> <span class="n">extract_var_score</span><span class="p">(</span><span class="n">adata_list</span><span class="p">[</span><span class="n">m_idx</span><span class="p">],</span> <span class="n">curie</span><span class="o">=</span><span class="n">curie</span><span class="p">)</span>
+        <span class="n">score_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">scores</span>
+        <span class="n">variants</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">adata_list</span><span class="p">[</span><span class="n">m_idx</span><span class="p">]</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s2">&quot;variant&quot;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;targets&quot;</span><span class="p">:</span> <span class="n">first_targets</span><span class="p">,</span>
+        <span class="s2">&quot;variants&quot;</span><span class="p">:</span> <span class="n">variants</span><span class="p">,</span>
+        <span class="s2">&quot;scores&quot;</span><span class="p">:</span> <span class="n">score_matrix</span><span class="p">,</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="build_ism_matrix">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.build_ism_matrix">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">build_ism_matrix</span><span class="p">(</span><span class="n">collected</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Slices a single target column from pre-collected scores to build the ISM matrix.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        collected (dict or None): Dictionary of collected ISM scores.</span>
+<span class="sd">        target (str, optional): Target column name to slice. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: Attribution score matrix of shape `(seq_len, 4)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">collected</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">col_idx</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">target_upper</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="n">targets_upper</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">collected</span><span class="p">[</span><span class="s2">&quot;targets&quot;</span><span class="p">]]</span>
+        
+        <span class="k">if</span> <span class="n">target_upper</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">targets_upper</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+            
+        <span class="n">col_idx</span> <span class="o">=</span> <span class="n">targets_upper</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">target_upper</span><span class="p">)</span>
+
+    <span class="n">v_scores</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">collected</span><span class="p">[</span><span class="s2">&quot;scores&quot;</span><span class="p">][:,</span> <span class="n">col_idx</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">ism</span><span class="o">.</span><span class="n">ism_matrix</span><span class="p">(</span>
+        <span class="n">variant_scores</span><span class="o">=</span><span class="n">v_scores</span><span class="p">,</span>
+        <span class="n">variants</span><span class="o">=</span><span class="n">collected</span><span class="p">[</span><span class="s2">&quot;variants&quot;</span><span class="p">],</span>
+        <span class="n">multiply_by_sequence</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">require_fully_filled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="process_region">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.process_region">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_region</span><span class="p">(</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">ism_data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">ad</span><span class="o">.</span><span class="n">AnnData</span><span class="p">]],</span> 
+    <span class="n">curie</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> 
+    <span class="n">genes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">TFs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processes ISM results for a genomic region.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        name (str): Region name identifier.</span>
+<span class="sd">        ism_data (list of list of ad.AnnData): Nested list of ISM results.</span>
+<span class="sd">        curie (list of str): Curie IDs.</span>
+<span class="sd">        genes (list of str, optional): Genes to process. Defaults to None.</span>
+<span class="sd">        TFs (list of str, optional): TFs to process. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple:</span>
+<span class="sd">            - str: Region name.</span>
+<span class="sd">            - dict: Modality matrices mapped by name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="n">atac_col</span> <span class="o">=</span> <span class="n">collect_ism_scores</span><span class="p">(</span><span class="n">ism_data</span><span class="p">,</span> <span class="n">curie</span><span class="o">=</span><span class="n">curie</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ATAC&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+    <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;ATAC&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">build_ism_matrix</span><span class="p">(</span><span class="n">atac_col</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">genes</span><span class="p">:</span>
+        <span class="n">rna_col</span> <span class="o">=</span> <span class="n">collect_ism_scores</span><span class="p">(</span><span class="n">ism_data</span><span class="p">,</span> <span class="n">curie</span><span class="o">=</span><span class="n">curie</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;RNA&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">rna_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> 
+            <span class="k">for</span> <span class="n">gene</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">:</span>
+                <span class="n">tmp</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;RNA </span><span class="si">{</span><span class="n">gene</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">build_ism_matrix</span><span class="p">(</span><span class="n">rna_col</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">gene</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">TFs</span><span class="p">:</span>
+        <span class="n">tf_col</span> <span class="o">=</span> <span class="n">collect_ism_scores</span><span class="p">(</span><span class="n">ism_data</span><span class="p">,</span> <span class="n">curie</span><span class="o">=</span><span class="n">curie</span><span class="p">,</span> <span class="n">modality</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;TF&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+        <span class="k">if</span> <span class="n">tf_col</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">tf</span> <span class="ow">in</span> <span class="n">TFs</span><span class="p">:</span>
+                <span class="n">tmp</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;TF </span><span class="si">{</span><span class="n">tf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">build_ism_matrix</span><span class="p">(</span><span class="n">tf_col</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">tf</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">name</span><span class="p">,</span> <span class="n">tmp</span></div>
+
+
+
+<div class="viewcode-block" id="save_ism_dict">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.save_ism_dict">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">save_ism_dict</span><span class="p">(</span><span class="n">ism_enhancer</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]],</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save the ISM enhancer dictionary to HDF5.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ism_enhancer (dict): Nested dictionary of processed ISM matrices.</span>
+<span class="sd">        path (str): Output HDF5 file path.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">enhancer_name</span><span class="p">,</span> <span class="n">modalities</span> <span class="ow">in</span> <span class="n">ism_enhancer</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">grp</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">create_group</span><span class="p">(</span><span class="n">enhancer_name</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">modality_name</span><span class="p">,</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="n">modalities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">matrix</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                    
+                <span class="c1"># HDF5 keys don&#39;t support spaces</span>
+                <span class="n">key</span> <span class="o">=</span> <span class="n">modality_name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                <span class="n">grp</span><span class="o">.</span><span class="n">create_dataset</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">matrix</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;gzip&quot;</span><span class="p">,</span> <span class="n">compression_opts</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_ism_dict">
+<a class="viewcode-back" href="../../api/utils.ISM.html#utils.ISM.load_ism_dict">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_ism_dict</span><span class="p">(</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+    <span class="n">enhancers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+    <span class="n">modalities</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Loads the ISM enhancer dictionary from HDF5.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path (str): Input HDF5 file path.</span>
+<span class="sd">        enhancers (list of str, optional): Enhancer regions to load. Defaults to None.</span>
+<span class="sd">        modalities (list of str, optional): Modalities to load. Defaults to None.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: Processed ISM dictionary of matrices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">new_enhancer_keys</span> <span class="o">=</span> <span class="n">enhancers</span> <span class="k">if</span> <span class="n">enhancers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        
+        <span class="k">for</span> <span class="n">enhancer_name</span> <span class="ow">in</span> <span class="n">new_enhancer_keys</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">enhancer_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">continue</span>
+                
+            <span class="n">grp</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">enhancer_name</span><span class="p">]</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">enhancer_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">grp</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">modalities</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">m</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">modalities</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                    
+                <span class="c1"># Restore the original spacing convention (e.g. &quot;RNA_GENE&quot; -&gt; &quot;RNA GENE&quot;)</span>
+                <span class="n">modality_name</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">result</span><span class="p">[</span><span class="n">enhancer_name</span><span class="p">][</span><span class="n">modality_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">grp</span><span class="p">[</span><span class="n">key</span><span class="p">][:]</span>
+                
+    <span class="k">return</span> <span class="n">result</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

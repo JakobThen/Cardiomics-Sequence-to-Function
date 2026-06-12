@@ -1,3 +1,9 @@
+"""
+Data Input and Squashing Module
+
+This module provides functions and classes to scale, squash, and invert
+predictions/targets for Borzoi and AlphaGenome model architectures.
+"""
 import os
 import sys
 import numpy as np
@@ -48,13 +54,27 @@ def _alphagenome_core_inverse(y: TensorOrArray) -> TensorOrArray:
 
 # PUBLIC STANDALONE FUNCTIONS
 def borzoi_squash(y: TensorOrArray) -> TensorOrArray:
-    """Applies the Borzoi 'squashed scale' transformation."""
+    """Applies the Borzoi 'squashed scale' transformation.
+
+    Args:
+        y (TensorOrArray): Input array or tensor of values to squash.
+
+    Returns:
+        TensorOrArray: The transformed values on the Borzoi squashed scale.
+    """
     if isinstance(y, torch.Tensor): y = y.to(torch.float32)
     else: y = np.array(y, dtype=np.float32)
     return _borzoi_core_squash(y)
 
 def inverse_borzoi_squash(y_sq: TensorOrArray) -> TensorOrArray:
-    """Inverts the Borzoi 'squashed scale' transformation."""
+    """Inverts the Borzoi 'squashed scale' transformation.
+
+    Args:
+        y_sq (TensorOrArray): Input array or tensor on the squashed scale.
+
+    Returns:
+        TensorOrArray: The original scale values.
+    """
     if isinstance(y_sq, torch.Tensor): y_sq = y_sq.to(torch.float32)
     else: y_sq = np.array(y_sq, dtype=np.float32)
     return _borzoi_core_inverse(y_sq)
@@ -64,7 +84,17 @@ def alphagenome_squash(
     track_means: Union[TensorOrArray, float], 
     apply_rna_squashing: bool = True
 ) -> TensorOrArray:
-    """Scales targets by track means and optionally applies AlphaGenome squashing."""
+    """Scales targets by track means and optionally applies AlphaGenome squashing.
+
+    Args:
+        targets (TensorOrArray): Target values.
+        track_means (TensorOrArray or float): Non-zero means per track to scale by.
+        apply_rna_squashing (bool, optional): Whether to apply the non-linear squashing.
+            Defaults to True.
+
+    Returns:
+        TensorOrArray: Scaled and optionally squashed targets.
+    """
     if isinstance(targets, torch.Tensor):
         targets = targets.to(torch.float32)
         if isinstance(track_means, torch.Tensor):
@@ -82,7 +112,17 @@ def invert_alphagenome_squash(
     track_means: Union[TensorOrArray, float], 
     apply_rna_squashing: bool = True
 ) -> TensorOrArray:
-    """Inverts the AlphaGenome scaling and squashing to return raw counts."""
+    """Inverts the AlphaGenome scaling and squashing to return raw counts.
+
+    Args:
+        x (TensorOrArray): Scaled and squashed values.
+        track_means (TensorOrArray or float): Non-zero means per track.
+        apply_rna_squashing (bool, optional): Whether to invert the non-linear squashing.
+            Defaults to True.
+
+    Returns:
+        TensorOrArray: Reconstructed raw counts.
+    """
     if isinstance(x, torch.Tensor):
         x = x.to(torch.float32)
         if isinstance(track_means, torch.Tensor):
@@ -95,10 +135,16 @@ def invert_alphagenome_squash(
     return x * track_means
 
 def get_non_zero_track_means(preds: np.ndarray) -> np.ndarray:
-    """
-    Calculates the non-zero mean per track for an array of shape (intervals, tracks, bins).
-    Safely ignores NaN values (treating them as missing/zero coverage).
-    Highly memory efficient.
+    """Calculates the non-zero mean per track for predictions.
+
+    Calculates the mean for each track across all intervals and bins, considering
+    only non-zero and non-NaN values. Highly memory efficient.
+
+    Args:
+        preds (np.ndarray): Predictions array of shape `(intervals, tracks, bins)`.
+
+    Returns:
+        np.ndarray: A 1D array of shape `(tracks,)` with non-zero means.
     """
     track_sums = np.nansum(preds, axis=(0, 2))
     #mask that ensures the value is NOT 0 and NOT NaN.
@@ -113,9 +159,21 @@ def get_non_zero_track_means(preds: np.ndarray) -> np.ndarray:
     return track_means
 
 def get_streaming_non_zero_track_means(bw_paths_df, intervals_df, bin_size, batch_size=256):
-    """
-    Computes non-zero track means across all intervals of a bunch of bw files without loading everything into RAM.
-    Uses float64 for accumulators to prevent overflow on large datasets.
+    """Computes non-zero track means across all intervals in a streaming fashion.
+
+    Iterates through the intervals and loads BigWig data in batches, accumulating
+    sums and counts of non-zero, non-NaN entries to compute the final track means.
+    This avoids loading the entire dataset into RAM.
+
+    Args:
+        bw_paths_df (pandas.DataFrame): DataFrame containing a 'path' column of BigWig files.
+        intervals_df (pandas.DataFrame): DataFrame containing 'chrom', 'start', and 'end' columns
+            for the intervals.
+        bin_size (int): Size of each bin in base pairs.
+        batch_size (int, optional): Batch size for loading data. Defaults to 256.
+
+    Returns:
+        np.ndarray: A 1D array of shape `(tracks,)` containing the computed non-zero track means.
     """
     print("Pre-computing track means from BigWigs for AlphaGenome transform...", flush=True)
     num_bins = (intervals_df['end'].iloc[0] - intervals_df['start'].iloc[0]) // bin_size
@@ -123,7 +181,7 @@ def get_streaming_non_zero_track_means(bw_paths_df, intervals_df, bin_size, batc
     
     track_sums = np.zeros(num_tracks, dtype=np.float64)
     track_counts = np.zeros(num_tracks, dtype=np.float64)
-       
+    
     with BatchBigWigLoader(bw_paths_df, num_bins, bin_size) as bw_loader:
         for start_idx in range(0, len(intervals_df), batch_size):
             end_idx = min(start_idx + batch_size, len(intervals_df))
@@ -147,9 +205,11 @@ def get_streaming_non_zero_track_means(bw_paths_df, intervals_df, bin_size, batc
 
 # UNIFIED SELECTIVE TRANSFORM CLASS
 class SelectiveSquashTransform:
-    """
-    A callable transform that applies selective squashing to specific tasks (e.g. RNA-seq).
+    """A callable transform to selectively apply/invert scaling and squashing.
+
     Compatible with PyTorch Lightning DataLoaders and native model transforms.
+    Allows applying Borzoi or AlphaGenome transformations specifically to certain
+    task tracks (e.g. RNA-seq).
     """
     def __init__(
         self, 
@@ -159,13 +219,20 @@ class SelectiveSquashTransform:
         track_means: Optional[TensorOrArray] = None,
         inverse: bool = False
     ):
-        """
+        """Initializes the transform.
+
         Args:
-            rna_task_indices: List of integer indices corresponding to the RNA-seq tracks.
-            task_axis: The axis containing the different tasks (-2 works for B,T,L and T,L).
-            transform: "Borzoi" or "AlphaGenome".
-            track_means: Required if transform="AlphaGenome". A 1D array of shape (N_Tasks,).
-            inverse: If True, reverses the transformation (useful for prediction/inference).
+            rna_task_indices (list of int): Task indices corresponding to the RNA-seq tracks.
+            task_axis (int, optional): The axis containing the different tasks. Defaults to -2.
+            transform (str, optional): The transform type, either "Borzoi" or "AlphaGenome".
+                Defaults to "Borzoi".
+            track_means (TensorOrArray, optional): Required if transform is "AlphaGenome".
+                A 1D array of shape `(num_tasks,)`.
+            inverse (bool, optional): If True, applies the inverse transformation.
+                Defaults to False.
+
+        Raises:
+            ValueError: If `transform` is invalid or if `track_means` is missing when required.
         """
         self.rna_indices = list(rna_task_indices)
         self.task_axis = task_axis
@@ -200,6 +267,14 @@ class SelectiveSquashTransform:
         return tm.reshape(shape)
 
     def __call__(self, y: TensorOrArray) -> TensorOrArray:
+        """Applies or inverts the transformation.
+
+        Args:
+            y (TensorOrArray): Input array or tensor of targets.
+
+        Returns:
+            TensorOrArray: Transformed array or tensor.
+        """
         # 1. Cast and clone to avoid modifying original dataloader memory in-place
         if isinstance(y, torch.Tensor):
             out = y.clone().to(torch.float32)

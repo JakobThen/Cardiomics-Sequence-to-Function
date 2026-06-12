@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.io.data_input &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/io/data_input';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.io.data_input</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Data Input and Squashing Module</span>
+
+<span class="sd">This module provides functions and classes to scale, squash, and invert</span>
+<span class="sd">predictions/targets for Borzoi and AlphaGenome model architectures.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="n">parent_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="s2">&quot;/home/then&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">parent_dir</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_dir</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.io.batch_bw_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">BatchBigWigLoader</span> 
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="n">TensorOrArray</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span>
+
+
+<span class="c1"># CORE MATHEMATICAL OPERATIONS (Internal Helpers)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_borzoi_core_squash</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">y_34</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mf">0.75</span><span class="p">)</span> <span class="c1"># relu prevents NaN on negative inputs</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_34</span> <span class="o">&lt;=</span> <span class="mf">384.0</span><span class="p">,</span> <span class="n">y_34</span><span class="p">,</span> <span class="mf">384.0</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y_34</span> <span class="o">-</span> <span class="mf">384.0</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y_34</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_34</span> <span class="o">&lt;=</span> <span class="mf">384.0</span><span class="p">,</span> <span class="n">y_34</span><span class="p">,</span> <span class="mf">384.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">y_34</span> <span class="o">-</span> <span class="mf">384.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_borzoi_core_inverse</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">y_34</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mf">384.0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mf">384.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">384.0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y_34</span><span class="p">),</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y_34</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mf">384.0</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="mf">384.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">384.0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">y_34</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_alphagenome_core_squash</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">-</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">-</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_alphagenome_core_inverse</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mf">10.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">40.0</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">4.0</span> <span class="o">/</span> <span class="mf">3.0</span><span class="p">)</span>
+
+
+<span class="c1"># PUBLIC STANDALONE FUNCTIONS</span>
+<div class="viewcode-block" id="borzoi_squash">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.borzoi_squash">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">borzoi_squash</span><span class="p">(</span><span class="n">y</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Applies the Borzoi &#39;squashed scale&#39; transformation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y (TensorOrArray): Input array or tensor of values to squash.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TensorOrArray: The transformed values on the Borzoi squashed scale.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span> <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_borzoi_core_squash</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="inverse_borzoi_squash">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.inverse_borzoi_squash">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">inverse_borzoi_squash</span><span class="p">(</span><span class="n">y_sq</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inverts the Borzoi &#39;squashed scale&#39; transformation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        y_sq (TensorOrArray): Input array or tensor on the squashed scale.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TensorOrArray: The original scale values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y_sq</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span> <span class="n">y_sq</span> <span class="o">=</span> <span class="n">y_sq</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">y_sq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y_sq</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_borzoi_core_inverse</span><span class="p">(</span><span class="n">y_sq</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="alphagenome_squash">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.alphagenome_squash">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">alphagenome_squash</span><span class="p">(</span>
+    <span class="n">targets</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">,</span> 
+    <span class="n">track_means</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TensorOrArray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+    <span class="n">apply_rna_squashing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Scales targets by track means and optionally applies AlphaGenome squashing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        targets (TensorOrArray): Target values.</span>
+<span class="sd">        track_means (TensorOrArray or float): Non-zero means per track to scale by.</span>
+<span class="sd">        apply_rna_squashing (bool, optional): Whether to apply the non-linear squashing.</span>
+<span class="sd">            Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TensorOrArray: Scaled and optionally squashed targets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">targets</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">track_means</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">track_means</span> <span class="o">=</span> <span class="n">track_means</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">targets</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">targets</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="n">targets</span> <span class="o">=</span> <span class="n">targets</span> <span class="o">/</span> <span class="n">track_means</span>
+    <span class="k">if</span> <span class="n">apply_rna_squashing</span><span class="p">:</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="n">_alphagenome_core_squash</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">targets</span></div>
+
+
+<div class="viewcode-block" id="invert_alphagenome_squash">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.invert_alphagenome_squash">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">invert_alphagenome_squash</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">,</span> 
+    <span class="n">track_means</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">TensorOrArray</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> 
+    <span class="n">apply_rna_squashing</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inverts the AlphaGenome scaling and squashing to return raw counts.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (TensorOrArray): Scaled and squashed values.</span>
+<span class="sd">        track_means (TensorOrArray or float): Non-zero means per track.</span>
+<span class="sd">        apply_rna_squashing (bool, optional): Whether to invert the non-linear squashing.</span>
+<span class="sd">            Defaults to True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        TensorOrArray: Reconstructed raw counts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">track_means</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">track_means</span> <span class="o">=</span> <span class="n">track_means</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">apply_rna_squashing</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">_alphagenome_core_inverse</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">track_means</span></div>
+
+
+<div class="viewcode-block" id="get_non_zero_track_means">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.get_non_zero_track_means">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_non_zero_track_means</span><span class="p">(</span><span class="n">preds</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the non-zero mean per track for predictions.</span>
+
+<span class="sd">    Calculates the mean for each track across all intervals and bins, considering</span>
+<span class="sd">    only non-zero and non-NaN values. Highly memory efficient.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        preds (np.ndarray): Predictions array of shape `(intervals, tracks, bins)`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: A 1D array of shape `(tracks,)` with non-zero means.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">track_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="c1">#mask that ensures the value is NOT 0 and NOT NaN.</span>
+    <span class="n">valid_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">preds</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">preds</span><span class="p">)</span>
+    <span class="n">track_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">track_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+        <span class="n">track_sums</span><span class="p">,</span> 
+        <span class="n">track_counts</span><span class="p">,</span> 
+        <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">track_sums</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> 
+        <span class="n">where</span><span class="o">=</span><span class="n">track_counts</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">track_means</span></div>
+
+
+<div class="viewcode-block" id="get_streaming_non_zero_track_means">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.get_streaming_non_zero_track_means">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_streaming_non_zero_track_means</span><span class="p">(</span><span class="n">bw_paths_df</span><span class="p">,</span> <span class="n">intervals_df</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes non-zero track means across all intervals in a streaming fashion.</span>
+
+<span class="sd">    Iterates through the intervals and loads BigWig data in batches, accumulating</span>
+<span class="sd">    sums and counts of non-zero, non-NaN entries to compute the final track means.</span>
+<span class="sd">    This avoids loading the entire dataset into RAM.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        bw_paths_df (pandas.DataFrame): DataFrame containing a &#39;path&#39; column of BigWig files.</span>
+<span class="sd">        intervals_df (pandas.DataFrame): DataFrame containing &#39;chrom&#39;, &#39;start&#39;, and &#39;end&#39; columns</span>
+<span class="sd">            for the intervals.</span>
+<span class="sd">        bin_size (int): Size of each bin in base pairs.</span>
+<span class="sd">        batch_size (int, optional): Batch size for loading data. Defaults to 256.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        np.ndarray: A 1D array of shape `(tracks,)` containing the computed non-zero track means.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pre-computing track means from BigWigs for AlphaGenome transform...&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">num_bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">intervals_df</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">//</span> <span class="n">bin_size</span>
+    <span class="n">num_tracks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bw_paths_df</span><span class="p">)</span>
+    
+    <span class="n">track_sums</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_tracks</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">track_counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">num_tracks</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="n">BatchBigWigLoader</span><span class="p">(</span><span class="n">bw_paths_df</span><span class="p">,</span> <span class="n">num_bins</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">)</span> <span class="k">as</span> <span class="n">bw_loader</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">start_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">),</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">end_idx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">start_idx</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">intervals_df</span><span class="p">))</span>
+            <span class="n">coords</span> <span class="o">=</span> <span class="n">intervals_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_idx</span><span class="p">:</span><span class="n">end_idx</span><span class="p">][[</span><span class="s1">&#39;chrom&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="n">T_batch</span> <span class="o">=</span> <span class="n">bw_loader</span><span class="o">.</span><span class="n">load_batch</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span>
+            <span class="n">valid_mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_batch</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">T_batch</span><span class="p">)</span>  <span class="c1"># Find valid data (not NaN, not 0)</span>
+            
+            <span class="c1"># Accumulate sums and counts across Batch (axis 0) and Bins (axis 2)</span>
+            <span class="n">track_sums</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">T_batch</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">track_counts</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">valid_mask</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            
+    <span class="n">track_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+        <span class="n">track_sums</span><span class="p">,</span> 
+        <span class="n">track_counts</span><span class="p">,</span> 
+        <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">track_sums</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> 
+        <span class="n">where</span><span class="o">=</span><span class="n">track_counts</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Track means computation complete.&quot;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">track_means</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span></div>
+
+
+<span class="c1"># UNIFIED SELECTIVE TRANSFORM CLASS</span>
+<div class="viewcode-block" id="SelectiveSquashTransform">
+<a class="viewcode-back" href="../../../api/utils.io.html#utils.io.data_input.SelectiveSquashTransform">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">SelectiveSquashTransform</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A callable transform to selectively apply/invert scaling and squashing.</span>
+
+<span class="sd">    Compatible with PyTorch Lightning DataLoaders and native model transforms.</span>
+<span class="sd">    Allows applying Borzoi or AlphaGenome transformations specifically to certain</span>
+<span class="sd">    task tracks (e.g. RNA-seq).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> 
+        <span class="n">rna_task_indices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> 
+        <span class="n">task_axis</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> 
+        <span class="n">transform</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Borzoi&quot;</span><span class="p">,</span>
+        <span class="n">track_means</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">TensorOrArray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">inverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the transform.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rna_task_indices (list of int): Task indices corresponding to the RNA-seq tracks.</span>
+<span class="sd">            task_axis (int, optional): The axis containing the different tasks. Defaults to -2.</span>
+<span class="sd">            transform (str, optional): The transform type, either &quot;Borzoi&quot; or &quot;AlphaGenome&quot;.</span>
+<span class="sd">                Defaults to &quot;Borzoi&quot;.</span>
+<span class="sd">            track_means (TensorOrArray, optional): Required if transform is &quot;AlphaGenome&quot;.</span>
+<span class="sd">                A 1D array of shape `(num_tasks,)`.</span>
+<span class="sd">            inverse (bool, optional): If True, applies the inverse transformation.</span>
+<span class="sd">                Defaults to False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If `transform` is invalid or if `track_means` is missing when required.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rna_indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">rna_task_indices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">task_axis</span> <span class="o">=</span> <span class="n">task_axis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inverse</span> <span class="o">=</span> <span class="n">inverse</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;borzoi&quot;</span><span class="p">,</span> <span class="s2">&quot;alphagenome&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Transform must be &quot;Borzoi&quot; or &quot;AlphaGenome&quot;, got &quot;</span><span class="si">{</span><span class="n">transform</span><span class="si">}</span><span class="s1">&quot;.&#39;</span><span class="p">)</span>
+            
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">==</span> <span class="s2">&quot;alphagenome&quot;</span> <span class="ow">and</span> <span class="n">track_means</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The &#39;AlphaGenome&#39; transform requires &#39;track_means&#39; to be provided.&quot;</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">track_means</span> <span class="o">=</span> <span class="n">track_means</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_format_track_means</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target_array</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Helper to ensure track_means broadcasts against the target array properly.&quot;&quot;&quot;</span>
+        <span class="n">tm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">track_means</span>
+        <span class="n">is_torch</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target_array</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span>
+        
+        <span class="c1"># 1. Match type and device</span>
+        <span class="k">if</span> <span class="n">is_torch</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">tm</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+                <span class="n">tm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">tm</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">target_array</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tm</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">target_array</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">tm</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            
+        <span class="c1"># 2. Reshape for broadcasting (e.g., from [T] to [1, T, 1])</span>
+        <span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">target_array</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">task_axis</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">return</span> <span class="n">tm</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">TensorOrArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TensorOrArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies or inverts the transformation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            y (TensorOrArray): Input array or tensor of targets.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            TensorOrArray: Transformed array or tensor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># 1. Cast and clone to avoid modifying original dataloader memory in-place</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            
+        <span class="c1"># 2. Create dynamic slicing tuple for the RNA tracks</span>
+        <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="n">out</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="n">slices</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">task_axis</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rna_indices</span>
+        <span class="n">slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span>
+
+        <span class="c1"># 3. Apply Transformations</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">==</span> <span class="s2">&quot;borzoi&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">inverse</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rna_indices</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">]</span> <span class="o">=</span> <span class="n">_borzoi_core_squash</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rna_indices</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">]</span> <span class="o">=</span> <span class="n">_borzoi_core_inverse</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">])</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">==</span> <span class="s2">&quot;alphagenome&quot;</span><span class="p">:</span>
+            <span class="n">tm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_track_means</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">inverse</span><span class="p">:</span>
+                <span class="c1"># Forward: Scale ALL tracks by means, then squash RNA tracks</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">/</span> <span class="n">tm</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rna_indices</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">]</span> <span class="o">=</span> <span class="n">_alphagenome_core_squash</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Inverse: Inverse squash RNA tracks, then scale ALL tracks back by means</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rna_indices</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">]</span> <span class="o">=</span> <span class="n">_alphagenome_core_inverse</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="n">slices</span><span class="p">])</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">*</span> <span class="n">tm</span>
+
+        <span class="k">return</span> <span class="n">out</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

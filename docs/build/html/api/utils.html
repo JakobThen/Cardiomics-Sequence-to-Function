@@ -47,6 +47,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/utils';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="utils.ISM package" href="utils.ISM.html" />
+    <link rel="prev" title="AlphaGenome Finetuning Pipeline" href="../AlphaGenome_ft_pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -98,8 +100,6 @@
       
       
       
-        
-      
       <dialog id="pst-primary-sidebar-modal"></dialog>
       <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
@@ -139,19 +139,19 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="ISM.html">ISM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eval.html">eval package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">utils package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="io.html">io package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -318,19 +318,93 @@
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.ISM.html#module-utils.ISM">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.aggregate_adata_vars"><code class="docutils literal notranslate"><span class="pre">aggregate_adata_vars()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.average_all_stranded_expression"><code class="docutils literal notranslate"><span class="pre">average_all_stranded_expression()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.build_ism_matrix"><code class="docutils literal notranslate"><span class="pre">build_ism_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.collect_ism_scores"><code class="docutils literal notranslate"><span class="pre">collect_ism_scores()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.extract_var_score"><code class="docutils literal notranslate"><span class="pre">extract_var_score()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.load_ism_dict"><code class="docutils literal notranslate"><span class="pre">load_ism_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.process_region"><code class="docutils literal notranslate"><span class="pre">process_region()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.save_ism_dict"><code class="docutils literal notranslate"><span class="pre">save_ism_dict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#utils-vep-04-ag-ft-vep-module">utils.VEP.04_AG_ft_VEP module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#module-utils.VEP">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html#module-utils.VEP">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.VEP.html#variant-effect-prediction-vep-package">Variant Effect Prediction (VEP) Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.VEP.html#submodules">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.eval.html">utils.eval package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html#module-utils.eval.accumulators">utils.eval.accumulators module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.BestIntervalTracker"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.BestIntervalTracker.update"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingCoverageAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingCoverageAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingCoverageAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingGeneAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingGeneAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingGeneAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingPearsonAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingPearsonAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator.compute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#utils.eval.accumulators.StreamingPearsonAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html#module-utils.eval.streamed_correlation_analysis">utils.eval.streamed_correlation_analysis module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.streamed_correlation_analysis.evaluate_from_h5"><code class="docutils literal notranslate"><span class="pre">evaluate_from_h5()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.streamed_correlation_analysis.evaluate_from_inference"><code class="docutils literal notranslate"><span class="pre">evaluate_from_inference()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html#module-utils.eval.track_correlation">utils.eval.track_correlation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.compare_track_coverage"><code class="docutils literal notranslate"><span class="pre">compare_track_coverage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.compute_na_masked_pearson_distribution"><code class="docutils literal notranslate"><span class="pre">compute_na_masked_pearson_distribution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.density_scatter"><code class="docutils literal notranslate"><span class="pre">density_scatter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.plot_correlation_beeswarm"><code class="docutils literal notranslate"><span class="pre">plot_correlation_beeswarm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.plot_interval_correlation_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_interval_correlation_heatmap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.plot_strand_expression_heatmaps"><code class="docutils literal notranslate"><span class="pre">plot_strand_expression_heatmaps()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_correlation.quantile_normalize_RNA_counts"><code class="docutils literal notranslate"><span class="pre">quantile_normalize_RNA_counts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html#module-utils.eval.track_prediction">utils.eval.track_prediction module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.get_counts_from_bw"><code class="docutils literal notranslate"><span class="pre">get_counts_from_bw()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.get_counts_from_bws"><code class="docutils literal notranslate"><span class="pre">get_counts_from_bws()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.get_gtf"><code class="docutils literal notranslate"><span class="pre">get_gtf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.load_predictions_from_h5"><code class="docutils literal notranslate"><span class="pre">load_predictions_from_h5()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.merge_bin_intervals"><code class="docutils literal notranslate"><span class="pre">merge_bin_intervals()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.process_track_metadata"><code class="docutils literal notranslate"><span class="pre">process_track_metadata()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#utils.eval.track_prediction.sum_exon_counts"><code class="docutils literal notranslate"><span class="pre">sum_exon_counts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html#module-utils.eval">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.eval.html#evaluation-package">Evaluation Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.eval.html#id1">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a></li>
@@ -339,7 +413,58 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#module-utils.finetuning">Module contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#module-utils.finetuning">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.html#finetuning-package">Finetuning Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.html#id1">Subpackages:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.io.html">utils.io package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html#module-utils.io.batch_bw_loader">utils.io.batch_bw_loader module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.batch_bw_loader.BatchBigWigLoader"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.io.html#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader.load_batch()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html#module-utils.io.data_input">utils.io.data_input module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.SelectiveSquashTransform"><code class="docutils literal notranslate"><span class="pre">SelectiveSquashTransform</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.alphagenome_squash"><code class="docutils literal notranslate"><span class="pre">alphagenome_squash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.borzoi_squash"><code class="docutils literal notranslate"><span class="pre">borzoi_squash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.get_non_zero_track_means"><code class="docutils literal notranslate"><span class="pre">get_non_zero_track_means()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.get_streaming_non_zero_track_means"><code class="docutils literal notranslate"><span class="pre">get_streaming_non_zero_track_means()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.inverse_borzoi_squash"><code class="docutils literal notranslate"><span class="pre">inverse_borzoi_squash()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_input.invert_alphagenome_squash"><code class="docutils literal notranslate"><span class="pre">invert_alphagenome_squash()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html#module-utils.io.data_output">utils.io.data_output module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.data_output.save_borzoi_predictions_with_fallback"><code class="docutils literal notranslate"><span class="pre">save_borzoi_predictions_with_fallback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html#module-utils.io.variant_annotation">utils.io.variant_annotation module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#expected-input-data-format">Expected Input Data Format:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.annotate_cCREs"><code class="docutils literal notranslate"><span class="pre">annotate_cCREs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.annotate_cadd_snv_scores"><code class="docutils literal notranslate"><span class="pre">annotate_cadd_snv_scores()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.annotate_cardioid_enhancer_overlap"><code class="docutils literal notranslate"><span class="pre">annotate_cardioid_enhancer_overlap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.annotate_coding_effect"><code class="docutils literal notranslate"><span class="pre">annotate_coding_effect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.annotate_gtf_features"><code class="docutils literal notranslate"><span class="pre">annotate_gtf_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.annotate_phyloP_score"><code class="docutils literal notranslate"><span class="pre">annotate_phyloP_score()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.load_ccre_data"><code class="docutils literal notranslate"><span class="pre">load_ccre_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.standardize_vcf_columns"><code class="docutils literal notranslate"><span class="pre">standardize_vcf_columns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#utils.io.variant_annotation.vcf_to_pr"><code class="docutils literal notranslate"><span class="pre">vcf_to_pr()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html#module-utils.io">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.io.html#io-package">IO Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.io.html#id1">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a><ul>
@@ -350,7 +475,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#module-utils.preprocessing">Module contents</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#preprocessing-package">Preprocessing Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#preprocessing-package">Preprocessing Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.preprocessing.html#cli-scripts">CLI Scripts:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -374,6 +502,24 @@
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="../AlphaGenome_ft_pipeline.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">AlphaGenome Finetuning Pipeline</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.ISM.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">utils.ISM package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               

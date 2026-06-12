@@ -1,0 +1,1156 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>utils.eval package &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/utils.eval';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="utils.finetuning package" href="utils.finetuning.html" />
+    <link rel="prev" title="utils.VEP package" href="utils.VEP.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="utils.html">utils package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api/utils.eval.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>utils.eval package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.accumulators">utils.eval.accumulators module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker.update"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingCoverageAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingCoverageAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator.compute()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingCoverageAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingGeneAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingGeneAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator.compute()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingGeneAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingPearsonAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingPearsonAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator.compute()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingPearsonAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.streamed_correlation_analysis">utils.eval.streamed_correlation_analysis module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.streamed_correlation_analysis.evaluate_from_h5"><code class="docutils literal notranslate"><span class="pre">evaluate_from_h5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.streamed_correlation_analysis.evaluate_from_inference"><code class="docutils literal notranslate"><span class="pre">evaluate_from_inference()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.track_correlation">utils.eval.track_correlation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.compare_track_coverage"><code class="docutils literal notranslate"><span class="pre">compare_track_coverage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.compute_na_masked_pearson_distribution"><code class="docutils literal notranslate"><span class="pre">compute_na_masked_pearson_distribution()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.density_scatter"><code class="docutils literal notranslate"><span class="pre">density_scatter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.plot_correlation_beeswarm"><code class="docutils literal notranslate"><span class="pre">plot_correlation_beeswarm()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.plot_interval_correlation_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_interval_correlation_heatmap()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.plot_strand_expression_heatmaps"><code class="docutils literal notranslate"><span class="pre">plot_strand_expression_heatmaps()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.quantile_normalize_RNA_counts"><code class="docutils literal notranslate"><span class="pre">quantile_normalize_RNA_counts()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.track_prediction">utils.eval.track_prediction module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.get_counts_from_bw"><code class="docutils literal notranslate"><span class="pre">get_counts_from_bw()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.get_counts_from_bws"><code class="docutils literal notranslate"><span class="pre">get_counts_from_bws()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.get_gtf"><code class="docutils literal notranslate"><span class="pre">get_gtf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.load_predictions_from_h5"><code class="docutils literal notranslate"><span class="pre">load_predictions_from_h5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.merge_bin_intervals"><code class="docutils literal notranslate"><span class="pre">merge_bin_intervals()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.process_track_metadata"><code class="docutils literal notranslate"><span class="pre">process_track_metadata()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.sum_exon_counts"><code class="docutils literal notranslate"><span class="pre">sum_exon_counts()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-package">Evaluation Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="utils-eval-package">
+<h1>utils.eval package<a class="headerlink" href="#utils-eval-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-utils.eval.accumulators">
+<span id="utils-eval-accumulators-module"></span><h2>utils.eval.accumulators module<a class="headerlink" href="#module-utils.eval.accumulators" title="Link to this heading">#</a></h2>
+<p>Validation and Evaluation Metric Accumulators</p>
+<p>This module provides accumulator classes to compute correlation metrics, gene-level
+expression, coverage statistics, and track the best intervals incrementally during
+streaming model evaluation.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.eval.accumulators.BestIntervalTracker">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.eval.accumulators.</span></span><span class="sig-name descname"><span class="pre">BestIntervalTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#BestIntervalTracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.BestIntervalTracker" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Tracks and captures the genomic intervals with the highest correlation.</p>
+<p>Finds the interval achieving the highest Pearson correlation for specific assay
+modalities (e.g. ATAC, RNA, CutnTag) to allow visualization of top-performing regions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.BestIntervalTracker.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P_batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords_batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#BestIntervalTracker.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.BestIntervalTracker.update" title="Link to this definition">#</a></dt>
+<dd><p>Checks the batch for intervals with better correlation scores.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P_batch</strong> (<em>np.ndarray</em>) – Predictions batch of shape <cite>(batch_size, num_tracks, num_bins)</cite>.</p></li>
+<li><p><strong>T_batch</strong> (<em>np.ndarray</em>) – Targets batch of shape <cite>(batch_size, num_tracks, num_bins)</cite>.</p></li>
+<li><p><strong>coords_batch</strong> (<em>list</em><em> of </em><em>tuple</em>) – Coordinate tuples representing genomic locations of each
+batch element.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingCoverageAccumulator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.eval.accumulators.</span></span><span class="sig-name descname"><span class="pre">StreamingCoverageAccumulator</span></span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingCoverageAccumulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingCoverageAccumulator" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Accumulates and tracks the fraction of covered (non-NaN) bins per interval/track.</p>
+<p>Useful for diagnostic coverage metrics during streaming model evaluation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingCoverageAccumulator.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingCoverageAccumulator.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingCoverageAccumulator.compute" title="Link to this definition">#</a></dt>
+<dd><p>Concatenates all batch coverages into a single matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Combined coverage array of shape <cite>(total_intervals, tracks)</cite>.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingCoverageAccumulator.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">T_batch_unsq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingCoverageAccumulator.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingCoverageAccumulator.update" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the fraction of non-NaN bins for a batch.</p>
+<p>Expects raw, unsquashed BigWig targets to accurately measure sparsity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T_batch_unsq</strong> (<em>np.ndarray</em>) – Raw targets of shape <cite>(batch, tracks, bins)</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingGeneAccumulator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.eval.accumulators.</span></span><span class="sig-name descname"><span class="pre">StreamingGeneAccumulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtf_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_strands</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingGeneAccumulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingGeneAccumulator" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Accumulates predicted and actual counts over gene exons incrementally.</p>
+<p>This class precomputes overlaps between genomic intervals and gene exons to allow
+fast per-batch aggregation of expression targets and predictions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingGeneAccumulator.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_log1p</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingGeneAccumulator.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingGeneAccumulator.compute" title="Link to this definition">#</a></dt>
+<dd><p>Computes the final accumulated gene expression values and applies strand masking.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>return_log1p</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to apply <cite>log1p</cite> scaling to outputs.
+Defaults to True.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>pandas.DataFrame: Predicted expression table of shape <cite>(seen_genes, tracks)</cite>.</p></li>
+<li><p>pandas.DataFrame: Target expression table of shape <cite>(seen_genes, tracks)</cite>.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingGeneAccumulator.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_interval_idx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P_batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingGeneAccumulator.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingGeneAccumulator.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates the gene expression totals with a new batch of predictions and targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_interval_idx</strong> (<em>int</em>) – Starting global index of intervals in this batch.</p></li>
+<li><p><strong>P_batch</strong> (<em>np.ndarray</em>) – Batch predictions array of shape <cite>(batch_size, num_tracks, num_bins)</cite>.</p></li>
+<li><p><strong>T_batch</strong> (<em>np.ndarray</em>) – Batch targets array of shape <cite>(batch_size, num_tracks, num_bins)</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingPearsonAccumulator">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.eval.accumulators.</span></span><span class="sig-name descname"><span class="pre">StreamingPearsonAccumulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingPearsonAccumulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingPearsonAccumulator" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Computes exact Pearson correlation incrementally per track.</p>
+<p>This class tracks Pearson correlation coefficient components and keeps a count of
+valid (non-NaN) bins to generate QC metrics without storing all batch predictions
+in memory.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingPearsonAccumulator.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coverage_cutoff_pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingPearsonAccumulator.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingPearsonAccumulator.compute" title="Link to this definition">#</a></dt>
+<dd><p>Computes the final Pearson correlation coefficient and coverage per track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coverage_cutoff_pct</strong> (<em>float</em><em>, </em><em>optional</em>) – Bins seen threshold below which
+correlation is returned as NaN. Defaults to 0.1.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>pandas.Series: Pearson correlation coefficients per track.</p></li>
+<li><p>pandas.Series: Percent coverage per track.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.eval.accumulators.StreamingPearsonAccumulator.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P_batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_batch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/accumulators.html#StreamingPearsonAccumulator.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.accumulators.StreamingPearsonAccumulator.update" title="Link to this definition">#</a></dt>
+<dd><p>Updates the accumulators with a new batch of predictions and targets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P_batch</strong> (<em>np.ndarray</em>) – Predictions batch of shape <cite>(batch_size, num_tracks, num_bins)</cite>.</p></li>
+<li><p><strong>T_batch</strong> (<em>np.ndarray</em>) – Targets batch of shape <cite>(batch_size, num_tracks, num_bins)</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utils.eval.streamed_correlation_analysis">
+<span id="utils-eval-streamed-correlation-analysis-module"></span><h2>utils.eval.streamed_correlation_analysis module<a class="headerlink" href="#module-utils.eval.streamed_correlation_analysis" title="Link to this heading">#</a></h2>
+<p>Pipeline to run comprehensive model evaluation on test intervals from h5 saved model predictions or streaming from GPU inference batches during test inference.</p>
+<p>Model tracks need to be matched to individual .bw files.
+Assumes Intervals do not overlap and are the same size.</p>
+<p>Computes:</p>
+<ul class="simple">
+<li><p>Pearson r across all concatenated intervals per tracks.</p></li>
+<li><p>Gene centric metrics for RNA tracks:</p>
+<ul>
+<li><p>Pearson r across all genes, raw summed log1p exon counts.</p></li>
+<li><p>Pearson r across all genes, quantile norm raw across genes, gene mean subtracted.</p></li>
+<li><p>Pearson r across all tracks, quantile norm raw across genes, gene mean subtracted.</p></li>
+</ul>
+</li>
+<li><p>Basic QC metrics:</p>
+<ul>
+<li><p>Distribution of counts across intervals per track.</p></li>
+<li><p>Percentage of non-NaN bins per interval and track (NaN bins have no coverage in .bw at any position in the bin).</p></li>
+</ul>
+</li>
+</ul>
+<p>Returns:</p>
+<ul class="simple">
+<li><p>CSV file of pearson metrics and coverage per track.</p></li>
+<li><p>Summary txt file.</p></li>
+<li><p>Figures of the metrics above stored in ./fig.</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.streamed_correlation_analysis.evaluate_from_h5">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.streamed_correlation_analysis.</span></span><span class="sig-name descname"><span class="pre">evaluate_from_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h5_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_paths_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_squashed_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtf_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/streamed_correlation_analysis.html#evaluate_from_h5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.streamed_correlation_analysis.evaluate_from_h5" title="Link to this definition">#</a></dt>
+<dd><p>Runs a streaming evaluation on an already-saved HDF5 prediction file.</p>
+<p>Loads model predictions lazily from disk in batches, matching intervals to target
+BigWigs and computing Pearson correlation and gene-level expression statistics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h5_path</strong> (<em>str</em><em> or </em><em>Path</em>) – Path to the saved HDF5 predictions file.</p></li>
+<li><p><strong>bw_paths_df</strong> (<em>pandas.DataFrame</em>) – DataFrame mapping tracks to target BigWig file paths.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em>) – Resolution of predictions/targets in base pairs.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em><em> or </em><em>Path</em>) – Directory where output metrics and plots will be written.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – Identifier name of the model.</p></li>
+<li><p><strong>analysis_name</strong> (<em>str</em>) – Prefix/suffix identifier for this evaluation run.</p></li>
+<li><p><strong>is_squashed_scale</strong> (<em>bool</em>) – Whether the model predictions are on a squashed scale.</p></li>
+<li><p><strong>gtf_file</strong> (<em>str</em><em> or </em><em>Path</em><em>, </em><em>optional</em>) – GTF annotation file path for gene-level evaluations.
+Defaults to None.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size for streaming chunks from disk. Defaults to 16.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.streamed_correlation_analysis.evaluate_from_inference">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.streamed_correlation_analysis.</span></span><span class="sig-name descname"><span class="pre">evaluate_from_inference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_module</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_forward_fn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_paths_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">analysis_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_squashed_scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtf_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/streamed_correlation_analysis.html#evaluate_from_inference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.streamed_correlation_analysis.evaluate_from_inference" title="Link to this definition">#</a></dt>
+<dd><p>Runs a live validation/evaluation loop during model inference.</p>
+<p>Iterates through the data module, invokes the model’s forward function, and streams
+batch predictions into metric accumulators to compute Pearson correlation and coverage
+metrics without loading all predictions into memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_module</strong> – PyTorch Lightning DataModule or custom data loader providing test batches.</p></li>
+<li><p><strong>model_forward_fn</strong> (<em>callable</em>) – Forward pass function of the model that returns predictions
+given a batch and starting global index.</p></li>
+<li><p><strong>intervals_df</strong> (<em>pandas.DataFrame</em>) – DataFrame of coordinates for all evaluation intervals.</p></li>
+<li><p><strong>tracks_df</strong> (<em>pandas.DataFrame</em>) – DataFrame of metadata/labels for all tracks.</p></li>
+<li><p><strong>bw_paths_df</strong> (<em>pandas.DataFrame</em>) – DataFrame mapping tracks to target BigWig file paths.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em>) – Resolution of predictions/targets in base pairs.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em><em> or </em><em>Path</em>) – Directory where output metrics and plots will be written.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – Identifier name of the model being evaluated.</p></li>
+<li><p><strong>analysis_name</strong> (<em>str</em>) – Prefix/suffix identifier for this specific evaluation run.</p></li>
+<li><p><strong>is_squashed_scale</strong> (<em>bool</em>) – Whether the model predictions are on a squashed scale.</p></li>
+<li><p><strong>gtf_file</strong> (<em>str</em><em> or </em><em>Path</em><em>, </em><em>optional</em>) – GTF annotation file path for gene-level evaluations.
+Defaults to None.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size of inputs. Defaults to 16.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.eval.track_correlation">
+<span id="utils-eval-track-correlation-module"></span><h2>utils.eval.track_correlation module<a class="headerlink" href="#module-utils.eval.track_correlation" title="Link to this heading">#</a></h2>
+<p>Plotting functions and processing helpers to analyze and visualize model track prediction performance</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.compare_track_coverage">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">compare_track_coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">matplotlib.axes.Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(10,</span> <span class="pre">3)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">matplotlib.figure.Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">matplotlib.axes.Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#compare_track_coverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.compare_track_coverage" title="Link to this definition">#</a></dt>
+<dd><p>Plots predicted against observed coverage for a genomic interval as overlapping tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preds</strong> – Array-like of predicted values (plotted on top).</p></li>
+<li><p><strong>obs</strong> – Array-like of observed values (plotted underneath).</p></li>
+<li><p><strong>ax</strong> – Optional matplotlib Axes. If None, creates a new Figure and Axes.</p></li>
+<li><p><strong>pos</strong> – Optional tuple of (chrom, start, end). If None, uses relative coordinates.</p></li>
+<li><p><strong>title</strong> – Optional title for the plot.</p></li>
+<li><p><strong>log_transform</strong> – If True, applies np.log1p to both arrays.</p></li>
+<li><p><strong>xlabel</strong> – Custom x-axis label. Defaults to ‘Genomic Position’ or ‘Relative Position’.</p></li>
+<li><p><strong>ylabel</strong> – Custom y-axis label. Defaults to ‘Coverage (log1p counts)’ or ‘Coverage (counts)’.</p></li>
+<li><p><strong>figsize</strong> – Tuple specifying figure dimensions if ax is not provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matplotlib Figure and Axes object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[Figure, Axes]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.compute_na_masked_pearson_distribution">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">compute_na_masked_pearson_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">P</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_valid_pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_sum_counts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#compute_na_masked_pearson_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.compute_na_masked_pearson_distribution" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the Pearson correlation coefficient matrix between predictions and targets.</p>
+<p>Computes correlation coefficients between all prediction tracks and target tracks across
+non-NaN bins, using vectorized operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>P</strong> (<em>np.ndarray</em>) – Predictions array of shape <cite>(intervals, P_tracks, bins)</cite>.</p></li>
+<li><p><strong>T</strong> (<em>np.ndarray</em>) – Targets array of shape <cite>(intervals, T_tracks, bins)</cite>.</p></li>
+<li><p><strong>min_valid_pct</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum required valid (non-NaN) bins fraction
+per interval for calculating correlation. Defaults to 0.1.</p></li>
+<li><p><strong>return_sum_counts</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, returns target and prediction sum matrices.
+Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>np.ndarray: Pearson correlation matrix of shape <cite>(intervals, P_tracks, T_tracks)</cite>.</p></li>
+<li><p>np.ndarray: Sum of targets per interval/track (if <cite>return_sum_counts=True</cite>).</p></li>
+<li><p>np.ndarray: Sum of predictions per interval/track (if <cite>return_sum_counts=True</cite>).</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray or tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.density_scatter">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">density_scatter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">matplotlib.pyplot.Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(5,</span> <span class="pre">5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smooth_sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">matplotlib.pyplot.Axes</span></span></span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#density_scatter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.density_scatter" title="Link to this definition">#</a></dt>
+<dd><p>Creates a square scatter plot of predicted vs observed values, colored by point density.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.plot_correlation_beeswarm">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">plot_correlation_beeswarm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ax</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">matplotlib.pyplot.Axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">matplotlib.pyplot.Axes</span></span></span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#plot_correlation_beeswarm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.plot_correlation_beeswarm" title="Link to this definition">#</a></dt>
+<dd><p>Creates side-by-side beeswarm plots for categorical data, highlighting the mean.
+Automatically scales y-limits and handles both flat and grouped inputs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>values</strong> – Can be either:
+1. A single 1D array of values (e.g., [0.9, 0.8, 0.5…]).
+2. A list/tuple of arrays (e.g., [arr_A, arr_B]).</p></li>
+<li><p><strong>labels</strong> – Can be either:
+1. A 1D array of labels matching the length of values (e.g., [‘A’, ‘A’, ‘B’…]).
+2. A list of category names matching the number of arrays in values (e.g., [‘A’, ‘B’]).</p></li>
+<li><p><strong>ax</strong> – Matplotlib axes object. If None, creates a new figure and axis.</p></li>
+<li><p><strong>figsize</strong> – Tuple specifying (width, height). Defaults to (1 + n, 5).</p></li>
+<li><p><strong>ylabel</strong> – Custom y-axis label. Defaults to ‘Pearson Correlation’.</p></li>
+<li><p><strong>title</strong> – Optional title for the plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matplotlib Axes object containing the plot.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ax</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.plot_interval_correlation_heatmap">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">plot_interval_correlation_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R_indiv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coverage_per_track</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Individual</span> <span class="pre">Pearson</span> <span class="pre">Correlation</span> <span class="pre">per</span> <span class="pre">Interval</span> <span class="pre">and</span> <span class="pre">Track'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'viridis'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">matplotlib.figure.Figure</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">matplotlib.axes.Axes</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#plot_interval_correlation_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.plot_interval_correlation_heatmap" title="Link to this definition">#</a></dt>
+<dd><p>Generates an annotated heatmap of interval-track correlations.</p>
+<p>The heatmap is automatically sorted by genomic position (chromosome, then start).
+It includes a left-side annotation for track coverage, and top annotations for
+chromosome and start positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>R_indiv</strong> (<em>np.ndarray</em>) – 2D array of correlations of shape (n_intervals, n_tracks).</p></li>
+<li><p><strong>intervals_df</strong> (<em>pd.DataFrame</em>) – DataFrame of shape (n_intervals, …). Must
+contain ‘chrom’ and ‘start’ columns.</p></li>
+<li><p><strong>track_names</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of track names, length equal to n_tracks.</p></li>
+<li><p><strong>coverage_per_track</strong> (<em>Union</em><em>[</em><em>np.ndarray</em><em>, </em><em>List</em><em>[</em><em>float</em><em>]</em><em>]</em>) – 1D array of coverage
+values (0 to 1), length equal to n_tracks.</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – The main title of the plot.</p></li>
+<li><p><strong>cmap</strong> (<em>str</em>) – The matplotlib colormap to use for the main correlation heatmap.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matplotlib Figure and main Axes object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[Figure, Axes]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – If the dimensions of the inputs do not align.</p></li>
+<li><p><strong>KeyError</strong> – If ‘chrom’ or ‘start’ are missing from intervals_df.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.plot_strand_expression_heatmaps">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">plot_strand_expression_heatmaps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gene_P</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_T</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_cors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.Series</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_cors_by_gene</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pandas.Series</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">(26,</span> <span class="pre">15)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_cent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'RdBu_r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap_cor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'magma'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_exp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'log1p(Sum</span> <span class="pre">Exon</span> <span class="pre">Counts)'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_cent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Gene</span> <span class="pre">Centered</span> <span class="pre">Exon</span> <span class="pre">Counts</span> <span class="pre">[Δ]'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_cor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Pearson</span> <span class="pre">r'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">matplotlib.figure.Figure</span></span></span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#plot_strand_expression_heatmaps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.plot_strand_expression_heatmaps" title="Link to this definition">#</a></dt>
+<dd><p>Generates interleaved heatmaps of gene expression, centered expression, and correlations.</p>
+<p>Interleaves predicted and observed expression profiles for plus and minus strand genes,
+sorted by descending average expression. Side heatmaps display track-level correlations,
+and optional top heatmaps show gene-level correlations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gene_P</strong> (<em>pandas.DataFrame</em>) – Predicted gene expression matrix of shape <cite>(genes, tracks)</cite>.</p></li>
+<li><p><strong>gene_T</strong> (<em>pandas.DataFrame</em>) – Observed gene expression matrix of shape <cite>(genes, tracks)</cite>.</p></li>
+<li><p><strong>gene_cors</strong> (<em>dict</em><em> of </em><em>str to pandas.Series</em>) – Dict of track-level correlation series
+(keys are metrics, values are series indexed by track).</p></li>
+<li><p><strong>gene_cors_by_gene</strong> (<em>dict</em><em> of </em><em>str to pandas.Series</em><em>, </em><em>optional</em>) – Dict of gene-level
+correlation series (keys are metrics, values are series indexed by gene).
+Defaults to None.</p></li>
+<li><p><strong>figsize</strong> (<em>Tuple</em><em>[</em><em>int</em><em>, </em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Matplotlib figure size. Defaults to (26, 15).</p></li>
+<li><p><strong>cmap_exp</strong> (<em>str</em><em>, </em><em>optional</em>) – Colormap for absolute expression. Defaults to ‘viridis’.</p></li>
+<li><p><strong>cmap_cent</strong> (<em>str</em><em>, </em><em>optional</em>) – Colormap for gene-centered expression. Defaults to ‘RdBu_r’.</p></li>
+<li><p><strong>cmap_cor</strong> (<em>str</em><em>, </em><em>optional</em>) – Colormap for correlation heatmaps. Defaults to ‘magma’.</p></li>
+<li><p><strong>label_exp</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the expression colorbar.
+Defaults to ‘log1p(Sum Exon Counts)’.</p></li>
+<li><p><strong>label_cent</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the centered expression colorbar.
+Defaults to ‘Gene Centered Exon Counts [Δ]’.</p></li>
+<li><p><strong>label_cor</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the correlation colorbar. Defaults to ‘Pearson r’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated figure containing the heatmaps.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>matplotlib.figure.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_correlation.quantile_normalize_RNA_counts">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_correlation.</span></span><span class="sig-name descname"><span class="pre">quantile_normalize_RNA_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_counts_data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/track_correlation.html#quantile_normalize_RNA_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_correlation.quantile_normalize_RNA_counts" title="Link to this definition">#</a></dt>
+<dd><p>Quantile normalizes RNA counts across tracks and centers them by gene means.</p>
+<p>Aligns count distributions across tracks to a shared target distribution
+(the mean distribution across tracks) and centers them by subtracting the average
+count of each gene. Robust to NaN values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>log_counts_data</strong> (<em>pandas.DataFrame</em><em> or </em><em>np.ndarray</em>) – Input counts table of shape
+<cite>(genes, tracks)</cite>. Expects log-transformed counts.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized and gene-centered counts matching the input type.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame or np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.eval.track_prediction">
+<span id="utils-eval-track-prediction-module"></span><h2>utils.eval.track_prediction module<a class="headerlink" href="#module-utils.eval.track_prediction" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.get_counts_from_bw">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">get_counts_from_bw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_idx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#get_counts_from_bw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.get_counts_from_bw" title="Link to this definition">#</a></dt>
+<dd><p>Reads signal values from a single BigWig file across multiple coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track_idx</strong> (<em>int</em>) – Index of the track being loaded.</p></li>
+<li><p><strong>bw_path</strong> (<em>str</em><em> or </em><em>Path</em>) – Path to the BigWig file.</p></li>
+<li><p><strong>coords</strong> (<em>list</em><em> of </em><em>tuple</em>) – List of genomic coordinates <cite>[(chrom, start, end), …]</cite>.</p></li>
+<li><p><strong>num_bins</strong> (<em>int</em>) – Number of bins to divide each genomic interval into.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em>) – Size of each bin in base pairs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>int: The track index.</p></li>
+<li><p>np.ndarray: Extracted counts array of shape <cite>(num_intervals, num_bins)</cite>.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.get_counts_from_bws">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">get_counts_from_bws</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_workers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#get_counts_from_bws"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.get_counts_from_bws" title="Link to this definition">#</a></dt>
+<dd><p>Extracts signal values from multiple BigWig files in parallel.</p>
+<p>Extracts signal counts over identical genomic intervals from a list of BigWigs
+using multiprocessing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bw_paths</strong> (<em>Iterable</em><em> of </em><em>str</em><em> or </em><em>Path</em>) – List of BigWig file paths.</p></li>
+<li><p><strong>coordinates_df</strong> (<em>pandas.DataFrame</em>) – Coordinates DataFrame (must have chrom, start, end).</p></li>
+<li><p><strong>n_workers</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of parallel processes to spawn. Defaults to 1.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Bin size in base pairs. Defaults to 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 3D array of shape <cite>(num_intervals, num_tracks, num_bins)</cite> containing the signals.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.get_gtf">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">get_gtf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gtf_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chrom_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gene_type_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['protein_coding']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'exon'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#get_gtf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.get_gtf" title="Link to this definition">#</a></dt>
+<dd><p>Parses a GTF file, filters for a specific feature, extracts key attributes,
+and applies optional chromosome and gene type filters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gtf_file</strong> (<em>str</em>) – Path to the GTF file.</p></li>
+<li><p><strong>chrom_filter</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Chromosomes to keep.
+Accepts preset strings: ‘autosomes’ (chr1-22), ‘autosomesX’ (chr1-22 + chrX),
+or ‘autosomesXY’ (chr1-22 + chrX, chrY).
+Also accepts a custom list of exact names (e.g., [‘chr1’, ‘chrM’]).</p></li>
+<li><p><strong>gene_type_filter</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – List of gene types to keep
+(e.g., [‘protein_coding’]). If None, all are kept. Defaults to protein coding.</p></li>
+<li><p><strong>feature</strong> (<em>str</em><em>, </em><em>optional</em>) – The feature type to filter for. If None, all are kept. Defaults to “exon”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A filtered DataFrame with extracted gene_name, gene_type,
+gene_id, and transcript_id columns.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.load_predictions_from_h5">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">load_predictions_from_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h5_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#load_predictions_from_h5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.load_predictions_from_h5" title="Link to this definition">#</a></dt>
+<dd><p>Loads prediction arrays and metadata from an HDF5 file.</p>
+<p>Handles both single-head (e.g. Borzoi) and multi-head (e.g. AlphaGenome) prediction
+files, and automatically transposes arrays to shape <cite>(intervals, tracks, bins)</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>h5_path</strong> (<em>str</em><em> or </em><em>Path</em>) – Path to the HDF5 prediction file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>np.ndarray: Predictions array of shape <cite>(intervals, tracks, bins)</cite>.</p></li>
+<li><p>pandas.DataFrame: DataFrame containing genomic intervals.</p></li>
+<li><p>pandas.DataFrame: DataFrame containing track labels.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.merge_bin_intervals">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">merge_bin_intervals</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intervals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#merge_bin_intervals"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.merge_bin_intervals" title="Link to this definition">#</a></dt>
+<dd><p>Merges overlapping or adjacent bin intervals to prevent double-counting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>intervals</strong> (<em>list</em><em> of </em><em>tuple</em>) – List of bin coordinate ranges as <cite>[(start, end), …]</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Merged bin coordinate ranges.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.process_track_metadata">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">process_track_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder_to_assay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#process_track_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.process_track_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Parses track DataFrame to identify BigWig columns and extract metadata.</p>
+<p>Identifies the column containing BigWig filenames, extracts Assay types (ATAC, RNA, CnT),
+folders, cell types, and generates unique track IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks_df</strong> (<em>pandas.DataFrame</em>) – Metadata table of the tracks.</p></li>
+<li><p><strong>folder_to_assay</strong> (<em>dict</em><em>, </em><em>optional</em>) – Optional mapping from folders to assay types.
+Defaults to None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The standardized and annotated track metadata DataFrame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.eval.track_prediction.sum_exon_counts">
+<span class="sig-prename descclassname"><span class="pre">utils.eval.track_prediction.</span></span><span class="sig-name descname"><span class="pre">sum_exon_counts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">genes_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exon_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'exons'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_strand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_strands</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_log1p_counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/eval/track_prediction.html#sum_exon_counts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.eval.track_prediction.sum_exon_counts" title="Link to this definition">#</a></dt>
+<dd><p>Sums predicted counts over exons and returns a DaraFrame of Genes x Tracks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pred_array</strong> (<em>np.ndarray</em>) – Shape (Intervals, tracks, bins).</p></li>
+<li><p><strong>intervals_df</strong> (<em>pd.DataFrame</em>) – Genomic coordinates with ‘chrom’, ‘start’, ‘end’.</p></li>
+<li><p><strong>genes_df</strong> (<em>pd.DataFrame</em>) – Gene info with ‘chrom’, ‘start’, ‘end’, and <cite>exon_col</cite>. Must include ‘strand’ if use_strand is True.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em>) – Resolution of the bins.</p></li>
+<li><p><strong>exon_col</strong> (<em>str</em>) – Column name in genes_df containing the exon coordinates.</p></li>
+<li><p><strong>track_names</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – List of names for the columns.</p></li>
+<li><p><strong>use_strand</strong> (<em>bool</em>) – Whether to match tracks by strand to genes. Assumes track_names contains minus and plus if track_strands is not defined.</p></li>
+<li><p><strong>track_strands</strong> (<em>List</em><em>[</em><em>int</em><em>] or </em><em>np.ndarray</em><em>, </em><em>optional</em>) – Explicit vector of track strands (1 (plus), -1 (minus), or 0 (unstranded)).
+If None and use_strand=True, inferred from track_names.</p></li>
+<li><p><strong>return_log1p_counts</strong> (<em>bool</em>) – Whether to return the summed counts as log1p(sum).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matrix where Index = gene_id and Columns = tracks.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.eval">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.eval" title="Link to this heading">#</a></h2>
+<section id="evaluation-package">
+<h3>Evaluation Package<a class="headerlink" href="#evaluation-package" title="Link to this heading">#</a></h3>
+<p>This package provides utilities for calculating correlation metrics, tracking model
+predictions, and accumulating validation stats over streaming genomic intervals.</p>
+<section id="id1">
+<h4>Submodules:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>accumulators</cite>: Implements accumulator classes (e.g., for Pearson correlation,
+stranded gene expression) to calculate metrics over streamed batches without keeping
+all predictions in memory.</p></li>
+<li><p><cite>streamed_correlation_analysis</cite>: Orchestrates validation loops to run evaluation and
+write out correlation summary reports.</p></li>
+<li><p><cite>track_correlation</cite>: Provides analysis and plotting scripts to evaluate and visualize
+prediction correlations (beeswarms, heatmap comparisons, scatterplots).</p></li>
+<li><p><cite>track_prediction</cite>: Handles loading predictions from HDF5 and GTF extraction of counts.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="utils.VEP.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">utils.VEP package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.finetuning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">utils.finetuning package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.accumulators">utils.eval.accumulators module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker.update"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingCoverageAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingCoverageAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator.compute()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingCoverageAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingCoverageAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingGeneAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingGeneAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator.compute()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingGeneAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingGeneAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingPearsonAccumulator"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingPearsonAccumulator.compute"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator.compute()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.StreamingPearsonAccumulator.update"><code class="docutils literal notranslate"><span class="pre">StreamingPearsonAccumulator.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.streamed_correlation_analysis">utils.eval.streamed_correlation_analysis module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.streamed_correlation_analysis.evaluate_from_h5"><code class="docutils literal notranslate"><span class="pre">evaluate_from_h5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.streamed_correlation_analysis.evaluate_from_inference"><code class="docutils literal notranslate"><span class="pre">evaluate_from_inference()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.track_correlation">utils.eval.track_correlation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.compare_track_coverage"><code class="docutils literal notranslate"><span class="pre">compare_track_coverage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.compute_na_masked_pearson_distribution"><code class="docutils literal notranslate"><span class="pre">compute_na_masked_pearson_distribution()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.density_scatter"><code class="docutils literal notranslate"><span class="pre">density_scatter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.plot_correlation_beeswarm"><code class="docutils literal notranslate"><span class="pre">plot_correlation_beeswarm()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.plot_interval_correlation_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_interval_correlation_heatmap()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.plot_strand_expression_heatmaps"><code class="docutils literal notranslate"><span class="pre">plot_strand_expression_heatmaps()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_correlation.quantile_normalize_RNA_counts"><code class="docutils literal notranslate"><span class="pre">quantile_normalize_RNA_counts()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.track_prediction">utils.eval.track_prediction module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.get_counts_from_bw"><code class="docutils literal notranslate"><span class="pre">get_counts_from_bw()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.get_counts_from_bws"><code class="docutils literal notranslate"><span class="pre">get_counts_from_bws()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.get_gtf"><code class="docutils literal notranslate"><span class="pre">get_gtf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.load_predictions_from_h5"><code class="docutils literal notranslate"><span class="pre">load_predictions_from_h5()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.merge_bin_intervals"><code class="docutils literal notranslate"><span class="pre">merge_bin_intervals()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.process_track_metadata"><code class="docutils literal notranslate"><span class="pre">process_track_metadata()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.sum_exon_counts"><code class="docutils literal notranslate"><span class="pre">sum_exon_counts()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-package">Evaluation Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

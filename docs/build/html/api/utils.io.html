@@ -1,0 +1,940 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>utils.io package &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/utils.io';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="utils.preprocessing package" href="utils.preprocessing.html" />
+    <link rel="prev" title="utils.finetuning.AlphaGenome package" href="utils.finetuning.AlphaGenome.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="utils.html">utils package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/api/utils.io.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>utils.io package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.batch_bw_loader">utils.io.batch_bw_loader module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader.load_batch()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.data_input">utils.io.data_input module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.SelectiveSquashTransform"><code class="docutils literal notranslate"><span class="pre">SelectiveSquashTransform</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.alphagenome_squash"><code class="docutils literal notranslate"><span class="pre">alphagenome_squash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.borzoi_squash"><code class="docutils literal notranslate"><span class="pre">borzoi_squash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.get_non_zero_track_means"><code class="docutils literal notranslate"><span class="pre">get_non_zero_track_means()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.get_streaming_non_zero_track_means"><code class="docutils literal notranslate"><span class="pre">get_streaming_non_zero_track_means()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.inverse_borzoi_squash"><code class="docutils literal notranslate"><span class="pre">inverse_borzoi_squash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.invert_alphagenome_squash"><code class="docutils literal notranslate"><span class="pre">invert_alphagenome_squash()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.data_output">utils.io.data_output module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_output.save_borzoi_predictions_with_fallback"><code class="docutils literal notranslate"><span class="pre">save_borzoi_predictions_with_fallback()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.variant_annotation">utils.io.variant_annotation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-input-data-format">Expected Input Data Format:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_cCREs"><code class="docutils literal notranslate"><span class="pre">annotate_cCREs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_cadd_snv_scores"><code class="docutils literal notranslate"><span class="pre">annotate_cadd_snv_scores()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_cardioid_enhancer_overlap"><code class="docutils literal notranslate"><span class="pre">annotate_cardioid_enhancer_overlap()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_coding_effect"><code class="docutils literal notranslate"><span class="pre">annotate_coding_effect()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_gtf_features"><code class="docutils literal notranslate"><span class="pre">annotate_gtf_features()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_phyloP_score"><code class="docutils literal notranslate"><span class="pre">annotate_phyloP_score()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.load_ccre_data"><code class="docutils literal notranslate"><span class="pre">load_ccre_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.standardize_vcf_columns"><code class="docutils literal notranslate"><span class="pre">standardize_vcf_columns()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.vcf_to_pr"><code class="docutils literal notranslate"><span class="pre">vcf_to_pr()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-package">IO Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="utils-io-package">
+<h1>utils.io package<a class="headerlink" href="#utils-io-package" title="Link to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-utils.io.batch_bw_loader">
+<span id="utils-io-batch-bw-loader-module"></span><h2>utils.io.batch_bw_loader module<a class="headerlink" href="#module-utils.io.batch_bw_loader" title="Link to this heading">#</a></h2>
+<p>Batch BigWig Loader Module</p>
+<p>This module provides a class to load data from multiple BigWig files
+in parallel, keeping file handles open for efficient batch retrieval.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.io.batch_bw_loader.BatchBigWigLoader">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.io.batch_bw_loader.</span></span><span class="sig-name descname"><span class="pre">BatchBigWigLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw_paths_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_bins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_workers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/io/batch_bw_loader.html#BatchBigWigLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.batch_bw_loader.BatchBigWigLoader" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A context-managed loader for reading multiple BigWig files in parallel.</p>
+<p>This class opens multiple BigWig files during context entry, keeps them open
+in memory, and uses a ThreadPool to read them concurrently when <cite>load_batch</cite>
+is called.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.io.batch_bw_loader.BatchBigWigLoader.load_batch">
+<span class="sig-name descname"><span class="pre">load_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/io/batch_bw_loader.html#BatchBigWigLoader.load_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch" title="Link to this definition">#</a></dt>
+<dd><p>Loads a batch of intervals for all tracks in parallel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coords</strong> (<em>list</em><em> of </em><em>tuple</em>) – List of genomic intervals as <cite>[(chrom, start, end), …]</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 3D array of shape <cite>(batch_size, num_tracks, num_bins)</cite> containing the
+accumulated signals.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-utils.io.data_input">
+<span id="utils-io-data-input-module"></span><h2>utils.io.data_input module<a class="headerlink" href="#module-utils.io.data_input" title="Link to this heading">#</a></h2>
+<p>Data Input and Squashing Module</p>
+<p>This module provides functions and classes to scale, squash, and invert
+predictions/targets for Borzoi and AlphaGenome model architectures.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.io.data_input.SelectiveSquashTransform">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">SelectiveSquashTransform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rna_task_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Borzoi'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_means</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inverse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/io/data_input.html#SelectiveSquashTransform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.SelectiveSquashTransform" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A callable transform to selectively apply/invert scaling and squashing.</p>
+<p>Compatible with PyTorch Lightning DataLoaders and native model transforms.
+Allows applying Borzoi or AlphaGenome transformations specifically to certain
+task tracks (e.g. RNA-seq).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_input.alphagenome_squash">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">alphagenome_squash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">targets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_means</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_rna_squashing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="../_modules/utils/io/data_input.html#alphagenome_squash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.alphagenome_squash" title="Link to this definition">#</a></dt>
+<dd><p>Scales targets by track means and optionally applies AlphaGenome squashing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>targets</strong> (<em>TensorOrArray</em>) – Target values.</p></li>
+<li><p><strong>track_means</strong> (<em>TensorOrArray</em><em> or </em><em>float</em>) – Non-zero means per track to scale by.</p></li>
+<li><p><strong>apply_rna_squashing</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to apply the non-linear squashing.
+Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Scaled and optionally squashed targets.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TensorOrArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_input.borzoi_squash">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">borzoi_squash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="../_modules/utils/io/data_input.html#borzoi_squash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.borzoi_squash" title="Link to this definition">#</a></dt>
+<dd><p>Applies the Borzoi ‘squashed scale’ transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>y</strong> (<em>TensorOrArray</em>) – Input array or tensor of values to squash.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed values on the Borzoi squashed scale.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TensorOrArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_input.get_non_zero_track_means">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">get_non_zero_track_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="reference internal" href="../_modules/utils/io/data_input.html#get_non_zero_track_means"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.get_non_zero_track_means" title="Link to this definition">#</a></dt>
+<dd><p>Calculates the non-zero mean per track for predictions.</p>
+<p>Calculates the mean for each track across all intervals and bins, considering
+only non-zero and non-NaN values. Highly memory efficient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>preds</strong> (<em>np.ndarray</em>) – Predictions array of shape <cite>(intervals, tracks, bins)</cite>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 1D array of shape <cite>(tracks,)</cite> with non-zero means.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_input.get_streaming_non_zero_track_means">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">get_streaming_non_zero_track_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw_paths_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/io/data_input.html#get_streaming_non_zero_track_means"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.get_streaming_non_zero_track_means" title="Link to this definition">#</a></dt>
+<dd><p>Computes non-zero track means across all intervals in a streaming fashion.</p>
+<p>Iterates through the intervals and loads BigWig data in batches, accumulating
+sums and counts of non-zero, non-NaN entries to compute the final track means.
+This avoids loading the entire dataset into RAM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bw_paths_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing a ‘path’ column of BigWig files.</p></li>
+<li><p><strong>intervals_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing ‘chrom’, ‘start’, and ‘end’ columns
+for the intervals.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em>) – Size of each bin in base pairs.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Batch size for loading data. Defaults to 256.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 1D array of shape <cite>(tracks,)</cite> containing the computed non-zero track means.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_input.inverse_borzoi_squash">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">inverse_borzoi_squash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_sq</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="../_modules/utils/io/data_input.html#inverse_borzoi_squash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.inverse_borzoi_squash" title="Link to this definition">#</a></dt>
+<dd><p>Inverts the Borzoi ‘squashed scale’ transformation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>y_sq</strong> (<em>TensorOrArray</em>) – Input array or tensor on the squashed scale.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The original scale values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TensorOrArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_input.invert_alphagenome_squash">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_input.</span></span><span class="sig-name descname"><span class="pre">invert_alphagenome_squash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">track_means</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">apply_rna_squashing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">torch.Tensor</span></span></span><a class="reference internal" href="../_modules/utils/io/data_input.html#invert_alphagenome_squash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_input.invert_alphagenome_squash" title="Link to this definition">#</a></dt>
+<dd><p>Inverts the AlphaGenome scaling and squashing to return raw counts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>TensorOrArray</em>) – Scaled and squashed values.</p></li>
+<li><p><strong>track_means</strong> (<em>TensorOrArray</em><em> or </em><em>float</em>) – Non-zero means per track.</p></li>
+<li><p><strong>apply_rna_squashing</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to invert the non-linear squashing.
+Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reconstructed raw counts.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TensorOrArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.io.data_output">
+<span id="utils-io-data-output-module"></span><h2>utils.io.data_output module<a class="headerlink" href="#module-utils.io.data_output" title="Link to this heading">#</a></h2>
+<p>Data Output Module</p>
+<p>This module provides helper functions to save predictions to compressed
+and structured formats (like annotated HDF5), with fallbacks if dependencies
+like h5py are missing.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.data_output.save_borzoi_predictions_with_fallback">
+<span class="sig-prename descclassname"><span class="pre">utils.io.data_output.</span></span><span class="sig-name descname"><span class="pre">save_borzoi_predictions_with_fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks_df</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/io/data_output.html#save_borzoi_predictions_with_fallback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.data_output.save_borzoi_predictions_with_fallback" title="Link to this definition">#</a></dt>
+<dd><p>Attempts to save predictions as an annotated HDF5 file; falls back to numpy (.npy) on failure.</p>
+<p>This function compiles predictions and optional metadata (interval and track annotations)
+into a structured HDF5 dataset, with gzip compression. If <cite>h5py</cite> is not installed or
+the write fails, it falls back to saving as a plain NumPy <cite>.npy</cite> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preds</strong> (<em>np.ndarray</em>) – The predictions array to save.</p></li>
+<li><p><strong>out_dir</strong> (<em>str</em><em> or </em><em>Path</em>) – Output directory where the file will be saved.</p></li>
+<li><p><strong>file_prefix</strong> (<em>str</em>) – Prefix name of the output file (excluding extension).</p></li>
+<li><p><strong>intervals_df</strong> (<em>pandas.DataFrame</em><em>, </em><em>optional</em>) – DataFrame containing annotations
+for the genomic intervals. Saved as the “intervals” group in HDF5.</p></li>
+<li><p><strong>tracks_df</strong> (<em>pandas.DataFrame</em><em>, </em><em>optional</em>) – DataFrame containing annotations
+for the tracks. Saved as the “tracks” group in HDF5.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.io.variant_annotation">
+<span id="utils-io-variant-annotation-module"></span><h2>utils.io.variant_annotation module<a class="headerlink" href="#module-utils.io.variant_annotation" title="Link to this heading">#</a></h2>
+<p>Variant Annotation Module</p>
+<p>This module provides functions to annotate a pandas DataFrame of genetic variants
+(VCF-style) with various genomic features, conservation scores, and coding effects.</p>
+<section id="expected-input-data-format">
+<h3>Expected Input Data Format:<a class="headerlink" href="#expected-input-data-format" title="Link to this heading">#</a></h3>
+<p>The core input to most of these functions is a pandas DataFrame representing genetic
+variants. At a minimum, this DataFrame must contain the following columns:</p>
+<ul class="simple">
+<li><p><strong>Chrom</strong> or <strong>Chromosome</strong> (str): The chromosome (e.g., ‘1’, ‘chr1’, ‘X’).</p></li>
+<li><p><strong>Pos</strong> (int): The 1-based genomic position of the variant.</p></li>
+<li><p><strong>Ref</strong> (str): The reference allele.</p></li>
+<li><p><strong>Alt</strong> (str): The alternate allele.</p></li>
+</ul>
+<p>Some downstream functions (like coding effects) rely on the output of upstream
+functions (like GTF feature annotation), which will be explicitly noted in their
+respective docstrings.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.annotate_cCREs">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">annotate_cCREs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ccre_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyranges.PyRanges</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vcf_pr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyranges.PyRanges</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#annotate_cCREs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.annotate_cCREs" title="Link to this definition">#</a></dt>
+<dd><p>Annotates variants with ENCODE candidate cis-Regulatory Elements (cCREs).</p>
+<p>Performs a left genomic overlap join of variants against the preloaded cCREs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ccre_pr</strong> (<em>pr.PyRanges</em>) – Preloaded cCRE features.</p></li>
+<li><p><strong>vcf_pr</strong> (<em>pr.PyRanges</em>) – PyRanges containing variant coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame of variants annotated with cCRE identifiers and classes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.annotate_cadd_snv_scores">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">annotate_cadd_snv_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#annotate_cadd_snv_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.annotate_cadd_snv_scores" title="Link to this definition">#</a></dt>
+<dd><p>Extracts CADD PHRED scores for SNVs from allele-specific BigWig files.</p>
+<p>Filters out Indels automatically, mapping the remaining single nucleotide variants
+to their corresponding target allele BigWig track.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – DataFrame containing ‘Chromosome’, ‘Pos’, ‘Ref’, and ‘Alt’.</p></li>
+<li><p><strong>bw_paths</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – Dictionary mapping the alternate alleles to their
+specific BigWig paths, e.g.:
+{‘A’: ‘cadd1.7PhredSnvA.bw’, ‘C’: ‘…’}</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Contains only the filtered SNVs alongside their coordinates,</dt><dd><p>alleles, and the resulting ‘CADD_PHRED_score’.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.annotate_cardioid_enhancer_overlap">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">annotate_cardioid_enhancer_overlap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variants_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regions_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#annotate_cardioid_enhancer_overlap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.annotate_cardioid_enhancer_overlap" title="Link to this definition">#</a></dt>
+<dd><p>Annotates variants with overlapping cardioid enhancer regions.</p>
+<p>Determines which variants fall within the specified enhancer regions, appending
+their regulatory positions, cell type specificity, and H3K27ac histone modification status.
+Duplicates are resolved by prioritizing H3K27ac positive overlaps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variants_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing genetic variants (must have CHROM and POS).</p></li>
+<li><p><strong>regions_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing enhancer regions (must have seqnames, start, and end).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame of overlapping variants annotated with enhancer regulatory position,
+histone status, and cell types.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.annotate_coding_effect">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">annotate_coding_effect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variants_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sleep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#annotate_coding_effect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.annotate_coding_effect" title="Link to this definition">#</a></dt>
+<dd><p>Queries the Ensembl VEP REST API for coding consequence, amino acid changes, and impact.</p>
+<p>Note: This function filters internally to only request VEP data for variants
+already annotated as coding (CDS, start/stop codon, exon).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variants_df</strong> (<em>pd.DataFrame</em>) – Must contain ‘Chromosome’, ‘Pos’, ‘Ref’, ‘Alt’,
+and ‘gtf_feature’.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Number of variants to query in a single API POST request.</p></li>
+<li><p><strong>sleep</strong> (<em>float</em>) – Wait time in seconds between API requests to prevent rate limiting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Contains columns ‘all_effects’, ‘coding_effect’, ‘aa_change’,</dt><dd><p>and ‘impact’ aligned to the input variants_df index.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.annotate_gtf_features">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">annotate_gtf_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variants_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gtf_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#annotate_gtf_features"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.annotate_gtf_features" title="Link to this definition">#</a></dt>
+<dd><p>Annotates variants with the most specific overlapping GTF feature and calculates
+absolute distance to the closest Transcription Start Site (TSS).</p>
+<p>Hierarchy (most to least specific):
+start_codon / stop_codon &gt; CDS &gt; UTR &gt; exon &gt; intron &gt; gene</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variants_df</strong> (<em>pd.DataFrame</em>) – Variant dataframe. Must contain ‘Chromosome’,
+‘Start’, and ‘End’ columns (0-based coordinates).</p></li>
+<li><p><strong>gtf_df</strong> (<em>pd.DataFrame</em>) – GTF dataframe parsed into standard columns (‘chrom’,
+‘start’, ‘end’, ‘feature’, ‘strand’, ‘gene_name’, ‘gene_type’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>DataFrame aligned with the input index, containing columns:</dt><dd><p>’gtf_feature’, ‘gene_name’, ‘gene_type’, and ‘closest_TSS’.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.annotate_phyloP_score">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">annotate_phyloP_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phylo_bw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pyBigWig.pyBigWig</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.Series</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#annotate_phyloP_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.annotate_phyloP_score" title="Link to this definition">#</a></dt>
+<dd><p>Extracts phyloP conservation scores for variants from a BigWig file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var_df</strong> (<em>pd.DataFrame</em>) – Variant dataframe containing ‘Chromosome’, ‘Start’,
+and ‘End’ columns.</p></li>
+<li><p><strong>phylo_bw</strong> (<em>pyBigWig.pyBigWig</em>) – An open pyBigWig file object containing phyloP scores.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Series containing phyloP scores, aligned with the input dataframe index.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.Series</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.load_ccre_data">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">load_ccre_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ccre_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyranges.PyRanges</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#load_ccre_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.load_ccre_data" title="Link to this definition">#</a></dt>
+<dd><p>Loads ENCODE candidate cis-Regulatory Elements (cCRE) data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ccre_file</strong> (<em>str</em>) – Path to the gzipped tab-separated cCRE file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A PyRanges object containing annotated cCRE genomic coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pr.PyRanges</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.standardize_vcf_columns">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">standardize_vcf_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#standardize_vcf_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.standardize_vcf_columns" title="Link to this definition">#</a></dt>
+<dd><p>Standardizes column names to the expected internal format (‘Chromosome’, ‘Pos’, ‘Ref’, ‘Alt’).
+Handles common case/naming variations like ‘#CHROM’, ‘CHROM’, ‘chr’, ‘POS’, ‘position’, etc.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.io.variant_annotation.vcf_to_pr">
+<span class="sig-prename descclassname"><span class="pre">utils.io.variant_annotation.</span></span><span class="sig-name descname"><span class="pre">vcf_to_pr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vcf_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pyranges.PyRanges</span></span></span><a class="reference internal" href="../_modules/utils/io/variant_annotation.html#vcf_to_pr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.io.variant_annotation.vcf_to_pr" title="Link to this definition">#</a></dt>
+<dd><p>Converts a VCF-style pandas DataFrame into a PyRanges object.</p>
+<p>Translates 1-based ‘Pos’ coordinates to 0-based half-open intervals (‘Start’, ‘End’)
+required by PyRanges.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vcf_df</strong> (<em>pd.DataFrame</em>) – Input dataframe. Must contain ‘Chrom’ (or ‘Chromosome’)
+and ‘Pos’ columns.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PyRanges object containing the standard interval coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pr.PyRanges</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.io">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.io" title="Link to this heading">#</a></h2>
+<section id="io-package">
+<h3>IO Package<a class="headerlink" href="#io-package" title="Link to this heading">#</a></h3>
+<p>This package contains modules and classes for reading genomic data,
+handling scaling/transformations (such as Borzoi and AlphaGenome squash formats),
+and saving predictions or annotations.</p>
+<section id="id1">
+<h4>Submodules:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>batch_bw_loader</cite>: Contains <cite>BatchBigWigLoader</cite>, a class to load multiple BigWig tracks in parallel.</p></li>
+<li><p><cite>data_input</cite>: Contains mathematical squash operations and data loading helpers.</p></li>
+<li><p><cite>data_output</cite>: Contains utilities to save predictions into formats like annotated HDF5.</p></li>
+<li><p><cite>variant_annotation</cite>: Contains functions to annotate genetic variant dataframes with genomic features.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="utils.finetuning.AlphaGenome.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">utils.finetuning.AlphaGenome package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.preprocessing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">utils.preprocessing package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.batch_bw_loader">utils.io.batch_bw_loader module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader.load_batch()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.data_input">utils.io.data_input module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.SelectiveSquashTransform"><code class="docutils literal notranslate"><span class="pre">SelectiveSquashTransform</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.alphagenome_squash"><code class="docutils literal notranslate"><span class="pre">alphagenome_squash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.borzoi_squash"><code class="docutils literal notranslate"><span class="pre">borzoi_squash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.get_non_zero_track_means"><code class="docutils literal notranslate"><span class="pre">get_non_zero_track_means()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.get_streaming_non_zero_track_means"><code class="docutils literal notranslate"><span class="pre">get_streaming_non_zero_track_means()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.inverse_borzoi_squash"><code class="docutils literal notranslate"><span class="pre">inverse_borzoi_squash()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_input.invert_alphagenome_squash"><code class="docutils literal notranslate"><span class="pre">invert_alphagenome_squash()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.data_output">utils.io.data_output module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.data_output.save_borzoi_predictions_with_fallback"><code class="docutils literal notranslate"><span class="pre">save_borzoi_predictions_with_fallback()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.variant_annotation">utils.io.variant_annotation module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-input-data-format">Expected Input Data Format:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_cCREs"><code class="docutils literal notranslate"><span class="pre">annotate_cCREs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_cadd_snv_scores"><code class="docutils literal notranslate"><span class="pre">annotate_cadd_snv_scores()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_cardioid_enhancer_overlap"><code class="docutils literal notranslate"><span class="pre">annotate_cardioid_enhancer_overlap()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_coding_effect"><code class="docutils literal notranslate"><span class="pre">annotate_coding_effect()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_gtf_features"><code class="docutils literal notranslate"><span class="pre">annotate_gtf_features()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.annotate_phyloP_score"><code class="docutils literal notranslate"><span class="pre">annotate_phyloP_score()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.load_ccre_data"><code class="docutils literal notranslate"><span class="pre">load_ccre_data()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.standardize_vcf_columns"><code class="docutils literal notranslate"><span class="pre">standardize_vcf_columns()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.vcf_to_pr"><code class="docutils literal notranslate"><span class="pre">vcf_to_pr()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-package">IO Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

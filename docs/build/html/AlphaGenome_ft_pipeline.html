@@ -47,7 +47,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'AlphaGenome_ft_pipeline';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="utils" href="api/modules.html" />
+    <link rel="next" title="utils package" href="api/utils.html" />
     <link rel="prev" title="Model Input Generation Pipeline" href="input_prep_pipeline.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -142,16 +142,16 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/ISM.html">ISM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/eval.html">eval package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api/finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="api/io.html">io package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/preprocessing.html">preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.preprocessing.html">utils.preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -310,7 +310,10 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments">Named Arguments</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-evaluation">3. Fine-tuning Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-evaluation">3. Fine-tuning Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed-get_parser-named-arguments">Named Arguments</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -441,8 +444,11 @@ This file is used every time we initialize the model to attach the fine-tuned he
 <p>Python script:</p>
 <p><p>Generate AG finetuning YAML config</p>
 </p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mmake_AG_input_config.py[0m [[32m-h[0m] [36m--data_dir [33mDATA_DIR[0m [[36m--config_prefix [33mCONFIG_PREFIX[0m] [36m--modality_folders [33mMODALITY_FOLDERS [MODALITY_FOLDERS ...][0m [[36m--nonzero_means [33mNONZERO_MEANS[0m]
-                               [[36m--norm_tag [33mNORM_TAG[0m]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">make_AG_input_config</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">data_dir</span> <span class="n">DATA_DIR</span>
+                               <span class="p">[</span><span class="o">--</span><span class="n">config_prefix</span> <span class="n">CONFIG_PREFIX</span><span class="p">]</span>
+                               <span class="o">--</span><span class="n">modality_folders</span> <span class="n">MODALITY_FOLDERS</span> <span class="p">[</span><span class="n">MODALITY_FOLDERS</span> <span class="o">...</span><span class="p">]</span>
+                               <span class="p">[</span><span class="o">--</span><span class="n">nonzero_means</span> <span class="n">NONZERO_MEANS</span><span class="p">]</span>
+                               <span class="p">[</span><span class="o">--</span><span class="n">norm_tag</span> <span class="n">NORM_TAG</span><span class="p">]</span>
 </pre></div>
 </div>
 <section id="utils.preprocessing.make_AG_input_config-get_parser-named-arguments">
@@ -528,9 +534,13 @@ This file is used every time we initialize the model to attach the fine-tuned he
 The fine-tuning is handled by the following script:</p>
 <p><p>AlphaGenome Finetuning Script</p>
 </p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mfinetune_heads.py[0m [[32m-h[0m] [36m--fasta_path [33mFASTA_PATH[0m [36m--config [33mCONFIG[0m [36m--base_dir [33mBASE_DIR[0m [36m--checkpoint_dir [33mCHECKPOINT_DIR[0m [[36m--fold [33mFOLD[0m] [[36m--window_size [33mWINDOW_SIZE[0m] [[36m--organism [33mORGANISM[0m]
-                         [[36m--model_version [33mMODEL_VERSION[0m] [[36m--batch_size [33mBATCH_SIZE[0m] [[36m--epochs [33mEPOCHS[0m] [[36m--lr [33mLR[0m] [[36m--weight_decay [33mWEIGHT_DECAY[0m] [[36m--seed [33mSEED[0m] [[36m--patience [33mPATIENCE[0m]
-                         [[36m--min_delta [33mMIN_DELTA[0m]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">finetune_heads</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">fasta_path</span> <span class="n">FASTA_PATH</span> <span class="o">--</span><span class="n">config</span> <span class="n">CONFIG</span>
+                         <span class="o">--</span><span class="n">base_dir</span> <span class="n">BASE_DIR</span> <span class="o">--</span><span class="n">checkpoint_dir</span> <span class="n">CHECKPOINT_DIR</span>
+                         <span class="p">[</span><span class="o">--</span><span class="n">fold</span> <span class="n">FOLD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">window_size</span> <span class="n">WINDOW_SIZE</span><span class="p">]</span>
+                         <span class="p">[</span><span class="o">--</span><span class="n">organism</span> <span class="n">ORGANISM</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">model_version</span> <span class="n">MODEL_VERSION</span><span class="p">]</span>
+                         <span class="p">[</span><span class="o">--</span><span class="n">batch_size</span> <span class="n">BATCH_SIZE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">epochs</span> <span class="n">EPOCHS</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">lr</span> <span class="n">LR</span><span class="p">]</span>
+                         <span class="p">[</span><span class="o">--</span><span class="n">weight_decay</span> <span class="n">WEIGHT_DECAY</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">seed</span> <span class="n">SEED</span><span class="p">]</span>
+                         <span class="p">[</span><span class="o">--</span><span class="n">patience</span> <span class="n">PATIENCE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">min_delta</span> <span class="n">MIN_DELTA</span><span class="p">]</span>
 </pre></div>
 </div>
 <section id="utils.finetuning.AlphaGenome.finetune_heads-get_parser-named-arguments">
@@ -601,7 +611,8 @@ The fine-tuning is handled by the following script:</p>
 <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> in the <code class="docutils literal notranslate"><span class="pre">tmp</span></code> directory with updated data paths pointing to the staged <code class="docutils literal notranslate"><span class="pre">.bw</span></code> files.</p>
 <p><p>Stage AlphaGenome data to local tmp and update YAML config.</p>
 </p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mstage_to_tmp.py[0m [[32m-h[0m] [36m--master_yaml [33mMASTER_YAML[0m [36m--tmp_dir [33mTMP_DIR[0m [[36m--out_yaml [33mOUT_YAML[0m]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">stage_to_tmp</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">master_yaml</span> <span class="n">MASTER_YAML</span> <span class="o">--</span><span class="n">tmp_dir</span> <span class="n">TMP_DIR</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">out_yaml</span> <span class="n">OUT_YAML</span><span class="p">]</span>
 </pre></div>
 </div>
 <section id="utils.finetuning.AlphaGenome.stage_to_tmp-get_parser-named-arguments">
@@ -735,9 +746,17 @@ from an existing model checkpoint.</p>
 and only loads weights and biases. Expect small spikes in loss during the first few epochs.</p>
 <p><p>AlphaGenome Resume Finetuning Script</p>
 </p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[1;34musage: [0m[1;35mresume_finetune_heads.py[0m [[32m-h[0m] [36m--fasta_path [33mFASTA_PATH[0m [36m--config [33mCONFIG[0m [36m--base_dir [33mBASE_DIR[0m [36m--in_checkpoint_dir [33mIN_CHECKPOINT_DIR[0m [36m--out_checkpoint_dir [33mOUT_CHECKPOINT_DIR[0m
-                                [[36m--fold [33mFOLD[0m] [[36m--window_size [33mWINDOW_SIZE[0m] [[36m--organism [33mORGANISM[0m] [[36m--model_version [33mMODEL_VERSION[0m] [[36m--batch_size [33mBATCH_SIZE[0m] [[36m--epochs [33mEPOCHS[0m] [[36m--lr [33mLR[0m]
-                                [[36m--weight_decay [33mWEIGHT_DECAY[0m] [[36m--seed [33mSEED[0m] [[36m--patience [33mPATIENCE[0m] [[36m--min_delta [33mMIN_DELTA[0m]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">resume_finetune_heads</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">fasta_path</span> <span class="n">FASTA_PATH</span> <span class="o">--</span><span class="n">config</span> <span class="n">CONFIG</span>
+                                <span class="o">--</span><span class="n">base_dir</span> <span class="n">BASE_DIR</span>
+                                <span class="o">--</span><span class="n">in_checkpoint_dir</span> <span class="n">IN_CHECKPOINT_DIR</span>
+                                <span class="o">--</span><span class="n">out_checkpoint_dir</span> <span class="n">OUT_CHECKPOINT_DIR</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">fold</span> <span class="n">FOLD</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">window_size</span> <span class="n">WINDOW_SIZE</span><span class="p">]</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">organism</span> <span class="n">ORGANISM</span><span class="p">]</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">model_version</span> <span class="n">MODEL_VERSION</span><span class="p">]</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">batch_size</span> <span class="n">BATCH_SIZE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">epochs</span> <span class="n">EPOCHS</span><span class="p">]</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">lr</span> <span class="n">LR</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">weight_decay</span> <span class="n">WEIGHT_DECAY</span><span class="p">]</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">seed</span> <span class="n">SEED</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">patience</span> <span class="n">PATIENCE</span><span class="p">]</span>
+                                <span class="p">[</span><span class="o">--</span><span class="n">min_delta</span> <span class="n">MIN_DELTA</span><span class="p">]</span>
 </pre></div>
 </div>
 <section id="utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments">
@@ -815,6 +834,77 @@ resolution as compressed <code class="docutils literal notranslate"><span class=
 forward passes, keeping a running sum for every batch of outputs.</p>
 <p>This script integrates the evaluation pipeline (shared across models, found at <code class="docutils literal notranslate"><span class="pre">../../src/utils/eval</span></code>)
 with AlphaGenome forward passes.</p>
+<p><p>AlphaGenome Finetuned Streaming Evaluation Script</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">evaluate_AG_on_test_streamed</span><span class="o">.</span><span class="n">py</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">fasta_path</span> <span class="n">FASTA_PATH</span>
+                                       <span class="o">--</span><span class="n">config</span> <span class="n">CONFIG</span> <span class="o">--</span><span class="n">input_dir</span> <span class="n">INPUT_DIR</span>
+                                       <span class="o">--</span><span class="n">out_dir</span> <span class="n">OUT_DIR</span>
+                                       <span class="o">--</span><span class="n">checkpoint_dir</span> <span class="n">CHECKPOINT_DIR</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">gtf_file</span> <span class="n">GTF_FILE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">fold</span> <span class="n">FOLD</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">window_size</span> <span class="n">WINDOW_SIZE</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">organism</span> <span class="n">ORGANISM</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">model_version</span> <span class="n">MODEL_VERSION</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">batch_size</span> <span class="n">BATCH_SIZE</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">resolution</span> <span class="n">RESOLUTION</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">save_predictions</span> <span class="n">SAVE_PREDICTIONS</span><span class="p">]</span>
+                                       <span class="p">[</span><span class="o">--</span><span class="n">minimal_test</span> <span class="n">MINIMAL_TEST</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed-get_parser-named-arguments">
+<h3>Named Arguments<a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed-get_parser-named-arguments" title="Link to this heading">#</a></h3>
+<dl class="option-list">
+<dt><kbd>--fasta_path</kbd></dt>
+<dd><p>Path to the genome.fa file</p>
+</dd>
+<dt><kbd>--config</kbd></dt>
+<dd><p>Path to the target YAML config file</p>
+</dd>
+<dt><kbd>--input_dir</kbd></dt>
+<dd><p>Directory containing input BigWig files</p>
+</dd>
+<dt><kbd>--out_dir</kbd></dt>
+<dd><p>Output directory for figures and results</p>
+</dd>
+<dt><kbd>--checkpoint_dir</kbd></dt>
+<dd><p>Directory containing the best model checkpoint</p>
+</dd>
+<dt><kbd>--gtf_file</kbd></dt>
+<dd><p>Optional GTF file for Gene-based correlation mapping</p>
+</dd>
+<dt><kbd>--fold</kbd></dt>
+<dd><p>Data fold to use (0, 1, 2, 3)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'1'</span></code></p>
+</dd>
+<dt><kbd>--window_size</kbd></dt>
+<dd><p>Window size in bp (must map to an AlphaGenome config)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">1048576</span></code></p>
+</dd>
+<dt><kbd>--organism</kbd></dt>
+<dd><p>Target organism</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'HOMO_SAPIENS'</span></code></p>
+</dd>
+<dt><kbd>--model_version</kbd></dt>
+<dd><p>Base model version (e.g., fold_1, all_folds)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'fold_1'</span></code></p>
+</dd>
+<dt><kbd>--batch_size</kbd></dt>
+<dd><p>Global batch size (must be divisible by N_GPUs)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">16</span></code></p>
+</dd>
+<dt><kbd>--resolution</kbd></dt>
+<dd><p>Embedding resolution to evaluate (1, 128)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'1'</span></code></p>
+</dd>
+<dt><kbd>--save_predictions</kbd></dt>
+<dd><p>Whether to save test interval predictions to HDF5.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+<dt><kbd>--minimal_test</kbd></dt>
+<dd><p>Truncate run to the first 8 intervals for quick debugging.</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+</dl>
+</section>
 <p>To speed up computation, this can be integrated with data staging (just like the fine-tuning step)
 using a bash script like this:</p>
 <div class="literal-block-wrapper docutils container" id="id4">
@@ -954,11 +1044,11 @@ using a bash script like this:</p>
       </div>
     </a>
     <a class="right-next"
-       href="api/modules.html"
+       href="api/utils.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">utils</p>
+        <p class="prev-next-title">utils package</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -991,7 +1081,10 @@ using a bash script like this:</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads-get_parser-named-arguments">Named Arguments</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-evaluation">3. Fine-tuning Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning-evaluation">3. Fine-tuning Evaluation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed-get_parser-named-arguments">Named Arguments</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

@@ -16,7 +16,25 @@ from matplotlib.axes import Axes
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 def compute_na_masked_pearson_distribution(P, T, min_valid_pct=0.1, return_sum_counts = False):
-    '''We assume P and T axes shape is (Intervals, Tracks, Bins)'''
+    """Calculates the Pearson correlation coefficient matrix between predictions and targets.
+
+    Computes correlation coefficients between all prediction tracks and target tracks across
+    non-NaN bins, using vectorized operations.
+
+    Args:
+        P (np.ndarray): Predictions array of shape `(intervals, P_tracks, bins)`.
+        T (np.ndarray): Targets array of shape `(intervals, T_tracks, bins)`.
+        min_valid_pct (float, optional): Minimum required valid (non-NaN) bins fraction
+            per interval for calculating correlation. Defaults to 0.1.
+        return_sum_counts (bool, optional): If True, returns target and prediction sum matrices.
+            Defaults to False.
+
+    Returns:
+        np.ndarray or tuple:
+            - np.ndarray: Pearson correlation matrix of shape `(intervals, P_tracks, T_tracks)`.
+            - np.ndarray: Sum of targets per interval/track (if `return_sum_counts=True`).
+            - np.ndarray: Sum of predictions per interval/track (if `return_sum_counts=True`).
+    """
     # Create masks and safe-T
     T_valid_mask = (~np.isnan(T)).astype(np.uint8) # 1.0 if valid, 0.0 if NaN
     T_0 = np.nan_to_num(T, nan=0.0)             # Safe for math; masked out later
@@ -61,11 +79,19 @@ def compute_na_masked_pearson_distribution(P, T, min_valid_pct=0.1, return_sum_c
 
 #quantlile normalizeing the df for nromlaized correaltion analysis
 def quantile_normalize_RNA_counts(log_counts_data):
-    '''
-    log_counts_data: pd.DataFrame or np.ndarray, genes x tracks. Expects log counts.
-    returns: pd.DataFrame or np.ndarray (matching input) with matched distribution centered to gene_mean.
-    Method described in AG paper (Avsec et al. 2026 Nature) - Updated for NaN robustness.
-    '''
+    """Quantile normalizes RNA counts across tracks and centers them by gene means.
+
+    Aligns count distributions across tracks to a shared target distribution
+    (the mean distribution across tracks) and centers them by subtracting the average
+    count of each gene. Robust to NaN values.
+
+    Args:
+        log_counts_data (pandas.DataFrame or np.ndarray): Input counts table of shape
+            `(genes, tracks)`. Expects log-transformed counts.
+
+    Returns:
+        pandas.DataFrame or np.ndarray: Normalized and gene-centered counts matching the input type.
+    """
     is_df = isinstance(log_counts_data, pd.DataFrame)
     arr = log_counts_data.values.astype(float) if is_df else np.asarray(log_counts_data).astype(float)
     sorted_genes = np.sort(arr, axis=0)
@@ -532,6 +558,33 @@ def plot_strand_expression_heatmaps(
     label_cent: str = 'Gene Centered Exon Counts [Δ]',
     label_cor: str = 'Pearson r'
 ) -> Figure:
+    """Generates interleaved heatmaps of gene expression, centered expression, and correlations.
+
+    Interleaves predicted and observed expression profiles for plus and minus strand genes,
+    sorted by descending average expression. Side heatmaps display track-level correlations,
+    and optional top heatmaps show gene-level correlations.
+
+    Args:
+        gene_P (pandas.DataFrame): Predicted gene expression matrix of shape `(genes, tracks)`.
+        gene_T (pandas.DataFrame): Observed gene expression matrix of shape `(genes, tracks)`.
+        gene_cors (dict of str to pandas.Series): Dict of track-level correlation series
+            (keys are metrics, values are series indexed by track).
+        gene_cors_by_gene (dict of str to pandas.Series, optional): Dict of gene-level
+            correlation series (keys are metrics, values are series indexed by gene).
+            Defaults to None.
+        figsize (Tuple[int, int], optional): Matplotlib figure size. Defaults to (26, 15).
+        cmap_exp (str, optional): Colormap for absolute expression. Defaults to 'viridis'.
+        cmap_cent (str, optional): Colormap for gene-centered expression. Defaults to 'RdBu_r'.
+        cmap_cor (str, optional): Colormap for correlation heatmaps. Defaults to 'magma'.
+        label_exp (str, optional): Label for the expression colorbar.
+            Defaults to 'log1p(Sum Exon Counts)'.
+        label_cent (str, optional): Label for the centered expression colorbar.
+            Defaults to 'Gene Centered Exon Counts [Δ]'.
+        label_cor (str, optional): Label for the correlation colorbar. Defaults to 'Pearson r'.
+
+    Returns:
+        matplotlib.figure.Figure: The generated figure containing the heatmaps.
+    """
     # ==========================================
     # 1. Data Preparation & Masking
     # ==========================================

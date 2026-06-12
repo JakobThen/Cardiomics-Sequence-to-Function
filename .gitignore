@@ -12,12 +12,13 @@
 *.parquet
 *.narrowPeak
 *.bed
-input_data/metadata/GRCh38_gencode_release29_genome_fasta/
+input_data/metadata/GRCh38_gencode_release29_genome_fasta/*
 
 # Python / Jupyter Artifacts
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.conda
 
 #Documentation
 docs/_build/
@@ -25,3 +26,6 @@ docs/_build/
 #Old scripts
 src/utils/finetuning/AlphaGenome/OLD_03_evaluate_on_test_NOT_STREAMED.py
 src/utils/finetuning/AlphaGenome/OLD-03_evaluate_on_test_streamed_128bp.py
+then/
+DOCUMENTATION_GUIDE.md
+.gemini/

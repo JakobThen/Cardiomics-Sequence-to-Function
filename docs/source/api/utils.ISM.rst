@@ -1,10 +1,10 @@
-ISM package
-===========
+utils.ISM package
+=================
 
 Module contents
 ---------------
 
-.. automodule:: ISM
+.. automodule:: utils.ISM
    :members:
    :show-inheritance:
    :undoc-members:

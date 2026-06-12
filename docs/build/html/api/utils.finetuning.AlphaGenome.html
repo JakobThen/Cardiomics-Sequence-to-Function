@@ -47,6 +47,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'api/utils.finetuning.AlphaGenome';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="utils.io package" href="utils.io.html" />
+    <link rel="prev" title="utils.finetuning package" href="utils.finetuning.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -137,19 +139,19 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="ISM.html">ISM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="eval.html">eval package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="utils.html">utils package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">utils.finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="io.html">io package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="preprocessing.html">preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html">utils.preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -298,9 +300,24 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.out_dir"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.out_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.h5_path"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.h5_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.total_samples"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.total_samples</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.file"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.file</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.datasets"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.datasets</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.close()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.write_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.write_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means"><code class="docutils literal notranslate"><span class="pre">get_aligned_nonzero_means()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key"><code class="docutils literal notranslate"><span class="pre">get_prediction_key()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
@@ -316,7 +333,13 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -333,14 +356,211 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
-<section id="utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">
-<h2>utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module<a class="headerlink" href="#utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module" title="Link to this heading">#</a></h2>
-</section>
-<section id="module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">
-<span id="utils-finetuning-alphagenome-old-03-evaluate-on-test-not-streamed-module"></span><h2>utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED" title="Link to this heading">#</a></h2>
-</section>
-<section id="utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module">
-<h2>utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module<a class="headerlink" href="#utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module" title="Link to this heading">#</a></h2>
+<section id="module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">
+<span id="utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module"></span><h2>utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed" title="Link to this heading">#</a></h2>
+<p>Evaluates a fine-tuned AlphaGenome model using streaming correlation analysis.</p>
+<p>It loads a specified checkpoint, performs multi-GPU distributed inference across
+test intervals, computes metrics against BigWig tracks, and optionally saves
+the predictions to an HDF5 file.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.</span></span><span class="sig-name descname"><span class="pre">HDF5BatchWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_prefix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#HDF5BatchWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Iterative saving class designed to handle massive output arrays.</p>
+<p>By writing to disk iteratively, we avoid out-of-memory (OOM) errors
+when dealing with 1bp resolution data across thousands of intervals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_dir</strong> (<em>str</em><em> or </em><em>Path</em>) – Directory where the HDF5 file will be saved.</p></li>
+<li><p><strong>file_prefix</strong> (<em>str</em>) – Prefix for the generated HDF5 file name.</p></li>
+<li><p><strong>total_samples</strong> (<em>int</em>) – Total number of samples (intervals) to pre-allocate.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.out_dir">
+<span class="sig-name descname"><span class="pre">out_dir</span></span><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.out_dir" title="Link to this definition">#</a></dt>
+<dd><p>Resolved path for output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.h5_path">
+<span class="sig-name descname"><span class="pre">h5_path</span></span><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.h5_path" title="Link to this definition">#</a></dt>
+<dd><p>Full path to the targeted <cite>.h5</cite> file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Path</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.total_samples">
+<span class="sig-name descname"><span class="pre">total_samples</span></span><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.total_samples" title="Link to this definition">#</a></dt>
+<dd><p>Total expected size of the first dimension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.file">
+<span class="sig-name descname"><span class="pre">file</span></span><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.file" title="Link to this definition">#</a></dt>
+<dd><p>Open file handle for writing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>h5py.File</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.datasets">
+<span class="sig-name descname"><span class="pre">datasets</span></span><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.datasets" title="Link to this definition">#</a></dt>
+<dd><p>Dictionary tracking initialized datasets per head.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#HDF5BatchWriter.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close" title="Link to this definition">#</a></dt>
+<dd><p>Safely closes the underlying HDF5 file handle.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch">
+<span class="sig-name descname"><span class="pre">write_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">head_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_preds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_idx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#HDF5BatchWriter.write_batch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch" title="Link to this definition">#</a></dt>
+<dd><p>Writes a batch of predictions for a specific head to disk.</p>
+<p>Dynamically creates the dataset if it is the first batch received for
+the given model head.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>head_name</strong> (<em>str</em>) – Identifier for the model output head.</p></li>
+<li><p><strong>batch_preds</strong> (<em>np.ndarray</em>) – Predictions array for the current batch.</p></li>
+<li><p><strong>start_idx</strong> (<em>int</em>) – The starting index along the sample dimension where
+this batch should be inserted.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata">
+<span class="sig-name descname"><span class="pre">write_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">intervals_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks_df</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#HDF5BatchWriter.write_metadata"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata" title="Link to this definition">#</a></dt>
+<dd><p>Saves interval and track metadata to the HDF5 file.</p>
+<p>Converts string/object dtypes to byte strings (<cite>‘S’</cite>) to ensure
+compatibility with HDF5 standards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>intervals_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing interval coordinates.</p></li>
+<li><p><strong>tracks_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing track metadata.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means">
+<span class="sig-prename descclassname"><span class="pre">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.</span></span><span class="sig-name descname"><span class="pre">get_aligned_nonzero_means</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tracks_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#get_aligned_nonzero_means"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means" title="Link to this definition">#</a></dt>
+<dd><p>Extracts precomputed nonzero track means and aligns them to the tracks DataFrame.</p>
+<p>Strictly aligns the means based on file paths to ensure calculations match
+the correct BigWig files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tracks_df</strong> (<em>pd.DataFrame</em>) – DataFrame containing track metadata including paths.</p></li>
+<li><p><strong>config_dict</strong> (<em>dict</em>) – Target configuration dictionary containing head definitions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 1D array of aligned nonzero mean values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If a path listed in <cite>tracks_df</cite> is missing from the configuration.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser">
+<span class="sig-prename descclassname"><span class="pre">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.</span></span><span class="sig-name descname"><span class="pre">get_parser</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#get_parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser" title="Link to this definition">#</a></dt>
+<dd><p>Creates and configures the argument parser for the evaluation script.</p>
+<p>Separated from the main execution logic to allow Sphinx’s argparse extension
+(<cite>sphinxarg.ext</cite>) to auto-generate CLI documentation natively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The configured argument parser object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>argparse.ArgumentParser</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key">
+<span class="sig-prename descclassname"><span class="pre">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.</span></span><span class="sig-name descname"><span class="pre">get_prediction_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bin_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">128</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_scaled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#get_prediction_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key" title="Link to this definition">#</a></dt>
+<dd><p>Identifies the correct dictionary key for the desired embedding resolution.</p>
+<p>AlphaGenome predicts at multiple resolutions and data scales simultaneously.
+This helper finds the key matching the target target bin size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_p</strong> (<em>dict</em>) – Raw prediction dictionary from the model.</p></li>
+<li><p><strong>bin_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The target bin size/resolution. Defaults to 128.</p></li>
+<li><p><strong>return_scaled</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to look for scaled predictions. Defaults to True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matching key found in the prediction dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If no matching prediction key is found in the dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main">
+<span class="sig-prename descclassname"><span class="pre">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main" title="Link to this definition">#</a></dt>
+<dd><p>Executes the main evaluation pipeline.</p>
+<p>Sets up hardware, prepares data intervals and metadata, loads the model
+and its sharding configuration, and executes multi-GPU streaming evaluation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>argparse.Namespace</em>) – Parsed command-line arguments.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>RuntimeError</strong> – If JAX defaults to CPU execution.</p></li>
+<li><p><strong>FileNotFoundError</strong> – If a required BigWig file is missing from the directory.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-utils.finetuning.AlphaGenome.finetune_heads">
 <span id="utils-finetuning-alphagenome-finetune-heads-module"></span><h2>utils.finetuning.AlphaGenome.finetune_heads module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.finetune_heads" title="Link to this heading">#</a></h2>
@@ -475,6 +695,21 @@ paths for the master config, output config, and temporary directory.</p>
 </section>
 <section id="module-utils.finetuning.AlphaGenome">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.finetuning.AlphaGenome" title="Link to this heading">#</a></h2>
+<section id="alphagenome-finetuning-module">
+<h3>AlphaGenome Finetuning Module<a class="headerlink" href="#alphagenome-finetuning-module" title="Link to this heading">#</a></h3>
+<p>This module provides scripts and classes for staging datasets, running heads-only or
+joint finetuning, resuming interrupted training sessions, and performing post-finetuning
+evaluation on test intervals.</p>
+<section id="cli-scripts">
+<h4>CLI Scripts:<a class="headerlink" href="#cli-scripts" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>evaluate_AG_on_test_streamed</cite>: Runs streaming test metrics evaluation using a checkpoint.</p></li>
+<li><p><cite>finetune_heads</cite>: Finetunes new heads on top of pretrained AlphaGenome models.</p></li>
+<li><p><cite>resume_finetune_heads</cite>: Resumes a training run from a PyTorch Lightning checkpoint.</p></li>
+<li><p><cite>stage_to_tmp</cite>: Staged datasets and configuration YAMLs into node-local temporary SSDs.</p></li>
+</ul>
+</section>
+</section>
 </section>
 </section>
 
@@ -489,6 +724,24 @@ paths for the master config, output config, and temporary directory.</p>
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="utils.finetuning.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">utils.finetuning package</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="utils.io.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">utils.io package</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -508,9 +761,24 @@ paths for the master config, output config, and temporary directory.</p>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils-finetuning-alphagenome-old-03-evaluate-on-test-streamed-128bp-module">utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED module</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#utils-finetuning-alphagenome-evaluate-ag-on-test-streamed-module">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.out_dir"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.out_dir</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.h5_path"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.h5_path</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.total_samples"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.total_samples</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.file"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.file</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.datasets"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.datasets</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.close()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.write_batch()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter.write_metadata()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means"><code class="docutils literal notranslate"><span class="pre">get_aligned_nonzero_means()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key"><code class="docutils literal notranslate"><span class="pre">get_prediction_key()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
@@ -526,7 +794,13 @@ paths for the master config, output config, and temporary directory.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

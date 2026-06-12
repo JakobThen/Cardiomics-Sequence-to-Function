@@ -1,9 +1,30 @@
+"""
+Data Output Module
+
+This module provides helper functions to save predictions to compressed
+and structured formats (like annotated HDF5), with fallbacks if dependencies
+like h5py are missing.
+"""
 from pathlib import Path
 import numpy as np
 from pandas.api.types import is_string_dtype, is_object_dtype
 
 def save_borzoi_predictions_with_fallback(preds, out_dir, file_prefix, intervals_df=None, tracks_df=None):
-    """Attempts to save predictions as annotated HDF5; falls back to .npy only if that fails."""
+    """Attempts to save predictions as an annotated HDF5 file; falls back to numpy (.npy) on failure.
+
+    This function compiles predictions and optional metadata (interval and track annotations)
+    into a structured HDF5 dataset, with gzip compression. If `h5py` is not installed or
+    the write fails, it falls back to saving as a plain NumPy `.npy` file.
+
+    Args:
+        preds (np.ndarray): The predictions array to save.
+        out_dir (str or Path): Output directory where the file will be saved.
+        file_prefix (str): Prefix name of the output file (excluding extension).
+        intervals_df (pandas.DataFrame, optional): DataFrame containing annotations
+            for the genomic intervals. Saved as the "intervals" group in HDF5.
+        tracks_df (pandas.DataFrame, optional): DataFrame containing annotations
+            for the tracks. Saved as the "tracks" group in HDF5.
+    """
     
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)

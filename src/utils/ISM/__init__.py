@@ -22,8 +22,15 @@ def aggregate_adata_vars(
     adata: ad.AnnData, 
     groupby_cols: list[str] = ['ontology_curie', 'transcription_factor']
 ) -> ad.AnnData:
-    """
-    Groups AnnData variables by specified columns and computes the mean for .X.
+    """Groups AnnData variables by specified columns and computes the mean for .X.
+
+    Args:
+        adata (ad.AnnData): Input AnnData object.
+        groupby_cols (list of str, optional): Columns in `.var` to group by.
+            Defaults to ['ontology_curie', 'transcription_factor'].
+
+    Returns:
+        ad.AnnData: Grouped AnnData object containing mean expression values.
     """
     grouped = adata.var.groupby(groupby_cols)
     new_X_cols = []
@@ -60,8 +67,13 @@ def aggregate_adata_vars(
 
 
 def average_all_stranded_expression(adata: ad.AnnData) -> ad.AnnData:
-    """
-    Averages all tracks into a single track, respecting strand compatibility per gene.
+    """Averages all tracks into a single track, respecting strand compatibility per gene.
+
+    Args:
+        adata (ad.AnnData): Input AnnData object.
+
+    Returns:
+        ad.AnnData: Averaged AnnData object.
     """
     gene_strands = adata.obs['strand'].astype(str).values
     track_strands = adata.var['strand'].astype(str).values
@@ -103,8 +115,18 @@ def average_all_stranded_expression(adata: ad.AnnData) -> ad.AnnData:
    
 
 def extract_var_score(adata: ad.AnnData, curie: list[str]) -> tuple[list[str], np.ndarray] | None:
-    """
-    Extracts variable names and flattened scores for a given curie and assay type.
+    """Extracts variable names and flattened scores for a given curie and assay type.
+
+    Args:
+        adata (ad.AnnData): Input AnnData object.
+        curie (list of str): List of ontology curies to filter by.
+
+    Returns:
+        tuple or None: A tuple containing:
+            - list of str: Target variable names.
+            - np.ndarray: Flattened score array.
+
+            Returns None if the assay type is unsupported.
     """
     assay_type = adata.var["Assay title"].iloc[0]
     adata = adata[:, (adata.var.ontology_curie.isin(curie))]
@@ -136,9 +158,20 @@ def collect_ism_scores(
     curie: list[str], 
     modality: dict[str, int]
 ) -> dict[str, Any] | None:
-    """
-    Passes over all variants for one modality to build an ISM score matrix quickly later.
-    Returns None if no valid targets exist.
+    """Passes over all variants for one modality to build an ISM score matrix.
+
+    Args:
+        ism_result (list of list of ad.AnnData): Nested list of ISM results.
+        curie (list of str): Curie IDs.
+        modality (dict of str to int): Modality mapping.
+
+    Returns:
+        dict or None: A dictionary containing:
+            - "targets": list of targets.
+            - "variants": list of variant objects.
+            - "scores": np.ndarray score matrix.
+
+            Returns None if no valid targets exist.
     """
     m_idx = list(modality.values())[0]
 
@@ -173,10 +206,14 @@ def collect_ism_scores(
 
 
 def build_ism_matrix(collected: dict[str, Any] | None, target: str | None = None) -> Any:
-    """
-    Slices a single target column from pre-collected scores to build the ISM matrix.
-    If target is None (untargeted modalities like ATAC), it uses the only available column.
-    Returns: np.array of shape (seq_len x 4) of attribution scores, 0 for non observed nucleotides.
+    """Slices a single target column from pre-collected scores to build the ISM matrix.
+
+    Args:
+        collected (dict or None): Dictionary of collected ISM scores.
+        target (str, optional): Target column name to slice. Defaults to None.
+
+    Returns:
+        np.ndarray: Attribution score matrix of shape `(seq_len, 4)`.
     """
     if collected is None:
         return None
@@ -209,9 +246,19 @@ def process_region(
     genes: list[str] | None = None, 
     TFs: list[str] | None = None
 ) -> tuple[str, dict[str, Any]]:
-    """
-    Worker function to process regions. Args must remain picklable for multiprocessing.
-    Skipped modalities (genes or TFs passed as None) are ignored.
+    """Processes ISM results for a genomic region.
+
+    Args:
+        name (str): Region name identifier.
+        ism_data (list of list of ad.AnnData): Nested list of ISM results.
+        curie (list of str): Curie IDs.
+        genes (list of str, optional): Genes to process. Defaults to None.
+        TFs (list of str, optional): TFs to process. Defaults to None.
+
+    Returns:
+        tuple:
+            - str: Region name.
+            - dict: Modality matrices mapped by name.
     """
     tmp = {}
     
@@ -234,9 +281,11 @@ def process_region(
 
 
 def save_ism_dict(ism_enhancer: dict[str, dict[str, Any]], path: str) -> None:
-    """
-    Save the ISM enhancer dictionary to HDF5. 
-    Skips missing targets automatically.
+    """Save the ISM enhancer dictionary to HDF5.
+
+    Args:
+        ism_enhancer (dict): Nested dictionary of processed ISM matrices.
+        path (str): Output HDF5 file path.
     """
     with h5py.File(path, "w") as f:
         for enhancer_name, modalities in ism_enhancer.items():
@@ -256,30 +305,22 @@ def load_ism_dict(
     enhancers: list[str] | None = None, 
     modalities: list[str] | None = None
 ) -> dict[str, dict[str, Any]]:
-    """
-    Load the ISM enhancer dictionary from HDF5.
-    
-    Providing `enhancers` or `modalities` filters the data loaded into memory.
-    Otherwise, loads the entire file.
-    Usage:
-         # Load everything
-         ism_dict = load_ism_dict("ism_enhancer.h5")
-         # Load only ATAC for a subset of enhancers
-         ism_atac = load_ism_dict(
-             "ism_enhancer.h5",
-             enhancers=["enhancer_1", "enhancer_2"],
-             modalities=["ATAC"]
-        )
-        #lazy loading
-        with h5py.File("ism_enhancer.h5", "r") as f:
-        atac = f["enhancer_1"]["ATAC"][:]
+    """Loads the ISM enhancer dictionary from HDF5.
+
+    Args:
+        path (str): Input HDF5 file path.
+        enhancers (list of str, optional): Enhancer regions to load. Defaults to None.
+        modalities (list of str, optional): Modalities to load. Defaults to None.
+
+    Returns:
+        dict: Processed ISM dictionary of matrices.
     """
     result = {}
     
     with h5py.File(path, "r") as f:
-        enhancer_keys = enhancers if enhancers is not None else list(f.keys())
+        new_enhancer_keys = enhancers if enhancers is not None else list(f.keys())
         
-        for enhancer_name in enhancer_keys:
+        for enhancer_name in new_enhancer_keys:
             if enhancer_name not in f:
                 continue
                 

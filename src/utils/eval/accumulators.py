@@ -1,16 +1,28 @@
 """
-Classes to handle per batch metrics for model evaluation during test inferce or analysis from h5 model outputs. 
-Contains streamed pearson correaltion, streamed gene correlation, best interval tracking and interval sampling for scatter plots.
+Validation and Evaluation Metric Accumulators
+
+This module provides accumulator classes to compute correlation metrics, gene-level
+expression, coverage statistics, and track the best intervals incrementally during
+streaming model evaluation.
 """
 import numpy as np
 import pandas as pd
 
 class StreamingPearsonAccumulator:
-    """
-    Computes exact Pearson correlation incrementally per track.
-    Also tracks the number of valid (non-NaN) bins for QC metrics.
+    """Computes exact Pearson correlation incrementally per track.
+
+    This class tracks Pearson correlation coefficient components and keeps a count of
+    valid (non-NaN) bins to generate QC metrics without storing all batch predictions
+    in memory.
     """
     def __init__(self, num_tracks, track_names=None):
+        """Initializes the StreamingPearsonAccumulator.
+
+        Args:
+            num_tracks (int): Number of tracks to evaluate.
+            track_names (list of str, optional): Human-readable names of the tracks.
+                Defaults to None.
+        """
         self.num_tracks = num_tracks
         self.track_names = track_names
         
@@ -27,7 +39,12 @@ class StreamingPearsonAccumulator:
         self.valid_bins_per_track = np.zeros(num_tracks, dtype=np.int64)
 
     def update(self, P_batch, T_batch):
-        """P_batch, T_batch shape: (batch_size, num_tracks, num_bins)"""
+        """Updates the accumulators with a new batch of predictions and targets.
+
+        Args:
+            P_batch (np.ndarray): Predictions batch of shape `(batch_size, num_tracks, num_bins)`.
+            T_batch (np.ndarray): Targets batch of shape `(batch_size, num_tracks, num_bins)`.
+        """
         batch_size, num_tracks, num_bins = P_batch.shape
         self.total_bins_seen += (batch_size * num_bins)
         
@@ -56,7 +73,17 @@ class StreamingPearsonAccumulator:
             self.sum_y2[t] += np.sum(t_valid ** 2, dtype=np.float64)
 
     def compute(self, coverage_cutoff_pct=0.1):
-        """Returns Series of exact Pearson r per track, and coverage per track."""
+        """Computes the final Pearson correlation coefficient and coverage per track.
+
+        Args:
+            coverage_cutoff_pct (float, optional): Bins seen threshold below which
+                correlation is returned as NaN. Defaults to 0.1.
+
+        Returns:
+            tuple:
+                - pandas.Series: Pearson correlation coefficients per track.
+                - pandas.Series: Percent coverage per track.
+        """
         r_values = np.zeros(self.num_tracks, dtype=np.float64)
         coverage = self.valid_bins_per_track / self.total_bins_seen
         
@@ -81,11 +108,21 @@ class StreamingPearsonAccumulator:
 
 
 class StreamingGeneAccumulator:
-    """
-    Accumulates predicted and actual counts over gene exons incrementally.
-    Pre-computes interval overlaps to keep the per-batch update fast.
+    """Accumulates predicted and actual counts over gene exons incrementally.
+
+    This class precomputes overlaps between genomic intervals and gene exons to allow
+    fast per-batch aggregation of expression targets and predictions.
     """
     def __init__(self, intervals_df, gtf_df, bin_size, track_names, track_strands):
+        """Initializes the StreamingGeneAccumulator.
+
+        Args:
+            intervals_df (pandas.DataFrame): DataFrame containing genomic intervals.
+            gtf_df (pandas.DataFrame): GTF DataFrame containing exon boundaries.
+            bin_size (int): Size of bins in base pairs.
+            track_names (list of str): List of track identifiers.
+            track_strands (list of str): List of strands ('+', '-', or '.') for each track.
+        """
         self.bin_size = bin_size
         self.track_names = track_names
         self.track_strands = np.array(track_strands)
@@ -137,7 +174,6 @@ class StreamingGeneAccumulator:
             
             for gene_idx, (gene_name, gene_row) in enumerate(valid_genes.iterrows()):
                 # Get absolute gene index
-                #abs_gene_idx = self.genes.index(gene_name) #replace by lookup
                 abs_gene_idx = self.gene_to_idx[gene_name]
                 bin_intervals = []
                 
@@ -158,7 +194,13 @@ class StreamingGeneAccumulator:
         return mapping
 
     def update(self, start_interval_idx, P_batch, T_batch):
-        """P_batch, T_batch shape: (batch_size, num_tracks, num_bins)"""
+        """Updates the gene expression totals with a new batch of predictions and targets.
+
+        Args:
+            start_interval_idx (int): Starting global index of intervals in this batch.
+            P_batch (np.ndarray): Batch predictions array of shape `(batch_size, num_tracks, num_bins)`.
+            T_batch (np.ndarray): Batch targets array of shape `(batch_size, num_tracks, num_bins)`.
+        """
         batch_size = P_batch.shape[0]
         
         for batch_i in range(batch_size):
@@ -181,7 +223,17 @@ class StreamingGeneAccumulator:
                     self._seen_gene_indices.add(gene_idx)
 
     def compute(self, return_log1p=True):
-        """Applies strand masking, log1p, and returns DataFrames."""
+        """Computes the final accumulated gene expression values and applies strand masking.
+
+        Args:
+            return_log1p (bool, optional): Whether to apply `log1p` scaling to outputs.
+                Defaults to True.
+
+        Returns:
+            tuple:
+                - pandas.DataFrame: Predicted expression table of shape `(seen_genes, tracks)`.
+                - pandas.DataFrame: Target expression table of shape `(seen_genes, tracks)`.
+        """
         if not self._seen_gene_indices:
             return pd.DataFrame(), pd.DataFrame()
             
@@ -212,8 +264,18 @@ class StreamingGeneAccumulator:
 
 
 class BestIntervalTracker:
-    """Tracks the interval with the best correlation for specific modalities."""
+    """Tracks and captures the genomic intervals with the highest correlation.
+
+    Finds the interval achieving the highest Pearson correlation for specific assay
+    modalities (e.g. ATAC, RNA, CutnTag) to allow visualization of top-performing regions.
+    """
     def __init__(self, track_df):
+        """Initializes the BestIntervalTracker.
+
+        Args:
+            track_df (pandas.DataFrame): Metadata DataFrame of the tracks. Must contain
+                an 'Assay_type' column.
+        """
         self.modalities = ["ATAC", "RNA", "CnT"]
         self.masks = {mod: (track_df['Assay_type'] == mod).values for mod in self.modalities}
         self.track_df = track_df
@@ -221,25 +283,6 @@ class BestIntervalTracker:
         self.best_scores = {mod: -np.inf for mod in self.modalities}
         self.best_data = {mod: None for mod in self.modalities}
 
-#     def _pearson_batch(self, p_mod, t_mod, min_coverage=0.1):
-#         """Vectorized Pearson r for [batch, tracks, bins] → [batch, tracks]"""
-#         num_bins = p_mod.shape[2]
-        
-#         # Valid mask: non-NaN in both P and T
-#         valid = ~np.isnan(p_mod) & ~np.isnan(t_mod)
-#         n = valid.sum(axis=2).astype(np.float64)      
-#         P_v = np.where(valid, p_mod, 0.0)
-#         T_v = np.where(valid, t_mod, 0.0)       
-#         sp, sq = P_v.sum(2), T_v.sum(2)
-#         spp, sqq = (P_v**2).sum(2), (T_v**2).sum(2)
-#         spq = (P_v * T_v).sum(2)
-#         numer = n * spq - sp * sq
-#         denom = np.sqrt(np.maximum(0, n*spp - sp**2) * np.maximum(0, n*sqq - sq**2))       
-#         r_vals = np.where(denom > 0, numer / denom, np.nan)
-#         # Apply the 10% coverage logic set to NaN if coverage is too low
-#         r_vals = np.where(n > (num_bins * min_coverage), r_vals, np.nan)
-        
-#         return r_vals  # Shape: [batch, tracks]
     def _pearson_batch(self, p_mod, t_mod, min_coverage=0.1):
         """Vectorized Pearson r for [batch, tracks, bins] → [batch, tracks]"""
         num_bins = p_mod.shape[2]
@@ -268,6 +311,14 @@ class BestIntervalTracker:
         return r_vals
 
     def update(self, P_batch, T_batch, coords_batch):
+        """Checks the batch for intervals with better correlation scores.
+
+        Args:
+            P_batch (np.ndarray): Predictions batch of shape `(batch_size, num_tracks, num_bins)`.
+            T_batch (np.ndarray): Targets batch of shape `(batch_size, num_tracks, num_bins)`.
+            coords_batch (list of tuple): Coordinate tuples representing genomic locations of each
+                batch element.
+        """
         batch_size = P_batch.shape[0]
         
         for mod in self.modalities:
@@ -294,22 +345,23 @@ class BestIntervalTracker:
 
 
 class StreamingCoverageAccumulator:
-    """
-    Accumulates and tracks the fraction of covered (non-NaN) bins 
-    per interval and per track during streaming inference.
+    """Accumulates and tracks the fraction of covered (non-NaN) bins per interval/track.
+
+    Useful for diagnostic coverage metrics during streaming model evaluation.
     """
     def __init__(self):
+        """Initializes the StreamingCoverageAccumulator."""
         # Using a list of arrays is highly memory efficient for this 
         # because the arrays are 2D (Batch x Tracks) and very small.
         self.interval_coverages = []
 
     def update(self, T_batch_unsq):
-        """
-        Calculates the fraction of non-NaN bins for a batch.
+        """Calculates the fraction of non-NaN bins for a batch.
+
         Expects raw, unsquashed BigWig targets to accurately measure sparsity.
         
         Args:
-            T_batch_unsq: shape (Batch, Tracks, Bins)
+            T_batch_unsq (np.ndarray): Raw targets of shape `(batch, tracks, bins)`.
         """
         num_bins = T_batch_unsq.shape[2]
         
@@ -320,11 +372,10 @@ class StreamingCoverageAccumulator:
         self.interval_coverages.append(batch_coverage_pct)
 
     def compute(self):
-        """
-        Concatenates all batches into a single matrix.
+        """Concatenates all batch coverages into a single matrix.
         
         Returns:
-            interval_coverage_matrix: shape (Total_Intervals, Num_Tracks)
+            np.ndarray: Combined coverage array of shape `(total_intervals, tracks)`.
         """
         if not self.interval_coverages:
             raise ValueError("Accumulator is empty. Did you call update()?")

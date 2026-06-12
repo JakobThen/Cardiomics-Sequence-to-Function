@@ -34,7 +34,6 @@ nb_execution_mode = "cache"
 templates_path = ['_templates']
 exclude_patterns = []
 
-#"fake" packages autodoc assumes are import to run my code
 autodoc_mock_imports = [
     "alphagenome",
     "alphagenome_ft",
@@ -47,5 +46,18 @@ autodoc_mock_imports = [
     "pytorch_lightning",
     "matplotlib",
     "alphagenome_research",
-    "seaborn"
+    "seaborn",
+    "pyBigWig",
+    "pyranges",
+    "ncls",
+    "requests",
+    "tqdm",
+    "scipy",
+    "sklearn",
+    "eval",
+    "mpl_toolkits",
+    "mpl_toolkits.axes_grid1",
+    "anndata"
 ]
+
+

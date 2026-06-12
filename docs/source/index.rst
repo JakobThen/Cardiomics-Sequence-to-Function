@@ -10,5 +10,5 @@ on pseudobulked scMultiome and bulk CutnTag data.
 
    input_prep_pipeline
    AlphaGenome_ft_pipeline
-   api/modules
+   api/utils
 

@@ -1,21 +1,28 @@
 """
-Pipeline to run comprehensive model evaluation on test intervals from h5 saved mdoel predictions or streaming from GPU inference batches during test inference.
+Pipeline to run comprehensive model evaluation on test intervals from h5 saved model predictions or streaming from GPU inference batches during test inference.
+
 Model tracks need to be matched to individual .bw files.
 Assumes Intervals do not overlap and are the same size.
+
 Computes:
--   Pearson r across all concatenated intervals per tracks.
--   Gene centric metrics for RNA tracks:
-    -   Pearson r across all genes, raw summed log1p exon counts
-    -   Pearson r across all genes, quantile norm raw across genes, gene mean subtrackted
-    -   Pearson r across all tracks, quantile norm raw across genes, gene mean subtrackted
-- Basic QC metrics:
-    -   distribution of counts across intervals per track
-    -   percentage of non NaN bins per interval and track (NaN bins have no coverage in .bw at any position in the bin).
-    
+
+* Pearson r across all concatenated intervals per tracks.
+* Gene centric metrics for RNA tracks:
+
+  * Pearson r across all genes, raw summed log1p exon counts.
+  * Pearson r across all genes, quantile norm raw across genes, gene mean subtracted.
+  * Pearson r across all tracks, quantile norm raw across genes, gene mean subtracted.
+
+* Basic QC metrics:
+
+  * Distribution of counts across intervals per track.
+  * Percentage of non-NaN bins per interval and track (NaN bins have no coverage in .bw at any position in the bin).
+
 Returns:
--   csv file of pearson metrics and coverage per track.
--   summary txt file
--   figures of the metrics above stored in ./fig
+
+* CSV file of pearson metrics and coverage per track.
+* Summary txt file.
+* Figures of the metrics above stored in ./fig.
 """
 
 import os
@@ -449,7 +456,28 @@ def evaluate_from_inference(
     data_module, model_forward_fn, intervals_df, tracks_df, bw_paths_df, 
     bin_size, out_dir, model_name, analysis_name, is_squashed_scale, gtf_file=None, batch_size=16
 ):
-    """Entry point to run evaluation live during model inference."""
+    """Runs a live validation/evaluation loop during model inference.
+
+    Iterates through the data module, invokes the model's forward function, and streams
+    batch predictions into metric accumulators to compute Pearson correlation and coverage
+    metrics without loading all predictions into memory.
+
+    Args:
+        data_module: PyTorch Lightning DataModule or custom data loader providing test batches.
+        model_forward_fn (callable): Forward pass function of the model that returns predictions
+            given a batch and starting global index.
+        intervals_df (pandas.DataFrame): DataFrame of coordinates for all evaluation intervals.
+        tracks_df (pandas.DataFrame): DataFrame of metadata/labels for all tracks.
+        bw_paths_df (pandas.DataFrame): DataFrame mapping tracks to target BigWig file paths.
+        bin_size (int): Resolution of predictions/targets in base pairs.
+        out_dir (str or Path): Directory where output metrics and plots will be written.
+        model_name (str): Identifier name of the model being evaluated.
+        analysis_name (str): Prefix/suffix identifier for this specific evaluation run.
+        is_squashed_scale (bool): Whether the model predictions are on a squashed scale.
+        gtf_file (str or Path, optional): GTF annotation file path for gene-level evaluations.
+            Defaults to None.
+        batch_size (int, optional): Batch size of inputs. Defaults to 16.
+    """
     
     # Create a generator that yields batches
     def batch_generator():
@@ -550,7 +578,23 @@ def evaluate_from_h5(
     h5_path, bw_paths_df, bin_size, out_dir, model_name, analysis_name, is_squashed_scale,
     gtf_file=None, batch_size=16
 ):
-    """Entry point to run streaming evaluation on an already-saved HDF5 file."""
+    """Runs a streaming evaluation on an already-saved HDF5 prediction file.
+
+    Loads model predictions lazily from disk in batches, matching intervals to target
+    BigWigs and computing Pearson correlation and gene-level expression statistics.
+
+    Args:
+        h5_path (str or Path): Path to the saved HDF5 predictions file.
+        bw_paths_df (pandas.DataFrame): DataFrame mapping tracks to target BigWig file paths.
+        bin_size (int): Resolution of predictions/targets in base pairs.
+        out_dir (str or Path): Directory where output metrics and plots will be written.
+        model_name (str): Identifier name of the model.
+        analysis_name (str): Prefix/suffix identifier for this evaluation run.
+        is_squashed_scale (bool): Whether the model predictions are on a squashed scale.
+        gtf_file (str or Path, optional): GTF annotation file path for gene-level evaluations.
+            Defaults to None.
+        batch_size (int, optional): Batch size for streaming chunks from disk. Defaults to 16.
+    """
     
     h5_path = Path(h5_path)
     if not h5_path.exists():

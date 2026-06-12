@@ -141,16 +141,16 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api/modules.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/ISM.html">ISM package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/VEP.html">VEP package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/eval.html">eval package</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api/finetuning.html">finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="api/finetuning.AlphaGenome.html">finetuning.AlphaGenome package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2"><a class="reference internal" href="api/io.html">io package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/preprocessing.html">preprocessing package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.preprocessing.html">utils.preprocessing package</a></li>
 </ul>
 </details></li>
 </ul>
@@ -256,19 +256,20 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#B"><strong>B</strong></a>
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
- | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
- | <a href="#R"><strong>R</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
@@ -276,26 +277,44 @@
  | <a href="#W"><strong>W</strong></a>
  
 </div>
-<h2 id="B">B</h2>
+<h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BlockingIOError">BlockingIOError</a>
+      <li><a href="api/utils.ISM.html#utils.ISM.aggregate_adata_vars">aggregate_adata_vars() (in module utils.ISM)</a>
 </li>
-      <li><a href="api/io.html#io.TextIOWrapper.buffer">buffer (io.TextIOWrapper attribute)</a>
+      <li><a href="api/utils.io.html#utils.io.data_input.alphagenome_squash">alphagenome_squash() (in module utils.io.data_input)</a>
 </li>
-      <li><a href="api/io.html#io.BufferedIOBase">BufferedIOBase (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.annotate_cadd_snv_scores">annotate_cadd_snv_scores() (in module utils.io.variant_annotation)</a>
 </li>
-      <li><a href="api/io.html#io.BufferedRandom">BufferedRandom (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.annotate_cardioid_enhancer_overlap">annotate_cardioid_enhancer_overlap() (in module utils.io.variant_annotation)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedReader">BufferedReader (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.annotate_cCREs">annotate_cCREs() (in module utils.io.variant_annotation)</a>
 </li>
-      <li><a href="api/io.html#io.BufferedRWPair">BufferedRWPair (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.annotate_coding_effect">annotate_coding_effect() (in module utils.io.variant_annotation)</a>
 </li>
-      <li><a href="api/io.html#io.BufferedWriter">BufferedWriter (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.annotate_gtf_features">annotate_gtf_features() (in module utils.io.variant_annotation)</a>
 </li>
-      <li><a href="api/io.html#io.BytesIO">BytesIO (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.annotate_phyloP_score">annotate_phyloP_score() (in module utils.io.variant_annotation)</a>
+</li>
+      <li><a href="api/utils.ISM.html#utils.ISM.average_all_stranded_expression">average_all_stranded_expression() (in module utils.ISM)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.io.html#utils.io.batch_bw_loader.BatchBigWigLoader">BatchBigWigLoader (class in utils.io.batch_bw_loader)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.accumulators.BestIntervalTracker">BestIntervalTracker (class in utils.eval.accumulators)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.io.html#utils.io.data_input.borzoi_squash">borzoi_squash() (in module utils.io.data_input)</a>
+</li>
+      <li><a href="api/utils.ISM.html#utils.ISM.build_ism_matrix">build_ism_matrix() (in module utils.ISM)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -303,45 +322,23 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.close">close() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.close">(io.BufferedReader method)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.close">close() (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter method)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedRWPair.close">(io.BufferedRWPair method)</a>
+      <li><a href="api/utils.ISM.html#utils.ISM.collect_ism_scores">collect_ism_scores() (in module utils.ISM)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedWriter.close">(io.BufferedWriter method)</a>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.compare_track_coverage">compare_track_coverage() (in module utils.eval.track_correlation)</a>
 </li>
-        <li><a href="api/io.html#io.BytesIO.close">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.close">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.close">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.close">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.closed">closed (io.BufferedRandom attribute)</a>
+      <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingCoverageAccumulator.compute">compute() (utils.eval.accumulators.StreamingCoverageAccumulator method)</a>
 
       <ul>
-        <li><a href="api/io.html#io.BufferedReader.closed">(io.BufferedReader attribute)</a>
+        <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingGeneAccumulator.compute">(utils.eval.accumulators.StreamingGeneAccumulator method)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedRWPair.closed">(io.BufferedRWPair attribute)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.closed">(io.BufferedWriter attribute)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.closed">(io.BytesIO attribute)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.closed">(io.FileIO attribute)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.closed">(io.StringIO attribute)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.closed">(io.TextIOWrapper attribute)</a>
+        <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingPearsonAccumulator.compute">(utils.eval.accumulators.StreamingPearsonAccumulator method)</a>
 </li>
       </ul></li>
-      <li><a href="api/io.html#io.FileIO.closefd">closefd (io.FileIO attribute)</a>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.compute_na_masked_pearson_distribution">compute_na_masked_pearson_distribution() (in module utils.eval.track_correlation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -349,82 +346,55 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.IncrementalNewlineDecoder.decode">decode() (io.IncrementalNewlineDecoder method)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.datasets">datasets (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter attribute)</a>
 </li>
-      <li><a href="api/io.html#io.BufferedRandom.detach">detach() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.detach">(io.BufferedReader method)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.density_scatter">density_scatter() (in module utils.eval.track_correlation)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedWriter.detach">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.detach">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.TextIOWrapper.encoding">encoding (io.TextIOWrapper attribute)</a>
-</li>
-      <li><a href="api/io.html#io.TextIOWrapper.errors">errors (io.TextIOWrapper attribute)</a>
+      <li><a href="api/utils.eval.html#utils.eval.streamed_correlation_analysis.evaluate_from_h5">evaluate_from_h5() (in module utils.eval.streamed_correlation_analysis)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    eval
-
-      <ul>
-        <li><a href="api/eval.html#module-eval">module</a>
+      <li><a href="api/utils.eval.html#utils.eval.streamed_correlation_analysis.evaluate_from_inference">evaluate_from_inference() (in module utils.eval.streamed_correlation_analysis)</a>
 </li>
-      </ul></li>
+      <li><a href="api/utils.ISM.html#utils.ISM.extract_var_score">extract_var_score() (in module utils.ISM)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.FileIO">FileIO (class in io)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.file">file (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter attribute)</a>
 </li>
-      <li><a href="api/io.html#io.BufferedRandom.fileno">fileno() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.fileno">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.fileno">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.fileno">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.fileno">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.flush">flush() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.flush">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.flush">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.flush">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.flush">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.flush">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.get_parser">get_parser() (in module utils.finetuning.AlphaGenome.finetune_heads)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_aligned_nonzero_means">get_aligned_nonzero_means() (in module utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.get_counts_from_bw">get_counts_from_bw() (in module utils.eval.track_prediction)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.get_counts_from_bws">get_counts_from_bws() (in module utils.eval.track_prediction)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.get_gtf">get_gtf() (in module utils.eval.track_prediction)</a>
+</li>
+      <li><a href="api/utils.io.html#utils.io.data_input.get_non_zero_track_means">get_non_zero_track_means() (in module utils.io.data_input)</a>
+</li>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_parser">get_parser() (in module utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed)</a>
 
       <ul>
+        <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.get_parser">(in module utils.finetuning.AlphaGenome.finetune_heads)</a>
+</li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.resume_finetune_heads.get_parser">(in module utils.finetuning.AlphaGenome.resume_finetune_heads)</a>
 </li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.stage_to_tmp.get_parser">(in module utils.finetuning.AlphaGenome.stage_to_tmp)</a>
@@ -434,70 +404,61 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BytesIO.getbuffer">getbuffer() (io.BytesIO method)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.get_prediction_key">get_prediction_key() (in module utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed)</a>
 </li>
-      <li><a href="api/io.html#io.IncrementalNewlineDecoder.getstate">getstate() (io.IncrementalNewlineDecoder method)</a>
+      <li><a href="api/utils.io.html#utils.io.data_input.get_streaming_non_zero_track_means">get_streaming_non_zero_track_means() (in module utils.io.data_input)</a>
 </li>
-      <li><a href="api/io.html#io.BytesIO.getvalue">getvalue() (io.BytesIO method)</a>
+  </ul></td>
+</tr></table>
 
-      <ul>
-        <li><a href="api/io.html#io.StringIO.getvalue">(io.StringIO method)</a>
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.h5_path">h5_path (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter attribute)</a>
 </li>
-      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter">HDF5BatchWriter (class in utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.IncrementalNewlineDecoder">IncrementalNewlineDecoder (class in io)</a>
+      <li><a href="api/utils.io.html#utils.io.data_input.inverse_borzoi_squash">inverse_borzoi_squash() (in module utils.io.data_input)</a>
 </li>
-      <li>
-    io
-
-      <ul>
-        <li><a href="api/io.html#module-io">module</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.io.html#utils.io.data_input.invert_alphagenome_squash">invert_alphagenome_squash() (in module utils.io.data_input)</a>
 </li>
-      </ul></li>
-      <li><a href="api/io.html#io.IOBase">IOBase (class in io)</a>
-</li>
-      <li><a href="api/io.html#io.BufferedRandom.isatty">isatty() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.isatty">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.isatty">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.isatty">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.isatty">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.isatty">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.isatty">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.StringIO.line_buffering">line_buffering (io.StringIO attribute)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.TextIOWrapper.line_buffering">(io.TextIOWrapper attribute)</a>
+      <li><a href="api/utils.io.html#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch">load_batch() (utils.io.batch_bw_loader.BatchBigWigLoader method)</a>
 </li>
-      </ul></li>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.load_ccre_data">load_ccre_data() (in module utils.io.variant_annotation)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.ISM.html#utils.ISM.load_ism_dict">load_ism_dict() (in module utils.ISM)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.load_predictions_from_h5">load_predictions_from_h5() (in module utils.eval.track_prediction)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.main">main() (in module utils.finetuning.AlphaGenome.finetune_heads)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main">main() (in module utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed)</a>
 
       <ul>
+        <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.finetune_heads.main">(in module utils.finetuning.AlphaGenome.finetune_heads)</a>
+</li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.resume_finetune_heads.main">(in module utils.finetuning.AlphaGenome.resume_finetune_heads)</a>
 </li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.stage_to_tmp.main">(in module utils.finetuning.AlphaGenome.stage_to_tmp)</a>
@@ -505,71 +466,53 @@
         <li><a href="api/utils.preprocessing.html#utils.preprocessing.make_AG_input_config.main">(in module utils.preprocessing.make_AG_input_config)</a>
 </li>
       </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.mode">mode (io.BufferedRandom attribute)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.mode">(io.BufferedReader attribute)</a>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.merge_bin_intervals">merge_bin_intervals() (in module utils.eval.track_prediction)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedWriter.mode">(io.BufferedWriter attribute)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.mode">(io.FileIO attribute)</a>
-</li>
-      </ul></li>
       <li>
     module
 
       <ul>
-        <li><a href="api/eval.html#module-eval">eval</a>
-</li>
-        <li><a href="api/io.html#module-io">io</a>
-</li>
         <li><a href="api/utils.html#module-utils">utils</a>
+</li>
+        <li><a href="api/utils.eval.html#module-utils.eval">utils.eval</a>
+</li>
+        <li><a href="api/utils.eval.html#module-utils.eval.accumulators">utils.eval.accumulators</a>
+</li>
+        <li><a href="api/utils.eval.html#module-utils.eval.streamed_correlation_analysis">utils.eval.streamed_correlation_analysis</a>
+</li>
+        <li><a href="api/utils.eval.html#module-utils.eval.track_correlation">utils.eval.track_correlation</a>
+</li>
+        <li><a href="api/utils.eval.html#module-utils.eval.track_prediction">utils.eval.track_prediction</a>
 </li>
         <li><a href="api/utils.finetuning.html#module-utils.finetuning">utils.finetuning</a>
 </li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome">utils.finetuning.AlphaGenome</a>
 </li>
-        <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads</a>
+        <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed</a>
 </li>
-        <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED</a>
+        <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads</a>
 </li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads</a>
 </li>
         <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp</a>
+</li>
+        <li><a href="api/utils.io.html#module-utils.io">utils.io</a>
+</li>
+        <li><a href="api/utils.io.html#module-utils.io.batch_bw_loader">utils.io.batch_bw_loader</a>
+</li>
+        <li><a href="api/utils.io.html#module-utils.io.data_input">utils.io.data_input</a>
+</li>
+        <li><a href="api/utils.io.html#module-utils.io.data_output">utils.io.data_output</a>
+</li>
+        <li><a href="api/utils.io.html#module-utils.io.variant_annotation">utils.io.variant_annotation</a>
+</li>
+        <li><a href="api/utils.ISM.html#module-utils.ISM">utils.ISM</a>
 </li>
         <li><a href="api/utils.preprocessing.html#module-utils.preprocessing">utils.preprocessing</a>
 </li>
         <li><a href="api/utils.preprocessing.html#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config</a>
 </li>
         <li><a href="api/utils.VEP.html#module-utils.VEP">utils.VEP</a>
-</li>
-        <li><a href="api/VEP.html#module-VEP">VEP</a>
-</li>
-      </ul></li>
-  </ul></td>
-</tr></table>
-
-<h2 id="N">N</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.name">name (io.BufferedRandom attribute)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.name">(io.BufferedReader attribute)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.name">(io.BufferedWriter attribute)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.name">(io.TextIOWrapper attribute)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.IncrementalNewlineDecoder.newlines">newlines (io.IncrementalNewlineDecoder attribute)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.StringIO.newlines">(io.StringIO attribute)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.newlines">(io.TextIOWrapper attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -578,11 +521,7 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.open">open() (in module io)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.open_code">open_code() (in module io)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.out_dir">out_dir (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -590,117 +529,25 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.peek">peek() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.peek">(io.BufferedReader method)</a>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.plot_correlation_beeswarm">plot_correlation_beeswarm() (in module utils.eval.track_correlation)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedRWPair.peek">(io.BufferedRWPair method)</a>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.plot_interval_correlation_heatmap">plot_interval_correlation_heatmap() (in module utils.eval.track_correlation)</a>
 </li>
-      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.plot_strand_expression_heatmaps">plot_strand_expression_heatmaps() (in module utils.eval.track_correlation)</a>
+</li>
+      <li><a href="api/utils.ISM.html#utils.ISM.process_region">process_region() (in module utils.ISM)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.process_track_metadata">process_track_metadata() (in module utils.eval.track_prediction)</a>
+</li>
   </ul></td>
 </tr></table>
 
-<h2 id="R">R</h2>
+<h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.raw">raw (io.BufferedRandom attribute)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.raw">(io.BufferedReader attribute)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.raw">(io.BufferedWriter attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.RawIOBase">RawIOBase (class in io)</a>
-</li>
-      <li><a href="api/io.html#io.BufferedRandom.read">read() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.read">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.read">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.read">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.read">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.Reader.read">(io.Reader method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.read">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.read">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.read1">read1() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.read1">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.read1">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.read1">(io.BytesIO method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.readable">readable() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.readable">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.readable">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.readable">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.readable">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.readable">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.readable">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.FileIO.readall">readall() (io.FileIO method)</a>
-</li>
-      <li><a href="api/io.html#io.Reader">Reader (class in io)</a>
-</li>
-      <li><a href="api/io.html#io.BufferedRandom.readinto">readinto() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.readinto">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.readinto">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.readinto">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.readinto">(io.FileIO method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.readinto1">readinto1() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.readinto1">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedRWPair.readinto1">(io.BufferedRWPair method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.readline">readline() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.readline">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.readline">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.readline">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.readline">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BytesIO.readlines">readlines() (io.BytesIO method)</a>
-</li>
-      <li><a href="api/io.html#io.TextIOWrapper.reconfigure">reconfigure() (io.TextIOWrapper method)</a>
-</li>
-      <li><a href="api/io.html#io.IncrementalNewlineDecoder.reset">reset() (io.IncrementalNewlineDecoder method)</a>
+      <li><a href="api/utils.eval.html#utils.eval.track_correlation.quantile_normalize_RNA_counts">quantile_normalize_RNA_counts() (in module utils.eval.track_correlation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -708,43 +555,23 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.seek">seek() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.seek">(io.BufferedReader method)</a>
+      <li><a href="api/utils.io.html#utils.io.data_output.save_borzoi_predictions_with_fallback">save_borzoi_predictions_with_fallback() (in module utils.io.data_output)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedWriter.seek">(io.BufferedWriter method)</a>
+      <li><a href="api/utils.ISM.html#utils.ISM.save_ism_dict">save_ism_dict() (in module utils.ISM)</a>
 </li>
-        <li><a href="api/io.html#io.BytesIO.seek">(io.BytesIO method)</a>
+      <li><a href="api/utils.io.html#utils.io.data_input.SelectiveSquashTransform">SelectiveSquashTransform (class in utils.io.data_input)</a>
 </li>
-        <li><a href="api/io.html#io.FileIO.seek">(io.FileIO method)</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.standardize_vcf_columns">standardize_vcf_columns() (in module utils.io.variant_annotation)</a>
 </li>
-        <li><a href="api/io.html#io.StringIO.seek">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.seek">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.seekable">seekable() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.seekable">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.seekable">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.seekable">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.seekable">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.seekable">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.seekable">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.IncrementalNewlineDecoder.setstate">setstate() (io.IncrementalNewlineDecoder method)</a>
+      <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingCoverageAccumulator">StreamingCoverageAccumulator (class in utils.eval.accumulators)</a>
 </li>
-      <li><a href="api/io.html#io.StringIO">StringIO (class in io)</a>
+      <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingGeneAccumulator">StreamingGeneAccumulator (class in utils.eval.accumulators)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingPearsonAccumulator">StreamingPearsonAccumulator (class in utils.eval.accumulators)</a>
+</li>
+      <li><a href="api/utils.eval.html#utils.eval.track_prediction.sum_exon_counts">sum_exon_counts() (in module utils.eval.track_prediction)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -752,59 +579,64 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.tell">tell() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.tell">(io.BufferedReader method)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.total_samples">total_samples (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter attribute)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedWriter.tell">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.tell">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.tell">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.tell">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.tell">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.text_encoding">text_encoding() (in module io)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.TextIOBase">TextIOBase (class in io)</a>
-</li>
-      <li><a href="api/io.html#io.TextIOWrapper">TextIOWrapper (class in io)</a>
-</li>
-      <li><a href="api/io.html#io.BufferedRandom.truncate">truncate() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedReader.truncate">(io.BufferedReader method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.truncate">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.truncate">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.truncate">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.truncate">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.truncate">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.UnsupportedOperation">UnsupportedOperation</a>
+      <li><a href="api/utils.eval.html#utils.eval.accumulators.BestIntervalTracker.update">update() (utils.eval.accumulators.BestIntervalTracker method)</a>
+
+      <ul>
+        <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingCoverageAccumulator.update">(utils.eval.accumulators.StreamingCoverageAccumulator method)</a>
 </li>
+        <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingGeneAccumulator.update">(utils.eval.accumulators.StreamingGeneAccumulator method)</a>
+</li>
+        <li><a href="api/utils.eval.html#utils.eval.accumulators.StreamingPearsonAccumulator.update">(utils.eval.accumulators.StreamingPearsonAccumulator method)</a>
+</li>
+      </ul></li>
       <li>
     utils
 
       <ul>
         <li><a href="api/utils.html#module-utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.eval
+
+      <ul>
+        <li><a href="api/utils.eval.html#module-utils.eval">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.eval.accumulators
+
+      <ul>
+        <li><a href="api/utils.eval.html#module-utils.eval.accumulators">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.eval.streamed_correlation_analysis
+
+      <ul>
+        <li><a href="api/utils.eval.html#module-utils.eval.streamed_correlation_analysis">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.eval.track_correlation
+
+      <ul>
+        <li><a href="api/utils.eval.html#module-utils.eval.track_correlation">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.eval.track_prediction
+
+      <ul>
+        <li><a href="api/utils.eval.html#module-utils.eval.track_prediction">module</a>
 </li>
       </ul></li>
       <li>
@@ -822,17 +654,17 @@
 </li>
       </ul></li>
       <li>
+    utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed
+
+      <ul>
+        <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">module</a>
+</li>
+      </ul></li>
+      <li>
     utils.finetuning.AlphaGenome.finetune_heads
 
       <ul>
         <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">module</a>
-</li>
-      </ul></li>
-      <li>
-    utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED
-
-      <ul>
-        <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED">module</a>
 </li>
       </ul></li>
   </ul></td>
@@ -849,6 +681,48 @@
 
       <ul>
         <li><a href="api/utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.stage_to_tmp">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.io
+
+      <ul>
+        <li><a href="api/utils.io.html#module-utils.io">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.io.batch_bw_loader
+
+      <ul>
+        <li><a href="api/utils.io.html#module-utils.io.batch_bw_loader">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.io.data_input
+
+      <ul>
+        <li><a href="api/utils.io.html#module-utils.io.data_input">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.io.data_output
+
+      <ul>
+        <li><a href="api/utils.io.html#module-utils.io.data_output">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.io.variant_annotation
+
+      <ul>
+        <li><a href="api/utils.io.html#module-utils.io.variant_annotation">module</a>
+</li>
+      </ul></li>
+      <li>
+    utils.ISM
+
+      <ul>
+        <li><a href="api/utils.ISM.html#module-utils.ISM">module</a>
 </li>
       </ul></li>
       <li>
@@ -878,60 +752,19 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li>
-    VEP
-
-      <ul>
-        <li><a href="api/VEP.html#module-VEP">module</a>
+      <li><a href="api/utils.io.html#utils.io.variant_annotation.vcf_to_pr">vcf_to_pr() (in module utils.io.variant_annotation)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.BufferedRandom.writable">writable() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedRWPair.writable">(io.BufferedRWPair method)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_batch">write_batch() (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter method)</a>
 </li>
-        <li><a href="api/io.html#io.BufferedWriter.writable">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.writable">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.writable">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.writable">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.writable">(io.TextIOWrapper method)</a>
-</li>
-      </ul></li>
-      <li><a href="api/io.html#io.BufferedRandom.write">write() (io.BufferedRandom method)</a>
-
-      <ul>
-        <li><a href="api/io.html#io.BufferedRWPair.write">(io.BufferedRWPair method)</a>
-</li>
-        <li><a href="api/io.html#io.BufferedWriter.write">(io.BufferedWriter method)</a>
-</li>
-        <li><a href="api/io.html#io.BytesIO.write">(io.BytesIO method)</a>
-</li>
-        <li><a href="api/io.html#io.FileIO.write">(io.FileIO method)</a>
-</li>
-        <li><a href="api/io.html#io.StringIO.write">(io.StringIO method)</a>
-</li>
-        <li><a href="api/io.html#io.TextIOWrapper.write">(io.TextIOWrapper method)</a>
-</li>
-        <li><a href="api/io.html#io.Writer.write">(io.Writer method)</a>
-</li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/io.html#io.TextIOWrapper.write_through">write_through (io.TextIOWrapper attribute)</a>
-</li>
-      <li><a href="api/io.html#io.BytesIO.writelines">writelines() (io.BytesIO method)</a>
-</li>
-      <li><a href="api/io.html#io.Writer">Writer (class in io)</a>
+      <li><a href="api/utils.finetuning.AlphaGenome.html#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter.write_metadata">write_metadata() (utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter method)</a>
 </li>
   </ul></td>
 </tr></table>

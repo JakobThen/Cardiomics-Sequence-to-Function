@@ -8,10 +8,11 @@ Expected Input Data Format:
 ---------------------------
 The core input to most of these functions is a pandas DataFrame representing genetic 
 variants. At a minimum, this DataFrame must contain the following columns:
-    * 'Chrom' or 'Chromosome' (str): The chromosome (e.g., '1', 'chr1', 'X').
-    * 'Pos' (int): The 1-based genomic position of the variant.
-    * 'Ref' (str): The reference allele.
-    * 'Alt' (str): The alternate allele.
+
+* **Chrom** or **Chromosome** (str): The chromosome (e.g., '1', 'chr1', 'X').
+* **Pos** (int): The 1-based genomic position of the variant.
+* **Ref** (str): The reference allele.
+* **Alt** (str): The alternate allele.
 
 Some downstream functions (like coding effects) rely on the output of upstream 
 functions (like GTF feature annotation), which will be explicitly noted in their 
@@ -123,7 +124,14 @@ def vcf_to_pr(vcf_df: pd.DataFrame) -> pr.PyRanges:
 
 
 def load_ccre_data(ccre_file: str) -> pr.PyRanges:
-    """Loads ENCODE cCRE file into a PyRanges object once for reuse."""
+    """Loads ENCODE candidate cis-Regulatory Elements (cCRE) data.
+
+    Args:
+        ccre_file (str): Path to the gzipped tab-separated cCRE file.
+
+    Returns:
+        pr.PyRanges: A PyRanges object containing annotated cCRE genomic coordinates.
+    """
     ccre_cols = [
         "Chromosome", "Start", "End", "cCRE_id", "score", "strand", 
         "thickStart", "thickEnd", "reserved", "cCRE_class", 
@@ -134,7 +142,17 @@ def load_ccre_data(ccre_file: str) -> pr.PyRanges:
 
 
 def annotate_cCREs(ccre_pr: pr.PyRanges, vcf_pr: pr.PyRanges) -> pd.DataFrame:
-    """Annotates variants using a pre-loaded cCRE PyRanges object."""
+    """Annotates variants with ENCODE candidate cis-Regulatory Elements (cCREs).
+
+    Performs a left genomic overlap join of variants against the preloaded cCREs.
+
+    Args:
+        ccre_pr (pr.PyRanges): Preloaded cCRE features.
+        vcf_pr (pr.PyRanges): PyRanges containing variant coordinates.
+
+    Returns:
+        pd.DataFrame: A DataFrame of variants annotated with cCRE identifiers and classes.
+    """
     annotated = vcf_pr.join(ccre_pr, how="left")
     df = annotated.df.replace([-1, -1.0, "-1"], np.nan)
     
@@ -538,12 +556,21 @@ def annotate_cadd_snv_scores(df: pd.DataFrame, bw_paths: Dict[str, str]) -> pd.D
     return df_snvs[['Chromosome', 'Ref', 'Alt', 'Pos', 'CADD_PHRED_score']]
 
 
-def annotate_cardioid_enhancer_overlap(variants_df, regions_df):
-    '''
-    Gets all variants from variants_df that fall within regions_df and appends 
-    their regulatory position and H3K27ac status.
-    Expects CHROM, POS in variants_df and seqnames, start, end in regions_df.
-    '''
+def annotate_cardioid_enhancer_overlap(variants_df: pd.DataFrame, regions_df: pd.DataFrame) -> pd.DataFrame:
+    """Annotates variants with overlapping cardioid enhancer regions.
+
+    Determines which variants fall within the specified enhancer regions, appending
+    their regulatory positions, cell type specificity, and H3K27ac histone modification status.
+    Duplicates are resolved by prioritizing H3K27ac positive overlaps.
+
+    Args:
+        variants_df (pd.DataFrame): DataFrame containing genetic variants (must have CHROM and POS).
+        regions_df (pd.DataFrame): DataFrame containing enhancer regions (must have seqnames, start, and end).
+
+    Returns:
+        pd.DataFrame: DataFrame of overlapping variants annotated with enhancer regulatory position,
+        histone status, and cell types.
+    """
     v_temp = standardize_vcf_columns(variants_df)
     v_temp['Start'] = v_temp['End'] - 1
     pr_variants = pr.PyRanges(v_temp)

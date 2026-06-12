@@ -4,21 +4,6 @@ utils.finetuning.AlphaGenome package
 Submodules
 ----------
 
-utils.finetuning.AlphaGenome.OLD\-03\_evaluate\_on\_test\_streamed\_128bp module
---------------------------------------------------------------------------------
-
-.. automodule:: utils.finetuning.AlphaGenome.OLD-03_evaluate_on_test_streamed_128bp
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-utils.finetuning.AlphaGenome.OLD\_03\_evaluate\_on\_test\_NOT\_STREAMED module
-------------------------------------------------------------------------------
-
-.. automodule:: utils.finetuning.AlphaGenome.OLD_03_evaluate_on_test_NOT_STREAMED
-   :members:
-   :show-inheritance:
-   :undoc-members:
 
 utils.finetuning.AlphaGenome.evaluate\_AG\_on\_test\_streamed module
 --------------------------------------------------------------------
