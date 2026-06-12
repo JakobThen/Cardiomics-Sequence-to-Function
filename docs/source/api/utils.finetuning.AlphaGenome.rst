@@ -1,6 +1,15 @@
 utils.finetuning.AlphaGenome package
 ====================================
 
+Module contents
+---------------
+
+
+.. automodule:: utils.finetuning.AlphaGenome
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Submodules
 ----------
 
@@ -13,6 +22,23 @@ utils.finetuning.AlphaGenome.evaluate\_AG\_on\_test\_streamed module
    :show-inheritance:
    :undoc-members:
 
+CLI Usage Example
+-----------------
+
+Usage:
+
+.. code-block:: bash
+
+    python src/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.py \
+        ...
+
+Input arguments:
+
+.. code-block:: text
+
+
+
+
 utils.finetuning.AlphaGenome.finetune\_heads module
 ---------------------------------------------------
 
@@ -20,6 +46,23 @@ utils.finetuning.AlphaGenome.finetune\_heads module
    :members:
    :show-inheritance:
    :undoc-members:
+
+CLI Usage Example
+-----------------
+
+Usage:
+
+.. code-block:: bash
+
+    python src/utils/finetuning/AlphaGenome/finetune_heads.py \
+        ...
+
+Input arguments:
+
+.. code-block:: text
+
+
+
 
 utils.finetuning.AlphaGenome.resume\_finetune\_heads module
 -----------------------------------------------------------
@@ -29,6 +72,23 @@ utils.finetuning.AlphaGenome.resume\_finetune\_heads module
    :show-inheritance:
    :undoc-members:
 
+CLI Usage Example
+-----------------
+
+Usage:
+
+.. code-block:: bash
+
+    python src/utils/finetuning/AlphaGenome/resume_finetune_heads.py \
+        ...
+
+Input arguments:
+
+.. code-block:: text
+
+
+
+
 utils.finetuning.AlphaGenome.stage\_to\_tmp module
 --------------------------------------------------
 
@@ -37,10 +97,20 @@ utils.finetuning.AlphaGenome.stage\_to\_tmp module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
+CLI Usage Example
+-----------------
 
-.. automodule:: utils.finetuning.AlphaGenome
-   :members:
-   :show-inheritance:
-   :undoc-members:
+Usage:
+
+.. code-block:: bash
+
+    python src/utils/finetuning/AlphaGenome/stage_to_tmp.py \
+        ...
+
+Input arguments:
+
+.. code-block:: text
+
+
+
+

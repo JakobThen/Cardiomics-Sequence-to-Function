@@ -14,7 +14,10 @@ from alphagenome.visualization import plot_components
 
 
 """
-Module to process and save In Silico Mutagenesis (ISM) results from AlphaGenome outputs.
+In Silico Mutagenesis (ISM) Package
+===================================
+
+Lightweight wrappers around the pretrained AlphaGenome API available via the alphagenome package to add functionality to ATAC, ChIP-TF, and RNA modalities and run multiple interval ISMs at scale while writing and scaling predictions.
 """
 
 

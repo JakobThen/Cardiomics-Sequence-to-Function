@@ -299,6 +299,13 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul class="nav section-nav flex-column">
@@ -318,28 +325,25 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-example">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">CLI Usage Example</a></li>
 </ul>
             </nav>
         </div>
@@ -353,6 +357,24 @@
                   
   <section id="utils-finetuning-alphagenome-package">
 <h1>utils.finetuning.AlphaGenome package<a class="headerlink" href="#utils-finetuning-alphagenome-package" title="Link to this heading">#</a></h1>
+<section id="module-utils.finetuning.AlphaGenome">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.finetuning.AlphaGenome" title="Link to this heading">#</a></h2>
+<section id="alphagenome-finetuning-module">
+<h3>AlphaGenome Finetuning Module<a class="headerlink" href="#alphagenome-finetuning-module" title="Link to this heading">#</a></h3>
+<p>This module provides scripts and classes for staging datasets, running heads-only or
+joint finetuning, resuming interrupted training sessions, and performing post-finetuning
+evaluation on test intervals.</p>
+<section id="cli-scripts">
+<h4>CLI Scripts:<a class="headerlink" href="#cli-scripts" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>evaluate_AG_on_test_streamed</cite>: Runs streaming test metrics evaluation using a checkpoint.</p></li>
+<li><p><cite>finetune_heads</cite>: Finetunes new heads on top of pretrained AlphaGenome models.</p></li>
+<li><p><cite>resume_finetune_heads</cite>: Resumes a training run from a PyTorch Lightning checkpoint.</p></li>
+<li><p><cite>stage_to_tmp</cite>: Staged datasets and configuration YAMLs into node-local temporary SSDs.</p></li>
+</ul>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
@@ -562,6 +584,18 @@ and its sharding configuration, and executes multi-GPU streaming evaluation.</p>
 </dd></dl>
 
 </section>
+<section id="cli-usage-example">
+<h2>CLI Usage Example<a class="headerlink" href="#cli-usage-example" title="Link to this heading">#</a></h2>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>...
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
 <section id="module-utils.finetuning.AlphaGenome.finetune_heads">
 <span id="utils-finetuning-alphagenome-finetune-heads-module"></span><h2>utils.finetuning.AlphaGenome.finetune_heads module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.finetune_heads" title="Link to this heading">#</a></h2>
 <p>Fine-tuning script for the AlphaGenome model.</p>
@@ -605,6 +639,18 @@ paths, hyperparameters, and model configurations.</p>
 </dd></dl>
 
 </section>
+<section id="id1">
+<h2>CLI Usage Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/finetune_heads.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>...
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
 <section id="module-utils.finetuning.AlphaGenome.resume_finetune_heads">
 <span id="utils-finetuning-alphagenome-resume-finetune-heads-module"></span><h2>utils.finetuning.AlphaGenome.resume_finetune_heads module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.resume_finetune_heads" title="Link to this heading">#</a></h2>
 <p>Resumes fine-tuning for an existing AlphaGenome model checkpoint.</p>
@@ -647,6 +693,18 @@ paths, hyperparameters, and model configurations.</p>
 </dl>
 </dd></dl>
 
+</section>
+<section id="id2">
+<h2>CLI Usage Example<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/resume_finetune_heads.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>...
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 <section id="module-utils.finetuning.AlphaGenome.stage_to_tmp">
 <span id="utils-finetuning-alphagenome-stage-to-tmp-module"></span><h2>utils.finetuning.AlphaGenome.stage_to_tmp module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.stage_to_tmp" title="Link to this heading">#</a></h2>
@@ -693,23 +751,17 @@ paths for the master config, output config, and temporary directory.</p>
 </dd></dl>
 
 </section>
-<section id="module-utils.finetuning.AlphaGenome">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.finetuning.AlphaGenome" title="Link to this heading">#</a></h2>
-<section id="alphagenome-finetuning-module">
-<h3>AlphaGenome Finetuning Module<a class="headerlink" href="#alphagenome-finetuning-module" title="Link to this heading">#</a></h3>
-<p>This module provides scripts and classes for staging datasets, running heads-only or
-joint finetuning, resuming interrupted training sessions, and performing post-finetuning
-evaluation on test intervals.</p>
-<section id="cli-scripts">
-<h4>CLI Scripts:<a class="headerlink" href="#cli-scripts" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><cite>evaluate_AG_on_test_streamed</cite>: Runs streaming test metrics evaluation using a checkpoint.</p></li>
-<li><p><cite>finetune_heads</cite>: Finetunes new heads on top of pretrained AlphaGenome models.</p></li>
-<li><p><cite>resume_finetune_heads</cite>: Resumes a training run from a PyTorch Lightning checkpoint.</p></li>
-<li><p><cite>stage_to_tmp</cite>: Staged datasets and configuration YAMLs into node-local temporary SSDs.</p></li>
-</ul>
-</section>
-</section>
+<section id="id3">
+<h2>CLI Usage Example<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/stage_to_tmp.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>...
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -760,6 +812,13 @@ evaluation on test intervals.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul class="nav section-nav flex-column">
@@ -779,28 +838,25 @@ evaluation on test intervals.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-example">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphagenome-finetuning-module">AlphaGenome Finetuning Module</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">CLI Usage Example</a></li>
 </ul>
   </nav></div>
 

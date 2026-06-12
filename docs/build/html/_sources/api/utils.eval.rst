@@ -1,6 +1,15 @@
 utils.eval package
 ==================
 
+Module contents
+---------------
+
+
+.. automodule:: utils.eval
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Submodules
 ----------
 
@@ -36,10 +45,3 @@ utils.eval.track\_prediction module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
-
-.. automodule:: utils.eval
-   :members:
-   :show-inheritance:
-   :undoc-members:

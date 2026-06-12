@@ -299,7 +299,14 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-package">Evaluation Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.accumulators">utils.eval.accumulators module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker.update"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker.update()</span></code></a></li>
@@ -347,13 +354,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.sum_exon_counts"><code class="docutils literal notranslate"><span class="pre">sum_exon_counts()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-package">Evaluation Package</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
             </nav>
         </div>
@@ -367,8 +367,29 @@
                   
   <section id="utils-eval-package">
 <h1>utils.eval package<a class="headerlink" href="#utils-eval-package" title="Link to this heading">#</a></h1>
+<section id="module-utils.eval">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.eval" title="Link to this heading">#</a></h2>
+<section id="evaluation-package">
+<h3>Evaluation Package<a class="headerlink" href="#evaluation-package" title="Link to this heading">#</a></h3>
+<p>This package provides utilities for calculating correlation metrics, tracking model
+predictions, and accumulating validation stats over streaming genomic intervals.</p>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<h4>Submodules:<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>accumulators</cite>: Implements accumulator classes (e.g., for Pearson correlation,
+stranded gene expression) to calculate metrics over streamed batches without keeping
+all predictions in memory.</p></li>
+<li><p><cite>streamed_correlation_analysis</cite>: Orchestrates validation loops to run evaluation and
+write out correlation summary reports.</p></li>
+<li><p><cite>track_correlation</cite>: Provides analysis and plotting scripts to evaluate and visualize
+prediction correlations (beeswarms, heatmap comparisons, scatterplots).</p></li>
+<li><p><cite>track_prediction</cite>: Handles loading predictions from HDF5 and GTF extraction of counts.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="id1">
+<h2>Submodules<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-utils.eval.accumulators">
 <span id="utils-eval-accumulators-module"></span><h2>utils.eval.accumulators module<a class="headerlink" href="#module-utils.eval.accumulators" title="Link to this heading">#</a></h2>
@@ -974,27 +995,6 @@ If None and use_strand=True, inferred from track_names.</p></li>
 </dd></dl>
 
 </section>
-<section id="module-utils.eval">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.eval" title="Link to this heading">#</a></h2>
-<section id="evaluation-package">
-<h3>Evaluation Package<a class="headerlink" href="#evaluation-package" title="Link to this heading">#</a></h3>
-<p>This package provides utilities for calculating correlation metrics, tracking model
-predictions, and accumulating validation stats over streaming genomic intervals.</p>
-<section id="id1">
-<h4>Submodules:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><cite>accumulators</cite>: Implements accumulator classes (e.g., for Pearson correlation,
-stranded gene expression) to calculate metrics over streamed batches without keeping
-all predictions in memory.</p></li>
-<li><p><cite>streamed_correlation_analysis</cite>: Orchestrates validation loops to run evaluation and
-write out correlation summary reports.</p></li>
-<li><p><cite>track_correlation</cite>: Provides analysis and plotting scripts to evaluate and visualize
-prediction correlations (beeswarms, heatmap comparisons, scatterplots).</p></li>
-<li><p><cite>track_prediction</cite>: Handles loading predictions from HDF5 and GTF extraction of counts.</p></li>
-</ul>
-</section>
-</section>
-</section>
 </section>
 
 
@@ -1044,7 +1044,14 @@ prediction correlations (beeswarms, heatmap comparisons, scatterplots).</p></li>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-package">Evaluation Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval.accumulators">utils.eval.accumulators module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.accumulators.BestIntervalTracker.update"><code class="docutils literal notranslate"><span class="pre">BestIntervalTracker.update()</span></code></a></li>
@@ -1090,13 +1097,6 @@ prediction correlations (beeswarms, heatmap comparisons, scatterplots).</p></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.merge_bin_intervals"><code class="docutils literal notranslate"><span class="pre">merge_bin_intervals()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.process_track_metadata"><code class="docutils literal notranslate"><span class="pre">process_track_metadata()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.eval.track_prediction.sum_exon_counts"><code class="docutils literal notranslate"><span class="pre">sum_exon_counts()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.eval">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation-package">Evaluation Package</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

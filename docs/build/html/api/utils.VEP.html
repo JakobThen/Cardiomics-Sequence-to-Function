@@ -306,6 +306,26 @@
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.VEP.processing">utils.VEP.processing module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.DE_to_VCF"><code class="docutils literal notranslate"><span class="pre">DE_to_VCF()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.add_abs_score_columns"><code class="docutils literal notranslate"><span class="pre">add_abs_score_columns()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.expand_dataframe"><code class="docutils literal notranslate"><span class="pre">expand_dataframe()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.expand_indels"><code class="docutils literal notranslate"><span class="pre">expand_indels()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.format_chrombpnet_vep"><code class="docutils literal notranslate"><span class="pre">format_chrombpnet_vep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.make_VCF_cols"><code class="docutils literal notranslate"><span class="pre">make_VCF_cols()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.pivot_tf_scores"><code class="docutils literal notranslate"><span class="pre">pivot_tf_scores()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.process_row"><code class="docutils literal notranslate"><span class="pre">process_row()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.VEP.plotting">utils.VEP.plotting module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.box_grid"><code class="docutils literal notranslate"><span class="pre">box_grid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_AUPRCs"><code class="docutils literal notranslate"><span class="pre">plot_AUPRCs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_AUROCs"><code class="docutils literal notranslate"><span class="pre">plot_AUROCs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_auc_bars"><code class="docutils literal notranslate"><span class="pre">plot_auc_bars()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_sign_confusion_matrix"><code class="docutils literal notranslate"><span class="pre">plot_sign_confusion_matrix()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -334,6 +354,272 @@ Prediction (VEP) using fine-tuned AlphaGenome models.</p>
 </ul>
 </section>
 </section>
+</section>
+<section id="id1">
+<h2>Submodules<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
+<section id="module-utils.VEP.processing">
+<span id="utils-vep-processing-module"></span><h2>utils.VEP.processing module<a class="headerlink" href="#module-utils.VEP.processing" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.DE_to_VCF">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">DE_to_VCF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">DE_df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hg38</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_to_keep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#DE_to_VCF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.DE_to_VCF" title="Link to this definition">#</a></dt>
+<dd><p>Turns a Differential Expression (DE) output from SDR-seq into a VCF style file
+with additional columns for Variant Effect Prediction (VEP).</p>
+<section id="parameters">
+<h3>Parameters:<a class="headerlink" href="#parameters" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>DE_df<span class="classifier">pd.DataFrame</span></dt><dd><p>The differential expression dataframe to process.</p>
+</dd>
+<dt>hg38<span class="classifier">object/dict</span></dt><dd><p>A genome object passed down to <cite>make_VCF_cols</cite> to fill in missing reference bases.</p>
+</dd>
+<dt>col_to_keep<span class="classifier">list of str, optional</span></dt><dd><p>List of column names belonging to DE_df to keep in the final VCF style file.
+If None, all columns are kept.</p>
+</dd>
+</dl>
+</section>
+<section id="returns">
+<h3>Returns:<a class="headerlink" href="#returns" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>A formatted VCF-style dataframe with expanded variant info.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.add_abs_score_columns">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">add_abs_score_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#add_abs_score_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.add_abs_score_columns" title="Link to this definition">#</a></dt>
+<dd><p>Finds all columns containing ‘raw_score’ or ‘quantile_score’,
+creates new columns with their absolute values prefixed by <code class="docutils literal notranslate"><span class="pre">abs_</span></code>,
+and returns the updated DataFrame.</p>
+<section id="id2">
+<h3>Parameters:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The input dataframe containing raw and quantile score columns.</p>
+</dd>
+</dl>
+</section>
+<section id="id3">
+<h3>Returns:<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The updated dataframe including the new absolute value columns.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.expand_dataframe">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">expand_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phase_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'phase'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'variant_id'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#expand_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.expand_dataframe" title="Link to this definition">#</a></dt>
+<dd><p>Expands a dataframe by unnesting and processing the phasing and variant lists
+using <cite>process_row</cite>.</p>
+<section id="id4">
+<h3>Parameters:<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The input dataframe containing phase and variant lists.</p>
+</dd>
+<dt>phase_col<span class="classifier">str, default=”phase”</span></dt><dd><p>The column name containing lists of phases.</p>
+</dd>
+<dt>var_col<span class="classifier">str, default=”variant_id”</span></dt><dd><p>The column name containing lists of variant IDs.</p>
+</dd>
+</dl>
+</section>
+<section id="id5">
+<h3>Returns:<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>A new expanded dataframe where phased rows are unnested.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.expand_indels">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">expand_indels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#expand_indels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.expand_indels" title="Link to this definition">#</a></dt>
+<dd><p>Expands insertions/deletions (indels) to cover the maximum length of the
+REF or ALT alleles, incrementing the POS index accordingly.</p>
+<section id="id6">
+<h3>Parameters:<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>row<span class="classifier">pd.Series</span></dt><dd><p>A single row containing at least ‘CHROM’, ‘POS’, ‘REF’, ‘ALT’, and ‘STRAND’.</p>
+</dd>
+</dl>
+</section>
+<section id="id7">
+<h3>Returns:<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>A dataframe of expanded positional rows for the indel.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.format_chrombpnet_vep">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">format_chrombpnet_vep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vep_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_abs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/VEP/processing.html#format_chrombpnet_vep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.format_chrombpnet_vep" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.make_VCF_cols">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">make_VCF_cols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variant_id_col</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hg38</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#make_VCF_cols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.make_VCF_cols" title="Link to this definition">#</a></dt>
+<dd><p>Parses variant IDs to reconstruct VCF-style columns (CHROM, POS, REF, ALT, STRAND),
+filling in missing reference bases using a provided genome object.</p>
+<section id="id8">
+<h3>Parameters:<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The dataframe containing the variants to be processed.</p>
+</dd>
+<dt>variant_id_col<span class="classifier">str</span></dt><dd><p>The column containing lists of variant strings.</p>
+</dd>
+<dt>hg38<span class="classifier">object/dict</span></dt><dd><p>A genome dictionary or sequence object (e.g., from pyfaidx) used to
+fetch missing reference bases by doing <cite>hg38[chrom][pos-1]</cite>.</p>
+</dd>
+</dl>
+</section>
+<section id="id9">
+<h3>Returns:<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>The original dataframe horizontally concatenated with new VCF columns.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.pivot_tf_scores">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">pivot_tf_scores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#pivot_tf_scores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.pivot_tf_scores" title="Link to this definition">#</a></dt>
+<dd><p>Pivots transcription factor (TF) scores from a long format into a wide format,
+creating unique columns for each TF (e.g., ‘CTCF_TF_raw_score’).</p>
+<section id="id10">
+<h3>Parameters:<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pd.DataFrame</span></dt><dd><p>The input dataframe in long format containing ‘transcription_factor’,
+‘TF_raw_score’, and ‘TF_quantile_score’.</p>
+</dd>
+</dl>
+</section>
+<section id="id11">
+<h3>Returns:<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>pd.DataFrame</dt><dd><p>A wide-format dataframe with prefixed TF columns.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.processing.process_row">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.processing.</span></span><span class="sig-name descname"><span class="pre">process_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/utils/VEP/processing.html#process_row"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.processing.process_row" title="Link to this definition">#</a></dt>
+<dd><p>Processes a single row’s phasing and variant information, resolving phase signs
+and formatting the variant strings accordingly (forward or reverse).</p>
+<section id="id12">
+<h3>Parameters:<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>phases<span class="classifier">list of int</span></dt><dd><p>A list of phase values (positive or negative integers).</p>
+</dd>
+<dt>variants<span class="classifier">list of str</span></dt><dd><p>A list of variant string identifiers.</p>
+</dd>
+</dl>
+</section>
+<section id="id13">
+<h3>Returns:<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>list of tuples</dt><dd><p>A list of (phases, new_variants) tuples. Returns one tuple if all signs
+are the same, or two tuples (one for positive, one for negative phases)
+if signs are mixed.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+</section>
+<section id="module-utils.VEP.plotting">
+<span id="utils-vep-plotting-module"></span><h2>utils.VEP.plotting module<a class="headerlink" href="#module-utils.VEP.plotting" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.plotting.box_grid">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.plotting.</span></span><span class="sig-name descname"><span class="pre">box_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_cols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/VEP/plotting.html#box_grid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.plotting.box_grid" title="Link to this definition">#</a></dt>
+<dd><p>Plots a grid of Seaborn box plots comparing multiple continuous variables
+against a single categorical variable.</p>
+<section id="id14">
+<h3>Parameters:<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataframe containing the data to plot.</p>
+</dd>
+<dt>x_col<span class="classifier">str</span></dt><dd><p>The column name to use for the x-axis (usually categorical).</p>
+</dd>
+<dt>y_cols<span class="classifier">list of str</span></dt><dd><p>A list of column names to plot on the y-axis (usually continuous).</p>
+</dd>
+<dt>n_cols<span class="classifier">int, default=5</span></dt><dd><p>The number of columns in the plot grid.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.plotting.plot_AUPRCs">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_AUPRCs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/VEP/plotting.html#plot_AUPRCs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.plotting.plot_AUPRCs" title="Link to this definition">#</a></dt>
+<dd><p>Plots a grid of Precision-Recall (PR) curves for multiple model score columns.
+The plots are sorted in descending order based on their Area Under the PR Curve (AUPRC).
+Robust to NaN values in score columns.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.plotting.plot_AUROCs">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_AUROCs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_columns</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/VEP/plotting.html#plot_AUROCs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.plotting.plot_AUROCs" title="Link to this definition">#</a></dt>
+<dd><p>Plots a grid of Receiver Operating Characteristic (ROC) curves for multiple models.
+The plots are sorted in descending order based on their AUROC score. Optimal
+cutoffs are calculated using Youden’s J statistic.</p>
+<section id="id15">
+<h3>Parameters:<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataframe containing the true labels and predicted scores.</p>
+</dd>
+<dt>true_label<span class="classifier">str</span></dt><dd><p>The column name representing ground truth binary labels.</p>
+</dd>
+<dt>score_columns<span class="classifier">list of str</span></dt><dd><p>Column names representing model predictions.</p>
+</dd>
+<dt>n_cols<span class="classifier">int, default=6</span></dt><dd><p>The number of columns in the plot grid.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.plotting.plot_auc_bars">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_auc_bars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score_columns</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/VEP/plotting.html#plot_auc_bars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.plotting.plot_auc_bars" title="Link to this definition">#</a></dt>
+<dd><p>Generates side-by-side bar charts comparing AUROC and AUPRC scores across multiple models.
+Models are sorted in descending order of their AUPRC score.</p>
+<section id="id16">
+<h3>Parameters:<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>df<span class="classifier">pandas.DataFrame</span></dt><dd><p>The dataframe containing true labels and predicted scores.</p>
+</dd>
+<dt>true_label<span class="classifier">str</span></dt><dd><p>The column name for ground truth binary labels.</p>
+</dd>
+<dt>score_columns<span class="classifier">list of str</span></dt><dd><p>Column names representing model predictions.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.VEP.plotting.plot_sign_confusion_matrix">
+<span class="sig-prename descclassname"><span class="pre">utils.VEP.plotting.</span></span><span class="sig-name descname"><span class="pre">plot_sign_confusion_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_observed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_predicted</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[-1,</span> <span class="pre">1]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/utils/VEP/plotting.html#plot_sign_confusion_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.VEP.plotting.plot_sign_confusion_matrix" title="Link to this definition">#</a></dt>
+<dd><p>Plots a confusion matrix heatmap for categorical/sign predictions and
+calculates the Chi-Square test of independence.</p>
+<section id="id17">
+<h3>Parameters:<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<dl class="simple">
+<dt>y_observed<span class="classifier">array-like</span></dt><dd><p>The true observed labels (e.g., -1 for negative, 1 for positive).</p>
+</dd>
+<dt>y_predicted<span class="classifier">array-like</span></dt><dd><p>The predicted labels from the model.</p>
+</dd>
+<dt>labels<span class="classifier">list, default=[-1, 1]</span></dt><dd><p>The specific class labels to include in the confusion matrix.</p>
+</dd>
+</dl>
+</section>
+</dd></dl>
+
 </section>
 </section>
 
@@ -389,6 +675,26 @@ Prediction (VEP) using fine-tuned AlphaGenome models.</p>
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules:</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.VEP.processing">utils.VEP.processing module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.DE_to_VCF"><code class="docutils literal notranslate"><span class="pre">DE_to_VCF()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.add_abs_score_columns"><code class="docutils literal notranslate"><span class="pre">add_abs_score_columns()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.expand_dataframe"><code class="docutils literal notranslate"><span class="pre">expand_dataframe()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.expand_indels"><code class="docutils literal notranslate"><span class="pre">expand_indels()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.format_chrombpnet_vep"><code class="docutils literal notranslate"><span class="pre">format_chrombpnet_vep()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.make_VCF_cols"><code class="docutils literal notranslate"><span class="pre">make_VCF_cols()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.pivot_tf_scores"><code class="docutils literal notranslate"><span class="pre">pivot_tf_scores()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.processing.process_row"><code class="docutils literal notranslate"><span class="pre">process_row()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.VEP.plotting">utils.VEP.plotting module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.box_grid"><code class="docutils literal notranslate"><span class="pre">box_grid()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_AUPRCs"><code class="docutils literal notranslate"><span class="pre">plot_AUPRCs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_AUROCs"><code class="docutils literal notranslate"><span class="pre">plot_AUROCs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_auc_bars"><code class="docutils literal notranslate"><span class="pre">plot_auc_bars()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.VEP.plotting.plot_sign_confusion_matrix"><code class="docutils literal notranslate"><span class="pre">plot_sign_confusion_matrix()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -1,0 +1,692 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>utils.VEP.processing &#8212; cardiomics-sequence-to-function 0.01 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css?v=8cd3d715" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=38b20e68"></script>
+    <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/utils/VEP/processing';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">cardiomics-sequence-to-function 0.01 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../input_prep_pipeline.html">Model Input Generation Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AlphaGenome_ft_pipeline.html">AlphaGenome Finetuning Pipeline</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../api/utils.html">utils package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.ISM.html">utils.ISM package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.VEP.html">utils.VEP package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.eval.html">utils.eval package</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../api/utils.finetuning.html">utils.finetuning package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.io.html">utils.io package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.preprocessing.html">utils.preprocessing package</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for utils.VEP.processing</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+
+<div class="viewcode-block" id="process_row">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.process_row">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">process_row</span><span class="p">(</span><span class="n">phases</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">variants</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processes a single row&#39;s phasing and variant information, resolving phase signs</span>
+<span class="sd">    and formatting the variant strings accordingly (forward or reverse).</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    phases : list of int</span>
+<span class="sd">        A list of phase values (positive or negative integers).</span>
+<span class="sd">    variants : list of str</span>
+<span class="sd">        A list of variant string identifiers.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    list of tuples</span>
+<span class="sd">        A list of (phases, new_variants) tuples. Returns one tuple if all signs </span>
+<span class="sd">        are the same, or two tuples (one for positive, one for negative phases) </span>
+<span class="sd">        if signs are mixed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">phases_sign</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">phases</span><span class="p">]</span>
+    <span class="n">unique_signs</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">phases_sign</span><span class="p">)</span>
+    
+    <span class="n">result_rows</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unique_signs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># All same sign</span>
+        <span class="n">sign_str</span> <span class="o">=</span> <span class="s2">&quot;(for)&quot;</span> <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">unique_signs</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;(rev)&quot;</span>
+        <span class="n">new_variants</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">sign_str</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">variants</span><span class="p">]</span>
+        <span class="n">result_rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">phases</span><span class="p">,</span> <span class="n">new_variants</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Mixed signs</span>
+        <span class="c1"># Append sign to each variant</span>
+        <span class="n">new_variants</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">-(</span><span class="si">{</span><span class="s1">&#39;for&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">p</span><span class="o">&gt;</span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;rev&#39;</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">variants</span><span class="p">,</span> <span class="n">phases</span><span class="p">)]</span>
+        <span class="n">result_rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">phases</span><span class="p">,</span> <span class="n">new_variants</span><span class="p">))</span>
+        
+        <span class="c1"># Split into two rows: positives and negatives</span>
+        <span class="n">pos_phases</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">phases</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">pos_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">-(for)&quot;</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">variants</span><span class="p">,</span> <span class="n">phases</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+        
+        <span class="n">neg_phases</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">phases</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">neg_vars</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">-(rev)&quot;</span> <span class="k">for</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">variants</span><span class="p">,</span> <span class="n">phases</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+        
+        <span class="n">pos_vars_concat</span> <span class="o">=</span> <span class="n">pos_vars</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">-phased&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">neg_vars</span><span class="p">]</span>
+        <span class="n">neg_vars_concat</span> <span class="o">=</span> <span class="n">neg_vars</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">-phased&quot;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">pos_vars</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="n">pos_phases</span><span class="p">:</span>
+            <span class="n">result_rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">pos_phases</span><span class="p">,</span> <span class="n">pos_vars_concat</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">neg_phases</span><span class="p">:</span>
+            <span class="n">result_rows</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">neg_phases</span><span class="p">,</span> <span class="n">neg_vars_concat</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">result_rows</span></div>
+
+
+<div class="viewcode-block" id="expand_dataframe">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.expand_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">expand_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">phase_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="n">var_col</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;variant_id&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Expands a dataframe by unnesting and processing the phasing and variant lists</span>
+<span class="sd">    using `process_row`.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The input dataframe containing phase and variant lists.</span>
+<span class="sd">    phase_col : str, default=&quot;phase&quot;</span>
+<span class="sd">        The column name containing lists of phases.</span>
+<span class="sd">    var_col : str, default=&quot;variant_id&quot;</span>
+<span class="sd">        The column name containing lists of variant IDs.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A new expanded dataframe where phased rows are unnested.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out_rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">phase_col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cols</span> <span class="ow">or</span> <span class="n">var_col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">phase_col</span><span class="si">}</span><span class="s2">&#39; and &#39;</span><span class="si">{</span><span class="n">var_col</span><span class="si">}</span><span class="s2">&#39; must be columns of the DataFrame&quot;</span><span class="p">)</span>
+
+    <span class="n">other_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">phase_col</span><span class="p">,</span> <span class="n">var_col</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">itertuples</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">row_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">cols</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span>
+        <span class="n">phases</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row_dict</span><span class="p">[</span><span class="n">phase_col</span><span class="p">])</span>       
+        <span class="n">variants</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">row_dict</span><span class="p">[</span><span class="n">var_col</span><span class="p">])</span>
+
+        <span class="n">expanded</span> <span class="o">=</span> <span class="n">process_row</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">variants</span><span class="p">)</span> 
+
+        <span class="k">for</span> <span class="n">phases_new</span><span class="p">,</span> <span class="n">variants_new</span> <span class="ow">in</span> <span class="n">expanded</span><span class="p">:</span>
+            <span class="n">new_row</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="p">:</span> <span class="n">row_dict</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">other_cols</span><span class="p">}</span>
+            <span class="n">new_row</span><span class="p">[</span><span class="n">phase_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">phases_new</span>
+            <span class="n">new_row</span><span class="p">[</span><span class="n">var_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">variants_new</span>
+            <span class="n">out_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_row</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">out_rows</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="expand_indels">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.expand_indels">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">expand_indels</span><span class="p">(</span><span class="n">row</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Expands insertions/deletions (indels) to cover the maximum length of the </span>
+<span class="sd">    REF or ALT alleles, incrementing the POS index accordingly.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    row : pd.Series</span>
+<span class="sd">        A single row containing at least &#39;CHROM&#39;, &#39;POS&#39;, &#39;REF&#39;, &#39;ALT&#39;, and &#39;STRAND&#39;.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A dataframe of expanded positional rows for the indel.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;REF&quot;</span><span class="p">]</span>
+    <span class="n">alt</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;ALT&quot;</span><span class="p">]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;POS&quot;</span><span class="p">]</span>
+    
+    <span class="c1"># Find max length</span>
+    <span class="n">max_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">alt</span><span class="p">))</span>
+    
+    <span class="c1"># Expand REF and ALT, pad with None if shorter</span>
+    <span class="n">ref_exp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">ref</span><span class="p">))</span>
+    <span class="n">alt_exp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">alt</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">max_len</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">alt</span><span class="p">))</span>
+    
+    <span class="c1"># Expand POS: increment by index for multi-base</span>
+    <span class="n">pos_exp</span> <span class="o">=</span> <span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_len</span><span class="p">)]</span>
+    
+    <span class="n">expanded_rows</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;CHROM&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;CHROM&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="n">max_len</span><span class="p">,</span>
+        <span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="n">pos_exp</span><span class="p">,</span>
+        <span class="s2">&quot;REF&quot;</span><span class="p">:</span> <span class="n">ref_exp</span><span class="p">,</span>
+        <span class="s2">&quot;ALT&quot;</span><span class="p">:</span> <span class="n">alt_exp</span><span class="p">,</span>
+        <span class="s2">&quot;STRAND&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;STRAND&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="n">max_len</span>
+    <span class="p">})</span>
+    
+    <span class="k">return</span> <span class="n">expanded_rows</span></div>
+
+
+<div class="viewcode-block" id="make_VCF_cols">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.make_VCF_cols">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_VCF_cols</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">variant_id_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">hg38</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parses variant IDs to reconstruct VCF-style columns (CHROM, POS, REF, ALT, STRAND),</span>
+<span class="sd">    filling in missing reference bases using a provided genome object.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The dataframe containing the variants to be processed.</span>
+<span class="sd">    variant_id_col : str</span>
+<span class="sd">        The column containing lists of variant strings.</span>
+<span class="sd">    hg38 : object/dict</span>
+<span class="sd">        A genome dictionary or sequence object (e.g., from pyfaidx) used to </span>
+<span class="sd">        fetch missing reference bases by doing `hg38[chrom][pos-1]`.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The original dataframe horizontally concatenated with new VCF columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">variant_ids</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">variant_id_col</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">VCF_cols</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">var_list</span> <span class="ow">in</span> <span class="n">variant_ids</span><span class="p">:</span>
+        <span class="c1"># Removes all the phased variants on the other allele</span>
+        <span class="n">var_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">var_list</span> <span class="k">if</span> <span class="s2">&quot;-phased&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">var</span><span class="p">]</span> 
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">var_list</span><span class="p">:</span>               
+            <span class="n">part</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+            <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+            
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">parts</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;CHROM&quot;</span><span class="p">,</span> <span class="s2">&quot;POS&quot;</span><span class="p">,</span> <span class="s2">&quot;REF&quot;</span><span class="p">,</span> <span class="s2">&quot;ALT&quot;</span><span class="p">,</span> <span class="s2">&quot;STRAND&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;POS&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
+        <span class="n">parts</span><span class="o">.</span><span class="n">POS</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">POS</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+
+        <span class="n">chrom</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">CHROM</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">min_pos</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">POS</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">max_pos</span> <span class="o">=</span> <span class="n">parts</span><span class="o">.</span><span class="n">POS</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+        <span class="n">extend_pos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">expand_indels</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">parts</span><span class="o">.</span><span class="n">iterrows</span><span class="p">()],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">missing_pos</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">pos</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">min_pos</span><span class="p">,</span> <span class="n">max_pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pos</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">extend_pos</span><span class="o">.</span><span class="n">POS</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                <span class="n">missing_pos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span>
+                    <span class="s2">&quot;CHROM&quot;</span><span class="p">:</span> <span class="n">chrom</span><span class="p">,</span>
+                    <span class="s2">&quot;POS&quot;</span><span class="p">:</span> <span class="n">pos</span><span class="p">,</span>
+                    <span class="s2">&quot;REF&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hg38</span><span class="p">[</span><span class="n">chrom</span><span class="p">][</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                    <span class="s2">&quot;ALT&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">hg38</span><span class="p">[</span><span class="n">chrom</span><span class="p">][</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+                    <span class="s2">&quot;STRAND&quot;</span><span class="p">:</span> <span class="s2">&quot;(.)&quot;</span>
+                <span class="p">}))</span>
+                
+        <span class="k">if</span> <span class="n">missing_pos</span><span class="p">:</span>
+            <span class="n">extend_pos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">extend_pos</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">missing_pos</span><span class="p">)])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;POS&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  
+
+        <span class="n">REF</span> <span class="o">=</span> <span class="n">extend_pos</span><span class="o">.</span><span class="n">REF</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">()</span>
+        <span class="n">ALT</span> <span class="o">=</span> <span class="n">extend_pos</span><span class="o">.</span><span class="n">ALT</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">cat</span><span class="p">()</span>
+
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">extend_pos</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;REF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">REF</span>
+        <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;ALT&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ALT</span>
+
+        <span class="k">if</span> <span class="p">((</span><span class="n">extend_pos</span><span class="o">.</span><span class="n">STRAND</span> <span class="o">==</span> <span class="s2">&quot;(for)&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">extend_pos</span><span class="o">.</span><span class="n">STRAND</span> <span class="o">==</span> <span class="s2">&quot;(.)&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;STRAND&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;(for)&quot;</span>
+        <span class="k">elif</span> <span class="p">((</span><span class="n">extend_pos</span><span class="o">.</span><span class="n">STRAND</span> <span class="o">==</span> <span class="s2">&quot;(rev)&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">extend_pos</span><span class="o">.</span><span class="n">STRAND</span> <span class="o">==</span> <span class="s2">&quot;(.)&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;STRAND&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;(rev)&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret</span><span class="p">[</span><span class="s2">&quot;STRAND&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;(.)&quot;</span>
+
+        <span class="n">VCF_cols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ret</span><span class="p">)</span>
+    
+    <span class="n">df</span><span class="p">[</span><span class="n">variant_id_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">variant_ids</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">VCF_cols</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DE_to_VCF">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.DE_to_VCF">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">DE_to_VCF</span><span class="p">(</span><span class="n">DE_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">hg38</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">col_to_keep</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Turns a Differential Expression (DE) output from SDR-seq into a VCF style file </span>
+<span class="sd">    with additional columns for Variant Effect Prediction (VEP).</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    DE_df : pd.DataFrame</span>
+<span class="sd">        The differential expression dataframe to process.</span>
+<span class="sd">    hg38 : object/dict</span>
+<span class="sd">        A genome object passed down to `make_VCF_cols` to fill in missing reference bases.</span>
+<span class="sd">    col_to_keep : list of str, optional</span>
+<span class="sd">        List of column names belonging to DE_df to keep in the final VCF style file.</span>
+<span class="sd">        If None, all columns are kept.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A formatted VCF-style dataframe with expanded variant info.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Extract variant ids with phasing info</span>
+    <span class="n">phasing</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">phase</span><span class="p">),</span> <span class="n">var</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">phase</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">phase_geno</span><span class="p">,</span> <span class="n">var_geno</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">phase</span> <span class="o">!=</span> <span class="s2">&quot;0&quot;</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">phase_geno</span><span class="p">,</span> <span class="n">var_geno</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">DE_df</span><span class="o">.</span><span class="n">ID_Geno_Var1</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">),</span>
+            <span class="n">DE_df</span><span class="o">.</span><span class="n">ID_Geno_conc_Var1</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;|&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="n">phasing</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span>
+            <span class="p">[</span><span class="n">phase</span> <span class="k">for</span> <span class="n">phase</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">row</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">var</span> <span class="k">for</span> <span class="n">phase</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">row</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">phasing</span>
+    <span class="p">]</span>
+    
+    <span class="n">variants</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">phasing</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="s2">&quot;variant_id&quot;</span><span class="p">])</span>
+    
+    <span class="k">if</span> <span class="n">col_to_keep</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>   
+        <span class="n">variants</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+            <span class="n">variants</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+            <span class="n">DE_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">col_to_keep</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="n">variants</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">variants</span><span class="p">,</span> <span class="n">DE_df</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> 
+    
+    <span class="n">variants</span> <span class="o">=</span> <span class="n">expand_dataframe</span><span class="p">(</span><span class="n">variants</span><span class="p">,</span> <span class="n">phase_col</span><span class="o">=</span><span class="s2">&quot;phase&quot;</span><span class="p">,</span> <span class="n">var_col</span><span class="o">=</span><span class="s2">&quot;variant_id&quot;</span><span class="p">)</span>
+    <span class="n">vcf</span> <span class="o">=</span> <span class="n">make_VCF_cols</span><span class="p">(</span><span class="n">variants</span><span class="p">,</span> <span class="n">variant_id_col</span><span class="o">=</span><span class="s2">&quot;variant_id&quot;</span><span class="p">,</span> <span class="n">hg38</span><span class="o">=</span><span class="n">hg38</span><span class="p">)</span>
+        
+    <span class="k">return</span> <span class="n">vcf</span></div>
+
+
+<div class="viewcode-block" id="pivot_tf_scores">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.pivot_tf_scores">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">pivot_tf_scores</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Pivots transcription factor (TF) scores from a long format into a wide format,</span>
+<span class="sd">    creating unique columns for each TF (e.g., &#39;CTCF_TF_raw_score&#39;).</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The input dataframe in long format containing &#39;transcription_factor&#39;, </span>
+<span class="sd">        &#39;TF_raw_score&#39;, and &#39;TF_quantile_score&#39;.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        A wide-format dataframe with prefixed TF columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tf_columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;transcription_factor&#39;</span><span class="p">,</span> <span class="s1">&#39;TF_raw_score&#39;</span><span class="p">,</span> <span class="s1">&#39;TF_quantile_score&#39;</span><span class="p">]</span>
+    <span class="n">index_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tf_columns</span><span class="p">]</span>
+    
+    <span class="c1"># Pivot the DataFrame using pivot_table with aggfunc=&#39;first&#39;</span>
+    <span class="n">df_wide</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+        <span class="n">index</span><span class="o">=</span><span class="n">index_cols</span><span class="p">,</span>
+        <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;transcription_factor&#39;</span><span class="p">,</span>
+        <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;TF_raw_score&#39;</span><span class="p">,</span> <span class="s1">&#39;TF_quantile_score&#39;</span><span class="p">],</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;first&#39;</span>
+    <span class="p">)</span>
+     
+    <span class="n">df_wide</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tf</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">measure</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">measure</span><span class="p">,</span> <span class="n">tf</span> <span class="ow">in</span> <span class="n">df_wide</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="n">df_wide</span> <span class="o">=</span> <span class="n">df_wide</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">df_wide</span></div>
+
+
+<div class="viewcode-block" id="add_abs_score_columns">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.add_abs_score_columns">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_abs_score_columns</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finds all columns containing &#39;raw_score&#39; or &#39;quantile_score&#39;,</span>
+<span class="sd">    creates new columns with their absolute values prefixed by ``abs_``, </span>
+<span class="sd">    and returns the updated DataFrame.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters:</span>
+<span class="sd">    -----------</span>
+<span class="sd">    df : pd.DataFrame</span>
+<span class="sd">        The input dataframe containing raw and quantile score columns.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">    --------</span>
+<span class="sd">    pd.DataFrame</span>
+<span class="sd">        The updated dataframe including the new absolute value columns.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">new_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="s2">&quot;raw_score&quot;</span> <span class="ow">in</span> <span class="n">col</span> <span class="ow">or</span> <span class="s2">&quot;quantile_score&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">&quot;abs&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col</span><span class="p">:</span>
+            <span class="n">new_col</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;abs_</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">new_df</span><span class="p">[</span><span class="n">new_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">new_df</span></div>
+
+
+<span class="c1">#takes a fold mean chromBPNet VEP tsv files as pandas and refroamts into better columns</span>
+<div class="viewcode-block" id="format_chrombpnet_vep">
+<a class="viewcode-back" href="../../../api/utils.VEP.html#utils.VEP.processing.format_chrombpnet_vep">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">format_chrombpnet_vep</span><span class="p">(</span><span class="n">vep_df</span><span class="p">,</span> <span class="n">keep_abs</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">col_names</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;chr&quot;</span><span class="p">:</span> <span class="s2">&quot;CHROM&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">:</span> <span class="s2">&quot;POS&quot;</span><span class="p">,</span> <span class="s2">&quot;allele1&quot;</span><span class="p">:</span> <span class="s2">&quot;REF&quot;</span><span class="p">,</span> <span class="s2">&quot;allele2&quot;</span><span class="p">:</span> <span class="s2">&quot;ALT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logfc.mean&quot;</span><span class="p">:</span> <span class="s2">&quot;COUNTS_cPBN_raw_score&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;abs_logfc.mean&quot;</span><span class="p">:</span> <span class="s2">&quot;abs_COUNTS_cPBN_raw_score&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logfc.mean.pval&quot;</span><span class="p">:</span> <span class="s2">&quot;COUNTS_cPBN_pval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;abs_logfc.mean.pval&quot;</span><span class="p">:</span> <span class="s2">&quot;abs_COUNTS_cPBN_pval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;jsd.mean&quot;</span><span class="p">:</span> <span class="s2">&quot;JSD_cPBN_raw_score&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;jsd.mean.pval&quot;</span><span class="p">:</span> <span class="s2">&quot;JSD_cPBN_pval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logfc_x_jsd.mean&quot;</span><span class="p">:</span> <span class="s2">&quot;COUNTSxJSD_cPBN_raw_score&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;abs_logfc_x_jsd.mean&quot;</span><span class="p">:</span> <span class="s2">&quot;abs_COUNTSxJSD_cPBN_raw_score&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;logfc_x_jsd.mean.pval&quot;</span><span class="p">:</span> <span class="s2">&quot;COUNTSxJSD_pval&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;abs_logfc_x_jsd.mean.pval&quot;</span><span class="p">:</span> <span class="s2">&quot;abs_COUNTSxJSD_pval&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">vep_df</span> <span class="o">=</span> <span class="n">vep_df</span><span class="p">[[</span><span class="s2">&quot;variant_id&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">col_names</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">vep_df</span> <span class="o">=</span> <span class="n">vep_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">col_names</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">keep_abs</span><span class="p">:</span> 
+        <span class="n">vep_df</span> <span class="o">=</span> <span class="n">vep_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="o">~</span><span class="n">vep_df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;abs&quot;</span><span class="p">)]</span>
+        
+    <span class="k">return</span> <span class="n">vep_df</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Jakob Then
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026, Jakob Then.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

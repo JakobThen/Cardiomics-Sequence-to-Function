@@ -299,7 +299,7 @@ def pivot_tf_scores(df: pd.DataFrame) -> pd.DataFrame:
 def add_abs_score_columns(df: pd.DataFrame) -> pd.DataFrame:
     """
     Finds all columns containing 'raw_score' or 'quantile_score',
-    creates new columns with their absolute values prefixed by 'abs_', 
+    creates new columns with their absolute values prefixed by ``abs_``, 
     and returns the updated DataFrame.
     
     Parameters:

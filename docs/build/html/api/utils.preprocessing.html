@@ -298,12 +298,6 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.preprocessing">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-package">Preprocessing Package</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
@@ -311,6 +305,13 @@
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-example">CLI Usage Example</a></li>
 </ul>
             </nav>
         </div>
@@ -324,6 +325,25 @@
                   
   <section id="utils-preprocessing-package">
 <h1>utils.preprocessing package<a class="headerlink" href="#utils-preprocessing-package" title="Link to this heading">#</a></h1>
+<section id="module-utils.preprocessing">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.preprocessing" title="Link to this heading">#</a></h2>
+<section id="preprocessing-package">
+<h3>Preprocessing Package<a class="headerlink" href="#preprocessing-package" title="Link to this heading">#</a></h3>
+<p>This package contains scripts and utilities for preparing raw sequencing data
+(like ATAC and RNA) into the specific input formats required by AlphaGenome
+and Borzoi models.</p>
+<p>It handles:
+* BigWig generation
+* Cell counting and metadata extraction
+* Final configuration <cite>.yaml</cite> construction</p>
+<section id="cli-scripts">
+<h4>CLI Scripts:<a class="headerlink" href="#cli-scripts" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>make_AG_input_config</cite>: CLI script to map directories and generate AlphaGenome YAML configuration files.</p></li>
+</ul>
+</section>
+</section>
+</section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 </section>
@@ -374,24 +394,17 @@ directory paths, modality targets, and tag filters.</p>
 </dd></dl>
 
 </section>
-<section id="module-utils.preprocessing">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.preprocessing" title="Link to this heading">#</a></h2>
-<section id="preprocessing-package">
-<h3>Preprocessing Package<a class="headerlink" href="#preprocessing-package" title="Link to this heading">#</a></h3>
-<p>This package contains scripts and utilities for preparing raw sequencing data
-(like ATAC and RNA) into the specific input formats required by AlphaGenome
-and Borzoi models.</p>
-<p>It handles:
-* BigWig generation
-* Cell counting and metadata extraction
-* Final configuration <cite>.yaml</cite> construction</p>
-<section id="cli-scripts">
-<h4>CLI Scripts:<a class="headerlink" href="#cli-scripts" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><cite>make_AG_input_config</cite>: CLI script to map directories and generate AlphaGenome YAML configuration files.</p></li>
-</ul>
-</section>
-</section>
+<section id="cli-usage-example">
+<h2>CLI Usage Example<a class="headerlink" href="#cli-usage-example" title="Link to this heading">#</a></h2>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/preprocessing/make_AG_input_config.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>...
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -433,12 +446,6 @@ and Borzoi models.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.preprocessing">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preprocessing-package">Preprocessing Package</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-scripts">CLI Scripts:</a></li>
@@ -446,6 +453,13 @@ and Borzoi models.</p>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.preprocessing.make_AG_input_config.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-example">CLI Usage Example</a></li>
 </ul>
   </nav></div>
 

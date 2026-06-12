@@ -299,7 +299,14 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-package">IO Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.batch_bw_loader">utils.io.batch_bw_loader module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader.load_batch()</span></code></a></li>
@@ -334,13 +341,6 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.vcf_to_pr"><code class="docutils literal notranslate"><span class="pre">vcf_to_pr()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-package">IO Package</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
-</ul>
-</li>
-</ul>
-</li>
 </ul>
             </nav>
         </div>
@@ -354,8 +354,26 @@
                   
   <section id="utils-io-package">
 <h1>utils.io package<a class="headerlink" href="#utils-io-package" title="Link to this heading">#</a></h1>
+<section id="module-utils.io">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.io" title="Link to this heading">#</a></h2>
+<section id="io-package">
+<h3>IO Package<a class="headerlink" href="#io-package" title="Link to this heading">#</a></h3>
+<p>This package contains modules and classes for reading genomic data,
+handling scaling/transformations (such as Borzoi and AlphaGenome squash formats),
+and saving predictions or annotations.</p>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<h4>Submodules:<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><cite>batch_bw_loader</cite>: Contains <cite>BatchBigWigLoader</cite>, a class to load multiple BigWig tracks in parallel.</p></li>
+<li><p><cite>data_input</cite>: Contains mathematical squash operations and data loading helpers.</p></li>
+<li><p><cite>data_output</cite>: Contains utilities to save predictions into formats like annotated HDF5.</p></li>
+<li><p><cite>variant_annotation</cite>: Contains functions to annotate genetic variant dataframes with genomic features.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="id1">
+<h2>Submodules<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 </section>
 <section id="module-utils.io.batch_bw_loader">
 <span id="utils-io-batch-bw-loader-module"></span><h2>utils.io.batch_bw_loader module<a class="headerlink" href="#module-utils.io.batch_bw_loader" title="Link to this heading">#</a></h2>
@@ -774,24 +792,6 @@ and ‘Pos’ columns.</p>
 </dd></dl>
 
 </section>
-<section id="module-utils.io">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.io" title="Link to this heading">#</a></h2>
-<section id="io-package">
-<h3>IO Package<a class="headerlink" href="#io-package" title="Link to this heading">#</a></h3>
-<p>This package contains modules and classes for reading genomic data,
-handling scaling/transformations (such as Borzoi and AlphaGenome squash formats),
-and saving predictions or annotations.</p>
-<section id="id1">
-<h4>Submodules:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><cite>batch_bw_loader</cite>: Contains <cite>BatchBigWigLoader</cite>, a class to load multiple BigWig tracks in parallel.</p></li>
-<li><p><cite>data_input</cite>: Contains mathematical squash operations and data loading helpers.</p></li>
-<li><p><cite>data_output</cite>: Contains utilities to save predictions into formats like annotated HDF5.</p></li>
-<li><p><cite>variant_annotation</cite>: Contains functions to annotate genetic variant dataframes with genomic features.</p></li>
-</ul>
-</section>
-</section>
-</section>
 </section>
 
 
@@ -841,7 +841,14 @@ and saving predictions or annotations.</p>
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-package">IO Package</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io.batch_bw_loader">utils.io.batch_bw_loader module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader</span></code></a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.batch_bw_loader.BatchBigWigLoader.load_batch"><code class="docutils literal notranslate"><span class="pre">BatchBigWigLoader.load_batch()</span></code></a></li>
@@ -874,13 +881,6 @@ and saving predictions or annotations.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.load_ccre_data"><code class="docutils literal notranslate"><span class="pre">load_ccre_data()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.standardize_vcf_columns"><code class="docutils literal notranslate"><span class="pre">standardize_vcf_columns()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.io.variant_annotation.vcf_to_pr"><code class="docutils literal notranslate"><span class="pre">vcf_to_pr()</span></code></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.io">Module contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#io-package">IO Package</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Submodules:</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>

@@ -1,6 +1,15 @@
 utils.io package
 ================
 
+Module contents
+---------------
+
+
+.. automodule:: utils.io
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Submodules
 ----------
 
@@ -36,10 +45,3 @@ utils.io.variant\_annotation module
    :show-inheritance:
    :undoc-members:
 
-Module contents
----------------
-
-.. automodule:: utils.io
-   :members:
-   :show-inheritance:
-   :undoc-members:
