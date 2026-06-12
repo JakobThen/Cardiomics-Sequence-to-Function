@@ -299,14 +299,14 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cardiomics-sequence-to-function-utilities">Cardiomics Sequence-to-Function Utilities</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpackages:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages:</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpackages</a></li>
 </ul>
             </nav>
         </div>
@@ -320,12 +320,31 @@
                   
   <section id="utils-package">
 <h1>utils package<a class="headerlink" href="#utils-package" title="Link to this heading">#</a></h1>
+<section id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Link to this heading">#</a></h2>
+<section id="cardiomics-sequence-to-function-utilities">
+<h3>Cardiomics Sequence-to-Function Utilities<a class="headerlink" href="#cardiomics-sequence-to-function-utilities" title="Link to this heading">#</a></h3>
+<p>This package contains various utility subpackages for the cardiomics sequence-to-function pipeline.</p>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h2>
+<h4>Subpackages:<a class="headerlink" href="#subpackages" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>io</strong>: Functions to annotate genetic variants (VCF-style) and handle data input/output.</p></li>
+<li><p><strong>preprocessing</strong>: Utilities to generate input configurations and preprocess data for AlphaGenome models.</p></li>
+<li><p><strong>finetuning</strong>: Scripts and utilities for fine-tuning AlphaGenome models, including head fine-tuning and evaluation.</p></li>
+<li><p><strong>eval</strong>: Streamed correlation analysis, track prediction, and accumulators for comprehensive model evaluation.</p></li>
+<li><p><strong>VEP</strong>: Variant Effect Prediction tools and scripts to process, analyze, and plot in silico variant effects.</p></li>
+<li><p><strong>ISM</strong>: Lightweight wrappers around the pretrained AlphaGenome API to add functionality to ATAC, ChIP-TF, and RNA modalities, and run multiple interval ISMs at scale while writing and scaling predictions.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="id1">
+<h2>Subpackages<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="utils.ISM.html">utils.ISM package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="utils.ISM.html#module-utils.ISM">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#in-silico-mutagenesis-ism-package">In Silico Mutagenesis (ISM) Package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.aggregate_adata_vars"><code class="docutils literal notranslate"><span class="pre">aggregate_adata_vars()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.average_all_stranded_expression"><code class="docutils literal notranslate"><span class="pre">average_all_stranded_expression()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.ISM.html#utils.ISM.build_ism_matrix"><code class="docutils literal notranslate"><span class="pre">build_ism_matrix()</span></code></a></li>
@@ -427,25 +446,22 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="utils.finetuning.html">utils.finetuning package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome">Module contents</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#cli-usage-example">CLI Usage Example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#id1">CLI Usage Example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#id2">CLI Usage Example</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#id3">CLI Usage Example</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#module-utils.finetuning">Module contents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utils.finetuning.html#finetuning-package">Finetuning Package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.html#id1">Subpackages:</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.html#subpackages">Subpackages:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.finetuning.html#id1">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.finetuning.AlphaGenome.html">utils.finetuning.AlphaGenome package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome">Module contents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#cli-usage-examples">CLI Usage Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="utils.finetuning.AlphaGenome.html#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a></li>
 </ul>
 </li>
 </ul>
@@ -505,35 +521,17 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#cli-usage-examples">CLI Usage Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#module-utils.preprocessing.make_AG_input_config">utils.preprocessing.make_AG_input_config module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#utils.preprocessing.make_AG_input_config.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.preprocessing.html#utils.preprocessing.make_AG_input_config.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="utils.preprocessing.html#cli-usage-example">CLI Usage Example</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</section>
-<section id="module-utils">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Link to this heading">#</a></h2>
-<section id="cardiomics-sequence-to-function-utilities">
-<h3>Cardiomics Sequence-to-Function Utilities<a class="headerlink" href="#cardiomics-sequence-to-function-utilities" title="Link to this heading">#</a></h3>
-<p>This package contains various utility subpackages for the cardiomics sequence-to-function pipeline.</p>
-<section id="id1">
-<h4>Subpackages:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
-<ul class="simple">
-<li><p><strong>io</strong>: Functions to annotate genetic variants (VCF-style) and handle data input/output.</p></li>
-<li><p><strong>preprocessing</strong>: Utilities to generate input configurations and preprocess data for AlphaGenome models.</p></li>
-<li><p><strong>finetuning</strong>: Scripts and utilities for fine-tuning AlphaGenome models, including head fine-tuning and evaluation.</p></li>
-<li><p><strong>eval</strong>: Streamed correlation analysis, track prediction, and accumulators for comprehensive model evaluation.</p></li>
-<li><p><strong>VEP</strong>: Variant Effect Prediction tools and scripts to process, analyze, and plot in silico variant effects.</p></li>
-<li><p><strong>ISM</strong>: Lightweight wrappers around the pretrained AlphaGenome API to add functionality to ATAC, ChIP-TF, and RNA modalities, and run multiple interval ISMs at scale while writing and scaling predictions.</p></li>
-</ul>
-</section>
-</section>
 </section>
 </section>
 
@@ -584,14 +582,14 @@
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils">Module contents</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cardiomics-sequence-to-function-utilities">Cardiomics Sequence-to-Function Utilities</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpackages:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#subpackages">Subpackages:</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Subpackages</a></li>
 </ul>
   </nav></div>
 

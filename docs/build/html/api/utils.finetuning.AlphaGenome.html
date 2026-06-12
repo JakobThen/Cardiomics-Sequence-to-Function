@@ -306,6 +306,7 @@
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-examples">CLI Usage Examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul class="nav section-nav flex-column">
@@ -325,25 +326,21 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-example">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">CLI Usage Example</a></li>
 </ul>
             </nav>
         </div>
@@ -374,6 +371,113 @@ evaluation on test intervals.</p>
 </ul>
 </section>
 </section>
+</section>
+<section id="cli-usage-examples">
+<h2>CLI Usage Examples<a class="headerlink" href="#cli-usage-examples" title="Link to this heading">#</a></h2>
+<p><strong>evaluate_AG_on_test_streamed.py</strong></p>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--fasta_path<span class="w"> </span><span class="o">[</span>FASTA_PATH<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span><span class="o">[</span>CONFIG<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--input_dir<span class="w"> </span><span class="o">[</span>INPUT_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--out_dir<span class="w"> </span><span class="o">[</span>OUT_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--checkpoint_dir<span class="w"> </span><span class="o">[</span>CHECKPOINT_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>OTHER_ARGS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-h, --help: Show help message with arguments and their descriptions, and exit
+--fasta_path (required): Path to the genome.fa file
+--config (required): Path to the target YAML config file
+--input_dir (required): Directory containing input BigWig files
+--out_dir (required): Output directory for figures and results
+--checkpoint_dir (required): Directory containing the best model checkpoint
+--gtf_file: Optional GTF file for Gene-based correlation mapping
+--fold: Data fold to use (0, 1, 2, 3)
+--window_size: Window size in bp (must map to an AlphaGenome config)
+--organism: Target organism
+--model_version: Base model version (e.g., fold_1, all_folds)
+--batch_size: Global batch size (must be divisible by N_GPUs)
+--resolution: Embedding resolution to evaluate (1, 128)
+--save_predictions: Whether to save test interval predictions to HDF5.
+--minimal_test: Truncate run to the first 8 intervals for quick debugging.
+</pre></div>
+</div>
+<p><strong>finetune_heads.py</strong></p>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/finetune_heads.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--fasta_path<span class="w"> </span><span class="o">[</span>FASTA_PATH<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span><span class="o">[</span>CONFIG<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base_dir<span class="w"> </span><span class="o">[</span>BASE_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--checkpoint_dir<span class="w"> </span><span class="o">[</span>CHECKPOINT_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>OTHER_ARGS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-h, --help: Show help message with arguments and their descriptions, and exit
+--fasta_path (required): Path to the genome.fa file
+--config (required): Path to the target YAML config file
+--base_dir (required): Base directory for resolving config paths (e.g., the local tmp dir)
+--checkpoint_dir (required): Directory to save checkpoints
+--fold: Data fold to use (0, 1, 2, 3)
+--window_size: Window size in bp (default: 1 Mbp)
+--organism: Target organism
+--model_version: Base model version (e.g., fold_1, all_folds)
+--batch_size: Global batch size (must be divisible by N_GPUs)
+--epochs: Number of training epochs
+--lr: Learning rate
+--weight_decay: Weight decay
+--seed: Random seed
+--patience: Early stopping patience
+--min_delta: Early stopping min delta
+</pre></div>
+</div>
+<p><strong>resume_finetune_heads.py</strong></p>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/resume_finetune_heads.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--fasta_path<span class="w"> </span><span class="o">[</span>FASTA_PATH<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--config<span class="w"> </span><span class="o">[</span>CONFIG<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--base_dir<span class="w"> </span><span class="o">[</span>BASE_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--in_checkpoint_dir<span class="w"> </span><span class="o">[</span>IN_CHECKPOINT_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--out_checkpoint_dir<span class="w"> </span><span class="o">[</span>OUT_CHECKPOINT_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>OTHER_ARGS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-h, --help: Show help message with arguments and their descriptions, and exit
+--fasta_path (required): Path to the genome.fa file
+--config (required): Path to the target YAML config file
+--base_dir (required): Base directory for resolving config paths (e.g., the local tmp dir)
+--in_checkpoint_dir (required): Directory containing the checkpoint to resume from
+--out_checkpoint_dir (required): Directory to save new checkpoints
+--fold: Data fold to use (0, 1, 2, 3)
+--window_size: Window size in bp (default: 1 Mbp)
+--organism: Target organism
+--model_version: Base model version (e.g., fold_1, all_folds)
+--batch_size: Global batch size (must be divisible by N_GPUs)
+--epochs: Number of training epochs
+--lr: Learning rate
+--weight_decay: Weight decay
+--seed: Random seed
+--patience: Early stopping patience
+--min_delta: Early stopping min delta
+</pre></div>
+</div>
+<p><strong>stage_to_tmp.py</strong></p>
+<p>Usage:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/stage_to_tmp.py<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--master_yaml<span class="w"> </span><span class="o">[</span>MASTER_YAML<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--tmp_dir<span class="w"> </span><span class="o">[</span>TMP_DIR<span class="o">]</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="o">[</span>OTHER_ARGS<span class="o">]</span>
+</pre></div>
+</div>
+<p>Input arguments:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>-h, --help: Show help message with arguments and their descriptions, and exit
+--master_yaml (required): Path to the input master YAML config
+--tmp_dir (required): Path to the local tmp directory on the compute node
+--out_yaml: Path for the output temporary YAML (defaults to &lt;tmp_dir&gt;/tmp_bw_config.yaml)
+</pre></div>
+</div>
 </section>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
@@ -584,18 +688,6 @@ and its sharding configuration, and executes multi-GPU streaming evaluation.</p>
 </dd></dl>
 
 </section>
-<section id="cli-usage-example">
-<h2>CLI Usage Example<a class="headerlink" href="#cli-usage-example" title="Link to this heading">#</a></h2>
-<p>Usage:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>...
-</pre></div>
-</div>
-<p>Input arguments:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</section>
 <section id="module-utils.finetuning.AlphaGenome.finetune_heads">
 <span id="utils-finetuning-alphagenome-finetune-heads-module"></span><h2>utils.finetuning.AlphaGenome.finetune_heads module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.finetune_heads" title="Link to this heading">#</a></h2>
 <p>Fine-tuning script for the AlphaGenome model.</p>
@@ -639,18 +731,6 @@ paths, hyperparameters, and model configurations.</p>
 </dd></dl>
 
 </section>
-<section id="id1">
-<h2>CLI Usage Example<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
-<p>Usage:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/finetune_heads.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>...
-</pre></div>
-</div>
-<p>Input arguments:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</section>
 <section id="module-utils.finetuning.AlphaGenome.resume_finetune_heads">
 <span id="utils-finetuning-alphagenome-resume-finetune-heads-module"></span><h2>utils.finetuning.AlphaGenome.resume_finetune_heads module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.resume_finetune_heads" title="Link to this heading">#</a></h2>
 <p>Resumes fine-tuning for an existing AlphaGenome model checkpoint.</p>
@@ -693,18 +773,6 @@ paths, hyperparameters, and model configurations.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="id2">
-<h2>CLI Usage Example<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
-<p>Usage:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/resume_finetune_heads.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>...
-</pre></div>
-</div>
-<p>Input arguments:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </section>
 <section id="module-utils.finetuning.AlphaGenome.stage_to_tmp">
 <span id="utils-finetuning-alphagenome-stage-to-tmp-module"></span><h2>utils.finetuning.AlphaGenome.stage_to_tmp module<a class="headerlink" href="#module-utils.finetuning.AlphaGenome.stage_to_tmp" title="Link to this heading">#</a></h2>
@@ -750,18 +818,6 @@ paths for the master config, output config, and temporary directory.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="id3">
-<h2>CLI Usage Example<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
-<p>Usage:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>src/utils/finetuning/AlphaGenome/stage_to_tmp.py<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>...
-</pre></div>
-</div>
-<p>Input arguments:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 </section>
 </section>
 
@@ -819,6 +875,7 @@ paths for the master config, output config, and temporary directory.</p>
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-examples">CLI Usage Examples</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed">utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.HDF5BatchWriter"><code class="docutils literal notranslate"><span class="pre">HDF5BatchWriter</span></code></a><ul class="nav section-nav flex-column">
@@ -838,25 +895,21 @@ paths for the master config, output config, and temporary directory.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cli-usage-example">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.finetune_heads">utils.finetuning.AlphaGenome.finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.resume_finetune_heads">utils.finetuning.AlphaGenome.resume_finetune_heads module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.resume_finetune_heads.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">CLI Usage Example</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.finetuning.AlphaGenome.stage_to_tmp">utils.finetuning.AlphaGenome.stage_to_tmp module</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.get_parser"><code class="docutils literal notranslate"><span class="pre">get_parser()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.finetuning.AlphaGenome.stage_to_tmp.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">CLI Usage Example</a></li>
 </ul>
   </nav></div>
 

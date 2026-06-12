@@ -1,14 +1,6 @@
 utils.finetuning package
 ========================
 
-Subpackages
------------
-
-.. toctree::
-   :maxdepth: 4
-
-   utils.finetuning.AlphaGenome
-
 Module contents
 ---------------
 
@@ -16,3 +8,11 @@ Module contents
    :members:
    :show-inheritance:
    :undoc-members:
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   utils.finetuning.AlphaGenome

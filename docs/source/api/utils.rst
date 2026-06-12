@@ -1,6 +1,14 @@
 utils package
 =============
 
+Module contents
+---------------
+
+.. automodule:: utils
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 Subpackages
 -----------
 
@@ -13,11 +21,3 @@ Subpackages
    utils.finetuning
    utils.io
    utils.preprocessing
-
-Module contents
----------------
-
-.. automodule:: utils
-   :members:
-   :show-inheritance:
-   :undoc-members:

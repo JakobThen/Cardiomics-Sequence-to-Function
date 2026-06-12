@@ -1,3 +1,10 @@
+"""
+In Silico Mutagenesis (ISM) Package
+===================================
+
+Lightweight wrappers around the pretrained AlphaGenome API available via the alphagenome package to add functionality to ATAC, ChIP-TF, and RNA modalities and run multiple interval ISMs at scale while writing and scaling predictions.
+"""
+
 import h5py
 import numpy as np
 import pandas as pd
@@ -11,15 +18,6 @@ from alphagenome.data import transcript as transcript_utils
 from alphagenome.interpretation import ism
 from alphagenome.models import dna_client, variant_scorers
 from alphagenome.visualization import plot_components
-
-
-"""
-In Silico Mutagenesis (ISM) Package
-===================================
-
-Lightweight wrappers around the pretrained AlphaGenome API available via the alphagenome package to add functionality to ATAC, ChIP-TF, and RNA modalities and run multiple interval ISMs at scale while writing and scaling predictions.
-"""
-
 
 def aggregate_adata_vars(
     adata: ad.AnnData, 

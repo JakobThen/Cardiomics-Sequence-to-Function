@@ -300,6 +300,7 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.ISM">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-silico-mutagenesis-ism-package">In Silico Mutagenesis (ISM) Package</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.ISM.aggregate_adata_vars"><code class="docutils literal notranslate"><span class="pre">aggregate_adata_vars()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.ISM.average_all_stranded_expression"><code class="docutils literal notranslate"><span class="pre">average_all_stranded_expression()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.ISM.build_ism_matrix"><code class="docutils literal notranslate"><span class="pre">build_ism_matrix()</span></code></a></li>
@@ -325,6 +326,10 @@
 <h1>utils.ISM package<a class="headerlink" href="#utils-ism-package" title="Link to this heading">#</a></h1>
 <section id="module-utils.ISM">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils.ISM" title="Link to this heading">#</a></h2>
+<section id="in-silico-mutagenesis-ism-package">
+<h3>In Silico Mutagenesis (ISM) Package<a class="headerlink" href="#in-silico-mutagenesis-ism-package" title="Link to this heading">#</a></h3>
+<p>Lightweight wrappers around the pretrained AlphaGenome API available via the alphagenome package to add functionality to ATAC, ChIP-TF, and RNA modalities and run multiple interval ISMs at scale while writing and scaling predictions.</p>
+</section>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.ISM.aggregate_adata_vars">
 <span class="sig-prename descclassname"><span class="pre">utils.ISM.</span></span><span class="sig-name descname"><span class="pre">aggregate_adata_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">anndata.AnnData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groupby_cols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">['ontology_curie',</span> <span class="pre">'transcription_factor']</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">anndata.AnnData</span></span></span><a class="reference internal" href="../_modules/utils/ISM.html#aggregate_adata_vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.ISM.aggregate_adata_vars" title="Link to this definition">#</a></dt>
@@ -554,6 +559,7 @@ Defaults to [‘ontology_curie’, ‘transcription_factor’].</p></li>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-utils.ISM">Module contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#in-silico-mutagenesis-ism-package">In Silico Mutagenesis (ISM) Package</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.ISM.aggregate_adata_vars"><code class="docutils literal notranslate"><span class="pre">aggregate_adata_vars()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.ISM.average_all_stranded_expression"><code class="docutils literal notranslate"><span class="pre">average_all_stranded_expression()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#utils.ISM.build_ism_matrix"><code class="docutils literal notranslate"><span class="pre">build_ism_matrix()</span></code></a></li>
