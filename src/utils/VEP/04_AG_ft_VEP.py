@@ -35,11 +35,13 @@ from alphagenome_research.model.variant_scoring.gene_mask_extractor import (
 
 FASTA_PATH = Path("/g/steinmetz/calfonso/shared/reference_genomes/GRCh38_gencode_release29/genome_fasta/genome.fa")
 CHROM_SIZES_PATH = Path("/g/steinmetz/calfonso/shared/reference_genomes/GRCh38_gencode_release29/genome_fasta/genome.chrom.sizes")
-TARGETS_CONFIG_PATH = Path("/g/steinmetz/projects/variant2function_project/src/analysis/AG_ft/configs/all_modalities_ct_merged.yaml")
-CHECKPOINT_DIR = Path("/g/steinmetz/projects/then/AG/heads_only")
+TARGETS_CONFIG_PATH = Path("/g/steinmetz/projects/variant2function_project/src/cardiomics-sequence-to-function/src/AlphaGenome_finetuning/configs/simple_merged.yaml")
+CHECKPOINT_DIR = Path("/g/steinmetz/projects/then/AG/heads_only_deduplicated_resumed")
 
 #INPUT_VCF = Path("/g/steinmetz/projects/variant2function_project/data/processed/variant.selection/VCF_SDR007A_SDR010ABC_Comb.csv")
-INPUT_VCF = Path("/g/steinmetz/projects/variant2function_project/data/processed/variant.selection/VCF_all_Richter_vars_REST.csv")
+INPUT_VCF = Path("/g/steinmetz/projects/variant2function_project/data/processed/variant.selection/VCF_all_Richter_vars.csv")
+#INPUT_VCF = Path("/g/steinmetz/projects/variant2function_project/data/processed/variant.selection/VCF_SDR007AB_DLI_SDR010ABC_Comb.csv")
+
 
 OUTPUT_PATH = Path("/g/steinmetz/projects/variant2function_project/results/variant.selection/VEP/AG_ft_VEP_out")
 
