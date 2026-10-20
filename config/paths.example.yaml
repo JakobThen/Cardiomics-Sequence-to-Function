@@ -15,7 +15,11 @@
 data_root: ..
 
 # --- Inputs -------------------------------------------------------------------
-raw_bam_dir: input_data/raw_bam
+# Pseudobulk BAMs (one <cell type>.bam per pseudobulk) and Cut&Tag BAMs
+atac_bam_dir: input_data/raw_bam/multiome_ATAC
+rna_bam_dir: input_data/raw_bam/multiome_RNA
+# Folder with .bam files, or a text file listing BAM paths (one per line)
+cutntag_bam_input: input_data/raw_bam/CutnTag
 bigwig_dir: input_data/AlphaGenome_Borzoi_input
 intervals_dir: input_data/AlphaGenome_Borzoi_input/intervals
 chrombpnet_input_dir: input_data/chrombpnet_input
@@ -27,14 +31,26 @@ genome_fasta: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.f
 chrom_sizes: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.chrom.sizes
 gtf: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genes.gtf
 
+# --- AlphaGenome fine-tuning --------------------------------------------------
+# Targets config written by step 01 and read by steps 02-04
+ag_targets_config: models/AlphaGenome_finetuned/targets_config.yaml
+# Where step 02 writes checkpoints (resumed runs: <ag_ft_train_dir>_resumed)
+ag_ft_train_dir: models/AlphaGenome_finetuned/heads
+# Checkpoint evaluated by steps 03 (test eval) and 04 (VEP); its 'best' subfolder is used
+ag_ft_checkpoint_dir: models/AlphaGenome_finetuned/heads
+# Persistent XLA autotune cache (speeds up start-up of GPU jobs)
+xla_cache_dir: models/xla_cache
+
 # --- Models -------------------------------------------------------------------
 models_dir: models
-ag_ft_checkpoint_dir: models/AlphaGenome_finetuned
 
 # --- Outputs ------------------------------------------------------------------
 results_dir: results
 model_eval_dir: results/model_evaluation
 vep_dir: results/VEP
 
-# --- Compute-node scratch (node-local SSD for staging BigWigs) ----------------
+# --- Logs & compute-node scratch ------------------------------------------------
+# SLURM logs and run lists, one subfolder per workflow (logs/<workflow>/)
+logs_dir: logs
+# Node-local SSD for staging BigWigs (a per-job subfolder is created)
 node_tmp_dir: /tmp

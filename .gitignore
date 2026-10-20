@@ -1,4 +1,5 @@
-# HPC Cluster Logs
+# HPC Cluster Logs (workflow logs and run lists: logs/<workflow>/)
+logs/
 *.out
 *.err
 *.log
@@ -18,6 +19,9 @@ input_data/metadata/GRCh38_gencode_release29_genome_fasta/*
 config/paths.yaml
 config/site.env
 .env
+# Group-specific run configs with cluster paths (see the READMEs in these folders)
+workflows/alphagenome_ft/configs/*.yaml
+workflows/input_prep/configs/cutntag_bams.txt
 
 # Data, models and results live outside git (only the READMEs are tracked)
 input_data/*

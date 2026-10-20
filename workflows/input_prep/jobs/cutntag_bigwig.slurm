@@ -1,32 +1,36 @@
 #!/bin/bash
 # ==============================================================================
-# Code by Jakob
-# 
-# Purpose: Worker script for Cut&Tag BAM to BigWig conversion. Runs per sample 
-#          in a SLURM array. Normalizes to 100M insertions and filters for 
+# Code by Jakob Then
+#
+# Purpose: Worker script for Cut&Tag BAM to BigWig conversion. Runs per sample
+#          in a SLURM array. Normalizes to 100M insertions and filters for
 #          canonical chromosomes. Currently applies +4/-4 shift correction.
+#          Submitted by workflows/input_prep/03_cutntag_bigwig.sh.
 # Input:   $1 - BigWig Output Directory
 #          $2 - Path to the Config file containing full BAM paths
+#          $3 - Reference genome FASTA
+#          $4 - Chromosome sizes file
 # ==============================================================================
 
 #SBATCH --job-name=CutnTag_BW_preprocess
-#SBATCH --output=logs/CnT_BW_preprocess_%A_%a.out
-#SBATCH --error=logs/CnT_BW_preprocess_%A_%a.err
 #SBATCH --time=3:00:00
-#SBATCH --partition=bigmem
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
+
+source "${CS2F_REPO_ROOT:?Submit via workflows/input_prep/03_cutntag_bigwig.sh}/workflows/common/load_site_env.sh"
 
 # ------------------------------------------------------------------------------
 # Argument Parsing
 # ------------------------------------------------------------------------------
-if [ "$#" -ne 2 ]; then
-    echo "Error: Expected 2 arguments (BW_OUTPUT_DIR, RUN_CONFIG). Got $#."
+if [ "$#" -ne 4 ]; then
+    echo "Error: Expected 4 arguments (BW_OUTPUT_DIR, RUN_CONFIG, GENOME_FASTA, CHROM_SIZES). Got $#."
     exit 1
 fi
 
 BW_OUTPUT_DIR="$1"
 RUN_CONFIG="$2"
+REFERENCE_GENOME="$3"
+CHROM_SIZES="$4"
 
 # Read the full BAM path directly from the config based on Array Task ID
 BAM_FILE=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$RUN_CONFIG")
@@ -49,11 +53,6 @@ NORM_BW="${OUT_PREFIX}_100M_norm.bw"
 TMP_BG="${OUT_PREFIX}_temp.bg"
 TMP_NORM_BG="${OUT_PREFIX}_temp_norm.bg"
 
-# Reference genome
-REFERENCE_DIR="../../input_data/metadata/GRCh38_gencode_release29_genome_fasta"
-CHROM_SIZES="${REFERENCE_DIR}/genome.chrom.sizes"
-REFERENCE_GENOME="${REFERENCE_DIR}/genome.fa"
-
 # "ATAC" applies a +4/-4 Tn5 shift.
 ASSAY_TYPE="ATAC"
 
@@ -62,8 +61,7 @@ mkdir -p "$BW_OUTPUT_DIR"
 # ------------------------------------------------------------------------------
 # Processing Pipeline
 # ------------------------------------------------------------------------------
-source /g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
-conda activate /g/steinmetz/projects/variant2function_project/env/chrombpnet
+cs2f_activate "$CS2F_ENV_CHROMBPNET"
 
 # Call chrombpnet script dynamically via the python module flag (-m)
 echo "  1/3 Converting ${SAMPLE_NAME} to BigWig..."
@@ -72,7 +70,7 @@ python -m chrombpnet.helpers.preprocessing.reads_to_bigwig \
     -g "$REFERENCE_GENOME" \
     -c "$CHROM_SIZES" \
     -op "$OUT_PREFIX" \
-    -d "$ASSAY_TYPE"    
+    -d "$ASSAY_TYPE"
 
 echo "  2/3 Filtering non-canonical chromosomes for ${SAMPLE_NAME}..."
 bigWigToBedGraph "$RAW_BW" stdout | awk '$1 ~ /^chr([1-9]|1[0-9]|2[0-2]|X)$/' > "$TMP_BG"

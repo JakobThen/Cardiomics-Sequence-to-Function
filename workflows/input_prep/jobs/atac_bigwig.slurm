@@ -1,34 +1,39 @@
 #!/bin/bash
 # ==============================================================================
-# Code by Jakob
-# 
-# Purpose: Worker script for ATAC BAM to BigWig conversion. Runs per cell type 
-#          in a SLURM array. Converts, filters canonical chromosomes, and 
+# Code by Jakob Then
+#
+# Purpose: Worker script for ATAC BAM to BigWig conversion. Runs per cell type
+#          in a SLURM array. Converts, filters canonical chromosomes, and
 #          normalizes to 100M total insertions.
+#          Submitted by workflows/input_prep/01_atac_bigwig.sh (partition and
+#          log files are set there from config/site.env and config/paths.yaml).
 # Input:   $1 - BAM Input Directory
 #          $2 - BigWig Output Directory
 #          $3 - Path to the Config file containing valid cell types
+#          $4 - Reference genome FASTA
+#          $5 - Chromosome sizes file
 # ==============================================================================
 
 #SBATCH --job-name=ATAC_BW_preprocess
-#SBATCH --output=logs/ATAC_BW_preprocess_%A_%a.out
-#SBATCH --error=logs/ATAC_BW_preprocess_%A_%a.err
 #SBATCH --time=5:00:00
-#SBATCH --partition=bigmem
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
+
+source "${CS2F_REPO_ROOT:?Submit via workflows/input_prep/01_atac_bigwig.sh}/workflows/common/load_site_env.sh"
 
 # ------------------------------------------------------------------------------
 # Argument Parsing
 # ------------------------------------------------------------------------------
-if [ "$#" -ne 3 ]; then
-    echo "Error: Expected 3 arguments (BAM_DIR, BW_OUTPUT_DIR, CONFIG_FILE). Got $#."
+if [ "$#" -ne 5 ]; then
+    echo "Error: Expected 5 arguments (BAM_DIR, BW_OUTPUT_DIR, CONFIG_FILE, GENOME_FASTA, CHROM_SIZES). Got $#."
     exit 1
 fi
 
 BAM_DIR="$1"
 BW_OUTPUT_DIR="$2"
 CONFIG_FILE="$3"
+REFERENCE_GENOME="$4"
+CHROM_SIZES="$5"
 
 # Read specific cell type parameter for this specific Array Task ID
 PARAMS=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$CONFIG_FILE")
@@ -45,11 +50,6 @@ echo "================================================="
 BAM_FILE="${BAM_DIR}/${CELL_TYPE}.bam"
 OUT_PREFIX="${BW_OUTPUT_DIR}/ATAC_${CELL_TYPE}"
 
-# Reference genome parameters
-REFERENCE_DIR="../../input_data/metadata/GRCh38_gencode_release29_genome_fasta"
-CHROM_SIZES="${REFERENCE_DIR}/genome.chrom.sizes"
-REFERENCE_GENOME="${REFERENCE_DIR}/genome.fa"
-
 ASSAY_TYPE="ATAC"
 
 # Ensure output directory exists before writing to it
@@ -58,10 +58,7 @@ mkdir -p "$BW_OUTPUT_DIR"
 # ------------------------------------------------------------------------------
 # Processing Pipeline
 # ------------------------------------------------------------------------------
-source /g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
-conda activate /g/steinmetz/projects/variant2function_project/env/chrombpnet
-#conda activate chrombpnet
-
+cs2f_activate "$CS2F_ENV_CHROMBPNET"
 
 echo "  1/3 Converting ${CELL_TYPE} to BigWig..."
 
@@ -71,7 +68,7 @@ python -m chrombpnet.helpers.preprocessing.reads_to_bigwig \
     -g "$REFERENCE_GENOME" \
     -c "$CHROM_SIZES" \
     -op "$OUT_PREFIX" \
-    -d "$ASSAY_TYPE"    
+    -d "$ASSAY_TYPE"
 
 # Intermediate and Final File Tracking
 RAW_BW="${OUT_PREFIX}_unstranded.bw"

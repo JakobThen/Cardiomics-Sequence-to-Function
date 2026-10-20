@@ -1,34 +1,37 @@
 #!/bin/bash
 # ==============================================================================
-# Code by Jakob
-# 
-# Purpose: Worker script for RNA BAM to 3' BigWig conversion. Runs per cell type 
-#          in a SLURM array. Extracts 3' ends, splits by strand, filters for 
+# Code by Jakob Then
+#
+# Purpose: Worker script for RNA BAM to 3' BigWig conversion. Runs per cell type
+#          in a SLURM array. Extracts 3' ends, splits by strand, filters for
 #          canonical chromosomes, and normalizes so BOTH strands sum to 100M.
+#          Submitted by workflows/input_prep/02_rna_bigwig.sh (default mode).
 # Input:   $1 - BAM Input Directory
 #          $2 - BigWig Output Directory
 #          $3 - Path to the Config file containing valid cell types
+#          $4 - Reference genome FASTA (unused, kept for a uniform interface)
+#          $5 - Chromosome sizes file
 # ==============================================================================
 
 #SBATCH --job-name=RNA_3prime_BW
-#SBATCH --output=logs/RNA_3prime_BW_%A_%a.out
-#SBATCH --error=logs/RNA_3prime_BW_%A_%a.err
 #SBATCH --time=3:00:00
-#SBATCH --partition=bigmem
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
+
+source "${CS2F_REPO_ROOT:?Submit via workflows/input_prep/02_rna_bigwig.sh}/workflows/common/load_site_env.sh"
 
 # ------------------------------------------------------------------------------
 # Argument Parsing
 # ------------------------------------------------------------------------------
-if [ "$#" -ne 3 ]; then
-    echo "Error: Expected 3 arguments (BAM_DIR, BW_OUTPUT_DIR, CONFIG_FILE). Got $#."
+if [ "$#" -ne 5 ]; then
+    echo "Error: Expected 5 arguments (BAM_DIR, BW_OUTPUT_DIR, CONFIG_FILE, GENOME_FASTA, CHROM_SIZES). Got $#."
     exit 1
 fi
 
 BAM_DIR="$1"
 BW_OUTPUT_DIR="$2"
 CONFIG_FILE="$3"
+CHROM_SIZES="$5"
 
 # Read specific cell type parameter for this specific Array Task ID
 PARAMS=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$CONFIG_FILE")
@@ -51,11 +54,6 @@ RAW_MINUS_BG="${OUT_PREFIX}_minus_raw.bg"
 NORM_PLUS_BW="${OUT_PREFIX}_plus_100M.bw"
 NORM_MINUS_BW="${OUT_PREFIX}_minus_100M.bw"
 
-# Reference genome (Safe to hardcode as they rarely change)
-REFERENCE_DIR="../../input_data/metadata/GRCh38_gencode_release29_genome_fasta"
-CHROM_SIZES="${REFERENCE_DIR}/genome.chrom.sizes"
-REFERENCE_GENOME="${REFERENCE_DIR}/genome.fa"
-
 # Ensure output directory exists
 mkdir -p "$BW_OUTPUT_DIR"
 
@@ -64,8 +62,7 @@ mkdir -p "$BW_OUTPUT_DIR"
 # ------------------------------------------------------------------------------
 
 # Load Environment containing bedtools and UCSC tools (bedGraphToBigWig)
-source /g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/profile.d/conda.sh
-conda activate /g/steinmetz/projects/variant2function_project/env/chrombpnet
+cs2f_activate "$CS2F_ENV_CHROMBPNET"
 
 echo "  1/4 Extracting 3' ends and filtering for canonical chromosomes..."
 # Plus strand

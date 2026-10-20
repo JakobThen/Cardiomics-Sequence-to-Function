@@ -1,34 +1,41 @@
 #!/bin/bash
 # ==============================================================================
-# Code by Jakob
-# 
-# Purpose: Takes bulk Cut&Tag .bam files and sets up a SLURM array job to 
-#          compute base-resolution bigwigs for AlphaGenome/Borzoi. 
+# Code by Jakob Then
+#
+# Purpose: Takes bulk Cut&Tag .bam files and submits a SLURM array job to
+#          compute base-resolution bigwigs for AlphaGenome/Borzoi.
 #          Leverages chromBPNet derived pipeline and transfers it to Cut&Tag.
 #          Reads are normalized to 100M counts per .bw file.
-# Input:   INPUT_SOURCE can be either:
+# Usage:   bash workflows/input_prep/03_cutntag_bigwig.sh
+#          CUTNTAG_INPUT=/path/to/curated_bams.txt bash workflows/input_prep/03_cutntag_bigwig.sh
+# Input:   CUTNTAG_INPUT can be either:
 #          1. A directory path (will scan for all .bam files)
 #          2. A text file containing manually curated full paths to .bam files
-# Output:  Generates job configs and submits make_CutnTag_bw.slurm array jobs.
+#          [default: <cutntag_bam_input> from config/paths.yaml]
+# Output:  <bigwig_dir>/CutnTag_bigwig/<sample>_100M_norm.bw
+#          Run list and submission log in <logs_dir>/input_prep/
 # ==============================================================================
+set -euo pipefail
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../common/load_site_env.sh"
+WORKFLOW_DIR="${CS2F_REPO_ROOT}/workflows/input_prep"
 
 # ------------------------------------------------------------------------------
 # I/O & Parameters
 # ------------------------------------------------------------------------------
-BASE_DIR="../.."
-BW_OUTPUT_DIR="${BASE_DIR}/input_data/AlphaGenome_Borzoi_input/CutnTag_bigwig"
+INPUT_SOURCE="${CUTNTAG_INPUT:-$(cs2f_path cutntag_bam_input)}"
+BW_OUTPUT_DIR="${BW_OUTPUT_DIR:-$(cs2f_path bigwig_dir)/CutnTag_bigwig}"
+GENOME_FASTA="$(cs2f_path genome_fasta)"
+CHROM_SIZES="$(cs2f_path chrom_sizes)"
 
-# Set this to EITHER a directory OR a .txt file
-INPUT_SOURCE="cardiomics_s2f/preprocessing/valid_CutnTag_bams.txt" 
-# Example directory usage: INPUT_SOURCE="${BASE_DIR}/input_data/raw_bam/CutnTag"
-
-# Temporary config file that the array job will actually read
-RUN_CONFIG="cardiomics_s2f/preprocessing/running_CutnTag_bams.txt"
-LOG_FILE="cardiomics_s2f/preprocessing/submitted_CutnTag.txt"
+# Run list (read by the array job) & submission log
+RUN_DIR="$(cs2f_path logs_dir)/input_prep"
+RUN_CONFIG="${RUN_DIR}/running_CutnTag_bams.txt"
+LOG_FILE="${RUN_DIR}/submitted_CutnTag.txt"
 
 # ------------------------------------------------------------------------------
 # Execution
 # ------------------------------------------------------------------------------
+mkdir -p "$RUN_DIR"
 
 # Clear previous files
 > "$RUN_CONFIG"
@@ -44,12 +51,12 @@ echo "======================================================================"
 if [[ -d "$INPUT_SOURCE" ]]; then
     echo "Mode: Directory detected. Scanning for .bam files..."
     find "$INPUT_SOURCE" -type f -name "*.bam" > "$RUN_CONFIG"
-    
+
 elif [[ -f "$INPUT_SOURCE" ]]; then
     echo "Mode: Config file detected. Copying manually curated paths..."
     # Filter out empty lines just in case
-    grep -v '^$' "$INPUT_SOURCE" > "$RUN_CONFIG"
-    
+    grep -v '^$' "$INPUT_SOURCE" > "$RUN_CONFIG" || true
+
 else
     echo "Error: INPUT_SOURCE is neither a valid directory nor a file."
     exit 1
@@ -71,4 +78,5 @@ fi
 echo "Found $NUM_JOBS Cut&Tag samples. Submitting Slurm array job..."
 
 # Launch as array job, passing the output dir and the active config file
-sbatch --array=1-$NUM_JOBS ../cardiomics_s2f/preprocessing/make_CutnTag_bw.slurm "$BW_OUTPUT_DIR" "$RUN_CONFIG"
+cs2f_sbatch input_prep cpu --array=1-"$NUM_JOBS" "${WORKFLOW_DIR}/jobs/cutntag_bigwig.slurm" \
+    "$BW_OUTPUT_DIR" "$RUN_CONFIG" "$GENOME_FASTA" "$CHROM_SIZES"
