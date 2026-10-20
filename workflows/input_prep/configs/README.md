@@ -14,7 +14,8 @@ The project switched between two pseudobulk definitions:
 - **normal** (finer): 13 cell types, 11 of them with ≥400 cells (adds
   Early_cardiomyocytes, Early_endoderm, Early_fibroblasts, Mesendoderm; drops
   Early_ectoderm and SOX2_Ectoderm). The final fine-tuned AlphaGenome model was
-  trained on this definition.
+  trained on this definition (deduplicated reads; BigWigs in
+  `seq2fun_train_input_baseres/multiome_{ATAC,RNA_3prime}_bigwig`).
 
 Both write BigWigs with the same file names for shared cell types (e.g.
 `ATAC_Cardiomyocytes_100M_norm.bw`), so write each definition to its own output

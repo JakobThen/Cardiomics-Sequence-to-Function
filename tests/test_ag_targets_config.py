@@ -58,6 +58,22 @@ def test_build_targets_config(bigwig_dir):
     assert rna["kind"] == "rna_seq" and len(rna["targets"]) == 1
 
 
+def test_norm_tag_cuts_labels_like_the_config_of_record(tmp_path):
+    # Naming of the final model's BigWigs: ATAC/Cut&Tag "_100M_norm", RNA "_<strand>_100M"
+    files = {"multiome_ATAC_bigwig": ["ATAC_Cardiomyocytes_100M_norm.bw"],
+             "multiome_RNA_3prime_bigwig": ["RNA_Cardiomyocytes_minus_100M.bw"],
+             "CutnTag_bigwig": ["K27acDay1_100M_norm.bw"]}
+    rows = []
+    for folder, names in files.items():
+        (tmp_path / folder).mkdir()
+        for name in names:
+            (tmp_path / folder / name).write_bytes(b"")
+            rows.append({"full_path": f"{tmp_path / folder}/{name}", "nonzero_mean_canonical": 1.0})
+    config = build_targets_config(tmp_path, list(files), pd.DataFrame(rows), norm_tag="_100M")
+    labels = [t["label"] for head in config["heads"] for t in head["targets"]]
+    assert labels == ["ATAC_Cardiomyocytes", "RNA_Cardiomyocytes_minus", "K27acDay1"]
+
+
 def test_norm_tag_filters_and_strips_labels(bigwig_dir):
     data_dir, means = bigwig_dir
     config = build_targets_config(data_dir, ["multiome_ATAC_bigwig"], means, norm_tag="_100M_norm")
@@ -138,3 +154,24 @@ def test_normalize_resolves_symlinks(tmp_path):
     assert Path(resolved) == real.resolve()
     kept = normalize_targets_config(config, resolve_paths=False)["heads"][0]["targets"][0]["path"]
     assert kept == str(link_dir / real.name)
+
+
+def test_means_match_regardless_of_data_dir_spelling(bigwig_dir, monkeypatch):
+    data_dir, means = bigwig_dir  # CSV holds absolute paths
+    monkeypatch.chdir(data_dir.parent)
+    config = build_targets_config(Path(data_dir.name), ["multiome_RNA_3prime_bigwig"], means)  # relative data_dir
+    target = config["heads"][0]["targets"][0]
+    assert target["nonzero_mean"] == round(0.12345, 3)
+    assert Path(target["path"]).is_absolute()
+
+
+def test_track_order_is_case_sensitive_on_every_platform(tmp_path):
+    # Order of the final model's Cut&Tag head: uppercase names before "cutntag_*"
+    folder = tmp_path / "CutnTag_bigwig"
+    folder.mkdir()
+    names = ["cutntag_4Day1_100M_norm.bw", "K4Day1_100M_norm.bw", "K27acDay1_100M_norm.bw"]
+    for name in names:
+        (folder / name).write_bytes(b"")
+    means = pd.DataFrame({"full_path": [f"{folder}/{n}" for n in names], "nonzero_mean_canonical": 1.0})
+    config = build_targets_config(tmp_path, ["CutnTag_bigwig"], means, norm_tag="_100M")
+    assert [t["label"] for t in config["heads"][0]["targets"]] == ["K27acDay1", "K4Day1", "cutntag_4Day1"]

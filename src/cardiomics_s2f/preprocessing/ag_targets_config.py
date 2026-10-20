@@ -8,6 +8,7 @@ non-zero means.
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import yaml
@@ -41,8 +42,10 @@ def build_targets_config(data_dir, modality_folders, nonzero_means, norm_tag=Non
 
     For every modality folder, all ``*.bw`` files are listed in alphabetical
     order. If ``norm_tag`` is given, only files containing it are kept and the
-    tag is stripped from their labels. Each track's non-zero mean is looked up
-    in ``nonzero_means`` by its path ``f"{data_dir}/{folder}/{file}"``.
+    labels are cut at the tag (``ATAC_X_100M_norm`` -> ``ATAC_X``). Each track's
+    non-zero mean is looked up in ``nonzero_means`` by path; both sides are compared
+    as real paths, so relative, absolute and symlinked spellings all match. Track
+    paths in the config are written as real paths (symlink targets).
 
     Args:
         data_dir (str or Path): Base directory containing the modality folders.
@@ -50,8 +53,8 @@ def build_targets_config(data_dir, modality_folders, nonzero_means, norm_tag=Non
         nonzero_means (pd.DataFrame): Table with ``full_path`` and
             ``nonzero_mean_canonical`` columns (output of
             ``00_compute_nonzero_means_per_bw.sh``).
-        norm_tag (str, optional): Normalisation tag to filter files by and strip
-            from labels. Defaults to None.
+        norm_tag (str, optional): Normalisation tag to filter files by; labels
+            are cut at the tag. Defaults to None.
 
     Returns:
         dict: ``{"heads": [...]}`` with one predefined head per modality folder
@@ -64,6 +67,12 @@ def build_targets_config(data_dir, modality_folders, nonzero_means, norm_tag=Non
     data_dir = Path(data_dir)
     modality_configs = []
 
+    # Look up means by real path, independent of how data_dir was spelled
+    mean_by_path = {
+        os.path.realpath(path): mean
+        for path, mean in zip(nonzero_means["full_path"], nonzero_means["nonzero_mean_canonical"])
+    }
+
     for mod in modality_folders:
         # Infer the correct ID and kind based on standardized naming conventions
         head_id, kind = infer_modality(mod)
@@ -72,29 +81,30 @@ def build_targets_config(data_dir, modality_folders, nonzero_means, norm_tag=Non
         targets = []
 
         if target_dir.exists():
-            # Glob all BigWigs and sort alphabetically to ensure deterministic ordering in the YAML
-            for bw_file in sorted(target_dir.glob("*.bw")):
+            # Glob all BigWigs and sort by case-sensitive file name: track order defines the
+            # model's output order and must not depend on the platform (Windows paths sort
+            # case-insensitively)
+            for bw_file in sorted(target_dir.glob("*.bw"), key=lambda p: p.name):
                 label = bw_file.name.replace(".bw", "")
 
                 if norm_tag:
                     # Skip files that don't match our desired normalization tag
                     if norm_tag not in label:
                         continue
-                    # Clean the label for the final config by stripping out the tag
-                    label = label.replace(norm_tag, "")
+                    # Clean the label by cutting it at the tag, so e.g. "_100M" turns both
+                    # "ATAC_X_100M_norm" and "RNA_X_minus_100M" into "ATAC_X" / "RNA_X_minus"
+                    label = label.split(norm_tag)[0]
 
-                expected_path = f"{target_dir}/{bw_file.name}"
+                real_path = os.path.realpath(bw_file)
 
                 # Verify that we actually have a precomputed mean for this specific file to prevent silent downstream errors
-                match = nonzero_means.loc[nonzero_means["full_path"] == expected_path]
-                assert not match.empty, f"Input .bw file {expected_path} not found in nonzero track means CSV."
+                assert real_path in mean_by_path, f"Input .bw file {bw_file} not found in nonzero track means CSV."
 
                 # Extract and round the mean
-                nonzero_mean = match["nonzero_mean_canonical"].values[0]
-                nonzero_mean = round(float(nonzero_mean), 3)
+                nonzero_mean = round(float(mean_by_path[real_path]), 3)
 
                 targets.append({
-                    "path": str(bw_file.resolve()),
+                    "path": real_path,
                     "label": label,
                     "nonzero_mean": nonzero_mean
                 })
@@ -140,8 +150,6 @@ def normalize_targets_config(config: dict, resolve_paths: bool = True, check_exi
     Raises:
         FileNotFoundError: If ``check_exists`` is set and a track file is missing.
     """
-    import os
-
     heads = []
     for head in config["heads"]:
         targets = []
