@@ -2,20 +2,11 @@
 Preprocessing Package
 =====================
 
-This package contains scripts and utilities for preparing raw sequencing data 
-(like ATAC and RNA) into the specific input formats required by AlphaGenome 
-and Borzoi models.
-
-It handles:
-* BigWig generation
-* Cell counting and metadata extraction
-* Final configuration `.yaml` construction
+Utilities for preparing model inputs for AlphaGenome and Borzoi (the BigWig
+generation pipelines themselves live in ``workflows/input_prep/``).
 
 Submodules:
 -----------
 * `ag_targets_config`: Builds and writes the AlphaGenome targets configuration (heads, tracks, non-zero means).
-
-CLI Scripts:
-------------
-* `make_AG_input_config`: CLI script to map directories and generate AlphaGenome YAML configuration files.
+* `bigwig_stats`: Non-zero means of BigWig tracks on canonical chromosomes.
 """

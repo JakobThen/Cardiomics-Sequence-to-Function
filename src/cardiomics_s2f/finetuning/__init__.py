@@ -7,6 +7,5 @@ specifically focusing on the AlphaGenome architecture.
 
 Subpackages:
 ------------
-* `alphagenome`: Utilities and CLI scripts to run finetuning, resume training, stage
-  data directories, and run streaming evaluation.
+* `alphagenome`: Multi-GPU inference and prediction helpers for fine-tuned AlphaGenome models.
 """

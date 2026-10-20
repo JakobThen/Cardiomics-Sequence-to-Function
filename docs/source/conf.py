@@ -10,6 +10,9 @@ import os
 import sys
 # Tell Sphinx to look one folder up to find your Python modules
 sys.path.insert(0, os.path.abspath('../../src')) 
+# Workflow CLI scripts (documented with sphinx-argparse in the pipeline pages)
+sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_ft'))
+sys.path.insert(0, os.path.abspath('../../workflows/common'))
 
 project = 'cardiomics-sequence-to-function'
 copyright = '2026, Jakob Then'

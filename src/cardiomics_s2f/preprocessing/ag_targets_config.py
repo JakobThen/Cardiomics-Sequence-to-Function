@@ -54,7 +54,8 @@ def build_targets_config(data_dir, modality_folders, nonzero_means, norm_tag=Non
             from labels. Defaults to None.
 
     Returns:
-        dict: ``{"heads": [...]}`` with one head per modality folder.
+        dict: ``{"heads": [...]}`` with one predefined head per modality folder
+        (keys ``dir_name, id, source, kind, targets``).
 
     Raises:
         ValueError: If a folder name does not match a recognised modality.
@@ -104,15 +105,66 @@ def build_targets_config(data_dir, modality_folders, nonzero_means, norm_tag=Non
             print(f"Warning: No valid .bw files found in {target_dir}")
 
         # Construct the head dictionary expected by AlphaGenome
+        # (alphagenome_ft requires "source"; "dir_name" is only informational)
         modality_configs.append({
             "dir_name": mod,
             "id": head_id,
+            "source": "predefined",
             "kind": kind,
             "targets": targets
         })
 
     # Wrap the heads in the top-level configuration key
     return {"heads": modality_configs}
+
+
+def normalize_targets_config(config: dict, resolve_paths: bool = True, check_exists: bool = True) -> dict:
+    """Converts a targets configuration to the current format.
+
+    Each head gets the keys ``dir_name, id, source, kind, targets`` in this order
+    (``source`` defaults to ``"predefined"``, ``dir_name`` to the folder of its
+    first track). Track order and all other keys are kept unchanged, because
+    labels are matched to model outputs by position. Optionally replaces track
+    paths by their symlink targets.
+
+    Args:
+        config (dict): Targets configuration (``{"heads": [...]}``), e.g. an older one.
+        resolve_paths (bool, optional): Replace each track path by its real path
+            (``os.path.realpath``). Defaults to True.
+        check_exists (bool, optional): Raise if a (resolved) track file is missing.
+            Defaults to True.
+
+    Returns:
+        dict: The converted configuration (the input is not modified).
+
+    Raises:
+        FileNotFoundError: If ``check_exists`` is set and a track file is missing.
+    """
+    import os
+
+    heads = []
+    for head in config["heads"]:
+        targets = []
+        for target in head.get("targets", []):
+            target = dict(target)
+            if resolve_paths:
+                target["path"] = os.path.realpath(target["path"])
+            if check_exists and not Path(target["path"]).is_file():
+                raise FileNotFoundError(f"Track of head '{head.get('id')}' not found: {target['path']}")
+            targets.append(target)
+
+        first_path = head["targets"][0]["path"] if head.get("targets") else ""
+        normalized = {
+            "dir_name": head.get("dir_name") or Path(first_path).parent.name,
+            "id": head["id"],
+            "source": head.get("source", "predefined"),
+            "kind": head.get("kind"),
+        }
+        # Keep optional alphagenome_ft overrides (resolutions, apply_squashing, ...)
+        normalized.update({k: v for k, v in head.items() if k not in normalized and k != "targets"})
+        normalized["targets"] = targets
+        heads.append(normalized)
+    return {**{k: v for k, v in config.items() if k != "heads"}, "heads": heads}
 
 
 def write_targets_config(config: dict, out_path) -> None:

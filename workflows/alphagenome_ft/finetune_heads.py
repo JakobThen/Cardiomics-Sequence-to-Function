@@ -1,9 +1,14 @@
-"""Resumes fine-tuning for an existing AlphaGenome model checkpoint.
+"""Fine-tuning script for the AlphaGenome model (workflow step 02).
 
-This script sets up and executes the training pipeline to continue fine-tuning 
-an AlphaGenome model from a previously saved checkpoint. It loads the specified 
-configuration, prepares data intervals from BigWig files, loads the model 
-weights onto the GPU, and resumes the training loop.
+This script sets up and executes the training pipeline for fine-tuning 
+an AlphaGenome model. It loads a specified configuration, prepares data 
+intervals from BigWig files, registers necessary model heads, and runs 
+the training loop with frozen backbones (by default).
+
+With ``--resume_from``, training continues from the last checkpoint of a
+previous run instead of starting from freshly initialised heads (e.g. after a
+crash or when the epoch limit was reached). The optimizer state is not
+restored, so expect small loss spikes after restarting.
 """
 from __future__ import annotations
 
@@ -14,11 +19,10 @@ from alphagenome_ft import create_model_with_heads, load_checkpoint
 from alphagenome_ft.finetune.config import load_targets_config, prepare_head_specs
 from alphagenome_ft.finetune.data import prepare_intervals_from_fold, BigWigDataModule, build_fasta_index
 from alphagenome_ft.finetune.train import register_predefined_heads, train
-from alphagenome.models import dna_model as ag_dna_model
 
 
 def get_parser() -> argparse.ArgumentParser:
-    """Creates and configures the argument parser for resuming fine-tuning.
+    """Creates and configures the argument parser for the fine-tuning script.
     
     This function is separated to allow Sphinx extensions (like `sphinxarg.ext`) 
     to auto-generate CLI documentation natively without executing the script.
@@ -26,7 +30,7 @@ def get_parser() -> argparse.ArgumentParser:
     Returns:
         argparse.ArgumentParser: The configured argument parser object.
     """
-    parser = argparse.ArgumentParser(description="AlphaGenome Resume Finetuning Script")
+    parser = argparse.ArgumentParser(description="AlphaGenome Finetuning Script")
     
     # -------------------------------------------------------------------------------------------
     # Core I/O Arguments
@@ -34,8 +38,9 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument("--fasta_path", type=str, required=True, help="Path to the genome.fa file")
     parser.add_argument("--config", type=str, required=True, help="Path to the target YAML config file")
     parser.add_argument("--base_dir", type=str, required=True, help="Base directory for resolving config paths (e.g., the local tmp dir)")
-    parser.add_argument("--in_checkpoint_dir", type=str, required=True, help="Directory containing the checkpoint to resume from")
-    parser.add_argument("--out_checkpoint_dir", type=str, required=True, help="Directory to save new checkpoints")
+    parser.add_argument("--checkpoint_dir", type=str, required=True, help="Directory to save checkpoints")
+    parser.add_argument("--resume_from", type=str, default=None,
+                        help="Checkpoint directory of a previous run to resume from (uses its 'last' checkpoint)")
     
     # -------------------------------------------------------------------------------------------
     # Data & Model Options
@@ -60,11 +65,12 @@ def get_parser() -> argparse.ArgumentParser:
 
 
 def main(args: argparse.Namespace) -> None:
-    """Executes the pipeline to resume model fine-tuning.
+    """Executes the fine-tuning pipeline.
 
     This function performs input validation (including FASTA indexing), loads 
-    the target configuration, prepares the data module, loads the existing 
-    model checkpoint onto the GPU, and resumes the training loop.
+    the model configuration, prepares the data module, creates the model (or
+    loads it from ``--resume_from``), freezes the model backbone (if
+    configured), and initiates the training loop.
 
     Args:
         args (argparse.Namespace): Parsed command-line arguments containing 
@@ -78,8 +84,7 @@ def main(args: argparse.Namespace) -> None:
     FASTA_PATH = Path(args.fasta_path)
     TARGETS_CONFIG_PATH = Path(args.config)
     BASE_DIR = Path(args.base_dir)
-    IN_CHECKPOINT_DIR = Path(args.in_checkpoint_dir)
-    OUT_CHECKPOINT_DIR = Path(args.out_checkpoint_dir)
+    CHECKPOINT_DIR = Path(args.checkpoint_dir)
 
     # Standard fixed training options
     SHUFFLE = True
@@ -106,8 +111,8 @@ def main(args: argparse.Namespace) -> None:
         if not path.exists():
             raise FileNotFoundError(f"Required file not found: {path}")
 
-    OUT_CHECKPOINT_DIR = OUT_CHECKPOINT_DIR.resolve()
-    OUT_CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
+    CHECKPOINT_DIR = CHECKPOINT_DIR.resolve()
+    CHECKPOINT_DIR.mkdir(parents=True, exist_ok=True)
 
     print("Input validation passed.", flush=True)
 
@@ -134,14 +139,23 @@ def main(args: argparse.Namespace) -> None:
     for split in ("train", "valid", "test"):
         print(f"{split}: {len(intervals.get(split, []))} intervals", flush=True)
 
-    # Load existing model from checkpoint
-    print("Loading model onto GPU...", flush=True)
-    model = load_checkpoint(
-        IN_CHECKPOINT_DIR / "last",
-        base_model_version=args.model_version,
-        init_seq_len=args.window_size
-    )
-    print("Model loaded successfully.", flush=True)
+    if args.resume_from:
+        # Load existing model from the last checkpoint of a previous run
+        print(f"Resuming from checkpoint: {args.resume_from}", flush=True)
+        print("Loading model onto GPU...", flush=True)
+        model = load_checkpoint(
+            Path(args.resume_from) / "last",
+            base_model_version=args.model_version,
+            init_seq_len=args.window_size
+        )
+        print("Model loaded successfully.", flush=True)
+    else:
+        # Create model with new heads
+        model = create_model_with_heads(
+            args.model_version,
+            heads=[spec.head_id for spec in head_specs],
+            detach_backbone=HEADS_ONLY
+        )
 
     if HEADS_ONLY:
         model.freeze_backbone()
@@ -161,7 +175,7 @@ def main(args: argparse.Namespace) -> None:
         drop_last=DROP_LAST,
     )
 
-    print("Data module ready. Resuming training...", flush=True)
+    print("Data module ready. Starting training...", flush=True)
 
     # ------------------------------------------------------------------------------------
     # Start Model training
@@ -176,7 +190,7 @@ def main(args: argparse.Namespace) -> None:
         seed=args.seed,
         max_train_steps=MAX_TRAIN_STEPS,
         heads_only=HEADS_ONLY,
-        checkpoint_dir=OUT_CHECKPOINT_DIR,
+        checkpoint_dir=CHECKPOINT_DIR,
         organism=args.organism,
         best_metric=BEST_METRIC,
         best_metric_mode=BEST_METRIC_MODE,

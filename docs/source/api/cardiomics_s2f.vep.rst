@@ -12,26 +12,34 @@ Module contents
 Submodules
 ----------
 
-cardiomics_s2f.vep.processing module
-------------------------------------
+cardiomics\_s2f.vep.alphagenome\_ft module
+------------------------------------------
 
-.. automodule:: cardiomics_s2f.vep.processing
+.. automodule:: cardiomics_s2f.vep.alphagenome_ft
    :members:
    :show-inheritance:
    :undoc-members:
 
-cardiomics_s2f.vep.plotting module
-----------------------------------
+cardiomics\_s2f.vep.plotting module
+-----------------------------------
 
 .. automodule:: cardiomics_s2f.vep.plotting
    :members:
    :show-inheritance:
    :undoc-members:
 
-cardiomics\_s2f.vep.alphagenome\_ft module
-------------------------------------------
+cardiomics\_s2f.vep.processing module
+-------------------------------------
 
-.. automodule:: cardiomics_s2f.vep.alphagenome_ft
+.. automodule:: cardiomics_s2f.vep.processing
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+cardiomics\_s2f.vep.scoring module
+----------------------------------
+
+.. automodule:: cardiomics_s2f.vep.scoring
    :members:
    :show-inheritance:
    :undoc-members:

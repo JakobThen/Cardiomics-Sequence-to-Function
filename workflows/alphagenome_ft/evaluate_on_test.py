@@ -1,4 +1,4 @@
-"""Evaluates a fine-tuned AlphaGenome model using streaming correlation analysis.
+"""Evaluates a fine-tuned AlphaGenome model using streaming correlation analysis (workflow step 03).
 
 It loads a specified checkpoint, performs multi-GPU distributed inference across 
 test intervals, computes metrics against BigWig tracks, and optionally saves 
@@ -9,7 +9,6 @@ import argparse
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from collections import defaultdict
 
 import jax
 import jax.numpy as jnp
@@ -48,6 +47,8 @@ def get_parser():
     parser.add_argument("--out_dir", type=str, required=True, help="Output directory for figures and results") 
     parser.add_argument("--checkpoint_dir", type=str, required=True, help="Directory containing the best model checkpoint") 
     parser.add_argument("--gtf_file", type=str, default=None, help="Optional GTF file for Gene-based correlation mapping") 
+    parser.add_argument("--base_dir", type=str, default=None,
+                        help="Base directory for resolving relative paths in the config (defaults to the config's folder)")
     
     # Data & Model Options
     parser.add_argument("--fold", type=str, default="1", help="Data fold to use (0, 1, 2, 3)")
@@ -57,9 +58,9 @@ def get_parser():
     parser.add_argument("--batch_size", type=int, default=16, help="Global batch size (must be divisible by N_GPUs)")
 
     # Evaluation Options
-    parser.add_argument("--resolution", type=str, default="1", help="Embedding resolution to evaluate (1, 128)")
-    parser.add_argument("--save_predictions", type=bool, default=False, help="Whether to save test interval predictions to HDF5.")
-    parser.add_argument("--minimal_test", type=bool, default=False, help="Truncate run to the first 8 intervals for quick debugging.")
+    parser.add_argument("--resolution", type=int, default=1, choices=[1, 128], help="Embedding resolution to evaluate (1, 128)")
+    parser.add_argument("--save_predictions", action="store_true", help="Save test interval predictions to HDF5.")
+    parser.add_argument("--minimal_test", action="store_true", help="Truncate run to the first 8 batches for quick debugging.")
 
     return parser
 
@@ -90,6 +91,7 @@ def main(args):
     CHECKPOINT_DIR = Path(args.checkpoint_dir)
     OUT_DIR = Path(args.out_dir)
     GTF_FILE = Path(args.gtf_file) if args.gtf_file else None
+    BASE_DIR = Path(args.base_dir) if args.base_dir else TARGETS_CONFIG_PATH.parent
 
     FOLD = args.fold
     MODEL_VERSION = args.model_version
@@ -110,7 +112,7 @@ def main(args):
     # ---------------------------------------------------------------------------
     # 2. Prepare Data & Metadata
     # ---------------------------------------------------------------------------
-    config_dict = load_targets_config(TARGETS_CONFIG_PATH, base_dir=Path("/tmp/then_alphagenome_bws/"))
+    config_dict = load_targets_config(TARGETS_CONFIG_PATH, base_dir=BASE_DIR)
     head_specs = prepare_head_specs(config_dict)
     register_predefined_heads(head_specs)
 
