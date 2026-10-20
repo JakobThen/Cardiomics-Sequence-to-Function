@@ -14,6 +14,14 @@
 *.bed
 input_data/metadata/GRCh38_gencode_release29_genome_fasta/*
 
+# Data, models and results live outside git (only the READMEs are tracked)
+input_data/*
+!input_data/README.md
+models/*
+!models/README.md
+results/*
+!results/README.md
+
 # Python / Jupyter Artifacts
 __pycache__/
 *.pyc
