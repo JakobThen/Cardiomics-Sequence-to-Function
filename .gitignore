@@ -14,6 +14,11 @@
 *.bed
 input_data/metadata/GRCh38_gencode_release29_genome_fasta/*
 
+# Local configuration and secrets (templates: config/*.example.*, .env.example)
+config/paths.yaml
+config/site.env
+.env
+
 # Data, models and results live outside git (only the READMEs are tracked)
 input_data/*
 !input_data/README.md

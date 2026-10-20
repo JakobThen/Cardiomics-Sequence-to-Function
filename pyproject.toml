@@ -23,6 +23,7 @@ dependencies = [
     "pyranges",
     "ncls",
     "pyyaml",
+    "python-dotenv",
     "requests",
     "tqdm",
 ]
@@ -52,3 +53,6 @@ dev = ["pytest"]
 [tool.setuptools.packages.find]
 where = ["src"]
 include = ["cardiomics_s2f*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

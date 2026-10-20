@@ -1,0 +1,40 @@
+# Project paths for cardiomics_s2f (template).
+#
+# Copy to config/paths.yaml (gitignored) and adapt to your machine:
+#     cp config/paths.example.yaml config/paths.yaml
+# Python: cardiomics_s2f.config.load_paths()  |  workflows: cs2f_path <key>
+#
+# Rules:
+#   - data_root: relative values resolve against this file's folder (config/).
+#   - all other entries: relative values resolve against data_root.
+#   - "~" and environment variables (e.g. $SCRATCH, $TMPDIR) are expanded.
+#
+# The defaults below match the repository layout (input_data/, models/, results/),
+# so they work unchanged if the data is placed or symlinked there.
+
+data_root: ..
+
+# --- Inputs -------------------------------------------------------------------
+raw_bam_dir: input_data/raw_bam
+bigwig_dir: input_data/AlphaGenome_Borzoi_input
+intervals_dir: input_data/AlphaGenome_Borzoi_input/intervals
+chrombpnet_input_dir: input_data/chrombpnet_input
+variant_data_dir: input_data/variant_data
+nonzero_means_csv: input_data/metadata/bw_nonzero_means.csv
+
+# --- Reference genome (GRCh38, GENCODE release 29) ----------------------------
+genome_fasta: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.fa
+chrom_sizes: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.chrom.sizes
+gtf: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genes.gtf
+
+# --- Models -------------------------------------------------------------------
+models_dir: models
+ag_ft_checkpoint_dir: models/AlphaGenome_finetuned
+
+# --- Outputs ------------------------------------------------------------------
+results_dir: results
+model_eval_dir: results/model_evaluation
+vep_dir: results/VEP
+
+# --- Compute-node scratch (node-local SSD for staging BigWigs) ----------------
+node_tmp_dir: /tmp
