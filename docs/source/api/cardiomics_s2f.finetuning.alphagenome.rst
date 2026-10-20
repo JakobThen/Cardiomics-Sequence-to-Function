@@ -1,10 +1,10 @@
-utils.finetuning.AlphaGenome package
-====================================
+cardiomics_s2f.finetuning.alphagenome package
+=============================================
 
 Module contents
 ---------------
 
-.. automodule:: utils.finetuning.AlphaGenome
+.. automodule:: cardiomics_s2f.finetuning.alphagenome
    :members:
    :show-inheritance:
    :undoc-members:
@@ -18,7 +18,7 @@ Usage:
 
 .. code-block:: bash
 
-    python src/utils/finetuning/AlphaGenome/evaluate_AG_on_test_streamed.py \
+    python src/cardiomics_s2f/finetuning/alphagenome/evaluate_AG_on_test_streamed.py \
         --fasta_path [FASTA_PATH] \
         --config [CONFIG] \
         --input_dir [INPUT_DIR] \
@@ -53,7 +53,7 @@ Usage:
 
 .. code-block:: bash
 
-    python src/utils/finetuning/AlphaGenome/finetune_heads.py \
+    python src/cardiomics_s2f/finetuning/alphagenome/finetune_heads.py \
         --fasta_path [FASTA_PATH] \
         --config [CONFIG] \
         --base_dir [BASE_DIR] \
@@ -88,7 +88,7 @@ Usage:
 
 .. code-block:: bash
 
-    python src/utils/finetuning/AlphaGenome/resume_finetune_heads.py \
+    python src/cardiomics_s2f/finetuning/alphagenome/resume_finetune_heads.py \
         --fasta_path [FASTA_PATH] \
         --config [CONFIG] \
         --base_dir [BASE_DIR] \
@@ -125,7 +125,7 @@ Usage:
 
 .. code-block:: bash
 
-    python src/utils/finetuning/AlphaGenome/stage_to_tmp.py \
+    python src/cardiomics_s2f/finetuning/alphagenome/stage_to_tmp.py \
         --master_yaml [MASTER_YAML] \
         --tmp_dir [TMP_DIR] \
         [OTHER_ARGS]
@@ -143,34 +143,34 @@ Input arguments:
 Submodules
 ----------
 
-utils.finetuning.AlphaGenome.evaluate\_AG\_on\_test\_streamed module
+cardiomics_s2f.finetuning.alphagenome.evaluate\_AG\_on\_test\_streamed module
+-----------------------------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.evaluate_AG_on_test_streamed
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+cardiomics_s2f.finetuning.alphagenome.finetune\_heads module
+------------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.finetune_heads
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+cardiomics_s2f.finetuning.alphagenome.resume\_finetune\_heads module
 --------------------------------------------------------------------
 
-.. automodule:: utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.resume_finetune_heads
    :members:
    :show-inheritance:
    :undoc-members:
 
-utils.finetuning.AlphaGenome.finetune\_heads module
----------------------------------------------------
-
-.. automodule:: utils.finetuning.AlphaGenome.finetune_heads
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-utils.finetuning.AlphaGenome.resume\_finetune\_heads module
+cardiomics_s2f.finetuning.alphagenome.stage\_to\_tmp module
 -----------------------------------------------------------
 
-.. automodule:: utils.finetuning.AlphaGenome.resume_finetune_heads
-   :members:
-   :show-inheritance:
-   :undoc-members:
-
-utils.finetuning.AlphaGenome.stage\_to\_tmp module
---------------------------------------------------
-
-.. automodule:: utils.finetuning.AlphaGenome.stage_to_tmp
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.stage_to_tmp
    :members:
    :show-inheritance:
    :undoc-members:

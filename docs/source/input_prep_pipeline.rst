@@ -1,10 +1,10 @@
 Model Input Generation Pipeline
-================================
+===============================
 
 Pipeline of bash scripts to generate base resolution, normlised bigwig files for model training and finetuning.
 
 1. ATAC inputs
-----------------------------------
+--------------
 
 Takes pseudobulked ATAC .bam files and sets up a SLURM array job to 
 compute base-resolution ATAC bigwigs (+4/-4 shift) for AlphaGenome/Borzoi.
@@ -21,7 +21,7 @@ Output:  Generates job configs and submits make_ATAC_bw.slurm array jobs.
 
 
 2. RNA inputs
----------------------
+-------------
 
 Takes pseudobulked scRNA .bam files and sets up a SLURM array job to 
 compute base-resolution bigwigs for AlphaGenome/Borzoi.
@@ -38,7 +38,7 @@ Output:  Generates job configs and submits make_RNA_3prime_bw.slurm array jobs.
 
 
 3. CutnTag inputs
----------------------
+-----------------
 
 Takes bulk Cut&Tag .bam files and sets up a SLURM array job to 
 compute base-resolution bigwigs for AlphaGenome/Borzoi. 

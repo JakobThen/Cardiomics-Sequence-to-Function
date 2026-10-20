@@ -11,7 +11,7 @@ models should be trained on all four folds and their predictions averaged.
 
 
 Non-zero Mean Computation
-----------------------------
+-------------------------
 Assuming base-resolution BigWig (``.bw``) files are already generated for all modalities, we first need 
 to compute the non-zero track mean for proper input scaling. This is handled directly in bash. 
 
@@ -38,7 +38,7 @@ This file is used every time we initialize the model to attach the fine-tuned he
 Python script:
 
 .. argparse::
-   :module: utils.preprocessing.make_AG_input_config
+   :module: cardiomics_s2f.preprocessing.make_AG_input_config
    :func: get_parser
    :prog: make_AG_input_config.py
 
@@ -59,7 +59,7 @@ After the configuration file is generated, we can begin fine-tuning our AlphaGen
 The fine-tuning is handled by the following script:
 
 .. argparse::
-   :module: utils.finetuning.AlphaGenome.finetune_heads
+   :module: cardiomics_s2f.finetuning.alphagenome.finetune_heads
    :func: get_parser
    :prog: finetune_heads.py
 
@@ -71,7 +71,7 @@ We can do this with the following helper script, which stages the ``.bw`` files 
 ``config.yaml`` in the ``tmp`` directory with updated data paths pointing to the staged ``.bw`` files.
 
 .. argparse::
-   :module: utils.finetuning.AlphaGenome.stage_to_tmp
+   :module: cardiomics_s2f.finetuning.alphagenome.stage_to_tmp
    :func: get_parser
    :prog: stage_to_tmp.py
 
@@ -92,7 +92,7 @@ from an existing model checkpoint.
 and only loads weights and biases. Expect small spikes in loss during the first few epochs.
 
 .. argparse::
-   :module: utils.finetuning.AlphaGenome.resume_finetune_heads
+   :module: cardiomics_s2f.finetuning.alphagenome.resume_finetune_heads
    :func: get_parser
    :prog: resume_finetune_heads.py
 
@@ -107,11 +107,11 @@ on its test intervals. To avoid having to store all output predictions (which ca
 resolution as compressed ``.h5`` files), the correlation is computed in a streamed manner while making 
 forward passes, keeping a running sum for every batch of outputs.
 
-This script integrates the evaluation pipeline (shared across models, found at ``../../src/utils/eval``) 
+This script integrates the evaluation pipeline (shared across models, found at ``../../src/cardiomics_s2f/eval``) 
 with AlphaGenome forward passes.
 
 .. argparse::
-   :module: utils.finetuning.AlphaGenome.evaluate_AG_on_test_streamed
+   :module: cardiomics_s2f.finetuning.alphagenome.evaluate_AG_on_test_streamed
    :func: get_parser
    :prog: evaluate_AG_on_test_streamed.py
 

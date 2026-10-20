@@ -1,10 +1,10 @@
-utils.preprocessing package
-===========================
+cardiomics_s2f.preprocessing package
+====================================
 
 Module contents
 ---------------
 
-.. automodule:: utils.preprocessing
+.. automodule:: cardiomics_s2f.preprocessing
    :members:
    :show-inheritance:
    :undoc-members:
@@ -18,7 +18,7 @@ Usage:
 
 .. code-block:: bash
 
-    python src/utils/preprocessing/make_AG_input_config.py \
+    python src/cardiomics_s2f/preprocessing/make_AG_input_config.py \
         --data_dir [DATA_DIR] \
         --modality_folders [MODALITY_FOLDERS ...] \
         [OTHER_ARGS]
@@ -37,10 +37,10 @@ Input arguments:
 Submodules
 ----------
 
-utils.preprocessing.make\_AG\_input\_config module
---------------------------------------------------
+cardiomics_s2f.preprocessing.make\_AG\_input\_config module
+-----------------------------------------------------------
 
-.. automodule:: utils.preprocessing.make_AG_input_config
+.. automodule:: cardiomics_s2f.preprocessing.make_AG_input_config
    :members:
    :show-inheritance:
    :undoc-members:

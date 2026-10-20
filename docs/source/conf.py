@@ -54,7 +54,6 @@ autodoc_mock_imports = [
     "tqdm",
     "scipy",
     "sklearn",
-    "eval",
     "mpl_toolkits",
     "mpl_toolkits.axes_grid1",
     "anndata"
