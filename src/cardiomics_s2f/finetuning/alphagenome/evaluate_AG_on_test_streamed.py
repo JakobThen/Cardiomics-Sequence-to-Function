@@ -5,18 +5,14 @@ test intervals, computes metrics against BigWig tracks, and optionally saves
 the predictions to an HDF5 file.
 """
 
-import h5py
 import argparse
 import numpy as np
 import pandas as pd
 from pathlib import Path
 from collections import defaultdict
-from pandas.api.types import is_string_dtype, is_object_dtype
 
 import jax
 import jax.numpy as jnp
-from jax.experimental import mesh_utils
-from jax.sharding import Mesh, PartitionSpec as P
 
 from alphagenome_ft import load_checkpoint
 from alphagenome_ft.finetune.config import load_targets_config, prepare_head_specs
@@ -26,152 +22,9 @@ from alphagenome.models import dna_model as ag_dna_model
 
 from cardiomics_s2f.eval.streamed_correlation_analysis import evaluate_from_inference
 from cardiomics_s2f.eval.track_prediction import process_track_metadata
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-class HDF5BatchWriter:
-    """Iterative saving class designed to handle massive output arrays. 
-    
-    By writing to disk iteratively, we avoid out-of-memory (OOM) errors 
-    when dealing with 1bp resolution data across thousands of intervals.
-
-    Args:
-        out_dir (str or Path): Directory where the HDF5 file will be saved.
-        file_prefix (str): Prefix for the generated HDF5 file name.
-        total_samples (int): Total number of samples (intervals) to pre-allocate.
-        
-    Attributes:
-        out_dir (Path): Resolved path for output.
-        h5_path (Path): Full path to the targeted `.h5` file.
-        total_samples (int): Total expected size of the first dimension.
-        file (h5py.File): Open file handle for writing.
-        datasets (dict): Dictionary tracking initialized datasets per head.
-    """
-    def __init__(self, out_dir, file_prefix, total_samples):
-        self.out_dir = Path(out_dir)
-        self.out_dir.mkdir(parents=True, exist_ok=True)
-        self.h5_path = self.out_dir / f"{file_prefix}.h5"
-        self.total_samples = total_samples
-        
-        print(f"Opening HDF5 file for iterative writing at {self.h5_path}...", flush=True)
-        self.file = h5py.File(self.h5_path, 'w')
-        self.datasets = {}
-
-    def write_batch(self, head_name, batch_preds, start_idx):
-        """Writes a batch of predictions for a specific head to disk.
-        
-        Dynamically creates the dataset if it is the first batch received for 
-        the given model head.
-
-        Args:
-            head_name (str): Identifier for the model output head.
-            batch_preds (np.ndarray): Predictions array for the current batch.
-            start_idx (int): The starting index along the sample dimension where 
-                this batch should be inserted.
-        """
-        # Create the dataset dynamically upon receiving the first batch for a specific head
-        if head_name not in self.datasets:
-            full_shape = (self.total_samples, *batch_preds.shape[1:])
-            head_grp = self.file.create_group(head_name)
-            self.datasets[head_name] = head_grp.create_dataset(
-                "predictions", shape=full_shape, dtype=batch_preds.dtype, compression="gzip"
-            )
-        
-        # Calculate the chunk slice and dump the data to disk
-        end_idx = start_idx + batch_preds.shape[0]
-        self.datasets[head_name][start_idx:end_idx] = batch_preds
-    
-    def write_metadata(self, intervals_df, tracks_df):
-        """Saves interval and track metadata to the HDF5 file.
-        
-        Converts string/object dtypes to byte strings (`'S'`) to ensure 
-        compatibility with HDF5 standards.
-
-        Args:
-            intervals_df (pd.DataFrame): DataFrame containing interval coordinates.
-            tracks_df (pd.DataFrame): DataFrame containing track metadata.
-        """
-        print("Writing metadata to HDF5...", flush=True)
-        
-        # Save intervals as HDF5 datasets
-        interval_grp = self.file.create_group("intervals")
-        for col in intervals_df.columns:
-            data = intervals_df[col].values
-            # HDF5 requires string arrays to be explicitly typed as bytes ('S')
-            if is_string_dtype(intervals_df[col]) or is_object_dtype(intervals_df[col]):
-                data = data.astype(str).astype('S')
-            interval_grp.create_dataset(col, data=data)
-            
-        # Save tracks as HDF5 datasets
-        track_grp = self.file.create_group("tracks")
-        for col in tracks_df.columns:
-            data = tracks_df[col].values
-            if is_string_dtype(tracks_df[col]) or is_object_dtype(tracks_df[col]):
-                data = data.astype(str).astype('S')
-            track_grp.create_dataset(col, data=data)
-
-    def close(self):
-        """Safely closes the underlying HDF5 file handle."""
-        self.file.close()
-        print("Successfully saved and closed HDF5 file!", flush=True)
-
-def get_prediction_key(raw_p, bin_size=128, return_scaled=True):
-    """Identifies the correct dictionary key for the desired embedding resolution.
-    
-    AlphaGenome predicts at multiple resolutions and data scales simultaneously. 
-    This helper finds the key matching the target target bin size.
-
-    Args:
-        raw_p (dict): Raw prediction dictionary from the model.
-        bin_size (int, optional): The target bin size/resolution. Defaults to 128.
-        return_scaled (bool, optional): Whether to look for scaled predictions. Defaults to True.
-
-    Returns:
-        str: The matching key found in the prediction dictionary.
-
-    Raises:
-        KeyError: If no matching prediction key is found in the dictionary.
-    """
-    prefix = "scaled_predictions" if return_scaled else "predictions"
-    preferred = [f"{prefix}_{bin_size}bp", f"{prefix}_{128 if bin_size == 1 else 1}bp"]
-    
-    for key in preferred:
-        if key in raw_p: return key
-    raise KeyError(f"No matching prediction key found. Tried: {preferred}.")
-
-def get_aligned_nonzero_means(tracks_df: pd.DataFrame, config_dict: dict) -> np.ndarray:
-    """Extracts precomputed nonzero track means and aligns them to the tracks DataFrame.
-    
-    Strictly aligns the means based on file paths to ensure calculations match 
-    the correct BigWig files.
-
-    Args:
-        tracks_df (pd.DataFrame): DataFrame containing track metadata including paths.
-        config_dict (dict): Target configuration dictionary containing head definitions.
-
-    Returns:
-        np.ndarray: A 1D array of aligned nonzero mean values.
-
-    Raises:
-        KeyError: If a path listed in `tracks_df` is missing from the configuration.
-    """
-    path_to_mean = {}
-    for head in config_dict.get('heads', []):
-        for target in head.get('targets', []):
-            path = target.get('path')
-            mean_val = target.get('nonzero_mean')
-            if path is not None and mean_val is not None:
-                path_to_mean[path] = mean_val
-                
-    aligned_means = []
-    for path in tracks_df['path']:
-        if path not in path_to_mean:
-            raise KeyError(f"Path from tracks_df not found in config dictionary: {path}")
-        aligned_means.append(path_to_mean[path])
-        
-    return np.array(aligned_means)
+from cardiomics_s2f.finetuning.alphagenome.inference import make_parallel_predict, setup_data_parallel_mesh
+from cardiomics_s2f.finetuning.alphagenome.predictions import get_aligned_nonzero_means, get_prediction_key
+from cardiomics_s2f.io.data_output import HDF5BatchWriter
 
 # ---------------------------------------------------------------------------
 # Main pipeline
@@ -330,21 +183,9 @@ def main(args):
     organism_enum = getattr(ag_dna_model.Organism, ORGANISM)
     strand_reindexing = jax.device_put(model._metadata[organism_enum].strand_reindexing, model._device_context._device)
 
-    # Configure multi-GPU sharding layout
-    num_devices = jax.local_device_count()
-    print(f"Setting up {num_devices}-GPU Device Mesh for evaluation...", flush=True)
-    devices = mesh_utils.create_device_mesh((num_devices,))
-    mesh = Mesh(devices, axis_names=('data',))
-    data_sharding, replicated_sharding = P('data'), P()
-
-    # JIT-compile the parallel prediction function, sharding the data axis across GPUs
-    @jax.jit(
-        in_shardings=(replicated_sharding, replicated_sharding, data_sharding, data_sharding, data_sharding, replicated_sharding),
-        out_shardings=replicated_sharding 
-    )
-    def parallel_predict(params, state, seq_batch, org_batch, mask_batch, strand_idx):
-        raw_preds = model._predict(params, state, seq_batch, org_batch, negative_strand_mask=mask_batch, strand_reindexing=strand_idx)
-        return {head.head_id: raw_preds[head.head_id] for head in head_specs}
+    # Configure multi-GPU sharding layout and JIT-compile the data-parallel forward pass
+    mesh, data_sharding, replicated_sharding = setup_data_parallel_mesh()
+    parallel_predict = make_parallel_predict(model, head_specs, data_sharding, replicated_sharding)
 
     # ---------------------------------------------------------------------------
     # 4. Evaluation Execution

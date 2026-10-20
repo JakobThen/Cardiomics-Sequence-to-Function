@@ -10,6 +10,6 @@ Submodules:
 -----------
 * `batch_bw_loader`: Contains `BatchBigWigLoader`, a class to load multiple BigWig tracks in parallel.
 * `data_input`: Contains mathematical squash operations and data loading helpers.
-* `data_output`: Contains utilities to save predictions into formats like annotated HDF5.
+* `data_output`: Contains utilities to save predictions into formats like annotated HDF5, including `HDF5BatchWriter` for batch-wise writing.
 * `variant_annotation`: Contains functions to annotate genetic variant dataframes with genomic features.
 """

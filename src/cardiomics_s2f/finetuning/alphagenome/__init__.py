@@ -6,6 +6,11 @@ This module provides scripts and classes for staging datasets, running heads-onl
 joint finetuning, resuming interrupted training sessions, and performing post-finetuning
 evaluation on test intervals.
 
+Submodules:
+-----------
+* `inference`: Multi-GPU device mesh and JIT-compiled data-parallel forward pass.
+* `predictions`: Selection of prediction outputs and alignment of per-track non-zero means.
+
 CLI Scripts:
 ------------
 * `evaluate_AG_on_test_streamed`: Runs streaming test metrics evaluation using a checkpoint.

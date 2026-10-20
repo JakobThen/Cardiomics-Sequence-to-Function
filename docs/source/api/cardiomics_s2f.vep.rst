@@ -28,3 +28,10 @@ cardiomics_s2f.vep.plotting module
    :show-inheritance:
    :undoc-members:
 
+cardiomics\_s2f.vep.alphagenome\_ft module
+------------------------------------------
+
+.. automodule:: cardiomics_s2f.vep.alphagenome_ft
+   :members:
+   :show-inheritance:
+   :undoc-members:

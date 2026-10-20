@@ -7,11 +7,10 @@ AlphaGenome finetuning.
 """
 from __future__ import annotations
 
-import os
-import yaml
 import argparse
 import pandas as pd
-from pathlib import Path
+
+from cardiomics_s2f.preprocessing.ag_targets_config import build_targets_config, write_targets_config
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -47,9 +46,8 @@ def get_parser() -> argparse.ArgumentParser:
 def main(args: argparse.Namespace) -> None:
     """Executes the YAML configuration generation pipeline.
 
-    Iterates through the provided modality folders, matches BigWig files, 
-    filters by optional normalization tags, looks up precomputed non-zero 
-    means from a provided CSV, and writes out a formatted YAML file.
+    Loads the precomputed non-zero track means, builds the targets
+    configuration with `build_targets_config` and writes it to YAML.
 
     Args:
         args (argparse.Namespace): Parsed command-line arguments containing 
@@ -61,85 +59,11 @@ def main(args: argparse.Namespace) -> None:
         AssertionError: If an input `.bw` file is missing from the precomputed 
             nonzero track means CSV.
     """
-    DATA_DIR = Path(args.data_dir)
-    out_prefix = Path(args.config_prefix)
-    nonzero_means_dir = Path(args.nonzero_means)
-    modality_folders = args.modality_folders
-    
-    NONZERO_MEANS = pd.read_csv(nonzero_means_dir)
-    
-    # Safely create the parent directory for the output file if it doesn't already exist
-    out_prefix.parent.mkdir(parents=True, exist_ok=True)
-
-    modality_configs = []
-    
-    for mod in modality_folders:
-        # Infer the correct ID and kind based on standardized naming conventions
-        mod_upper = mod.upper()
-        if any(tag in mod_upper for tag in ["CUTNTAG", "CUT&TAG", "CNT", "C&T"]):
-            id = "CutnTag"
-            kind = "atac"
-        elif "ATAC" in mod_upper:
-            id = "multiome_ATAC"
-            kind = "atac"
-        elif "RNA" in mod_upper:
-            id = "multiome_RNA"
-            kind = "rna_seq"
-        else:
-            raise ValueError(f"'{mod}' does not match any recognized modalities (CutnTag, ATAC, or RNA).")
-
-        target_dir = DATA_DIR / mod
-        targets = []
-        
-        if target_dir.exists():
-            # Glob all BigWigs and sort alphabetically to ensure deterministic ordering in the YAML
-            for bw_file in sorted(target_dir.glob("*.bw")):
-                label = bw_file.name.replace(".bw", "")
-                
-                if args.norm_tag:
-                    # Skip files that don't match our desired normalization tag
-                    if args.norm_tag not in label: 
-                        continue
-                    # Clean the label for the final config by stripping out the tag
-                    label = label.replace(args.norm_tag, "")
-                
-                expected_path = f"{target_dir}/{bw_file.name}"
-                
-                # Verify that we actually have a precomputed mean for this specific file to prevent silent downstream errors
-                match = NONZERO_MEANS.loc[NONZERO_MEANS["full_path"] == expected_path]
-                assert not match.empty, f"Input .bw file {expected_path} not found in nonzero track means CSV."
-                
-                # Extract and round the mean
-                nonzero_mean = match["nonzero_mean_canonical"].values[0]
-                nonzero_mean = round(float(nonzero_mean), 3)           
-
-                targets.append({
-                    "path": str(bw_file.resolve()),
-                    "label": label,
-                    "nonzero_mean": nonzero_mean
-                })
-        else:
-            print(f"Warning: Could not find directory {target_dir}")
-            
-        if not targets: 
-            print(f"Warning: No valid .bw files found in {target_dir}")
-
-        # Construct the head dictionary expected by AlphaGenome
-        head_config = {
-            "dir_name": mod,
-            "id": id,
-            "kind": kind,
-            "targets": targets
-        }
-        modality_configs.append(head_config)
-
-    # Wrap the heads in the top-level configuration key
-    final_config = {"heads": modality_configs}
-
-    with open(out_prefix, "w") as f:
-        # default_flow_style=False enforces clean, block-style YAML formatting 
-        # sort_keys=False preserves the logical order we defined above rather than forcing alphabetical keys
-        yaml.dump(final_config, f, default_flow_style=False, sort_keys=False)
+    nonzero_means = pd.read_csv(args.nonzero_means)
+    config = build_targets_config(
+        args.data_dir, args.modality_folders, nonzero_means, norm_tag=args.norm_tag
+    )
+    write_targets_config(config, args.config_prefix)
 
 
 if __name__ == "__main__":

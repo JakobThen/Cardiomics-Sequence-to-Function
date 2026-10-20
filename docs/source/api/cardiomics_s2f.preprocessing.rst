@@ -44,3 +44,11 @@ cardiomics_s2f.preprocessing.make\_AG\_input\_config module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.preprocessing.ag\_targets\_config module
+--------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.preprocessing.ag_targets_config
+   :members:
+   :show-inheritance:
+   :undoc-members:

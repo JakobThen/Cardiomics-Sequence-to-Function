@@ -15,22 +15,19 @@ from pathlib import Path
 import jax
 import jax.numpy as jnp
 import jax.tree_util as jtu
-from jax.experimental import mesh_utils
-from jax.sharding import Mesh, PartitionSpec as P
 
 from alphagenome_ft import load_checkpoint
 from alphagenome_ft.finetune.config import load_targets_config, prepare_head_specs
 from alphagenome_ft.finetune.train import register_predefined_heads
 from alphagenome.models import dna_model as ag_dna_model
-from alphagenome.data import genome
-from alphagenome_research.io import fasta as fasta_lib
-from alphagenome_research.io import genome as genome_io
-from alphagenome_research.model import one_hot_encoder
 from alphagenome_research.model import variant_scoring
-from alphagenome_research.model.variant_scoring.variant_scoring import IndelMask, align_alternate
+from alphagenome_research.model.variant_scoring.variant_scoring import align_alternate
 from alphagenome_research.model.variant_scoring.gene_mask_extractor import (
     GeneMaskExtractor, GeneMaskType, GeneQueryType
 )
+
+from cardiomics_s2f.finetuning.alphagenome.inference import make_parallel_predict, setup_data_parallel_mesh
+from cardiomics_s2f.vep.alphagenome_ft import load_chrom_sizes, variant_batch_generator
 
 
 FASTA_PATH = Path("/g/steinmetz/calfonso/shared/reference_genomes/GRCh38_gencode_release29/genome_fasta/genome.fa")
@@ -63,105 +60,9 @@ if missing_cols:
 variants_df = variants_df[["variant_id", "CHROM", "POS", "REF", "ALT" ]].drop_duplicates() # remove redundant celltype info etc
 print("VCF file loaded!", flush = True)
 
-chrom_size_df = pd.read_csv(CHROM_SIZES_PATH,sep="\t",names=["chrom", "end"])
-CHROM_SIZES = dict(zip(chrom_size_df['chrom'], chrom_size_df['end']))
+CHROM_SIZES = load_chrom_sizes(CHROM_SIZES_PATH)
 
-# 3. define helper functions
-#define new varaint effect batch genrate that works with our heads
-def variant_batch_generator(df, fasta_path, batch_size, window_size, organism="HOMO_SAPIENS"):
-    """Yields batches of encoded reference and alternate sequences for variant effect scoring.
-
-    Extracts genomic sequences centered on variants, applies indel shifting and padding
-    if necessary, and one-hot encodes the sequences.
-
-    Args:
-        df (pandas.DataFrame): DataFrame containing variant information (CHROM, POS, REF, ALT, variant_id).
-        fasta_path (str or Path): Path to the reference genome FASTA file.
-        batch_size (int): Number of variants to yield in each batch.
-        window_size (int): Size of the genomic window centered on the variant.
-        organism (str, optional): Target organism name. Defaults to "HOMO_SAPIENS".
-
-    Yields:
-        tuple:
-            - np.ndarray: One-hot encoded reference sequences.
-            - np.ndarray: One-hot encoded alternate sequences.
-            - list of IndelMask: Indel alignment masks.
-            - list of Variant: AlphaGenome variant objects.
-            - list of Interval: Target interval coordinates.
-            - list of str: Variant identifiers.
-            - int: The actual size of the batch (excluding padding).
-    """
-    extractor = fasta_lib.FastaExtractor(str(fasta_path))
-    encoder = one_hot_encoder.DNAOneHotEncoder(dtype=np.float32)
-    
-    half_window = window_size // 2
-
-    batch_ref, batch_alt, batch_masks, batch_ids = [], [], [], []
-    batch_variants, batch_intervals = [], [] 
-    
-    for row in df.itertuples(index=False):
-        chrom = str(row.CHROM)
-        pos = int(row.POS) 
-        
-        # Create var objects
-        variant = genome.Variant(
-            chromosome=chrom, 
-            position=pos, 
-            reference_bases=str(row.REF).upper(), 
-            alternate_bases=str(row.ALT).upper()
-        )
-        
-        # 0-based interval centered on the variant
-        ideal_start = pos - 1 - half_window
-        
-        # BOUNDARY LOGIC: Shift window to stay within chromosome while keeping size constant
-        max_chrom_len = CHROM_SIZES.get(chrom, float('inf'))
-        if ideal_start < 0:
-            start = 0 
-        elif ideal_start + window_size > max_chrom_len:
-            start = max(0, max_chrom_len - window_size) 
-        else:
-            start = ideal_start
-
-        interval = genome.Interval(start=start, end=start + window_size, chromosome=chrom)
-
-        # AG Sequence Extraction (handles all indel shifting & padding)
-        ref_seq_string, alt_seq_string = genome_io.extract_variant_sequences(
-            interval, variant, extractor
-        )
-        
-        # AG Indel Masks (for post-hoc alignment)
-        indel_mask = IndelMask.from_variant(variant, interval)
-        
-        # Encode 
-        ref_onehot = encoder.encode(ref_seq_string)
-        alt_onehot = encoder.encode(alt_seq_string)
-                
-        # Store
-        batch_ref.append(ref_onehot)
-        batch_alt.append(alt_onehot)
-        batch_masks.append(indel_mask)
-        batch_ids.append(row.variant_id)
-        batch_variants.append(variant)
-        batch_intervals.append(interval)
-        
-        if len(batch_ref) == batch_size:
-            yield np.stack(batch_ref), np.stack(batch_alt), batch_masks, batch_variants, batch_intervals, batch_ids, batch_size
-            batch_ref, batch_alt, batch_masks, batch_variants, batch_intervals, batch_ids = [], [], [], [], [], []
-            
-    # if len(batch_ref) > 0:
-    #     yield np.stack(batch_ref), np.stack(batch_alt), batch_masks, batch_variants, batch_intervals, batch_ids
-    #ensure that last batch is padded to tobacth size if it contains less vairiants to not chrash the device mesh
-    if len(batch_ref) > 0:
-        actual_size = len(batch_ref)
-        while len(batch_ref) < batch_size:  # pad to multiple of num_devices
-            batch_ref.append(batch_ref[0])
-            batch_alt.append(batch_alt[0])
-            batch_masks.append(batch_masks[0])
-            batch_variants.append(batch_variants[0])
-            batch_intervals.append(batch_intervals[0])
-            batch_ids.append("__PAD__")
-        yield np.stack(batch_ref), np.stack(batch_alt), batch_masks, batch_variants, batch_intervals, batch_ids, actual_size
+# 3. helper functions: see cardiomics_s2f.vep.alphagenome_ft
 
 # def extract_resolution(raw_p, resolution=1):
 #     if isinstance(raw_p, dict) or hasattr(raw_p, 'keys'):
@@ -203,18 +104,8 @@ for head in config_dict.get('heads', []):
 organism_enum = getattr(ag_dna_model.Organism, ORGANISM)
 strand_reindexing = jax.device_put(model._metadata[organism_enum].strand_reindexing, model._device_context._device)
 
-num_devices = jax.local_device_count()
-print(f"Setting up {num_devices}-GPU Device Mesh...", flush=True)
-mesh = Mesh(mesh_utils.create_device_mesh((num_devices,)), axis_names=('data',))
-data_sharding, replicated_sharding = P('data'), P()
-
-@jax.jit(
-    in_shardings=(replicated_sharding, replicated_sharding, data_sharding, data_sharding, data_sharding, replicated_sharding),
-    out_shardings=replicated_sharding 
-)
-def parallel_predict(params, state, seq_batch, org_batch, mask_batch, strand_idx):
-    raw_preds = model._predict(params, state, seq_batch, org_batch, negative_strand_mask=mask_batch, strand_reindexing=strand_idx)
-    return {head.head_id: raw_preds[head.head_id] for head in head_specs}
+mesh, data_sharding, replicated_sharding = setup_data_parallel_mesh()
+parallel_predict = make_parallel_predict(model, head_specs, data_sharding, replicated_sharding)
 
 batched_align_alternate = jax.jit(jax.vmap(align_alternate, in_axes=(0, 0))) #make align alternate function batch callable
 
@@ -227,7 +118,7 @@ csv_path = OUTPUT_PATH / f"VEP_AG_ft_{MODEL_VERSION}_{BASE_NAME}.csv"
 first_write = True # Flag to track whether we need to write the CSV headers
 
 with model._device_context, jax.set_mesh(mesh):
-    for batch_idx, (ref_seq, alt_seq, batch_masks, batch_variants, batch_intervals, var_ids, actual_size) in enumerate(variant_batch_generator(variants_df, FASTA_PATH, BATCH_SIZE, WINDOW_SIZE)):
+    for batch_idx, (ref_seq, alt_seq, batch_masks, batch_variants, batch_intervals, var_ids, actual_size) in enumerate(variant_batch_generator(variants_df, FASTA_PATH, BATCH_SIZE, WINDOW_SIZE, chrom_sizes=CHROM_SIZES)):
         
         current_bsz = ref_seq.shape[0]
         

@@ -174,3 +174,19 @@ cardiomics_s2f.finetuning.alphagenome.stage\_to\_tmp module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.finetuning.alphagenome.inference module
+-------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.inference
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+cardiomics\_s2f.finetuning.alphagenome.predictions module
+---------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.predictions
+   :members:
+   :show-inheritance:
+   :undoc-members:
