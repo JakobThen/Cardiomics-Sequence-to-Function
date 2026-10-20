@@ -19,12 +19,12 @@ BASE_DIR="../.."
 BW_OUTPUT_DIR="${BASE_DIR}/input_data/AlphaGenome_Borzoi_input/CutnTag_bigwig"
 
 # Set this to EITHER a directory OR a .txt file
-INPUT_SOURCE="utils/preprocessing/valid_CutnTag_bams.txt" 
+INPUT_SOURCE="cardiomics_s2f/preprocessing/valid_CutnTag_bams.txt" 
 # Example directory usage: INPUT_SOURCE="${BASE_DIR}/input_data/raw_bam/CutnTag"
 
 # Temporary config file that the array job will actually read
-RUN_CONFIG="utils/preprocessing/running_CutnTag_bams.txt"
-LOG_FILE="utils/preprocessing/submitted_CutnTag.txt"
+RUN_CONFIG="cardiomics_s2f/preprocessing/running_CutnTag_bams.txt"
+LOG_FILE="cardiomics_s2f/preprocessing/submitted_CutnTag.txt"
 
 # ------------------------------------------------------------------------------
 # Execution
@@ -71,4 +71,4 @@ fi
 echo "Found $NUM_JOBS Cut&Tag samples. Submitting Slurm array job..."
 
 # Launch as array job, passing the output dir and the active config file
-sbatch --array=1-$NUM_JOBS ../utils/preprocessing/make_CutnTag_bw.slurm "$BW_OUTPUT_DIR" "$RUN_CONFIG"
+sbatch --array=1-$NUM_JOBS ../cardiomics_s2f/preprocessing/make_CutnTag_bw.slurm "$BW_OUTPUT_DIR" "$RUN_CONFIG"

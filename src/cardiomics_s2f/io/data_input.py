@@ -4,15 +4,10 @@ Data Input and Squashing Module
 This module provides functions and classes to scale, squash, and invert
 predictions/targets for Borzoi and AlphaGenome model architectures.
 """
-import os
-import sys
 import numpy as np
 import torch
 
-parent_dir = os.path.abspath("/home/then")
-if parent_dir not in sys.path:
-    sys.path.append(parent_dir)
-from utils.io.batch_bw_loader import BatchBigWigLoader 
+from cardiomics_s2f.io.batch_bw_loader import BatchBigWigLoader
 
 from typing import Union, List, Optional
 TensorOrArray = Union[np.ndarray, torch.Tensor]

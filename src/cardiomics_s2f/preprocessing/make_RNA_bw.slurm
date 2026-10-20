@@ -17,7 +17,7 @@
 
 
 # Read params
-CONFIG_FILE="utils/preprocessing/valid_RNA_pseudobulks.txt"
+CONFIG_FILE="cardiomics_s2f/preprocessing/valid_RNA_pseudobulks.txt"
 PARAMS=$(sed -n "${SLURM_ARRAY_TASK_ID}p" "$CONFIG_FILE")
 DAY_NAME=$(echo "$PARAMS" | awk '{print $1}')
 CELL_TYPE=$(echo "$PARAMS" | awk '{print $2}')

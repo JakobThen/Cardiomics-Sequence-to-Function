@@ -111,4 +111,4 @@ fi
 echo "Found $NUM_JOBS valid combinations. Submitting Slurm array job..."
 
 # Launch the array job, passing our dynamic directories and config path as arguments!
-sbatch --array=1-$NUM_JOBS ../utils/preprocessing/make_ATAC_bw.slurm "$BAM_DIR" "$BW_OUTPUT_DIR" "$CONFIG_FILE"
+sbatch --array=1-$NUM_JOBS ../cardiomics_s2f/preprocessing/make_ATAC_bw.slurm "$BAM_DIR" "$BW_OUTPUT_DIR" "$CONFIG_FILE"

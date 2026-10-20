@@ -78,7 +78,7 @@ rsync -a "${GENOME_FASTA}"* "${LOCAL_TMP_DIR}"/
 # the model to the local /tmp/ paths instead of the slow network drive.
 echo "Staging BigWig files and generating temp YAML..."
 LOCAL_YAML="${LOCAL_TMP_DIR}/running_config.yaml"
-python ../utils/finetuning/AlphaGenome/stage_to_tmp.py \
+python ../cardiomics_s2f/finetuning/alphagenome/stage_to_tmp.py \
     --master_yaml "${INPUT_CONFIG_FILE}" \
     --tmp_dir "${LOCAL_TMP_DIR}" \
     --out_yaml "${LOCAL_YAML}"

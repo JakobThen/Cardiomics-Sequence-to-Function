@@ -73,7 +73,7 @@ rsync -a "${GENOME_FASTA}"* "${LOCAL_TMP_DIR}"/
 # the model to the local /tmp/ paths instead of the slow network drive.
 echo "Staging BigWig files and generating temp YAML..."
 LOCAL_YAML="${LOCAL_TMP_DIR}/running_config.yaml"
-python ../utils/finetuning/AlphaGenome/stage_to_tmp.py \
+python ../cardiomics_s2f/finetuning/alphagenome/stage_to_tmp.py \
     --master_yaml "${INPUT_CONFIG_FILE}" \
     --tmp_dir "${LOCAL_TMP_DIR}" \
     --out_yaml "${LOCAL_YAML}"
@@ -84,7 +84,7 @@ python ../utils/finetuning/AlphaGenome/stage_to_tmp.py \
 
 echo "Starting model finetuning..."
 # Using srun here ensures proper CPU/GPU binding and resource distribution within the allocated SLURM step.
-srun python ../utils/finetuning/AlphaGenome/finetune_heads.py \
+srun python ../cardiomics_s2f/finetuning/alphagenome/finetune_heads.py \
     --fasta_path "${LOCAL_TMP_DIR}/genome.fa" \
     --config "${LOCAL_YAML}" \
     --base_dir "${LOCAL_TMP_DIR}" \

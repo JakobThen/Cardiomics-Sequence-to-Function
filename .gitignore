@@ -25,6 +25,9 @@ results/*
 # Python / Jupyter Artifacts
 __pycache__/
 *.pyc
+*.egg-info/
+/build/
+/dist/
 .ipynb_checkpoints/
 .conda
 

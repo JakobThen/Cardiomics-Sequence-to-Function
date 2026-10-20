@@ -26,8 +26,8 @@ CELL_NUMBER_FILE="configs/nCells.csv"
 N_CELLS=400   
 
 # Config & Logging files
-CONFIG_FILE="utils/preprocessing/valid_RNA_pseudobulks.txt"
-LOG_FILE="utils/preprocessing/submitted_RNA_pseudobulks.txt"
+CONFIG_FILE="cardiomics_s2f/preprocessing/valid_RNA_pseudobulks.txt"
+LOG_FILE="cardiomics_s2f/preprocessing/submitted_RNA_pseudobulks.txt"
 
 # ------------------------------------------------------------------------------
 # Execution
@@ -113,4 +113,4 @@ echo "Found $NUM_JOBS valid RNA combinations. Submitting Slurm array job..."
 
 # Launch the array job, passing our dynamic directories and config path as arguments
 # Use make_RNA_bw.slurm to make unstranded RNA bw files
-sbatch --array=1-$NUM_JOBS ../utils/preprocessing/make_RNA_3prime_bw.slurm "$BAM_DIR" "$BW_OUTPUT_DIR" "$CONFIG_FILE"
+sbatch --array=1-$NUM_JOBS ../cardiomics_s2f/preprocessing/make_RNA_3prime_bw.slurm "$BAM_DIR" "$BW_OUTPUT_DIR" "$CONFIG_FILE"

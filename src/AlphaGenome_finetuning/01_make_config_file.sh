@@ -34,7 +34,7 @@ source /g/easybuild/x86_64/Rocky/8/haswell/software/Miniforge3/24.1.2-0/etc/prof
 source env/initiate_alphagenome_ft_env.sh
 
 # Execute the Python config builder
-python ../utils/preprocessing/make_AG_input_config.py \
+python ../cardiomics_s2f/preprocessing/make_AG_input_config.py \
     --data_dir "${DATA_DIR}" \
     --config_prefix "${TARGETS_CONFIG_PATH}" \
     --modality_folders "${MODALITIES[@]}" \

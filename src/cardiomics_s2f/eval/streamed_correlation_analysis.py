@@ -25,8 +25,6 @@ Returns:
 * Figures of the metrics above stored in ./fig.
 """
 
-import os
-import sys
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -36,27 +34,23 @@ from matplotlib.patches import Patch
 import seaborn as sns
 import h5py
 
-parent_dir = os.path.abspath("/home/then")
-if parent_dir not in sys.path:
-    sys.path.append(parent_dir)
-
-from utils.eval.accumulators import (
+from cardiomics_s2f.eval.accumulators import (
     StreamingPearsonAccumulator, 
     StreamingGeneAccumulator, 
     BestIntervalTracker, 
     StreamingCoverageAccumulator
    # ReservoirSampler
 )
-from utils.io.batch_bw_loader import BatchBigWigLoader
-from utils.io.data_input import SelectiveSquashTransform, get_streaming_non_zero_track_means
-from utils.eval.track_correlation import (
+from cardiomics_s2f.io.batch_bw_loader import BatchBigWigLoader
+from cardiomics_s2f.io.data_input import SelectiveSquashTransform, get_streaming_non_zero_track_means
+from cardiomics_s2f.eval.track_correlation import (
     quantile_normalize_RNA_counts,
     density_scatter,
     plot_correlation_beeswarm,
     compare_track_coverage,
     plot_strand_expression_heatmaps
 )
-from utils.eval.track_prediction import get_gtf
+from cardiomics_s2f.eval.track_prediction import get_gtf
 
 # ---------------------------------------------------------------------------
 # CORE LOOP (The Engine)
@@ -652,7 +646,7 @@ def evaluate_from_h5(
         # Concatenate tracks DataFrames row-wise
         if tracks_list and len(tracks_list) == len(datasets_info):
             tracks_df = pd.concat(tracks_list, ignore_index=True)
-            from utils.eval.track_prediction import process_track_metadata
+            from cardiomics_s2f.eval.track_prediction import process_track_metadata
             tracks_df = process_track_metadata(tracks_df)
             tracks_df = tracks_df.set_index("id")
         else:

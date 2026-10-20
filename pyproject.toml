@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cardiomics-s2f"
+version = "0.1.0"
+description = "Sequence-to-function modelling (AlphaGenome, Borzoi, ChromBPNet) of cardioid multiomics data"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Jakob Then" }]
+# Versions are intentionally unpinned for now; reproducible environments
+# will be provided as lock files (see PACKAGE_MIGRATION_PLAN.md, backlog).
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "scikit-learn",
+    "matplotlib",
+    "seaborn",
+    "h5py",
+    "pyBigWig",
+    "pyranges",
+    "ncls",
+    "pyyaml",
+    "requests",
+    "tqdm",
+]
+
+[project.optional-dependencies]
+# Required by cardiomics_s2f.io.data_input and cardiomics_s2f.eval.streamed_correlation_analysis
+torch = ["torch"]
+# Pretrained AlphaGenome API (cardiomics_s2f.ism)
+alphagenome = ["alphagenome", "anndata"]
+# AlphaGenome fine-tuning, test evaluation and fine-tuned VEP
+alphagenome-ft = [
+    "alphagenome",
+    "alphagenome-ft",
+    "alphagenome-research",
+    "jax",
+    "torch",
+    "anndata",
+]
+docs = [
+    "sphinx",
+    "sphinx-book-theme",
+    "myst-nb",
+    "sphinx-argparse",
+]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cardiomics_s2f*"]

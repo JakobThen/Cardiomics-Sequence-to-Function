@@ -34,7 +34,7 @@ source /g/steinmetz/projects/variant2function_project/env/alphagenome_ft/initiat
 export XLA_FLAGS="--xla_gpu_per_fusion_autotune_cache_dir=/g/steinmetz/projects/variant2function_project/src/cardiomics-sequence-to-function/src/AlphaGenome_finetuning/xla_cache"
 
 #Run VEP script
-srun python ../utils/VEP/04_AG_ft_VEP.py 
+srun python ../cardiomics_s2f/vep/04_AG_ft_VEP.py 
 
 conda deactivate
 echo "VEP done!"

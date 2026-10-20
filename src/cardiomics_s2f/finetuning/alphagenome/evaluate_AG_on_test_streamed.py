@@ -5,8 +5,6 @@ test intervals, computes metrics against BigWig tracks, and optionally saves
 the predictions to an HDF5 file.
 """
 
-import os
-import sys
 import h5py
 import argparse
 import numpy as np
@@ -26,13 +24,8 @@ from alphagenome_ft.finetune.data import prepare_intervals_from_fold, BigWigData
 from alphagenome_ft.finetune.train import register_predefined_heads
 from alphagenome.models import dna_model as ag_dna_model
 
-# Temporarily append the parent directory to sys.path so we can import local utilities
-parent_dir = os.path.abspath("/home/then")
-if parent_dir not in sys.path:
-    sys.path.append(parent_dir)
-
-from eval.streamed_correlation_analysis import evaluate_from_inference
-from eval.track_prediction import process_track_metadata
+from cardiomics_s2f.eval.streamed_correlation_analysis import evaluate_from_inference
+from cardiomics_s2f.eval.track_prediction import process_track_metadata
 
 # ---------------------------------------------------------------------------
 # Helpers
