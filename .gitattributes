@@ -1,0 +1,29 @@
+# Normalise text files to LF in the repository
+* text=auto
+
+# Scripts run on the Linux cluster: always LF, also in Windows checkouts
+*.sh     text eol=lf
+*.slurm  text eol=lf
+*.py     text eol=lf
+*.yaml   text eol=lf
+*.yml    text eol=lf
+*.toml   text eol=lf
+*.cfg    text eol=lf
+*.R      text eol=lf
+
+# Docs / notebooks
+*.md     text
+*.rst    text
+*.ipynb  text eol=lf
+
+# Windows-only helpers
+*.bat    text eol=crlf
+
+# Binary
+*.png    binary
+*.pdf    binary
+*.npy    binary
+*.h5     binary
+*.bw     binary
+*.bam    binary
+*.gz     binary
