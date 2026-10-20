@@ -1,22 +1,12 @@
 # Input-prep configs
 
-| File | Tracked | Content |
+Your data-specific files in this folder are **gitignored**; the tracked
+`*.example.*` files show the expected format.
+
+| File | Example | Content |
 |---|---|---|
-| `nCells.csv` | yes | Cells per pseudobulk (`"n_cells","celltype"`), used for the `N_CELLS` filter (default 400). Currently the **simple** (coarse) cell type definition with 7 cell types. |
-| `cutntag_bams.txt` | no (cluster paths) | Curated Cut&Tag BAM list (batches 1 and 2), the default `cutntag_bam_input`. |
+| `nCells.csv` | `nCells.example.csv` | Cells per pseudobulk (`"n_cells","celltype"`, cell type = BAM file name without `.bam`). Used by `01_atac_bigwig.sh` / `02_rna_bigwig.sh` to skip pseudobulks below `N_CELLS` (default 400). Without the file, all pseudobulks are kept. Override with `CELL_NUMBER_FILE=...`. |
+| `cutntag_bams.txt` | `cutntag_bams.example.txt` | One Cut&Tag BAM path per line; usable as `cutntag_bam_input` in `config/paths.yaml` (or a folder of BAMs instead). |
 
-## Cell type definitions
-
-The project switched between two pseudobulk definitions:
-
-- **simple** (coarse): 7 cell types (Cardiac_mesoderm, Cardiac_progenitors,
-  Cardiomyocytes, Ectoderm, Endoderm, Endothelial_cells, Fibroblasts).
-- **normal** (finer): 13 cell types, 11 of them with ≥400 cells (adds
-  Early_cardiomyocytes, Early_endoderm, Early_fibroblasts, Mesendoderm; drops
-  Early_ectoderm and SOX2_Ectoderm). The final fine-tuned AlphaGenome model was
-  trained on this definition (deduplicated reads; BigWigs in
-  `seq2fun_train_input_baseres/multiome_{ATAC,RNA_3prime}_bigwig`).
-
-Both write BigWigs with the same file names for shared cell types (e.g.
-`ATAC_Cardiomyocytes_100M_norm.bw`), so write each definition to its own output
-folder (`BW_OUTPUT_DIR=...`) to avoid overwriting.
+If you work with several cell type definitions that share names, write each to
+its own BigWig folder (`BW_OUTPUT_DIR=...`) so files are not overwritten.

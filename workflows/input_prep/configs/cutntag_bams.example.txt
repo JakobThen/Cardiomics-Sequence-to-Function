@@ -1,0 +1,3 @@
+/path/to/cutntag/batch1/H3K27ac_Day1.bam
+/path/to/cutntag/batch1/H3K4me3_Day1.bam
+/path/to/cutntag/batch2/H3K27ac_Day5.bam

@@ -15,6 +15,14 @@ pip install -e .                                 # inside the AlphaGenome env (C
 `config/paths.yaml`, `config/site.env` and `.env` are gitignored. The login-node
 Python (`CS2F_PYTHON`, default `python3`) needs PyYAML to read `paths.yaml`.
 
+Data-specific inputs are gitignored too; each has a tracked `*.example.*` next to it:
+
+| File | Example |
+|---|---|
+| `input_prep/configs/nCells.csv` (optional cell-count filter) | `nCells.example.csv` |
+| `input_prep/configs/cutntag_bams.txt` (optional Cut&Tag BAM list) | `cutntag_bams.example.txt` |
+| AlphaGenome targets config (`ag_targets_config`, built by step 01) | `alphagenome_ft/configs/targets_config.example.yaml` |
+
 ## How a step runs
 
 Every numbered step is started with `bash` on the login node, from any directory:
@@ -51,7 +59,7 @@ cell-count filter `input_prep/configs/nCells.csv` (`N_CELLS`, default 400).
 | 1 | `01_make_targets_config.sh` | `bigwig_dir`, `nonzero_means_csv` | `ag_targets_config` |
 | 2 | `02_finetune_heads.sh` (`RESUME_FROM=<ckpt dir>` to resume) | `ag_targets_config`, `genome_fasta` | `ag_ft_train_dir` (`_resumed`) |
 | 3 | `03_test_eval.sh` (`SAVE_PREDICTIONS=1`, `MINIMAL_TEST=1`, `RESOLUTION=128`) | `ag_targets_config`, `ag_ft_checkpoint_dir/best`, `gtf` | `model_eval_dir/AlphaGenome_ft` |
-| 4 | `04_vep.sh` (`INPUT_VCF=<csv>`) | `ag_targets_config`, `ag_ft_checkpoint_dir/best`, `variant_data_dir` | `vep_dir/AG_ft_VEP_out` |
+| 4 | `04_vep.sh` (`INPUT_VCF=<csv>`) | `ag_targets_config`, `ag_ft_checkpoint_dir/best`, `vep_input_vcf` | `vep_dir/AG_ft_VEP_out` |
 
 GPU steps (2-4) stage the BigWigs to `node_tmp_dir` on the compute node and use
 `xla_cache_dir` as a persistent XLA autotune cache.

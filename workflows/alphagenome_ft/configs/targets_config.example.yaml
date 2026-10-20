@@ -1,0 +1,34 @@
+# Example AlphaGenome targets config (format of 01_make_targets_config.sh).
+# Copy and adapt, or generate your own with step 01; point ag_targets_config in
+# config/paths.yaml to it. Real configs in this folder are gitignored.
+heads:
+- dir_name: CutnTag_bigwig
+  id: CutnTag
+  source: predefined
+  kind: atac
+  targets:
+  - path: /path/to/bigwigs/CutnTag_bigwig/H3K27ac_Day1_100M_norm.bw
+    label: H3K27ac_Day1
+    nonzero_mean: 20.0
+- dir_name: multiome_ATAC_bigwig
+  id: multiome_ATAC
+  source: predefined
+  kind: atac
+  targets:
+  - path: /path/to/bigwigs/multiome_ATAC_bigwig/ATAC_CellTypeA_100M_norm.bw
+    label: ATAC_CellTypeA
+    nonzero_mean: 0.7
+  - path: /path/to/bigwigs/multiome_ATAC_bigwig/ATAC_CellTypeB_100M_norm.bw
+    label: ATAC_CellTypeB
+    nonzero_mean: 1.2
+- dir_name: multiome_RNA_3prime_bigwig
+  id: multiome_RNA
+  source: predefined
+  kind: rna_seq
+  targets:  # stranded 3' RNA: one track per strand
+  - path: /path/to/bigwigs/multiome_RNA_3prime_bigwig/RNA_CellTypeA_minus_100M.bw
+    label: RNA_CellTypeA_minus
+    nonzero_mean: 1.6
+  - path: /path/to/bigwigs/multiome_RNA_3prime_bigwig/RNA_CellTypeA_plus_100M.bw
+    label: RNA_CellTypeA_plus
+    nonzero_mean: 1.8

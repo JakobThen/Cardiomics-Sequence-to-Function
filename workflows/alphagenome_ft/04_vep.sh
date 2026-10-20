@@ -6,8 +6,7 @@
 #          AlphaGenome model (8 GPUs).
 # Usage:   bash workflows/alphagenome_ft/04_vep.sh
 #          INPUT_VCF=/path/to/variants.csv bash workflows/alphagenome_ft/04_vep.sh
-# Input:   INPUT_VCF (CSV with variant_id, CHROM, POS, REF, ALT)
-#          [default: <variant_data_dir>/VCF_all_Richter_vars.csv],
+# Input:   INPUT_VCF (CSV with variant_id, CHROM, POS, REF, ALT) [default: <vep_input_vcf>],
 #          <ag_targets_config>, best checkpoint in <ag_ft_checkpoint_dir>
 # Output:  <vep_dir>/AG_ft_VEP_out/VEP_AG_ft_fold_1_<vcf name>.csv
 # ==============================================================================
@@ -15,7 +14,7 @@ set -euo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/../common/load_site_env.sh"
 WORKFLOW_DIR="${CS2F_REPO_ROOT}/workflows/alphagenome_ft"
 
-INPUT_VCF="${INPUT_VCF:-$(cs2f_path variant_data_dir)/VCF_all_Richter_vars.csv}"
+INPUT_VCF="${INPUT_VCF:-$(cs2f_path vep_input_vcf)}"
 OUTPUT_DIR="${OUTPUT_DIR:-$(cs2f_path vep_dir)/AG_ft_VEP_out}"
 TARGETS_CONFIG="${TARGETS_CONFIG:-$(cs2f_path ag_targets_config)}"
 CHECKPOINT_DIR="${CHECKPOINT_DIR:-$(cs2f_path ag_ft_checkpoint_dir)}"  # uses its 'best' checkpoint

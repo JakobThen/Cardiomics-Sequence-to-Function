@@ -24,6 +24,8 @@ bigwig_dir: input_data/AlphaGenome_Borzoi_input
 intervals_dir: input_data/AlphaGenome_Borzoi_input/intervals
 chrombpnet_input_dir: input_data/chrombpnet_input
 variant_data_dir: input_data/variant_data
+# Default VEP input (CSV with variant_id, CHROM, POS, REF, ALT)
+vep_input_vcf: input_data/variant_data/variants.csv
 nonzero_means_csv: input_data/metadata/bw_nonzero_means.csv
 
 # --- Reference genome (GRCh38, GENCODE release 29) ----------------------------

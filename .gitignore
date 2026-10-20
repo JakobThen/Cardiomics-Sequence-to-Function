@@ -19,9 +19,14 @@ input_data/metadata/GRCh38_gencode_release29_genome_fasta/*
 config/paths.yaml
 config/site.env
 .env
-# Group-specific run configs with cluster paths (see the READMEs in these folders)
-workflows/alphagenome_ft/configs/*.yaml
-workflows/input_prep/configs/cutntag_bams.txt
+# Data-specific files (only READMEs and *.example.* templates are tracked)
+PROVENANCE.md
+workflows/alphagenome_ft/configs/*
+!workflows/alphagenome_ft/configs/README.md
+!workflows/alphagenome_ft/configs/*.example.*
+workflows/input_prep/configs/*
+!workflows/input_prep/configs/README.md
+!workflows/input_prep/configs/*.example.*
 
 # Data, models and results live outside git (only the READMEs are tracked)
 input_data/*
@@ -40,7 +45,8 @@ __pycache__/
 .ipynb_checkpoints/
 .conda
 
-#Documentation
+# Documentation build output
+docs/build/
 docs/_build/
 
 then/
