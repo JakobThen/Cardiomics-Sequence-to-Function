@@ -1,0 +1,24 @@
+# Pre-commit hooks: run automatically on `git commit` once installed.
+#   pip install pre-commit
+#   pre-commit install            # once per clone
+#   pre-commit run --all-files    # check the whole repository manually
+#   pre-commit autoupdate         # bump the hook versions below
+# nbstripout (notebook outputs) will be added together with the notebooks.
+repos:
+  # Blocks commits that contain secrets (API keys, tokens, private keys),
+  # e.g. Google/AlphaGenome API keys ("AIza...")
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      # Data, models and results belong outside git (see input_data/, models/, results/)
+      - id: check-added-large-files
+        args: ["--maxkb=1000"]
+      - id: end-of-file-fixer
+      - id: check-merge-conflict
+      - id: check-yaml
+        exclude: ^env/

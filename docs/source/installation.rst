@@ -82,7 +82,7 @@ Optional dependency groups:
    * - ``docs``
      - Sphinx and extensions to build this documentation
    * - ``dev``
-     - pytest
+     - pytest and pre-commit
 
 Without extras, the core install covers data handling, evaluation metrics, VEP
 scoring and plotting.
@@ -94,6 +94,19 @@ Check the installation
 
     python -c "import cardiomics_s2f.vep.scoring, cardiomics_s2f.config"
     pip install -e ".[dev]" && pytest
+
+Before committing
+-----------------
+
+The repository uses `pre-commit <https://pre-commit.com>`_ hooks: gitleaks blocks
+commits containing secrets such as API keys (including keys inside notebooks,
+see ``.gitleaks.toml``), and further hooks reject large files and fix missing
+final newlines. Set them up once per clone:
+
+.. code-block:: bash
+
+    pip install -e ".[dev]"
+    pre-commit install
 
 Build the documentation
 -----------------------

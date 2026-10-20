@@ -1,0 +1,16 @@
+# Gitleaks configuration (used by the pre-commit hook and `gitleaks detect`).
+# Keeps all default rules and adds one rule for Google API keys (AlphaGenome).
+
+title = "cardiomics-s2f gitleaks config"
+
+[extend]
+useDefault = true
+
+# The default Google key rule requires a quote, whitespace or line end directly
+# after the key. In Jupyter notebooks (JSON) the key is followed by an escaped
+# quote (\"), so keys in notebook cells would slip through.
+[[rules]]
+id = "google-api-key-any-context"
+description = "Google API key (e.g. AlphaGenome), also inside notebook JSON strings"
+regex = '''AIza[0-9A-Za-z\-_]{35}'''
+keywords = ["aiza"]

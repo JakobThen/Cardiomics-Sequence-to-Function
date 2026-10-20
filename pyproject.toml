@@ -50,7 +50,7 @@ docs = [
     "sphinx-book-theme==1.2.0",
     "myst-nb",
 ]
-dev = ["pytest"]
+dev = ["pytest", "pre-commit"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
