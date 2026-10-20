@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=64"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -9,6 +9,8 @@ description = "Sequence-to-function modelling (AlphaGenome, Borzoi, ChromBPNet) 
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{ name = "Jakob Then" }]
+license = "MIT"
+license-files = ["LICENSE"]
 # Versions are intentionally unpinned for now; reproducible environments
 # will be provided as lock files (see PACKAGE_MIGRATION_PLAN.md, backlog).
 dependencies = [
