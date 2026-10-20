@@ -141,8 +141,31 @@ def density_scatter(
     bins: int = 100,         
     smooth_sigma: float = 1.0 
 ) -> plt.Axes:
-    """
-    Creates a square scatter plot of predicted vs observed values, colored by point density.
+    """Plots predicted vs. observed values as a square scatter, coloured by point density.
+
+    Non-finite values are removed. Both axes share the same limits and a grey
+    identity line is drawn. Density is a Gaussian-smoothed 2D histogram, and
+    dense points are drawn on top.
+
+    Args:
+        pred (array-like): Predicted values (flattened).
+        obs (array-like): Observed values (flattened), same size as ``pred``.
+        ax (plt.Axes, optional): Axes to draw on; a new figure is created if None.
+        figsize (tuple, optional): Figure size if a new figure is created. Defaults to ``(5, 5)``.
+        xlabel (str, optional): x-axis label. Defaults to ``"log predicted counts"``.
+        ylabel (str, optional): y-axis label. Defaults to ``"log observed counts"``.
+        title (str, optional): Axes title. Defaults to None.
+        density (bool, optional): Colour by density; if False, all points get one colour.
+            Defaults to True.
+        bins (int, optional): Histogram bins per axis for the density. Defaults to 100.
+        smooth_sigma (float, optional): Gaussian smoothing of the density histogram.
+            Defaults to 1.0.
+
+    Returns:
+        plt.Axes: The axes with the plot.
+
+    Raises:
+        ValueError: If fewer than two finite point pairs remain.
     """
     x = np.asarray(pred).flatten()
     y = np.asarray(obs).flatten()

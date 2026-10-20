@@ -1,4 +1,6 @@
-# Main Sphinx package (stripped of the local conda path)
+# Docs build requirements (Read the Docs). Keep in sync with the [docs] extra in pyproject.toml.
+
+# Main Sphinx package
 Sphinx==9.1.0
 
 # Sphinx Extensions

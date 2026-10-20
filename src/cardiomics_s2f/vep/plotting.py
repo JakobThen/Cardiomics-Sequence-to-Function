@@ -1,3 +1,18 @@
+"""Variant Effect Prediction Plots
+===============================
+
+Figures to benchmark VEP scores against observed variant effects:
+
+* Classification of effect variants: `plot_AUPRCs`, `plot_AUROCs`,
+  `plot_auc_bars`, `plot_contingency_grid`, `plot_sign_confusion_matrix`.
+* Score distributions and effect sizes: `box_grid` (with Mann-Whitney U tests),
+  `plot_scatter_panel` (with Spearman correlations).
+* Stratified performance: `plot_stratified_auprc_heatmap` (strata e.g. from
+  `cardiomics_s2f.vep.processing.create_tss_stratifications`).
+
+All functions show their figure with ``plt.show()``, except
+`plot_contingency_grid`, which returns it.
+"""
 import math
 import numpy as np
 import pandas as pd
@@ -14,10 +29,18 @@ from scipy.stats import chi2_contingency, mannwhitneyu, spearmanr
 
 
 def plot_AUPRCs(df, true_label, score_columns, n_cols=6):
-    """
-    Plots a grid of Precision-Recall (PR) curves for multiple model score columns.
-    The plots are sorted in descending order based on their Area Under the PR Curve (AUPRC).
-    Robust to NaN values in score columns.
+    """Plots a grid of precision-recall curves, one panel per score column.
+
+    Panels are ordered by AUPRC (highest first). Each panel shows the curve, the
+    baseline (positive rate) and the cutoff that maximises the F1 score. Rows with
+    a missing label or score are excluded per column; columns without both classes
+    get an AUPRC of 0 and an "Insufficient Data" panel.
+
+    Args:
+        df (pd.DataFrame): Table with the labels and scores.
+        true_label (str): Column with the binary ground truth (0/1 or bool).
+        score_columns (list of str): Columns with the model scores.
+        n_cols (int, optional): Panels per row. Defaults to 6.
     """
     
     # 1. Pre-calculate AUPRCs to rank them
@@ -105,18 +128,16 @@ def plot_AUPRCs(df, true_label, score_columns, n_cols=6):
     
 
 def plot_auc_bars(df, true_label, score_columns):
-    """
-    Generates side-by-side bar charts comparing AUROC and AUPRC scores across multiple models.
-    Models are sorted in descending order of their AUPRC score.
-    
-    Parameters:
-    -----------
-    df : pandas.DataFrame
-        The dataframe containing true labels and predicted scores.
-    true_label : str
-        The column name for ground truth binary labels.
-    score_columns : list of str
-        Column names representing model predictions.
+    """Plots AUROC and AUPRC of several models as two bar charts side by side.
+
+    Models are ordered by AUPRC (highest first); dashed lines mark the baselines
+    (0.5 for AUROC, the positive rate for AUPRC).
+
+    Args:
+        df (pd.DataFrame): Table with the labels and scores (no missing values in
+            ``true_label`` or ``score_columns``).
+        true_label (str): Column with the binary ground truth (0/1 or bool).
+        score_columns (list of str): Columns with the model scores.
     """
     # 1. Calculate Baselines
     baseline_pr = df[true_label].mean()
@@ -170,18 +191,15 @@ def plot_auc_bars(df, true_label, score_columns):
     
 
 def plot_sign_confusion_matrix(y_observed, y_predicted, labels=[-1, 1]):
-    """
-    Plots a confusion matrix heatmap for categorical/sign predictions and 
-    calculates the Chi-Square test of independence.
-    
-    Parameters:
-    -----------
-    y_observed : array-like
-        The true observed labels (e.g., -1 for negative, 1 for positive).
-    y_predicted : array-like
-        The predicted labels from the model.
-    labels : list, default=[-1, 1]
-        The specific class labels to include in the confusion matrix.
+    """Plots the confusion matrix of predicted vs. observed effect signs.
+
+    The title reports the p-value of a chi-square test of independence.
+
+    Args:
+        y_observed (array-like): Observed sign per variant (e.g. -1 / 1).
+        y_predicted (array-like): Predicted sign per variant.
+        labels (list, optional): Classes to include, in display order.
+            Defaults to ``[-1, 1]``.
     """
     cm = confusion_matrix(y_observed, y_predicted, labels=labels)
     chi2, p_value, dof, expected = chi2_contingency(cm)
@@ -222,51 +240,38 @@ def plot_contingency_grid(
     figsize_per_cell=3.2,
     fontsize=11,
 ):
-    """
-    Plot a grid of 2x2 contingency tables comparing a true observed binary label
-    against one or more continuous scoring columns, binarized either at a fixed
-    cutoff or at an optimal (F1-maximizing) cutoff derived from the precision-
-    recall curve.
+    """Plots a grid of 2x2 contingency tables of binarised scores vs. a binary label.
 
-    Parameters
-    ----------
-    df : pd.DataFrame
-        Data containing the true label column and score columns.
-    true_label : str
-        Column holding the observed binary outcome. Accepted encodings:
-        {True, False}, {0, 1}, or {-1, 1}.
-    score_cols : str or list of str
-        Column(s) with continuous scores to binarize and compare against
-        the true label.
-    threshold : float or dict, default 0.5
-        Fixed cutoff used to binarize scores (score >= threshold -> positive).
-        Either a single float applied to all score_cols, or a dict mapping
-        {col_name: threshold} for per-column fixed cutoffs. Ignored for any
-        column selected for optimal thresholding (see `optimal_threshold`).
-    optimal_threshold : bool or list of str, default False
-        If True, compute an optimal cutoff per column that maximizes F1
-        score along the precision-recall curve. If a list of column names
-        is given, only those columns use the optimal cutoff; all others
-        use `threshold`.
-    titles : dict, optional
-        Mapping {col_name: custom_title}. Columns not present default to
-        the column name itself.
-    ncols : int, default 3
-        Number of columns in the plotting grid.
-    cmap : str, default "Blues"
-        Colormap used to shade cell counts.
-    figsize_per_cell : float, default 3.2
-        Size (inches) of each square subplot.
-    fontsize : int, default 11
-        Base font size for annotations.
+    Each score column is binarised at a fixed cutoff (``score >= threshold`` is
+    positive) or at the cutoff that maximises the F1 score along its
+    precision-recall curve; each panel reports the chi-square test p-value.
+    Rows with a missing label or score are excluded per column.
 
-    Returns
-    -------
-    fig : matplotlib.figure.Figure
-    axes : np.ndarray of Axes
-    results : dict
-        Per-column dict with keys "threshold", "table" (2x2 pd.DataFrame,
-        rows = true neg/pos, cols = pred neg/pos), and "chi2_pvalue".
+    Args:
+        df (pd.DataFrame): Table with the label and score columns.
+        true_label (str): Column with the observed binary outcome, encoded as
+            {True, False}, {0, 1} or {-1, 1}.
+        score_cols (str or list of str): Score column(s) to binarise.
+        threshold (float or dict, optional): Fixed cutoff for all columns, or a
+            ``{column: cutoff}`` mapping (missing columns use 0.5). Ignored for
+            columns selected by ``optimal_threshold``. Defaults to 0.5.
+        optimal_threshold (bool or list of str, optional): True to use the
+            F1-optimal cutoff for all columns, or a list of the columns that should
+            use it. Cutoffs that would call every point positive (or negative) are
+            skipped. Defaults to False.
+        titles (dict, optional): ``{column: panel title}``; defaults to the column name.
+        ncols (int, optional): Panels per row. Defaults to 3.
+        cmap (str, optional): Colormap for the cell counts. Defaults to ``"Blues"``.
+        figsize_per_cell (float, optional): Panel size in inches. Defaults to 3.2.
+        fontsize (int, optional): Base font size. Defaults to 11.
+
+    Returns:
+        tuple:
+            - matplotlib.figure.Figure: The figure.
+            - np.ndarray: The panel axes.
+            - dict: Per column ``{"threshold", "table", "chi2_pvalue"}``; ``table`` is
+              a 2x2 DataFrame (rows: true negative/positive, columns: predicted
+              negative/positive); the p-value is NaN for degenerate tables.
     """
 
     def _normalize_true_label(series):
@@ -438,21 +443,17 @@ def plot_contingency_grid(
 
 
 def plot_AUROCs(df, true_label, score_columns, n_cols=6):
-    """
-    Plots a grid of Receiver Operating Characteristic (ROC) curves for multiple models.
-    The plots are sorted in descending order based on their AUROC score. Optimal
-    cutoffs are calculated using Youden's J statistic.
-    
-    Parameters:
-    -----------
-    df : pandas.DataFrame
-        The dataframe containing the true labels and predicted scores.
-    true_label : str
-        The column name representing ground truth binary labels.
-    score_columns : list of str
-        Column names representing model predictions.
-    n_cols : int, default=6
-        The number of columns in the plot grid.
+    """Plots a grid of ROC curves, one panel per score column.
+
+    Panels are ordered by AUROC (highest first). Each panel reports the AUROC and
+    the cutoff that maximises Youden's J statistic (TPR - FPR).
+
+    Args:
+        df (pd.DataFrame): Table with the labels and scores (no missing values in
+            ``true_label`` or ``score_columns``).
+        true_label (str): Column with the binary ground truth (0/1 or bool).
+        score_columns (list of str): Columns with the model scores.
+        n_cols (int, optional): Panels per row. Defaults to 6.
     """
     # 1. Pre-calculate AUCs to rank them
     auc_data = []
@@ -511,29 +512,25 @@ def plot_AUROCs(df, true_label, score_columns, n_cols=6):
     
 
 def box_grid(df, x_col, y_cols, n_cols=5, alternative="two-sided"):
-    """
-    Plots a grid of Seaborn box plots comparing multiple continuous variables
-    against a single categorical variable, annotating each panel with the
-    Mann-Whitney U test p-value between the two categories.
+    """Plots box plots of several variables split by a two-group column.
 
-    Parameters:
-    -----------
-    df : pandas.DataFrame
-        The dataframe containing the data to plot.
-    x_col : str
-        The column name to use for the x-axis (categorical, must have
-        exactly two distinct non-null values for the Mann-Whitney U test).
-    y_cols : str or list of str
-        A list of column names to plot on the y-axis (usually continuous).
-    n_cols : int, default=5
-        The number of columns in the plot grid.
-    alternative : {'two-sided', 'greater', 'less'}, default 'two-sided'
-        Passed to scipy's mannwhitneyu. 'greater' tests whether the True
-        (or 1, or 1 of a -1/1 pair) group is stochastically greater than
-        the False (or 0, or -1) group; 'less' tests the opposite. Using
-        'greater' or 'less' requires x_col to be boolean-like ({True,
-        False}, {0, 1}, or {-1, 1}) so the direction of the test is
-        unambiguous.
+    Each panel is annotated with the p-value of a Mann-Whitney U test between the
+    two groups (rows with missing values are excluded per panel).
+
+    Args:
+        df (pd.DataFrame): Table with the grouping and value columns.
+        x_col (str): Grouping column with exactly two distinct non-missing values.
+        y_cols (str or list of str): Column(s) to compare, one panel each.
+        n_cols (int, optional): Panels per row. Defaults to 5.
+        alternative (str, optional): ``"two-sided"``, ``"greater"`` or ``"less"``,
+            passed to ``scipy.stats.mannwhitneyu``. One-sided tests compare the
+            True (or 1) group against the False (or 0, or -1) group and therefore
+            require a boolean-like ``x_col`` ({True, False}, {0, 1} or {-1, 1}).
+            Defaults to ``"two-sided"``.
+
+    Raises:
+        ValueError: If ``x_col`` does not have exactly two groups, or a one-sided
+            test is requested for a column that is not boolean-like.
     """
     if isinstance(y_cols, str):
         y_cols = [y_cols]
@@ -622,31 +619,25 @@ def box_grid(df, x_col, y_cols, n_cols=5, alternative="two-sided"):
 
 
 def plot_scatter_panel(df, x, y, hue, stratification_dict, cols=3, figsize_per_plot=(4, 4), save_fig = False, fig_path = "VEP_effect_size_scatter.pdf"):
-    """
-    Plots a panel of scatter plots (one per stratum) with a Spearman correlation
-    and a dashed linear trendline per panel. Axis limits and the hue colour
-    mapping are shared across all panels, and a single legend is drawn outside
-    the grid.
+    """Plots one scatter panel per stratum with a Spearman correlation and trend line.
 
-    Parameters:
-    -----------
-    df : pandas.DataFrame
-        The dataframe containing the data to plot.
-    x, y : str
-        Column names for the x- and y-axis.
-    hue : str
-        Column name used to colour the points.
-    stratification_dict : dict
-        Mapping of panel title to a boolean mask or ``pd.Index`` selecting the
-        rows of ``df`` for that panel (e.g. from `create_tss_stratifications`).
-    cols : int, default=3
-        The number of columns in the plot grid.
-    figsize_per_plot : tuple of float, default=(4, 4)
-        Width and height (inches) of each panel.
-    save_fig : bool, default=False
-        If True, saves the figure to ``fig_path``.
-    fig_path : str, default="VEP_effect_size_scatter.pdf"
-        Output path used when ``save_fig`` is True.
+    All panels share the axis limits and the colour of each ``hue`` level; a single
+    legend is drawn outside the grid. Panels follow the order of
+    ``stratification_dict``; rows with a missing ``x`` or ``y`` are excluded.
+
+    Args:
+        df (pd.DataFrame): Table with the plotted columns.
+        x (str): Column for the x-axis (e.g. a predicted effect).
+        y (str): Column for the y-axis (e.g. an observed effect).
+        hue (str): Column used to colour the points.
+        stratification_dict (dict): Panel title -> boolean mask or ``pd.Index``
+            selecting rows of ``df`` (e.g. from `create_tss_stratifications`).
+        cols (int, optional): Panels per row. Defaults to 3.
+        figsize_per_plot (tuple of float, optional): Width and height of each panel
+            in inches. Defaults to ``(4, 4)``.
+        save_fig (bool, optional): Also save the figure to ``fig_path``. Defaults to False.
+        fig_path (str, optional): Output path (300 dpi, transparent background).
+            Defaults to ``"VEP_effect_size_scatter.pdf"``.
     """
 
     # --- GLOBAL CALCULATIONS ---
@@ -787,37 +778,34 @@ def plot_scatter_panel(df, x, y, hue, stratification_dict, cols=3, figsize_per_p
 
 
 def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alternate_score_names=None, title = None, save_fig=False, fig_path="Causality_AUPRC_heatmap.pdf"):
-    """
-    Plots a 3-part split heatmap with one row per stratum showing:
-      1. Sample size (N)
-      2. Baseline AUPRC (positive rate)
-      3. log2 ratio of each model's AUPRC over the baseline
+    """Plots model AUPRCs per stratum as a three-part heatmap.
 
-    Parameters:
-    -----------
-    df : pandas.DataFrame
-        The dataframe containing the true labels and predicted scores.
-    true_label : str
-        The column name representing ground truth binary labels.
-    score_columns : list of str
-        Column names representing model predictions.
-    strat_dict : dict
-        Mapping of stratum name to a boolean mask or index selecting rows of
-        ``df`` (e.g. from `create_tss_stratifications`).
-    alternate_score_names : list of str, optional
-        Display names corresponding to ``score_columns``. Defaults to the
-        column names with underscores replaced by spaces.
-    title : str, optional
-        Figure title.
-    save_fig : bool, default=False
-        If True, saves the figure to ``fig_path``.
-    fig_path : str, default="Causality_AUPRC_heatmap.pdf"
-        Output path used when ``save_fig`` is True.
+    Each row is a stratum; the panels show (1) the number of labelled variants,
+    (2) the baseline AUPRC (positive rate) and (3) for each model
+    ``log2(AUPRC / baseline)`` on a diverging scale centred at 0. Rows with a
+    missing label or score are excluded per model; strata without both classes
+    get NaN. Plot styling is applied only within this function.
+
+    Args:
+        df (pd.DataFrame): Table with the labels and scores.
+        true_label (str): Column with the binary ground truth (0/1 or bool).
+        score_columns (list of str): Columns with the model scores.
+        strat_dict (dict): Stratum name -> boolean mask or index selecting rows of
+            ``df`` (e.g. from `create_tss_stratifications`).
+        alternate_score_names (list of str, optional): Display names for
+            ``score_columns`` (same length). Defaults to the column names with
+            underscores replaced by spaces.
+        title (str, optional): Figure title. Defaults to None.
+        save_fig (bool, optional): Also save the figure to ``fig_path``. Defaults to False.
+        fig_path (str, optional): Output path (300 dpi, transparent background).
+            Defaults to ``"Causality_AUPRC_heatmap.pdf"``.
 
     Returns:
-    --------
-    pd.DataFrame
-        Table of N, baseline and log2(AUPRC/baseline) per stratum and model.
+        pd.DataFrame: Per stratum the sample size ``N``, the ``Baseline`` and the
+        ``log2(AUPRC / baseline)`` of each model (columns named by display name).
+
+    Raises:
+        ValueError: If ``alternate_score_names`` and ``score_columns`` differ in length.
     """
 
     # Validate alternate score names if provided

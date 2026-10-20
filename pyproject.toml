@@ -42,11 +42,13 @@ alphagenome-ft = [
     "torch",
     "anndata",
 ]
+# Keep in sync with docs/requirements.txt (used by Read the Docs)
 docs = [
-    "sphinx",
-    "sphinx-book-theme",
+    "sphinx==9.1.0",
+    "sphinx-argparse==0.5.2",
+    "pydata-sphinx-theme==0.16.1",
+    "sphinx-book-theme==1.2.0",
     "myst-nb",
-    "sphinx-argparse",
 ]
 dev = ["pytest"]
 

@@ -1,4 +1,14 @@
-# function to run th track evalution of seunce to function models
+"""Track Prediction Inputs and Outputs
+===================================
+
+Helpers to compare model predictions with observed tracks:
+
+* `get_gtf`, `merge_bin_intervals`, `sum_exon_counts`: gene annotation and
+  exon-level counts.
+* `get_counts_from_bw`, `get_counts_from_bws`: observed signal from BigWig files.
+* `load_predictions_from_h5`: predictions and metadata saved as HDF5.
+* `process_track_metadata`: track names, assays and strands from a track table.
+"""
 import os
 import gc
 import pyBigWig

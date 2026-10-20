@@ -1,25 +1,39 @@
+"""Variant Table Processing
+========================
+
+Converts SDR-seq differential-expression (DE) results into VCF-style variant
+tables and prepares variant effect prediction (VEP) scores for analysis:
+
+* `DE_to_VCF` (with `process_row`, `expand_dataframe`, `expand_indels` and
+  `make_VCF_cols`): phased variant combinations -> one VCF-style row per
+  haplotype.
+* `pivot_tf_scores`, `add_abs_score_columns`, `format_chrombpnet_vep`: reshape
+  model scores into one column per score.
+* `create_tss_stratifications`: variant strata by distance to the target gene TSS.
+"""
 import numpy as np
 import pandas as pd
 from typing import Dict, List, Tuple, Optional, Any
 
 def process_row(phases: List[int], variants: List[str]) -> List[Tuple[List[int], List[str]]]:
-    """
-    Processes a single row's phasing and variant information, resolving phase signs
-    and formatting the variant strings accordingly (forward or reverse).
-    
-    Parameters:
-    -----------
-    phases : list of int
-        A list of phase values (positive or negative integers).
-    variants : list of str
-        A list of variant string identifiers.
-        
+    """Splits one combination of phased variants by haplotype.
+
+    The sign of a phase value gives the haplotype: positive values are tagged
+    ``(for)``, all others ``(rev)``, by appending ``-(for)`` / ``-(rev)`` to the
+    variant ID.
+
+    Args:
+        phases (list of int): Signed phase value per variant.
+        variants (list of str): Variant IDs, in the same order as ``phases``.
+
     Returns:
-    --------
-    list of tuples
-        A list of (phases, new_variants) tuples. Returns one tuple if all signs 
-        are the same, or two tuples (one for positive, one for negative phases) 
-        if signs are mixed.
+        list of tuple: ``(phases, variant_ids)`` pairs.
+
+        - All signs equal: one pair with every variant tagged.
+        - Mixed signs: three pairs: all variants (each tagged by its own sign),
+          then the positive-phase variants and then the negative-phase variants.
+          In the last two, the variants of the other haplotype are kept with an
+          extra ``-phased`` suffix so that `make_VCF_cols` can drop them.
     """
     phases_sign = [1 if p > 0 else -1 for p in phases]
     unique_signs = set(phases_sign)
@@ -55,23 +69,21 @@ def process_row(phases: List[int], variants: List[str]) -> List[Tuple[List[int],
     return result_rows
 
 def expand_dataframe(df: pd.DataFrame, phase_col: str = "phase", var_col: str = "variant_id") -> pd.DataFrame:
-    """
-    Expands a dataframe by unnesting and processing the phasing and variant lists
-    using `process_row`.
-    
-    Parameters:
-    -----------
-    df : pd.DataFrame
-        The input dataframe containing phase and variant lists.
-    phase_col : str, default="phase"
-        The column name containing lists of phases.
-    var_col : str, default="variant_id"
-        The column name containing lists of variant IDs.
-        
+    """Applies `process_row` to every row of a variant table.
+
+    Rows whose phases mix both signs are split into several rows (see
+    `process_row`); all other columns are copied to each resulting row.
+
+    Args:
+        df (pd.DataFrame): Table with one list of phases and one list of variant IDs per row.
+        phase_col (str, optional): Column holding the phase lists. Defaults to ``"phase"``.
+        var_col (str, optional): Column holding the variant ID lists. Defaults to ``"variant_id"``.
+
     Returns:
-    --------
-    pd.DataFrame
-        A new expanded dataframe where phased rows are unnested.
+        pd.DataFrame: The expanded table with a fresh index.
+
+    Raises:
+        KeyError: If ``phase_col`` or ``var_col`` is not a column of ``df``.
     """
     out_rows = []
     cols = list(df.columns)
@@ -97,19 +109,18 @@ def expand_dataframe(df: pd.DataFrame, phase_col: str = "phase", var_col: str = 
     return pd.DataFrame(out_rows)
 
 def expand_indels(row: pd.Series) -> pd.DataFrame:
-    """
-    Expands insertions/deletions (indels) to cover the maximum length of the 
-    REF or ALT alleles, incrementing the POS index accordingly.
-    
-    Parameters:
-    -----------
-    row : pd.Series
-        A single row containing at least 'CHROM', 'POS', 'REF', 'ALT', and 'STRAND'.
-        
+    """Expands one variant into one row per affected base.
+
+    Multi-base alleles are split into single bases at consecutive positions
+    starting at ``POS``; the shorter allele is padded with ``None`` (e.g. the
+    deleted bases of a deletion have ``ALT=None``).
+
+    Args:
+        row (pd.Series): Variant with ``CHROM``, ``POS`` (int), ``REF``, ``ALT`` and ``STRAND``.
+
     Returns:
-    --------
-    pd.DataFrame
-        A dataframe of expanded positional rows for the indel.
+        pd.DataFrame: ``max(len(REF), len(ALT))`` rows with the columns
+        ``CHROM, POS, REF, ALT, STRAND``.
     """
     ref = row["REF"]
     alt = row["ALT"]
@@ -136,24 +147,28 @@ def expand_indels(row: pd.Series) -> pd.DataFrame:
     return expanded_rows
 
 def make_VCF_cols(df: pd.DataFrame, variant_id_col: str, hg38: Any) -> pd.DataFrame:
-    """
-    Parses variant IDs to reconstruct VCF-style columns (CHROM, POS, REF, ALT, STRAND),
-    filling in missing reference bases using a provided genome object.
-    
-    Parameters:
-    -----------
-    df : pd.DataFrame
-        The dataframe containing the variants to be processed.
-    variant_id_col : str
-        The column containing lists of variant strings.
-    hg38 : object/dict
-        A genome dictionary or sequence object (e.g., from pyfaidx) used to 
-        fetch missing reference bases by doing `hg38[chrom][pos-1]`.
-        
+    """Merges the variants of each row into one VCF-style allele.
+
+    Variant IDs are parsed as ``CHROM-POS-REF-ALT-STRAND``; IDs tagged
+    ``-phased`` (other haplotype, see `process_row`) are ignored. The remaining
+    variants of a row are expanded base by base (`expand_indels`), gaps between
+    them are filled with the reference base (``REF == ALT``), and the bases are
+    concatenated into a single ``REF``/``ALT`` pair starting at the first variant.
+    ``STRAND`` is ``(for)`` or ``(rev)`` if all variants agree, else ``(.)``.
+
+    Note:
+        ``df[variant_id_col]`` is modified in place: its lists are replaced by
+        ``"|"``-joined strings.
+
+    Args:
+        df (pd.DataFrame): Table with one list of variant IDs per row.
+        variant_id_col (str): Column holding the variant ID lists.
+        hg38: Reference genome indexable as ``hg38[chrom][pos - 1]`` (0-based),
+            e.g. a ``pyfaidx.Fasta`` or a dict of sequences.
+
     Returns:
-    --------
-    pd.DataFrame
-        The original dataframe horizontally concatenated with new VCF columns.
+        pd.DataFrame: ``df`` (fresh index) with the added columns
+        ``CHROM, POS, REF, ALT, STRAND``, one row per input row.
     """
     variant_ids = df[variant_id_col].copy()
     VCF_cols = []
@@ -210,24 +225,25 @@ def make_VCF_cols(df: pd.DataFrame, variant_id_col: str, hg38: Any) -> pd.DataFr
     return pd.concat([df.reset_index(drop=True), pd.DataFrame(VCF_cols).reset_index(drop=True)], axis=1)
 
 def DE_to_VCF(DE_df: pd.DataFrame, hg38: Any, col_to_keep: Optional[List[str]] = None) -> pd.DataFrame:
-    """
-    Turns a Differential Expression (DE) output from SDR-seq into a VCF style file 
-    with additional columns for Variant Effect Prediction (VEP).
-    
-    Parameters:
-    -----------
-    DE_df : pd.DataFrame
-        The differential expression dataframe to process.
-    hg38 : object/dict
-        A genome object passed down to `make_VCF_cols` to fill in missing reference bases.
-    col_to_keep : list of str, optional
-        List of column names belonging to DE_df to keep in the final VCF style file.
-        If None, all columns are kept.
-        
+    """Converts SDR-seq differential-expression results into a VCF-style table.
+
+    Reads the variants carried by each tested genotype from ``ID_Geno_Var1``
+    (``"|"``-separated phase values; ``"0"`` = not carried) and
+    ``ID_Geno_conc_Var1`` (``"|"``-separated variant IDs), splits mixed phases
+    into haplotypes (`expand_dataframe`) and merges each haplotype's variants into
+    one allele (`make_VCF_cols`), ready for variant effect prediction.
+
+    Args:
+        DE_df (pd.DataFrame): DE results with the columns ``ID_Geno_Var1`` and
+            ``ID_Geno_conc_Var1``. Use a default ``RangeIndex`` when ``col_to_keep``
+            is None, as the columns are then joined by index.
+        hg38: Reference genome for gap filling, see `make_VCF_cols`.
+        col_to_keep (list of str, optional): DE columns to carry over. Defaults
+            to None (all columns).
+
     Returns:
-    --------
-    pd.DataFrame
-        A formatted VCF-style dataframe with expanded variant info.
+        pd.DataFrame: One row per haplotype with ``phase``, ``variant_id``
+        (``"|"``-joined), the kept DE columns and ``CHROM, POS, REF, ALT, STRAND``.
     """
     # Extract variant ids with phasing info
     phasing = [
@@ -266,20 +282,24 @@ def DE_to_VCF(DE_df: pd.DataFrame, hg38: Any, col_to_keep: Optional[List[str]] =
     return vcf
 
 def pivot_tf_scores(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Pivots transcription factor (TF) scores from a long format into a wide format,
-    creating unique columns for each TF (e.g., 'CTCF_TF_raw_score').
-    
-    Parameters:
-    -----------
-    df : pd.DataFrame
-        The input dataframe in long format containing 'transcription_factor', 
-        'TF_raw_score', and 'TF_quantile_score'.
-        
+    """Pivots transcription factor (TF) scores from long to wide format.
+
+    All columns other than ``transcription_factor``, ``TF_raw_score`` and
+    ``TF_quantile_score`` identify a row. Each TF becomes two columns,
+    ``<TF>_TF_raw_score`` and ``<TF>_TF_quantile_score`` (e.g.
+    ``CTCF_TF_raw_score``); duplicates keep their first value.
+
+    Note:
+        Rows with missing values in an identifying column are dropped
+        (``pandas.pivot_table`` default).
+
+    Args:
+        df (pd.DataFrame): Long table with ``transcription_factor``,
+            ``TF_raw_score`` and ``TF_quantile_score`` columns.
+
     Returns:
-    --------
-    pd.DataFrame
-        A wide-format dataframe with prefixed TF columns.
+        pd.DataFrame: Wide table with the identifying columns and two score
+        columns per TF.
     """
     tf_columns = ['transcription_factor', 'TF_raw_score', 'TF_quantile_score']
     index_cols = [col for col in df.columns if col not in tf_columns]
@@ -298,20 +318,16 @@ def pivot_tf_scores(df: pd.DataFrame) -> pd.DataFrame:
     return df_wide
 
 def add_abs_score_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Finds all columns containing 'raw_score' or 'quantile_score',
-    creates new columns with their absolute values prefixed by ``abs_``, 
-    and returns the updated DataFrame.
-    
-    Parameters:
-    -----------
-    df : pd.DataFrame
-        The input dataframe containing raw and quantile score columns.
-        
+    """Adds the absolute value of every score column.
+
+    For each column whose name contains ``raw_score`` or ``quantile_score``
+    (and not ``abs``), an ``abs_<column>`` column is added.
+
+    Args:
+        df (pd.DataFrame): Table with score columns.
+
     Returns:
-    --------
-    pd.DataFrame
-        The updated dataframe including the new absolute value columns.
+        pd.DataFrame: A copy of ``df`` with the added ``abs_*`` columns.
     """
     new_df = df.copy()
     for col in df.columns:
@@ -320,8 +336,22 @@ def add_abs_score_columns(df: pd.DataFrame) -> pd.DataFrame:
             new_df[new_col] = new_df[col].abs()
     return new_df
 
-#takes a fold mean chromBPNet VEP tsv files as pandas and refroamts into better columns
 def format_chrombpnet_vep(vep_df, keep_abs=True):
+    """Renames a fold-averaged chromBPNet variant-scorer table to the VEP column scheme.
+
+    Keeps ``variant_id`` and the mean scores across folds, removes duplicate
+    rows and renames the columns: ``chr, pos, allele1, allele2`` ->
+    ``CHROM, POS, REF, ALT``; ``logfc.mean`` -> ``COUNTS_cPBN_raw_score``;
+    ``jsd.mean`` -> ``JSD_cPBN_raw_score``; ``logfc_x_jsd.mean`` ->
+    ``COUNTSxJSD_cPBN_raw_score``; each with its ``abs_`` variant and ``*_pval``.
+
+    Args:
+        vep_df (pd.DataFrame): Fold-mean variant-scorer output (e.g. read from its TSV).
+        keep_abs (bool, optional): Keep the ``abs_*`` columns. Defaults to True.
+
+    Returns:
+        pd.DataFrame: The renamed score table.
+    """
     col_names = {
         "chr": "CHROM", "pos": "POS", "allele1": "REF", "allele2": "ALT",
         "logfc.mean": "COUNTS_cPBN_raw_score",
@@ -345,29 +375,23 @@ def format_chrombpnet_vep(vep_df, keep_abs=True):
     return vep_df
 
 def create_tss_stratifications(df: pd.DataFrame, tss_col: str = "dist_target_gene_TSS", n: int = 4) -> Dict[str, Any]:
-    """
-    Splits variants into TSS-distance strata. Computes n quantile-based intervals
-    on the absolute TSS distance, rounds the cutoffs to readable kb values and
-    returns a dictionary of masks (e.g. for `plot_scatter_panel` or
-    `plot_stratified_auprc_heatmap`).
+    """Splits variants into strata by distance to their target gene TSS.
 
-    Parameters:
-    -----------
-    df : pd.DataFrame
-        The dataframe containing the variants.
-    tss_col : str, default="dist_target_gene_TSS"
-        Column holding the signed distance (bp) of each variant to its target gene TSS.
-    n : int, default=4
-        Number of quantiles used to derive the cutoffs.
+    Cutoffs are the ``n``-quantiles of the absolute distance, rounded to readable
+    kb values (1 kb steps below 10 kb, up to 100 kb steps above 500 kb). Strata
+    are right-closed: ``<= c1``, ``c1-c2`` (= (c1, c2]) and ``> cn``.
+
+    Args:
+        df (pd.DataFrame): Variant table.
+        tss_col (str, optional): Column with the signed distance (bp) to the target
+            gene TSS. Defaults to ``"dist_target_gene_TSS"``.
+        n (int, optional): Number of quantiles used for the cutoffs. Defaults to 4.
 
     Returns:
-    --------
-    dict
-        Mapping of stratum name to selector. "All Vars" maps to ``df.index``,
-        all other strata map to boolean masks over ``df``. Strata are
-        right-closed intervals (``<= c1``, ``c1-c2`` = (c1, c2], ``> cn``).
-        If no positive cutoff can be derived (e.g. all distances are 0),
-        only "All Vars" is returned.
+        dict: Stratum name -> selector for ``df``. ``"All Vars"`` maps to ``df.index``,
+        the other strata (e.g. ``"TSS Distance <= 20kb"``) to boolean masks. If no
+        positive cutoff can be derived (e.g. all distances are 0), only
+        ``"All Vars"`` is returned.
     """
     abs_dist = df[tss_col].abs()
 

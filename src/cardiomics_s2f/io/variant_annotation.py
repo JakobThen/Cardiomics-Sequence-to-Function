@@ -77,9 +77,18 @@ IMPACT: Dict[str, str] = {
 
 #helper to load
 def standardize_vcf_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Standardizes column names to the expected internal format ('Chromosome', 'Pos', 'Ref', 'Alt').
-    Handles common case/naming variations like '#CHROM', 'CHROM', 'chr', 'POS', 'position', etc.
+    """Renames variant table columns to the internal names used in this module.
+
+    Matching is case-insensitive: ``CHROM``/``#CHROM``/``CHROMOSOME``/``CHR``/``SEQNAMES``
+    -> ``Chromosome``; ``POS``/``POSITION`` -> ``Pos``; ``REF``/``REFERENCE`` -> ``Ref``;
+    ``ALT``/``ALTERNATE``/``ALTERNATIVE`` -> ``Alt``; ``START`` -> ``Start``; ``END`` -> ``End``.
+    Other columns are kept unchanged.
+
+    Args:
+        df (pd.DataFrame): Variant table (e.g. VCF-style).
+
+    Returns:
+        pd.DataFrame: The table with renamed columns (a new object if any column was renamed).
     """
     rename_dict = {}
     for col in df.columns:
@@ -90,7 +99,7 @@ def standardize_vcf_columns(df: pd.DataFrame) -> pd.DataFrame:
             rename_dict[col] = 'Pos'
         elif col_upper in ['REF', 'REFERENCE']:
             rename_dict[col] = 'Ref'
-        elif col_upper in ['ALT', 'ALTERNATE' 'ALTERNATIVE']:
+        elif col_upper in ['ALT', 'ALTERNATE', 'ALTERNATIVE']:
             rename_dict[col] = 'Alt'
         elif col_upper in ['START']:
             rename_dict[col] = 'Start'
