@@ -1,5 +1,6 @@
+import numpy as np
 import pandas as pd
-from typing import List, Tuple, Optional, Any
+from typing import Dict, List, Tuple, Optional, Any
 
 def process_row(phases: List[int], variants: List[str]) -> List[Tuple[List[int], List[str]]]:
     """
@@ -338,7 +339,84 @@ def format_chrombpnet_vep(vep_df, keep_abs=True):
     vep_df = vep_df[["variant_id"] + list(col_names.keys())].drop_duplicates()
     vep_df = vep_df.rename(columns=col_names)
     
-    if not keep_abs: 
+    if not keep_abs:
         vep_df = vep_df.loc[:, ~vep_df.columns.str.contains("abs")]
-        
+
     return vep_df
+
+def create_tss_stratifications(df: pd.DataFrame, tss_col: str = "dist_target_gene_TSS", n: int = 4) -> Dict[str, Any]:
+    """
+    Splits variants into TSS-distance strata. Computes n quantile-based intervals
+    on the absolute TSS distance, rounds the cutoffs to readable kb values and
+    returns a dictionary of masks (e.g. for `plot_scatter_panel` or
+    `plot_stratified_auprc_heatmap`).
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        The dataframe containing the variants.
+    tss_col : str, default="dist_target_gene_TSS"
+        Column holding the signed distance (bp) of each variant to its target gene TSS.
+    n : int, default=4
+        Number of quantiles used to derive the cutoffs.
+
+    Returns:
+    --------
+    dict
+        Mapping of stratum name to selector. "All Vars" maps to ``df.index``,
+        all other strata map to boolean masks over ``df``. Strata are
+        right-closed intervals (``<= c1``, ``c1-c2`` = (c1, c2], ``> cn``).
+        If no positive cutoff can be derived (e.g. all distances are 0),
+        only "All Vars" is returned.
+    """
+    abs_dist = df[tss_col].abs()
+
+    quantiles = np.linspace(0, 1, n + 1)[1:-1]
+    raw_cutoffs = (
+        abs_dist.quantile(quantiles)
+        .dropna()
+        .tolist()
+    )
+    def round_to_nice_kb(bp_val):
+        kb = bp_val / 1000
+        if kb < 10:
+            return int(round(kb / 1) * 1)        # Round to nearest 1kb
+        elif kb < 50:
+            return int(round(kb / 5) * 5)        # Round to nearest 5kb
+        elif kb < 100:
+            return int(round(kb / 10) * 10)      # Round to nearest 10kb
+        elif kb < 200:
+            return int(round(kb / 20) * 20)      # Round to nearest 20kb
+        elif kb < 500:
+            return int(round(kb / 50) * 50)      # Round to nearest 50kb
+        else:
+            return int(round(kb / 100) * 100)    # Round to nearest 100kb
+
+    # Apply rounding and ensure cutoffs are unique and strictly positive
+    # (a cutoff that rounds down to 0kb would give an empty/degenerate stratum)
+    nice_cutoffs_kb = sorted(set(c for c in (round_to_nice_kb(x) for x in raw_cutoffs) if c > 0))
+    stratifications = {
+        "All Vars": df.index
+    }
+
+    # No usable cutoff (e.g. all variants at TSS distance 0): only return "All Vars"
+    if not nice_cutoffs_kb:
+        return stratifications
+
+    # Intervals are (lower, upper], so the first one includes its upper cutoff
+    c_first = nice_cutoffs_kb[0]
+    stratifications[f"TSS Distance <= {c_first}kb"] = (abs_dist <= c_first * 1000)
+
+    # Middle intervals
+    for i in range(len(nice_cutoffs_kb) - 1):
+        lower_kb = nice_cutoffs_kb[i]
+        upper_kb = nice_cutoffs_kb[i+1]
+
+        mask = (abs_dist > lower_kb * 1000) & (abs_dist <= upper_kb * 1000)
+        stratifications[f"TSS Distance {lower_kb}kb-{upper_kb}kb"] = mask
+
+    # Last interval
+    c_last = nice_cutoffs_kb[-1]
+    stratifications[f"TSS Distance > {c_last}kb"] = (abs_dist > c_last * 1000)
+
+    return stratifications
