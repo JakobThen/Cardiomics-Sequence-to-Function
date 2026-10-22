@@ -41,7 +41,7 @@ Each model family runs in its own conda environment, defined in ``env/``:
      - BigWig generation (``workflows/input_prep``)
    * - ``env/alphagenome_env.yaml``
      - ``alphagenome``
-     - Pretrained AlphaGenome API (``cardiomics_s2f.ism``)
+     - Pretrained AlphaGenome API, CPU only (``workflows/alphagenome_api``, ``cardiomics_s2f.ism``)
    * - ``env/borzoi_env.yaml``
      - ``borzoi``
      - Borzoi / gReLU models
@@ -64,6 +64,11 @@ package code (at least ``alphagenome_ft``):
     conda activate alphagenome_ft
     pip install -e ".[alphagenome-ft]"
 
+    # lean, GPU-free env for the pretrained AlphaGenome API
+    conda env create -f env/alphagenome_env.yaml
+    conda activate alphagenome
+    pip install -e ".[alphagenome]"
+
 Optional dependency groups:
 
 .. list-table::
@@ -77,6 +82,9 @@ Optional dependency groups:
        (fine-tuning, test evaluation, VEP)
    * - ``alphagenome``
      - ``alphagenome`` and ``anndata`` (pretrained AlphaGenome API, ``cardiomics_s2f.ism``)
+   * - ``analysis``
+     - Packages of the analysis notebooks (``analysis_notebooks/``): statsmodels, adjustText,
+       matplotlib-venn, tangermeme, logomaker, pyfaidx, openpyxl, pyarrow, Jupyter
    * - ``torch``
      - torch (``cardiomics_s2f.io.data_input``, streamed correlation analysis)
    * - ``docs``

@@ -131,3 +131,25 @@ centred on the variant; RNA heads by the log fold change of the mean signal over
    :module: run_vep
    :func: get_parser
    :prog: run_vep.py
+
+
+5. Attributions
+---------------
+DeepSHAP-style nucleotide attributions of the fine-tuned model for the regions of a BED file
+(e.g. the SDR tiling amplicons): a window (default 16 kb) is centred on each region and the
+gradient of one track's summed output (default: the central 500 bp) is compared with the
+gradients of dinucleotide-shuffled reference sequences
+(:mod:`cardiomics_s2f.finetuning.alphagenome.attributions`). Runs on one GPU; one ``.npy``
+per track is written to ``attribution_dir``. Region files are gitignored like the targets
+configs (template ``configs/attribution_regions.example.bed``).
+
+.. code-block:: bash
+
+    REGIONS=workflows/alphagenome_ft/configs/sdr_amplicons.bed \
+    TRACKS="ATAC_Cardiomyocytes ATAC_Fibroblasts" \
+        bash workflows/alphagenome_ft/05_attributions.sh
+
+.. argparse::
+   :module: compute_attributions
+   :func: get_parser
+   :prog: compute_attributions.py

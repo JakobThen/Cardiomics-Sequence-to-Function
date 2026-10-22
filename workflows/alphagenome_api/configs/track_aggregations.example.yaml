@@ -1,0 +1,16 @@
+# Track aggregations for pretrained AlphaGenome (template).
+#
+# Copy to track_aggregations.yaml (gitignored) and fill in your groups:
+#     cp workflows/alphagenome_api/configs/track_aggregations.example.yaml workflows/alphagenome_api/configs/track_aggregations.yaml
+# Each group lists the ontology CURIEs of the AlphaGenome tracks whose predictions
+# or variant scores are averaged into one value per variant/position. Choose them
+# from the track-matching results (analysis_notebooks/track_matching/), which print
+# the best-matching tracks in this format. An empty list aggregates all tracks.
+
+cardiomyocyte_tracks:
+  - "UBERON:0002078"  #right cardiac atrium
+  - "UBERON:0002079"  #left cardiac atrium
+
+naive_heart_tracks:
+  - "UBERON:0000948"  #heart
+  - "CL:0000746"  #cardiac muscle cell

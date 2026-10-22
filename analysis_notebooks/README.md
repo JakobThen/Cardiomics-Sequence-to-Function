@@ -31,10 +31,10 @@ pip install -e ".[alphagenome]"       # additionally for track_matching/ (AlphaG
 
 | Notebook | What it does |
 |---|---|
-| `alphagenome_track_matching.ipynb` | Compares the pretrained AlphaGenome RNA and ATAC tracks with the cardioid multiome tracks (outputs of the track-matching scripts) and selects the best-matching AlphaGenome tracks per cell type; the resulting CURIE lists define the track aggregations for pretrained-AlphaGenome VEP. |
+| `alphagenome_track_matching.ipynb` | Compares the pretrained AlphaGenome RNA and ATAC tracks with the cardioid multiome tracks (outputs of `workflows/alphagenome_api/01_track_matching.sh`) and selects the best-matching AlphaGenome tracks per cell type; the resulting CURIE lists define the track aggregations for pretrained-AlphaGenome VEP. |
 
 ### `attribution/`
 
 | Notebook | What it does |
 |---|---|
-| `alphagenome_ft_deepshap_amplicons.ipynb` | Analyses DeepSHAP attributions of the fine-tuned AlphaGenome ATAC head at the SDR amplicons 39–42: cell-type-specific attributions (CM, FB, ED), normalisation by local activity, TF-MoDISco seqlets with HOCOMOCO motif annotation, and attribution logos around the SDR variants next to their measured effects. |
+| `alphagenome_ft_deepshap_amplicons.ipynb` | Analyses DeepSHAP attributions (from `workflows/alphagenome_ft/05_attributions.sh`) of the fine-tuned AlphaGenome ATAC head at the SDR amplicons 39–42: cell-type-specific attributions (CM, FB, ED), normalisation by local activity, TF-MoDISco seqlets with HOCOMOCO motif annotation, and attribution logos around the SDR variants next to their measured effects. |

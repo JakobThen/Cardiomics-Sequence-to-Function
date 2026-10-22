@@ -332,3 +332,42 @@ def load_ism_dict(
                 result[enhancer_name][modality_name] = grp[key][:]
                 
     return result
+
+
+def collect_region_ism_matrices(name, ism_data, curie, indices, genes=None, TFs=None):
+    """Builds the ISM matrices of one region for ATAC, RNA (per gene) and ChIP-TF (per TF).
+
+    Like `process_region`, but the positions of the modalities in the scorer list
+    are given by ``indices`` (only ATAC is always scored).
+
+    Args:
+        name (str): Region name, returned unchanged.
+        ism_data (list): ``score_ism_variants`` output of this region.
+        curie (list of str): Ontology CURIEs whose tracks are averaged.
+        indices (dict): Scorer position per modality, e.g. ``{"ATAC": 0, "TF": 1, "RNA": 2}``.
+        genes (list of str, optional): Genes to build RNA matrices for. Defaults to None.
+        TFs (list of str, optional): Transcription factors to build TF matrices for.
+            Defaults to None.
+
+    Returns:
+        tuple: ``(name, {"ATAC": matrix, "RNA <gene>": matrix, "TF <tf>": matrix, ...})``.
+    """
+    tmp = {}
+    
+    # ATAC is always present and always at index 0
+    atac_col = collect_ism_scores(ism_data, curie=curie, modality={"ATAC": indices["ATAC"]})
+    tmp["ATAC"] = build_ism_matrix(atac_col)
+    
+    if genes and "RNA" in indices:
+        rna_col = collect_ism_scores(ism_data, curie=curie, modality={"RNA": indices["RNA"]})
+        if rna_col is not None:
+            for gene in genes:
+                tmp[f"RNA {gene}"] = build_ism_matrix(rna_col, target=gene)
+
+    if TFs and "TF" in indices:
+        tf_col = collect_ism_scores(ism_data, curie=curie, modality={"TF": indices["TF"]})
+        if tf_col is not None:
+            for tf in TFs:
+                tmp[f"TF {tf}"] = build_ism_matrix(tf_col, target=tf)
+
+    return name, tmp

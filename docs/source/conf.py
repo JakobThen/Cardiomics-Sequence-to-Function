@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.abspath('../../src'))
 sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_ft'))
 sys.path.insert(0, os.path.abspath('../../workflows/common'))
 sys.path.insert(0, os.path.abspath('../../workflows/input_prep'))
+sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_api'))
 
 
 def _package_version():
@@ -78,4 +79,6 @@ autodoc_mock_imports = [
     "adjustText",
     "matplotlib_venn",
     "tangermeme",
+    "joblib",
+    "pyfaidx",
 ]

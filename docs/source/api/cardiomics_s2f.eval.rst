@@ -21,6 +21,14 @@ cardiomics_s2f.eval.accumulators module
    :show-inheritance:
    :undoc-members:
 
+cardiomics_s2f.eval.alphagenome\_api module
+-------------------------------------------
+
+.. automodule:: cardiomics_s2f.eval.alphagenome_api
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 cardiomics_s2f.eval.streamed\_correlation\_analysis module
 ----------------------------------------------------------
 

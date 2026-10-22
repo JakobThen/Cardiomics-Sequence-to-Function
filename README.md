@@ -57,8 +57,11 @@ with the fine-tuned model; effects are aggregated per variant in a window around
 it (ATAC, Cut&Tag) or over the exons of nearby genes (RNA), and can be
 benchmarked against measured variant effects.
 
-Borzoi, ChromBPNet and pretrained-AlphaGenome analyses are being migrated into
-the package.
+**Pretrained AlphaGenome.** Through the AlphaGenome API, the pretrained model's
+output tracks are matched to the cardioid data, and the best-matching tracks are
+used for track predictions, variant effect prediction and in silico mutagenesis.
+
+Borzoi and ChromBPNet analyses are being migrated into the package.
 
 ## Quick start
 

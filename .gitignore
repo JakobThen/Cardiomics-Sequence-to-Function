@@ -24,6 +24,9 @@ PROVENANCE.md
 workflows/alphagenome_ft/configs/*
 !workflows/alphagenome_ft/configs/README.md
 !workflows/alphagenome_ft/configs/*.example.*
+workflows/alphagenome_api/configs/*
+!workflows/alphagenome_api/configs/README.md
+!workflows/alphagenome_api/configs/*.example.*
 workflows/input_prep/configs/*
 !workflows/input_prep/configs/README.md
 !workflows/input_prep/configs/*.example.*

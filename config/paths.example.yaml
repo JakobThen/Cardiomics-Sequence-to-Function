@@ -27,6 +27,9 @@ variant_data_dir: input_data/variant_data
 # Default VEP input (CSV with variant_id, CHROM, POS, REF, ALT)
 vep_input_vcf: input_data/variant_data/variants.csv
 nonzero_means_csv: input_data/metadata/bw_nonzero_means.csv
+# Pseudobulk RNA counts and % expressing cells per gene (genes x cell types; RNA track matching)
+multiome_gene_counts_csv: input_data/variant_data/aggregated.counts_celltypes.csv
+multiome_gene_pct_csv: input_data/variant_data/pct.celltypes.csv
 # Pseudobulk ATAC peaks (MACS2 *_peaks.narrowPeak, one file per cell type)
 atac_peak_dir: input_data/atac_peaks
 # ABC-model candidate enhancers of the cardioids (TSV with seqnames, start, end, samples, ...)
@@ -49,6 +52,10 @@ ag_ft_checkpoint_dir: models/AlphaGenome_finetuned/heads
 # Persistent XLA autotune cache (speeds up start-up of GPU jobs)
 xla_cache_dir: models/xla_cache
 
+# --- Pretrained AlphaGenome (API) ----------------------------------------------
+# Track groups (ontology CURIEs) for track prediction and VEP (gitignored, see configs/README.md)
+ag_track_aggregations: workflows/alphagenome_api/configs/track_aggregations.yaml
+
 # --- Models -------------------------------------------------------------------
 models_dir: models
 
@@ -58,6 +65,8 @@ model_eval_dir: results/model_evaluation
 vep_dir: results/VEP
 # Outputs of the AlphaGenome track-matching scripts (RNA/ and ATAC/ subfolders)
 track_matching_dir: results/AG_track_matching
+# In silico mutagenesis results (pretrained AlphaGenome)
+ism_dir: results/ISM
 # DeepSHAP attributions of the fine-tuned AlphaGenome model (.npy)
 attribution_dir: results/attribution_analysis
 # Figures of the analysis notebooks (saving is commented out by default)

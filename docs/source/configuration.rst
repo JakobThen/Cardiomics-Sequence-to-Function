@@ -65,7 +65,19 @@ Resolution rules:
      - SLURM logs and run lists, one subfolder per workflow
    * - ``node_tmp_dir``
      - Node-local disk for staging BigWigs on GPU nodes
-   * - ``intervals_dir``, ``chrombpnet_input_dir``, ``variant_data_dir``, ``models_dir``, ``results_dir``
+   * - ``intervals_dir``
+     - AlphaGenome fold intervals (BED; written by ``input_prep/export_fold_intervals.py``, read by pretrained track prediction)
+   * - ``ag_track_aggregations``
+     - Track groups (ontology CURIEs) for pretrained-AlphaGenome track prediction and VEP
+   * - ``multiome_gene_counts_csv``, ``multiome_gene_pct_csv``
+     - Pseudobulk RNA counts and percentage of expressing cells per gene (RNA track matching)
+   * - ``abc_enhancer_table``, ``atac_peak_dir``
+     - Cardioid candidate enhancers (ATAC track matching, variant annotation) and pseudobulk ATAC peaks
+   * - ``track_matching_dir``, ``ism_dir``, ``attribution_dir``
+     - Outputs of track matching, ISM and fine-tuned AlphaGenome attributions
+   * - ``variant_data_dir``, ``motif_meme_file``, ``figures_dir``
+     - Variant tables and annotation tracks, motif database and figure folder of the analysis notebooks
+   * - ``chrombpnet_input_dir``, ``models_dir``, ``results_dir``
      - Not read by the current workflows; available to notebooks via :func:`~cardiomics_s2f.config.load_paths`
 
 .. code-block:: python
@@ -95,12 +107,16 @@ quoted.
      - conda shell hook (``.../etc/profile.d/conda.sh``), needed for ``conda activate`` in jobs
    * - ``CS2F_ENV_ALPHAGENOME_FT``
      - Environment (name or prefix) for ``workflows/alphagenome_ft``
+   * - ``CS2F_ENV_ALPHAGENOME``
+     - Lean, GPU-free environment (name or prefix) for ``workflows/alphagenome_api``
    * - ``CS2F_ENV_CHROMBPNET``
      - Environment (name or prefix) for ``workflows/input_prep``
    * - ``CS2F_SLURM_ACCOUNT``
      - ``--account`` for all jobs (empty: omitted)
    * - ``CS2F_SLURM_CPU_PARTITION``
      - ``--partition`` for CPU jobs
+   * - ``CS2F_SLURM_BIGMEM_PARTITION``
+     - ``--partition`` for high-memory jobs (pretrained AlphaGenome track matching, prediction, VEP)
    * - ``CS2F_SLURM_GPU_PARTITION``, ``CS2F_SLURM_GPU_QOS``, ``CS2F_SLURM_GPU_CONSTRAINT``
      - ``--partition``, ``--qos`` and ``--constraint`` for GPU jobs (e.g. ``"gpu=H100|gpu=A100"``)
 
@@ -142,6 +158,10 @@ next to each shows the format:
      - Optional list of Cut&Tag BAM paths (for ``cutntag_bam_input``)
    * - ``workflows/alphagenome_ft/configs/*.yaml``
      - AlphaGenome targets configs (built by step 1, see :doc:`AlphaGenome_ft_pipeline`)
+   * - ``workflows/alphagenome_ft/configs/*.bed``
+     - Regions for fine-tuned AlphaGenome attributions (step 5)
+   * - ``workflows/alphagenome_api/configs/track_aggregations.yaml``
+     - Track groups for pretrained AlphaGenome (see :doc:`AlphaGenome_api_pipeline`)
 
 
 Running a workflow step

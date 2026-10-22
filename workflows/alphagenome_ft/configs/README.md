@@ -25,3 +25,9 @@ The track **order** in a config must match the checkpoint it is used with:
 labels in VEP and evaluation outputs are assigned by position. Step 01 sorts
 tracks by case-sensitive file name and cuts labels at the norm tag (`_100M`).
 Pass `MODALITIES="folder1 folder2 ..."` to step 01 to choose the heads and their order.
+
+## Attribution regions (step 05)
+
+`05_attributions.sh` reads a BED file of regions (no header: chrom, start, end,
+name), e.g. `sdr_amplicons.bed` with the SDR tiling amplicons. Region files are
+gitignored like the targets configs; `attribution_regions.example.bed` shows the format.

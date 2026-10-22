@@ -20,6 +20,14 @@ cardiomics\_s2f.vep.alphagenome\_ft module
    :show-inheritance:
    :undoc-members:
 
+cardiomics\_s2f.vep.alphagenome\_api module
+-------------------------------------------
+
+.. automodule:: cardiomics_s2f.vep.alphagenome_api
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 cardiomics\_s2f.vep.cohort\_plotting module
 -------------------------------------------
 

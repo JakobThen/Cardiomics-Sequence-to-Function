@@ -8,7 +8,7 @@
 #                               CS2F_SITE_ENV (conda hook, envs, SLURM defaults)
 #   cs2f_path <key>             Prints a resolved path from config/paths.yaml
 #   cs2f_activate <env>         Activates a conda env incl. its CUDA/library paths
-#   cs2f_sbatch <workflow> <cpu|gpu> [sbatch options] <job.slurm> [job args]
+#   cs2f_sbatch <workflow> <cpu|gpu|bigmem> [sbatch options] <job.slurm> [job args]
 #                               Submits with site partition/QoS/constraint and writes
 #                               logs to <logs_dir>/<workflow>/
 #
@@ -69,6 +69,8 @@ cs2f_sbatch() {
         [[ -n "${CS2F_SLURM_GPU_PARTITION:-}" ]] && opts+=("--partition=${CS2F_SLURM_GPU_PARTITION}")
         [[ -n "${CS2F_SLURM_GPU_QOS:-}" ]] && opts+=("--qos=${CS2F_SLURM_GPU_QOS}")
         [[ -n "${CS2F_SLURM_GPU_CONSTRAINT:-}" ]] && opts+=("--constraint=${CS2F_SLURM_GPU_CONSTRAINT}")
+    elif [[ "$kind" == "bigmem" ]]; then
+        [[ -n "${CS2F_SLURM_BIGMEM_PARTITION:-}" ]] && opts+=("--partition=${CS2F_SLURM_BIGMEM_PARTITION}")
     else
         [[ -n "${CS2F_SLURM_CPU_PARTITION:-}" ]] && opts+=("--partition=${CS2F_SLURM_CPU_PARTITION}")
     fi
