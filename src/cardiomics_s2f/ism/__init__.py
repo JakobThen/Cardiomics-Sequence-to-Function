@@ -12,12 +12,7 @@ import anndata as ad
 from scipy import sparse
 from typing import Any
 
-from alphagenome import colab_utils
-from alphagenome.data import gene_annotation, genome
-from alphagenome.data import transcript as transcript_utils
 from alphagenome.interpretation import ism
-from alphagenome.models import dna_client, variant_scorers
-from alphagenome.visualization import plot_components
 
 def aggregate_adata_vars(
     adata: ad.AnnData, 

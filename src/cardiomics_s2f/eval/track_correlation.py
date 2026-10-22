@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from typing import List, Union, Tuple, Any, Optional, Dict
 
-from scipy.stats import gaussian_kde
+from scipy.ndimage import gaussian_filter
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -118,16 +118,6 @@ def quantile_normalize_RNA_counts(log_counts_data):
         return pd.DataFrame(centered_norm_pred, index=log_counts_data.index, columns=log_counts_data.columns)
     
     return centered_norm_pred
-
-import numpy as np
-import matplotlib.pyplot as plt
-from typing import Any, Optional
-from scipy.ndimage import gaussian_filter
-
-import numpy as np
-import matplotlib.pyplot as plt
-from typing import Any, Optional
-from scipy.ndimage import gaussian_filter
 
 def density_scatter(
     pred: Any, 
@@ -423,7 +413,7 @@ def plot_interval_correlation_heatmap(
     # 4. Plot the Data
     # ==========================================
     im_main = ax_main.imshow(R_sorted, aspect='auto', cmap=cmap, interpolation='nearest')
-    im_left = ax_left.imshow(cov_array, aspect='auto', cmap='Reds', interpolation='nearest', vmin=0, vmax=1)
+    ax_left.imshow(cov_array, aspect='auto', cmap='Reds', interpolation='nearest', vmin=0, vmax=1)
     im_start = ax_top_start.imshow(start_values, aspect='auto', cmap='magma', interpolation='nearest')
     im_chrom = ax_top_chrom.imshow(chrom_integers, aspect='auto', cmap='tab20', interpolation='nearest')
 

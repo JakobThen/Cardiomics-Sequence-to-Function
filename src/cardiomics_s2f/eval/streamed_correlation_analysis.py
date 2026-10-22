@@ -31,7 +31,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.patches import Patch
-import seaborn as sns
 import h5py
 
 from cardiomics_s2f.eval.accumulators import (
@@ -42,7 +41,7 @@ from cardiomics_s2f.eval.accumulators import (
    # ReservoirSampler
 )
 from cardiomics_s2f.io.batch_bw_loader import BatchBigWigLoader
-from cardiomics_s2f.io.data_input import SelectiveSquashTransform, get_streaming_non_zero_track_means
+from cardiomics_s2f.io.data_input import SelectiveSquashTransform
 from cardiomics_s2f.eval.track_correlation import (
     quantile_normalize_RNA_counts,
     density_scatter,
@@ -90,8 +89,6 @@ def _run_analysis_loop(
         regex=True
     ) #cas isnensitve cnt standardization
     rna_mask = tracks_df['Assay_type'] == 'RNA'
-    atac_mask = tracks_df['Assay_type'] == 'ATAC'
-    cnt_mask = tracks_df['Assay_type'] == 'CnT'
     
     # 1. Initialize Accumulators
     print("Initializing Streaming Accumulators...", flush = True)

@@ -10,13 +10,12 @@ Helpers to compare model predictions with observed tracks:
 * `process_track_metadata`: track names, assays and strands from a track table.
 """
 import os
-import gc
 import pyBigWig
 import h5py
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from typing import Any, List, Tuple, Union, Optional, Iterable
+from typing import List, Tuple, Union, Optional, Iterable
 
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from tqdm.auto import tqdm, trange
