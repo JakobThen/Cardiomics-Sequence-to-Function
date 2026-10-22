@@ -5,7 +5,7 @@ replaces every track path by its symlink target. Run it on the cluster, where
 the paths exist, e.g.:
 
     python workflows/alphagenome_ft/normalize_targets_config.py \
-        --input /g/.../src/analysis/AG_ft/configs/simple_merged_deduplicated.yaml \
+        --input /path/to/old_configs/simple_merged_deduplicated.yaml \
         --output workflows/alphagenome_ft/configs/simple_merged_deduplicated.yaml
 
 Prints a per-head summary (track count and labels) to compare with the checkpoint.
