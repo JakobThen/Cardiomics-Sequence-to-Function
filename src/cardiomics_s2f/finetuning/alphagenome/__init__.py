@@ -9,4 +9,5 @@ Submodules:
 -----------
 * `inference`: Multi-GPU device mesh and JIT-compiled data-parallel forward pass.
 * `predictions`: Selection of prediction outputs and alignment of per-track non-zero means.
+* `attributions`: DeepSHAP-style nucleotide attributions and their local-activity normalisation.
 """

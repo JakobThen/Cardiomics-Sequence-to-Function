@@ -44,6 +44,21 @@ alphagenome-ft = [
     "torch",
     "anndata",
 ]
+# Analysis notebooks (analysis_notebooks/) and the modules they use:
+# vep.cohort_plotting, eval.track_matching, finetuning.alphagenome.attributions
+analysis = [
+    "statsmodels",
+    "adjustText",
+    "matplotlib-venn",
+    "tangermeme",
+    "logomaker",
+    "pyfaidx",
+    "openpyxl",
+    "pyarrow",
+    "anndata",
+    "torch",
+    "jupyter",
+]
 # Keep in sync with docs/requirements.txt (used by Read the Docs)
 docs = [
     "sphinx==9.1.0",

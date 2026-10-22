@@ -8,13 +8,16 @@ on pseudobulked single-cell multiome (ATAC, RNA) and bulk Cut&Tag data, and to
 predict the effects of genetic variants on chromatin accessibility, histone marks
 and gene expression.
 
-The repository has two parts:
+The repository has three parts:
 
 - **`cardiomics_s2f`**: a Python package with the reusable code: data
   input/output, streamed model evaluation, variant effect prediction (VEP)
   scoring and plotting.
 - **`workflows/`**: SLURM pipelines built on the package that prepare model
   inputs and fine-tune, evaluate and apply the models on an HPC cluster.
+- **`analysis_notebooks/`**: Jupyter notebooks for the downstream analyses
+  (variant datasets, track matching, attributions); see
+  [`analysis_notebooks/README.md`](analysis_notebooks/README.md).
 
 ## Documentation
 
@@ -26,6 +29,7 @@ Full documentation, including pipeline guides and the API reference, is on
 ```
 src/cardiomics_s2f/   Python package (library code only)
 workflows/            SLURM launchers, job scripts and command-line tools
+analysis_notebooks/   Analysis notebooks (outputs stripped)
 config/               Templates for local paths and cluster settings
 env/                  Conda environments of the model families
 docs/                 Sphinx documentation

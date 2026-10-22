@@ -37,6 +37,14 @@ cardiomics_s2f.eval.track\_correlation module
    :show-inheritance:
    :undoc-members:
 
+cardiomics_s2f.eval.track\_matching module
+------------------------------------------
+
+.. automodule:: cardiomics_s2f.eval.track_matching
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 cardiomics_s2f.eval.track\_prediction module
 --------------------------------------------
 
@@ -44,4 +52,3 @@ cardiomics_s2f.eval.track\_prediction module
    :members:
    :show-inheritance:
    :undoc-members:
-

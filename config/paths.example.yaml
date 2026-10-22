@@ -27,6 +27,12 @@ variant_data_dir: input_data/variant_data
 # Default VEP input (CSV with variant_id, CHROM, POS, REF, ALT)
 vep_input_vcf: input_data/variant_data/variants.csv
 nonzero_means_csv: input_data/metadata/bw_nonzero_means.csv
+# Pseudobulk ATAC peaks (MACS2 *_peaks.narrowPeak, one file per cell type)
+atac_peak_dir: input_data/atac_peaks
+# ABC-model candidate enhancers of the cardioids (TSV with seqnames, start, end, samples, ...)
+abc_enhancer_table: input_data/variant_data/summarized.table.variants.with_multiome_abc.tsv
+# Motif database for seqlet annotation (MEME format, e.g. HOCOMOCO v14 core)
+motif_meme_file: input_data/metadata/HOCOMOCO_H14_CORE.meme.txt
 
 # --- Reference genome (GRCh38, GENCODE release 29) ----------------------------
 genome_fasta: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.fa
@@ -50,6 +56,12 @@ models_dir: models
 results_dir: results
 model_eval_dir: results/model_evaluation
 vep_dir: results/VEP
+# Outputs of the AlphaGenome track-matching scripts (RNA/ and ATAC/ subfolders)
+track_matching_dir: results/AG_track_matching
+# DeepSHAP attributions of the fine-tuned AlphaGenome model (.npy)
+attribution_dir: results/attribution_analysis
+# Figures of the analysis notebooks (saving is commented out by default)
+figures_dir: results/figures
 
 # --- Logs & compute-node scratch ------------------------------------------------
 # SLURM logs and run lists, one subfolder per workflow (logs/<workflow>/)

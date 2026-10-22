@@ -15,4 +15,6 @@ Submodules:
 * `track_correlation`: Provides analysis and plotting scripts to evaluate and visualize
   prediction correlations (beeswarms, heatmap comparisons, scatterplots).
 * `track_prediction`: Handles loading predictions from HDF5 and GTF extraction of counts.
+* `track_matching`: Compares pretrained AlphaGenome tracks with the cardioid multiome tracks
+  and selects the best-matching tracks per cell type.
 """

@@ -12,6 +12,14 @@ Module contents
 Submodules
 ----------
 
+cardiomics\_s2f.finetuning.alphagenome.attributions module
+----------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.attributions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 cardiomics\_s2f.finetuning.alphagenome.inference module
 -------------------------------------------------------
 

@@ -71,7 +71,10 @@ autodoc_mock_imports = [
     "sklearn",
     "mpl_toolkits",
     "mpl_toolkits.axes_grid1",
-    "anndata"
+    "anndata",
+    # [analysis] extra
+    "statsmodels",
+    "adjustText",
+    "matplotlib_venn",
+    "tangermeme",
 ]
-
-

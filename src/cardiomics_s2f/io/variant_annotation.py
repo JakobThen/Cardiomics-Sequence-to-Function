@@ -19,6 +19,7 @@ functions (like GTF feature annotation), which will be explicitly noted in their
 respective docstrings.
 """
 
+import os
 import time
 from typing import Dict
 
@@ -605,3 +606,137 @@ def annotate_cardioid_enhancer_overlap(variants_df: pd.DataFrame, regions_df: pd
         final_variants = final_variants.rename(columns={'celltype': 'celltypes_in_enhancer'})
 
     return final_variants.rename(columns = {"regulatory_position": "enhancer_regulatory_position", "isH3K27ac": "is_cardioid_H3K27ac"})
+
+
+# --- Variant IDs, peaks and strand alignment ---------------------------------
+
+# Column names of the ENCODE narrowPeak format (BED6+4)
+NARROWPEAK_COLS = [
+    "chrom","chromStart","chromEnd","name","score",
+    "strand","signalValue","pValue","qValue","peak"
+]
+
+
+def add_variant_id(vcf_df):
+    """Adds a ``variant_id`` column (``Chromosome-Pos-Ref-Alt``).
+
+    Note:
+        The column is also added to ``vcf_df`` in place; a copy is returned.
+
+    Args:
+        vcf_df (pd.DataFrame): Variants with ``Chromosome``, ``Pos``, ``Ref`` and ``Alt`` columns.
+
+    Returns:
+        pd.DataFrame: Copy of ``vcf_df`` including ``variant_id``.
+    """
+    vcf_df["variant_id"] = (
+        vcf_df["Chromosome"].astype(str) + "-" +
+        vcf_df["Pos"].astype(str) + "-" +
+        vcf_df["Ref"].astype(str) + "-" +
+        vcf_df["Alt"].astype(str)
+    )
+    return vcf_df.copy()
+
+
+def read_narrowpeak(path):
+    """Reads the peak coordinates of a narrowPeak file.
+
+    Args:
+        path (str or Path): narrowPeak file without header (e.g. MACS2 ``*_peaks.narrowPeak``).
+
+    Returns:
+        pd.DataFrame: One row per peak with ``chrom``, ``chromStart`` and ``chromEnd``.
+    """
+    peaks = pd.read_csv(path, sep="\t", header=None, names=NARROWPEAK_COLS,
+                        usecols=["chrom","chromStart","chromEnd"])
+    return peaks
+
+
+def flag_variants_in_peaks(var_df, peak_df):
+    """Flags variants that overlap at least one peak.
+
+    A variant overlaps a peak if ``Start < chromEnd`` and ``End > chromStart``
+    (half-open intervals, as in BED).
+
+    Args:
+        var_df (pd.DataFrame): Variants with ``Chromosome``, ``Start`` and ``End`` columns.
+        peak_df (pd.DataFrame): Peaks as returned by `read_narrowpeak`.
+
+    Returns:
+        pd.Series: Boolean mask aligned to ``var_df.index``.
+    """
+    in_peak = pd.Series(False, index=var_df.index)
+
+    for chrom, vgrp in var_df.groupby("Chromosome", observed=False):
+        pgrp = peak_df[peak_df["chrom"] == chrom]
+        if pgrp.empty:
+            continue
+
+        p_starts = pgrp["chromStart"].values
+        p_ends   = pgrp["chromEnd"].values
+        v_coords = vgrp[["Start", "End"]].values
+
+        for vi, (vs, ve) in enumerate(v_coords):
+            if np.any((vs < p_ends) & (ve > p_starts)):
+                in_peak.loc[vgrp.index[vi]] = True   # ← .loc + real label
+
+    return in_peak
+
+
+def celltype_from_peak_file(p):
+    """Extracts the cell type from a peak file name.
+
+    Args:
+        p (str or Path): Path like ``.../Cardiomyocytes.filtered<...>_peaks.narrowPeak``.
+
+    Returns:
+        str: The file name up to ``.filtered`` (e.g. ``"Cardiomyocytes"``).
+    """
+    fname = os.path.basename(p)                        # e.g. Cardiac_mesoderm.filtered…
+    return fname.split(".filtered")[0]
+
+
+def align_variants_to_reference_strand(df, hg38):
+    """Corrects variants reported on the opposite strand and drops REF mismatches.
+
+    Variants whose ``Ref`` differs from the reference genome but whose reverse
+    complement matches it are flipped: ``Ref`` is set to the reference bases,
+    ``Alt`` is reverse-complemented and ``variant_id`` is rebuilt. Variants whose
+    ``Ref`` still differs from the reference are removed. Prints how many
+    variants were fixed and removed.
+
+    Args:
+        df (pd.DataFrame): Variants with ``Chromosome``, ``Pos`` (1-based), ``Ref``,
+            ``Alt`` and ``variant_id`` columns.
+        hg38: Reference genome indexable as ``hg38[chrom][start:end]`` (0-based),
+            e.g. a ``pyfaidx.Fasta``.
+
+    Returns:
+        pd.DataFrame: Variants whose ``Ref`` matches the reference genome.
+    """
+    df = df.copy()
+    df["Ref_hg38"] = [str(hg38[chrom][(pos - 1): (pos + len(ref) - 1)]).upper()
+                               for chrom, pos, ref in zip(df.Chromosome, df.Pos, df.Ref)
+                              ]    
+    # Create lut for DNA complements
+    comp_map = str.maketrans('ACGTNacgtn', 'TGCANtgcan')
+    # get the reverse complement
+    def rev_comp(seq):
+        return str(seq).translate(comp_map)[::-1]
+    df["Ref_rev_comp"] = df["Ref"].apply(rev_comp)
+    is_rev_comp = (df.Ref != df.Ref_hg38) & (df.Ref_rev_comp == df.Ref_hg38)
+    # update REF and ALT for complemntary variants
+    df.loc[is_rev_comp, 'Alt'] = df.loc[is_rev_comp, 'Alt'].apply(rev_comp)
+    df.loc[is_rev_comp, 'Ref'] = df.loc[is_rev_comp, 'Ref_hg38'] 
+    # update the variant_id
+    df.loc[is_rev_comp, 'variant_id'] = (
+        df.loc[is_rev_comp, 'Chromosome'].astype(str) + '-' + 
+        df.loc[is_rev_comp, 'Pos'].astype(str) + '-' + 
+        df.loc[is_rev_comp, 'Ref'] + '-' + 
+        df.loc[is_rev_comp, 'Alt']
+    )
+    print(f"Fixed {sum(is_rev_comp)} variants that were on the opposite strand.")
+    #remove mismathicng vars that were not rev comp
+    df_filtered = df[df.Ref == df.Ref_hg38]
+    print(f"{len(df) - len(df_filtered)} out of {len(df)} variants were removed.")
+    return df_filtered.drop(["Ref_hg38", "Ref_rev_comp"], axis=1)

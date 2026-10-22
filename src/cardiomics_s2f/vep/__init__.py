@@ -12,4 +12,5 @@ Submodules:
 * `scoring`: Per-variant scores from aligned REF/ALT predictions (centre window and exon masks).
 * `processing`: Utilities to preprocess variant tables and align prediction arrays.
 * `plotting`: Visualization scripts to plot VEP scores (heatmaps, density plots, scatters).
+* `cohort_plotting`: Descriptive figures of the CHD and control variant cohorts (Richter et al. 2020).
 """

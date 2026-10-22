@@ -3,7 +3,6 @@
 #   pre-commit install            # once per clone
 #   pre-commit run --all-files    # check the whole repository manually
 #   pre-commit autoupdate         # bump the hook versions below
-# nbstripout (notebook outputs) will be added together with the notebooks.
 repos:
   # Blocks commits that contain secrets (API keys, tokens, private keys),
   # e.g. Google/AlphaGenome API keys ("AIza...")
@@ -22,3 +21,10 @@ repos:
       - id: check-merge-conflict
       - id: check-yaml
         exclude: ^env/
+
+  # Strips outputs and execution counts from notebooks (analysis_notebooks/),
+  # so no results, plots or paths end up in git
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
