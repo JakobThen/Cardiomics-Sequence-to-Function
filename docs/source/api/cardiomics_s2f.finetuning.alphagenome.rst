@@ -35,3 +35,11 @@ cardiomics\_s2f.finetuning.alphagenome.predictions module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.finetuning.alphagenome.training module
+------------------------------------------------------
+
+.. automodule:: cardiomics_s2f.finetuning.alphagenome.training
+   :members:
+   :show-inheritance:
+   :undoc-members:

@@ -62,6 +62,9 @@ used every time we initialize the model to attach the fine-tuned heads to the pr
 2. Fine-tuning
 --------------
 After the configuration file is generated, we can begin fine-tuning our AlphaGenome model on 8 GPUs.
+Training is data-parallel: every batch is split across the GPUs while the parameters are replicated
+(:mod:`cardiomics_s2f.finetuning.alphagenome.training`, adapted from the alphagenome-ft training loop),
+so ``BATCH_SIZE`` must be a multiple of the number of GPUs.
 
 To make this run quickly on any cluster, the job first stages the genome and the BigWig files listed in
 the targets config to the GPU node's local disk (``node_tmp_dir``) and writes a config pointing to the
@@ -153,3 +156,26 @@ configs (template ``configs/attribution_regions.example.bed``).
    :module: compute_attributions
    :func: get_parser
    :prog: compute_attributions.py
+
+
+Fold intervals
+--------------
+Writes AlphaGenome's genomic fold split (train/valid/test intervals of 1 Mbp) as BED files, so
+that the pretrained-AlphaGenome benchmarks use the intervals of fine-tuning. Borzoi has its own
+``human_rep0`` split of 524 kbp windows: the AlphaGenome windows share their centres but were
+extended to 1 Mbp, and windows overlapping test regions were dropped. This is a plain Python
+script without launcher: it runs in seconds on the login node, in ``CS2F_ENV_ALPHAGENOME_FT``.
+Existing files are only replaced with ``--overwrite``.
+
+* **Output:** ``intervals_dir/AG_{train,valid,test}_intervals_fold<fold>_<organism>.bed``
+  (tab-separated, header ``chrom start end``)
+
+.. code-block:: bash
+
+    python workflows/alphagenome_ft/export_fold_intervals.py
+    python workflows/alphagenome_ft/export_fold_intervals.py --fold 2 --out_dir /path/to/intervals
+
+.. argparse::
+   :module: export_fold_intervals
+   :func: get_parser
+   :prog: export_fold_intervals.py

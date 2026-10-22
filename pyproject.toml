@@ -35,10 +35,12 @@ dependencies = [
 torch = ["torch"]
 # Pretrained AlphaGenome API (cardiomics_s2f.ism)
 alphagenome = ["alphagenome", "anndata"]
-# AlphaGenome fine-tuning, test evaluation and fine-tuned VEP
+# AlphaGenome fine-tuning, test evaluation and fine-tuned VEP.
+# alphagenome-ft is pinned: finetuning.alphagenome.training copies its training loop
+# and uses private attributes of that version.
 alphagenome-ft = [
     "alphagenome",
-    "alphagenome-ft",
+    "alphagenome-ft==0.1.5",
     "alphagenome-research",
     "jax",
     "torch",

@@ -3,7 +3,8 @@
 This script sets up and executes the training pipeline for fine-tuning 
 an AlphaGenome model. It loads a specified configuration, prepares data 
 intervals from BigWig files, registers necessary model heads, and runs 
-the training loop with frozen backbones (by default).
+the training loop with frozen backbones (by default), data-parallel across
+all GPUs of the node (``cardiomics_s2f.finetuning.alphagenome.training``).
 
 With ``--resume_from``, training continues from the last checkpoint of a
 previous run instead of starting from freshly initialised heads (e.g. after a
@@ -18,7 +19,9 @@ from pathlib import Path
 from alphagenome_ft import create_model_with_heads, load_checkpoint
 from alphagenome_ft.finetune.config import load_targets_config, prepare_head_specs
 from alphagenome_ft.finetune.data import prepare_intervals_from_fold, BigWigDataModule, build_fasta_index
-from alphagenome_ft.finetune.train import register_predefined_heads, train
+from alphagenome_ft.finetune.train import register_predefined_heads
+
+from cardiomics_s2f.finetuning.alphagenome.training import train_data_parallel
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -180,7 +183,7 @@ def main(args: argparse.Namespace) -> None:
     # ------------------------------------------------------------------------------------
     # Start Model training
     # ------------------------------------------------------------------------------------
-    train(
+    train_data_parallel(
         model,
         data_module,
         head_specs,

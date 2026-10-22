@@ -66,7 +66,7 @@ Resolution rules:
    * - ``node_tmp_dir``
      - Node-local disk for staging BigWigs on GPU nodes
    * - ``intervals_dir``
-     - AlphaGenome fold intervals (BED; written by ``input_prep/export_fold_intervals.py``, read by pretrained track prediction)
+     - AlphaGenome fold intervals (BED; written by ``alphagenome_ft/export_fold_intervals.py``, read by pretrained track prediction)
    * - ``ag_track_aggregations``
      - Track groups (ontology CURIEs) for pretrained-AlphaGenome track prediction and VEP
    * - ``multiome_gene_counts_csv``, ``multiome_gene_pct_csv``

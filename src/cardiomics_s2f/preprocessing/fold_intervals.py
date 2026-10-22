@@ -2,12 +2,12 @@
 Fold Intervals
 ==============
 
-Writes AlphaGenome's genomic fold split (train/valid/test intervals) as BED files,
-so that models other than AlphaGenome (e.g. Borzoi) and the pretrained-AlphaGenome
-benchmarks use exactly the same intervals.
+Writes AlphaGenome's genomic fold split (train/valid/test intervals of 1 Mbp) as BED
+files, so that the pretrained-AlphaGenome benchmarks use exactly the intervals of
+AlphaGenome fine-tuning. (Borzoi has its own 524 kbp split.)
 
 The intervals themselves come from ``alphagenome_ft.finetune.data.prepare_intervals_from_fold``;
-the command-line script is ``workflows/input_prep/export_fold_intervals.py``.
+the command-line script is ``workflows/alphagenome_ft/export_fold_intervals.py``.
 """
 
 from pathlib import Path

@@ -1,13 +1,15 @@
 """Exports AlphaGenome's train/valid/test fold intervals as BED files.
 
-The intervals define the data split of AlphaGenome fine-tuning and are reused by
-the other models (e.g. Borzoi) and by the pretrained-AlphaGenome benchmarks. Runs
-in seconds on the login node; needs the AlphaGenome environment
+The intervals define the data split of AlphaGenome fine-tuning (1 Mbp windows) and
+are reused by the pretrained-AlphaGenome benchmarks. Borzoi uses its own
+``human_rep0`` split (524 kbp windows): the AlphaGenome windows share their centres
+but were extended to 1 Mbp, and windows that would overlap test regions were dropped.
+Runs in seconds on the login node; needs the AlphaGenome environment
 (``CS2F_ENV_ALPHAGENOME_FT``), which provides ``alphagenome_ft``.
 
 Usage:
-    python workflows/input_prep/export_fold_intervals.py
-    python workflows/input_prep/export_fold_intervals.py --fold 2 --out_dir DIR --overwrite
+    python workflows/alphagenome_ft/export_fold_intervals.py
+    python workflows/alphagenome_ft/export_fold_intervals.py --fold 2 --out_dir DIR --overwrite
 
 Output:
     <out_dir>/AG_{train,valid,test}_intervals_fold<fold>_<organism>.bed

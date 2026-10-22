@@ -49,7 +49,6 @@ variables, e.g. `N_CELLS=200 bash workflows/input_prep/01_atac_bigwig.sh`.
 | 1 | `01_atac_bigwig.sh` | `bigwig_dir/multiome_ATAC_bigwig_deduplicated/ATAC_<cell type>_100M_norm.bw` |
 | 2 | `02_rna_bigwig.sh` (`RNA_MODE=3prime_stranded` default, or `unstranded`) | `bigwig_dir/multiome_RNA_3prime_bigwig_deduplicated/` or `.../multiome_RNA_unstranded_bigwig/` |
 | 3 | `03_cutntag_bigwig.sh` (`CUTNTAG_INPUT=` folder or list of BAMs) | `bigwig_dir/CutnTag_bigwig/<sample>_100M_norm.bw` |
-| – | `python export_fold_intervals.py` (login node, env `CS2F_ENV_ALPHAGENOME_FT`; `--fold`, `--overwrite`) | `intervals_dir/AG_{train,valid,test}_intervals_fold1_HOMO_SAPIENS.bed` |
 
 Inputs: `atac_bam_dir`, `rna_bam_dir`, `cutntag_bam_input` (folder or list of BAM paths);
 cell-count filter `input_prep/configs/nCells.csv` (`N_CELLS`, default 400).
@@ -64,6 +63,7 @@ cell-count filter `input_prep/configs/nCells.csv` (`N_CELLS`, default 400).
 | 3 | `03_test_eval.sh` (`SAVE_PREDICTIONS=1`, `MINIMAL_TEST=1`, `RESOLUTION=128`) | `ag_targets_config`, `ag_ft_checkpoint_dir/best`, `gtf` | `model_eval_dir/AlphaGenome_ft` |
 | 4 | `04_vep.sh` (`INPUT_VCF=<csv>`) | `ag_targets_config`, `ag_ft_checkpoint_dir/best`, `vep_input_vcf` | `vep_dir/AG_ft_VEP_out` |
 | 5 | `05_attributions.sh` (`REGIONS=<bed>`, `HEAD=`, `TRACKS=`) | `ag_targets_config`, `ag_ft_checkpoint_dir/best`, `genome_fasta` | `attribution_dir/<prefix>_<track>.npy` |
+| – | `python export_fold_intervals.py` (login node; `--fold`, `--overwrite`) | – | `intervals_dir/AG_{train,valid,test}_intervals_fold1_HOMO_SAPIENS.bed` (1 Mbp; not used by Borzoi) |
 
 GPU steps (2-5; step 5 on one GPU) stage the BigWigs to `node_tmp_dir` on the compute node and use
 `xla_cache_dir` as a persistent XLA autotune cache.
