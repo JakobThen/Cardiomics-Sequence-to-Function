@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.abspath('../../src'))
 # Workflow CLI scripts (documented with sphinx-argparse in the pipeline pages)
 sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_ft'))
 sys.path.insert(0, os.path.abspath('../../workflows/common'))
+sys.path.insert(0, os.path.abspath('../../workflows/input_prep'))
 
 
 def _package_version():

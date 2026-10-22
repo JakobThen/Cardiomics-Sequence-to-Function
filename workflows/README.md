@@ -47,6 +47,7 @@ variables, e.g. `N_CELLS=200 bash workflows/input_prep/01_atac_bigwig.sh`.
 | 1 | `01_atac_bigwig.sh` | `bigwig_dir/multiome_ATAC_bigwig_deduplicated/ATAC_<cell type>_100M_norm.bw` |
 | 2 | `02_rna_bigwig.sh` (`RNA_MODE=3prime_stranded` default, or `unstranded`) | `bigwig_dir/multiome_RNA_3prime_bigwig_deduplicated/` or `.../multiome_RNA_unstranded_bigwig/` |
 | 3 | `03_cutntag_bigwig.sh` (`CUTNTAG_INPUT=` folder or list of BAMs) | `bigwig_dir/CutnTag_bigwig/<sample>_100M_norm.bw` |
+| – | `python export_fold_intervals.py` (login node, env `CS2F_ENV_ALPHAGENOME_FT`; `--fold`, `--overwrite`) | `intervals_dir/AG_{train,valid,test}_intervals_fold1_HOMO_SAPIENS.bed` |
 
 Inputs: `atac_bam_dir`, `rna_bam_dir`, `cutntag_bam_input` (folder or list of BAM paths);
 cell-count filter `input_prep/configs/nCells.csv` (`N_CELLS`, default 400).

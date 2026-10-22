@@ -9,4 +9,5 @@ Submodules:
 -----------
 * `ag_targets_config`: Builds and writes the AlphaGenome targets configuration (heads, tracks, non-zero means).
 * `bigwig_stats`: Non-zero means of BigWig tracks on canonical chromosomes.
+* `fold_intervals`: Writes AlphaGenome's train/valid/test fold intervals as BED files.
 """

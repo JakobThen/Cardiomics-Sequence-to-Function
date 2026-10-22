@@ -67,3 +67,26 @@ The input (``CUTNTAG_INPUT``, default ``cutntag_bam_input``) can be either:
    :language: bash
    :linenos:
    :caption: workflows/input_prep/03_cutntag_bigwig.sh
+
+
+4. Fold intervals
+-----------------
+
+Writes AlphaGenome's genomic fold split (train/valid/test intervals of 1 Mbp) as BED files, so
+that every model (AlphaGenome fine-tuning, Borzoi) and the pretrained-AlphaGenome benchmarks use
+the same intervals. Unlike steps 1-3 this is a plain Python script: it runs in seconds on the
+login node, in the AlphaGenome environment (``CS2F_ENV_ALPHAGENOME_FT``, which provides
+``alphagenome_ft``). Existing files are only replaced with ``--overwrite``.
+
+* **Output:** ``intervals_dir/AG_{train,valid,test}_intervals_fold<fold>_<organism>.bed``
+  (tab-separated, header ``chrom start end``)
+
+.. code-block:: bash
+
+    python workflows/input_prep/export_fold_intervals.py
+    python workflows/input_prep/export_fold_intervals.py --fold 2 --out_dir /path/to/intervals
+
+.. argparse::
+   :module: export_fold_intervals
+   :func: get_parser
+   :prog: export_fold_intervals.py

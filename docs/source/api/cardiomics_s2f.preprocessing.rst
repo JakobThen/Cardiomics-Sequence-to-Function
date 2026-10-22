@@ -27,3 +27,11 @@ cardiomics\_s2f.preprocessing.bigwig\_stats module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.preprocessing.fold\_intervals module
+----------------------------------------------------
+
+.. automodule:: cardiomics_s2f.preprocessing.fold_intervals
+   :members:
+   :show-inheritance:
+   :undoc-members:
