@@ -33,6 +33,12 @@ pip install -e ".[alphagenome]"       # additionally for track_matching/ (AlphaG
 |---|---|
 | `alphagenome_track_matching.ipynb` | Compares the pretrained AlphaGenome RNA and ATAC tracks with the cardioid multiome tracks (outputs of `workflows/alphagenome_api/01_track_matching.sh`) and selects the best-matching AlphaGenome tracks per cell type; the resulting CURIE lists define the track aggregations for pretrained-AlphaGenome VEP. |
 
+### `benchmarks/`
+
+| Notebook | What it does |
+|---|---|
+| `track_benchmark.ipynb` | Compares the models' track predictions on their held-out test intervals: Pearson r per track (ATAC, Cut&Tag, RNA) and gene-level RNA correlations of pretrained AlphaGenome, fine-tuned AlphaGenome (1 bp and 128 bp embeddings) and Borzoi, plus the ChromBPNet peak count correlation (mean over folds). Reads the outputs of the workflows' test-evaluation steps (`model_eval_dir`) and the ChromBPNet evaluation (`chrombpnet_model_dir`). |
+
 ### `model_evaluation/`
 
 | Notebook | What it does |
