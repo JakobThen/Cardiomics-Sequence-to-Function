@@ -81,4 +81,8 @@ autodoc_mock_imports = [
     "tangermeme",
     "joblib",
     "pyfaidx",
+    # [borzoi] extra
+    "grelu",
+    "einops",
+    "psutil",
 ]

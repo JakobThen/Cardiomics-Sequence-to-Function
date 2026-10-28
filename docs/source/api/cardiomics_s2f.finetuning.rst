@@ -16,3 +16,4 @@ Subpackages
    :maxdepth: 4
 
    cardiomics_s2f.finetuning.alphagenome
+   cardiomics_s2f.finetuning.borzoi

@@ -32,3 +32,11 @@ cardiomics\_s2f.config module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.utils module
+----------------------------
+
+.. automodule:: cardiomics_s2f.utils
+   :members:
+   :show-inheritance:
+   :undoc-members:

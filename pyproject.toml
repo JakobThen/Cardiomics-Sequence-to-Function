@@ -46,6 +46,16 @@ alphagenome-ft = [
     "torch",
     "anndata",
 ]
+# Borzoi fine-tuning and VEP (finetuning.borzoi, vep.borzoi, workflows/borzoi/).
+# grelu is pinned: finetuning.borzoi.datasets subclasses its LabeledSeqDataset and
+# replaces the patched LazyBigWigDataset2 of that version.
+borzoi = [
+    "grelu==1.0.10",
+    "einops",
+    "psutil",
+    "torch",
+    "genomepy",
+]
 # Analysis notebooks (analysis_notebooks/) and the modules they use:
 # vep.cohort_plotting, eval.track_matching, finetuning.alphagenome.attributions
 analysis = [
