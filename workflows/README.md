@@ -69,17 +69,21 @@ cell-count filter `input_prep/configs/nCells.csv` (`N_CELLS`, default 400).
 GPU steps (2-5; step 5 on one GPU) stage the BigWigs to `node_tmp_dir` on the compute node and use
 `xla_cache_dir` as a persistent XLA autotune cache.
 
+Only **fold 1** of the four AlphaGenome folds is trained and evaluated (fixed in steps 2-5);
+repeat for the other folds and average the predictions for final results.
+
 ## alphagenome_api (env: `CS2F_ENV_ALPHAGENOME`, CPU only)
 
 Pretrained AlphaGenome through the API (key from `ALPHAGENOME_API_KEY` or `.env`).
-Steps 1-3 run on the high-memory partition (`CS2F_SLURM_BIGMEM_PARTITION`).
+Steps 1, 2 and 4 run on the high-memory partition (`CS2F_SLURM_BIGMEM_PARTITION`); the streamed test evaluation (3) on the CPU partition.
 
 | Step | Launcher | Reads | Writes |
 |---|---|---|---|
 | 1 | `01_track_matching.sh` (`MODALITIES="rna atac"`) | `multiome_gene_counts_csv`, `multiome_gene_pct_csv`, `gtf`, `abc_enhancer_table`, ATAC BigWigs | `track_matching_dir/{RNA,ATAC}/` |
 | 2 | `02_track_prediction.sh` (`REFERENCE_TRACKS="GROUP=CELL_TYPE ..."`) | `intervals_dir` (test fold), `ag_track_aggregations` | `model_eval_dir/AlphaGenome_pretrained` |
-| 3 | `03_vep.sh` (`INPUT_VCF=<csv>`, `MODALITIES=`) | `vep_input_vcf`, `ag_track_aggregations` | `vep_dir/AG_VEP_out` |
-| 4 | `04_ism.sh` (`BED=<bed>`, `CURIES=`, optional `TFS=`, `GENES=`) | regions BED | `ism_dir` |
+| 3 | `03_test_eval.sh` (CPU; `PREDICTIONS=`) | step-2 `.h5`, `ag_targets_config` (reference BigWigs, non-zero means), `gtf` | `model_eval_dir/AlphaGenome_pretrained/<predictions name>` |
+| 4 | `04_vep.sh` (`INPUT_VCF=<csv>`, `MODALITIES=`) | `vep_input_vcf`, `ag_track_aggregations` | `vep_dir/AG_VEP_out` |
+| 5 | `05_ism.sh` (`BED=<bed>`, `CURIES=`, optional `TFS=`, `GENES=`) | regions BED | `ism_dir` |
 
 The track groups (`ag_track_aggregations`) are chosen from the step 1 results with
 `analysis_notebooks/track_matching/alphagenome_track_matching.ipynb`.
@@ -87,6 +91,8 @@ The track groups (`ag_track_aggregations`) are chosen from the step 1 results wi
 ## borzoi (env: `CS2F_ENV_BORZOI`)
 
 Borzoi `human_rep0` fine-tuned through gReLU (`pip install -e ".[borzoi]"`).
+Only the `human_rep0` replicate and its split are fine-tuned; repeat from `human_rep1`-`human_rep3`
+and average the predictions for final results.
 
 | Step | Launcher | Reads | Writes |
 |---|---|---|---|

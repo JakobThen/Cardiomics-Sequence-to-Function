@@ -9,6 +9,13 @@ BigWig files (see the :doc:`input_prep_pipeline` guide). Heads must be fine-tune
 defined in the original paper. This example shows how to train a single fold. For accurate predictions,
 models should be trained on all four folds and their predictions averaged.
 
+.. note::
+
+   The workflows currently train and evaluate **fold 1 only**: ``export_fold_intervals.py`` and
+   ``finetune_heads.py`` accept ``--fold``, but the launchers of steps 02-05 use fold 1 and the
+   ``fold_1`` base model. Repeat the training, evaluation and VEP for folds 0, 2 and 3 and average the
+   predictions for final results.
+
 All steps live in ``workflows/alphagenome_ft/``. Each numbered launcher is run with ``bash`` on the
 login node: it reads ``config/paths.yaml`` and ``config/site.env`` and submits the matching job in
 ``jobs/`` with the site's partition, QoS and GPU constraint. Logs are written to

@@ -73,7 +73,35 @@ compared with; the naive heart aggregation is compared with Cardiomyocytes, the 
    :prog: predict_tracks.py
 
 
-3. Variant effect prediction
+3. Test evaluation
+------------------
+
+Streams the step-2 predictions against the cardioid BigWigs, exactly as the fine-tuned
+AlphaGenome test evaluation (:doc:`AlphaGenome_ft_pipeline`): the reference BigWigs of the
+groups and their non-zero means are taken from the fine-tuned targets config
+(``ag_targets_config``; :func:`~cardiomics_s2f.eval.alphagenome_api.reference_bigwigs_from_targets_config`),
+and correlations are computed at 1 bp resolution on the AlphaGenome squashed scale (the
+predictions are scaled by the track means and RNA tracks squashed; gene-level RNA
+correlations use the unsquashed exon counts). Earlier, pretrained AlphaGenome was evaluated
+on the linear scale, so its RNA correlations are not directly comparable with the old values.
+The job runs on CPUs in the lean environment (PyTorch is not needed).
+
+* **Input:** ``PREDICTIONS`` (default: the single ``.h5`` in ``model_eval_dir/AlphaGenome_pretrained``),
+  ``ag_targets_config``, ``gtf``
+* **Output:** ``model_eval_dir/AlphaGenome_pretrained/<predictions file name>/``
+  (``track_correlations.csv``, summary ``.txt``, ``fig/``)
+
+.. code-block:: bash
+
+    bash workflows/alphagenome_api/03_test_eval.sh
+
+.. argparse::
+   :module: evaluate_on_test_pretrained
+   :func: get_parser
+   :prog: evaluate_on_test_pretrained.py
+
+
+4. Variant effect prediction
 ----------------------------
 
 Scores variants with the recommended AlphaGenome scorers of the chosen modalities and
@@ -85,7 +113,7 @@ continues when started again with the same input.
 
 .. code-block:: bash
 
-    INPUT_VCF=/path/to/variants.csv bash workflows/alphagenome_api/03_vep.sh
+    INPUT_VCF=/path/to/variants.csv bash workflows/alphagenome_api/04_vep.sh
     # optional: MODALITIES="atac rna_seq chip_histone chip_tf", INTERVAL=1MB, API_WORKERS=5
 
 .. argparse::
@@ -94,7 +122,7 @@ continues when started again with the same input.
    :prog: run_vep_pretrained.py
 
 
-4. In silico mutagenesis
+5. In silico mutagenesis
 ------------------------
 
 Scores every single-nucleotide change in each region of a BED file (ATAC, plus ChIP-TF for
@@ -106,7 +134,7 @@ CURIEs (:mod:`cardiomics_s2f.ism`).
 .. code-block:: bash
 
     BED=regions.bed CURIES="UBERON:0002078 UBERON:0002079" TFS="CTCF GATA4" \
-        bash workflows/alphagenome_api/04_ism.sh
+        bash workflows/alphagenome_api/05_ism.sh
 
 .. argparse::
    :module: run_ism

@@ -126,3 +126,41 @@ def test_masked_pearson_per_window():
     # too few valid positions -> NaN
     R2, _, _ = masked_pearson_per_window(P, T_orig.copy(), min_valid=190)
     assert np.isnan(R2[0, 0, 0]) and not np.isnan(R2[1, 0, 0])
+
+
+def _write_targets_config(path, targets):
+    import yaml
+
+    path.write_text(yaml.safe_dump({"heads": [{"id": "h", "targets": targets}]}))
+    return path
+
+
+def test_reference_bigwigs_from_targets_config(tmp_path):
+    from cardiomics_s2f.eval.alphagenome_api import prediction_track_table, reference_bigwigs_from_targets_config
+
+    config = _write_targets_config(tmp_path / "targets.yaml", [
+        {"path": "/g/data/multiome_ATAC_bigwig/ATAC_CM_100M_norm.bw", "nonzero_mean": 0.7},
+        {"path": "rna/RNA_CM_plus_100M.bw", "nonzero_mean": 1.8},
+        {"path": "rna/RNA_CM_minus_100M.bw", "nonzero_mean": 1.6},
+    ])
+    tracks = prediction_track_table({"CM_group": "CM", "naive_group": "CM"})
+    out = reference_bigwigs_from_targets_config(tracks, config)
+    assert out["path"].tolist()[:2] == ["/g/data/multiome_ATAC_bigwig/ATAC_CM_100M_norm.bw"] * 2  # absolute kept
+    assert out["path"].iloc[2] == str(tmp_path / "rna" / "RNA_CM_plus_100M.bw")              # relative resolved
+    assert out["nonzero_means"].tolist() == [0.7, 0.7, 1.8, 1.8, 1.6, 1.6]
+
+
+def test_reference_bigwigs_missing_duplicate_or_without_mean(tmp_path):
+    from cardiomics_s2f.eval.alphagenome_api import reference_bigwigs_from_targets_config
+
+    tracks = pd.DataFrame({"filename": ["ATAC_CM_100M_norm.bw"]})
+    missing = _write_targets_config(tmp_path / "a.yaml", [{"path": "/x/ATAC_FB_100M_norm.bw", "nonzero_mean": 1}])
+    with pytest.raises(KeyError, match="0 times"):
+        reference_bigwigs_from_targets_config(tracks, missing)
+    duplicate = _write_targets_config(tmp_path / "b.yaml", [{"path": "/x/ATAC_CM_100M_norm.bw", "nonzero_mean": 1},
+                                                            {"path": "/y/ATAC_CM_100M_norm.bw", "nonzero_mean": 2}])
+    with pytest.raises(KeyError, match="2 times"):
+        reference_bigwigs_from_targets_config(tracks, duplicate)
+    no_mean = _write_targets_config(tmp_path / "c.yaml", [{"path": "/x/ATAC_CM_100M_norm.bw"}])
+    with pytest.raises(ValueError, match="nonzero_mean"):
+        reference_bigwigs_from_targets_config(tracks, no_mean)

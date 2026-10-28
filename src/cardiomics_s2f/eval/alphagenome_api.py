@@ -7,6 +7,8 @@ API) and for matching its output tracks to the cardioid multiome data:
 
 * aggregation of predicted tracks over groups of ontology CURIEs and the
   matching track table for evaluation against BigWigs;
+* the reference BigWigs (and their non-zero means) of the predicted tracks, taken from
+  the fine-tuned AlphaGenome targets config so both models are evaluated alike;
 * RNA track matching: gene filtering, TSS-anchored prediction windows, exon sums
   of predicted signal, and the combined AnnData with track-by-track correlations;
 * ATAC track matching: grouping of regions into prediction windows, reading the
@@ -134,6 +136,53 @@ def prediction_track_table(reference_tracks):
                     + [f"RNA_{ct}_plus_100M.bw" for ct in cts]
                     + [f"RNA_{ct}_minus_100M.bw" for ct in cts],
     })
+
+
+def reference_bigwigs_from_targets_config(tracks_df, config_path):
+    """Finds the reference BigWig and its non-zero mean for every predicted track.
+
+    The pretrained-AlphaGenome predictions are compared with the same BigWigs as the
+    fine-tuned model: each track's reference ``filename`` is looked up among the targets
+    of the fine-tuned AlphaGenome targets config (``ag_targets_config``), which also
+    provides the non-zero means for the AlphaGenome squash transform.
+
+    Args:
+        tracks_df (pd.DataFrame): Track table with a ``filename`` column, in prediction
+            order (e.g. from :func:`prediction_track_table`).
+        config_path (str or Path): Targets config YAML; relative target paths resolve
+            against its folder.
+
+    Returns:
+        pd.DataFrame: ``path`` and ``nonzero_means`` per track, in the order of ``tracks_df``.
+
+    Raises:
+        KeyError: If a file name is not in the config or appears more than once.
+        ValueError: If a matching target has no ``nonzero_mean``.
+    """
+    import yaml
+
+    config_path = Path(config_path)
+    with open(config_path) as f:
+        config = yaml.safe_load(f)
+
+    by_name = {}
+    for head in config.get("heads", []):
+        for target in head.get("targets", []):
+            raw = str(target["path"])
+            # POSIX paths starting with "/" are absolute on the cluster (also when read on Windows)
+            path = raw if (raw.startswith("/") or Path(raw).is_absolute()) else str(config_path.parent / raw)
+            by_name.setdefault(Path(raw).name, []).append((path, target.get("nonzero_mean")))
+
+    rows = []
+    for filename in tracks_df["filename"]:
+        matches = by_name.get(filename, [])
+        if len(matches) != 1:
+            raise KeyError(f"{filename} found {len(matches)} times in {config_path} (expected once)")
+        path, mean = matches[0]
+        if mean is None:
+            raise ValueError(f"No nonzero_mean for {path} in {config_path}")
+        rows.append({"path": path, "nonzero_means": float(mean)})
+    return pd.DataFrame(rows)
 
 
 # --- RNA track matching -----------------------------------------------------

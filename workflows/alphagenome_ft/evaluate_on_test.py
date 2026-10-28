@@ -242,7 +242,8 @@ def main(args):
             analysis_name=f"{BIN_SIZE}bp_embedding_test_eval_{CHECKPOINT_DIR.name}",
             gtf_file=GTF_FILE,
             batch_size=BATCH_SIZE,
-            is_squashed_scale=RETURN_SCALED
+            is_squashed_scale=RETURN_SCALED,
+            transform="alphagenome",
         )
         
     print("Eval done :D", flush=True)

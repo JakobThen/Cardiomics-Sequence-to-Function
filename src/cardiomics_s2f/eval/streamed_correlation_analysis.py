@@ -51,6 +51,37 @@ from cardiomics_s2f.eval.track_correlation import (
 )
 from cardiomics_s2f.eval.track_prediction import get_gtf
 
+TRANSFORMS = ("borzoi", "alphagenome", "none")
+
+
+def resolve_transform(model_name, transform=None):
+    """Returns the squash transform to evaluate with.
+
+    Args:
+        model_name (str): Model name; used only if ``transform`` is None.
+        transform (str, optional): ``"borzoi"``, ``"alphagenome"`` or ``"none"``. If None,
+            it is inferred from ``model_name`` (contains ``Borzoi`` -> ``"borzoi"``;
+            ``AlphaGenome`` or ``AG`` -> ``"alphagenome"``; otherwise ``"none"``).
+
+    Returns:
+        str: One of :data:`TRANSFORMS`.
+
+    Raises:
+        ValueError: If ``transform`` is not one of :data:`TRANSFORMS`.
+    """
+    if transform is not None:
+        transform = transform.lower()
+        if transform not in TRANSFORMS:
+            raise ValueError(f"transform must be one of {TRANSFORMS}, got {transform!r}")
+        return transform
+    name = model_name.upper()
+    if "BORZOI" in name:
+        return "borzoi"
+    if ("ALPHAGENOME" in name) or ("AG" in name):
+        return "alphagenome"
+    return "none"
+
+
 # ---------------------------------------------------------------------------
 # CORE LOOP (The Engine)
 # ---------------------------------------------------------------------------
@@ -67,11 +98,14 @@ def _run_analysis_loop(
     gtf_file=None,
     seq_len=None,    
     label_len=None,
-    is_squashed_scale = True
+    is_squashed_scale = True,
+    transform=None,
 ):
     """
     Consumes batches of predictions, loads BigWigs on the fly, 
     and updates streaming accumulators. Defaults to squahsed scale predcition otherwise transforms accordingly.
+    The squash transform is ``transform`` or, if None, inferred from ``model_name``
+    (:func:`resolve_transform`).
     """
     num_tracks = len(tracks_df)
     track_names = tracks_df.index.tolist()
@@ -120,10 +154,12 @@ def _run_analysis_loop(
         
     #Initilaize correct sqush transforms for current model. 
     rna_indices = np.where(rna_mask)[0].tolist()
-    if "BORZOI" in model_name.upper():
+    transform = resolve_transform(model_name, transform)
+    print(f"Squash transform: {transform}", flush=True)
+    if transform == "borzoi":
         squash = SelectiveSquashTransform(rna_task_indices=rna_indices, task_axis=1, transform="Borzoi", inverse=False)  
         unsquash = SelectiveSquashTransform(rna_task_indices=rna_indices, task_axis=1, transform="Borzoi", inverse=True)  
-    elif ("ALPHAGENOME" in model_name.upper()) or ("AG" in model_name.upper()):
+    elif transform == "alphagenome":
         #track_means = get_streaming_non_zero_track_means(bw_paths_df, intervals_df, bin_size) #make a quick pass over all bw files to compute the track mean
         if 'nonzero_means' not in bw_paths_df.columns:
             raise ValueError("AlphaGenome requires 'nonzero_mean' in bw_paths_df, but it was not found.")
@@ -131,7 +167,7 @@ def _run_analysis_loop(
         squash = SelectiveSquashTransform(rna_task_indices=rna_indices, task_axis=1,transform="AlphaGenome",track_means=track_means,inverse=False)  
         unsquash = SelectiveSquashTransform(rna_task_indices=rna_indices, task_axis=1,transform="AlphaGenome",track_means=track_means,inverse=True)  
     else:
-        print("WARNING: model_name was not recognized as Borzoi or AlphaGenome, defaulting to no squash transformations.", flush = True)
+        print("No squash transform: correlations are computed on the linear scale.", flush = True)
         def squash(X):   return X
         def unsquash(X): return X
 
@@ -445,7 +481,8 @@ def _write_summary(cor_dir, model_name, analysis_name, tracks_df, coverage, cove
 # ---------------------------------------------------------------------------
 def evaluate_from_inference(
     data_module, model_forward_fn, intervals_df, tracks_df, bw_paths_df, 
-    bin_size, out_dir, model_name, analysis_name, is_squashed_scale, gtf_file=None, batch_size=16
+    bin_size, out_dir, model_name, analysis_name, is_squashed_scale, gtf_file=None, batch_size=16,
+    transform=None,
 ):
     """Runs a live validation/evaluation loop during model inference.
 
@@ -468,6 +505,8 @@ def evaluate_from_inference(
         gtf_file (str or Path, optional): GTF annotation file path for gene-level evaluations.
             Defaults to None.
         batch_size (int, optional): Batch size of inputs. Defaults to 16.
+        transform (str, optional): Squash transform (``"borzoi"``, ``"alphagenome"``,
+            ``"none"``). Defaults to None (inferred from ``model_name``).
     """
     
     # Create a generator that yields batches
@@ -495,7 +534,8 @@ def evaluate_from_inference(
         model_name=model_name,
         analysis_name=analysis_name,
         gtf_file=gtf_file,
-        is_squashed_scale = is_squashed_scale
+        is_squashed_scale = is_squashed_scale,
+        transform=transform,
     )
 
 # ---------------------------------------------------------------------------
@@ -567,7 +607,7 @@ def _get_alignment_axes(shape, num_intervals=None, num_tracks=None, head_name="S
 # ---------------------------------------------------------------------------
 def evaluate_from_h5(
     h5_path, bw_paths_df, bin_size, out_dir, model_name, analysis_name, is_squashed_scale,
-    gtf_file=None, batch_size=16
+    gtf_file=None, batch_size=16, transform=None,
 ):
     """Runs a streaming evaluation on an already-saved HDF5 prediction file.
 
@@ -585,6 +625,8 @@ def evaluate_from_h5(
         gtf_file (str or Path, optional): GTF annotation file path for gene-level evaluations.
             Defaults to None.
         batch_size (int, optional): Batch size for streaming chunks from disk. Defaults to 16.
+        transform (str, optional): Squash transform (``"borzoi"``, ``"alphagenome"``,
+            ``"none"``). Defaults to None (inferred from ``model_name``).
     """
     
     h5_path = Path(h5_path)
@@ -719,5 +761,6 @@ def evaluate_from_h5(
         gtf_file=gtf_file,
         seq_len=SEQ_LEN,
         label_len=LABEL_LEN,
-        is_squashed_scale = is_squashed_scale
+        is_squashed_scale = is_squashed_scale,
+        transform=transform,
     )

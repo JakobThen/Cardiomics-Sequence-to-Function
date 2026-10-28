@@ -38,7 +38,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument("--gtf", type=str, default=None, help="GTF annotation for the gene-level RNA correlations")
     parser.add_argument("--bin_size", type=int, default=32, help="Bin size of the predictions in bp (default: 32)")
     parser.add_argument("--model_name", type=str, default="Borzoi",
-                        help="Model name used for the output folder; must contain 'Borzoi' (selects the squash transform)")
+                        help="Model name used for the output folder (default: Borzoi)")
     parser.add_argument("--analysis_name", type=str, default=None,
                         help="Name of the result subfolder (default: the predictions file name without extension)")
     parser.add_argument("--rna_scale", choices=["squashed", "linear"], default="squashed",
@@ -53,8 +53,6 @@ def main(args: argparse.Namespace) -> None:
     Args:
         args (argparse.Namespace): Parsed command-line arguments.
     """
-    if "BORZOI" not in args.model_name.upper():
-        raise SystemExit("Error: --model_name must contain 'Borzoi' so that the Borzoi squash transform is used.")
     predictions = Path(args.predictions)
     analysis_name = args.analysis_name or predictions.stem
 
@@ -72,6 +70,7 @@ def main(args: argparse.Namespace) -> None:
         is_squashed_scale=args.rna_scale == "squashed",
         gtf_file=args.gtf,
         batch_size=args.batch_size,
+        transform="borzoi",
     )
     print(f"Done. Results in {Path(args.out_dir) / args.model_name / analysis_name}", flush=True)
 

@@ -3,19 +3,31 @@ Data Input and Squashing Module
 
 This module provides functions and classes to scale, squash, and invert
 predictions/targets for Borzoi and AlphaGenome model architectures.
+
+All transforms accept NumPy arrays and PyTorch tensors. PyTorch is optional: without
+it (e.g. in the lean pretrained-AlphaGenome environment) the NumPy paths work as usual.
 """
 import numpy as np
-import torch
+
+try:
+    import torch
+except ImportError:  # NumPy-only environments
+    torch = None
 
 from cardiomics_s2f.io.batch_bw_loader import BatchBigWigLoader
 
 from typing import Union, List, Optional
-TensorOrArray = Union[np.ndarray, torch.Tensor]
+TensorOrArray = Union[np.ndarray, "torch.Tensor"]
+
+
+def _is_tensor(x) -> bool:
+    """True if ``x`` is a PyTorch tensor (always False without PyTorch)."""
+    return torch is not None and isinstance(x, torch.Tensor)
 
 
 # CORE MATHEMATICAL OPERATIONS (Internal Helpers)
 def _borzoi_core_squash(y: TensorOrArray) -> TensorOrArray:
-    if isinstance(y, torch.Tensor):
+    if _is_tensor(y):
         y_34 = torch.pow(torch.relu(y), 0.75) # relu prevents NaN on negative inputs
         return torch.where(y_34 <= 384.0, y_34, 384.0 + torch.sqrt(torch.relu(y_34 - 384.0)))
     else:
@@ -23,7 +35,7 @@ def _borzoi_core_squash(y: TensorOrArray) -> TensorOrArray:
         return np.where(y_34 <= 384.0, y_34, 384.0 + np.sqrt(np.maximum(y_34 - 384.0, 0.0)))
 
 def _borzoi_core_inverse(y: TensorOrArray) -> TensorOrArray:
-    if isinstance(y, torch.Tensor):
+    if _is_tensor(y):
         y_34 = torch.where(y <= 384.0, y, torch.square(y - 384.0) + 384.0)
         return torch.pow(torch.relu(y_34), 4.0 / 3.0)
     else:
@@ -31,7 +43,7 @@ def _borzoi_core_inverse(y: TensorOrArray) -> TensorOrArray:
         return np.power(np.maximum(y_34, 0.0), 4.0 / 3.0)
 
 def _alphagenome_core_squash(y: TensorOrArray) -> TensorOrArray:
-    if isinstance(y, torch.Tensor):
+    if _is_tensor(y):
         y = torch.pow(torch.relu(y), 0.75)
         return torch.where(y > 10.0, 2.0 * torch.sqrt(y * 10.0) - 10.0, y)
     else:
@@ -39,7 +51,7 @@ def _alphagenome_core_squash(y: TensorOrArray) -> TensorOrArray:
         return np.where(y > 10.0, 2.0 * np.sqrt(y * 10.0) - 10.0, y)
 
 def _alphagenome_core_inverse(y: TensorOrArray) -> TensorOrArray:
-    if isinstance(y, torch.Tensor):
+    if _is_tensor(y):
         y = torch.where(y > 10.0, torch.square(y + 10.0) / 40.0, y)
         return torch.pow(torch.relu(y), 4.0 / 3.0)
     else:
@@ -57,7 +69,7 @@ def borzoi_squash(y: TensorOrArray) -> TensorOrArray:
     Returns:
         TensorOrArray: The transformed values on the Borzoi squashed scale.
     """
-    if isinstance(y, torch.Tensor): y = y.to(torch.float32)
+    if _is_tensor(y): y = y.to(torch.float32)
     else: y = np.array(y, dtype=np.float32)
     return _borzoi_core_squash(y)
 
@@ -70,7 +82,7 @@ def inverse_borzoi_squash(y_sq: TensorOrArray) -> TensorOrArray:
     Returns:
         TensorOrArray: The original scale values.
     """
-    if isinstance(y_sq, torch.Tensor): y_sq = y_sq.to(torch.float32)
+    if _is_tensor(y_sq): y_sq = y_sq.to(torch.float32)
     else: y_sq = np.array(y_sq, dtype=np.float32)
     return _borzoi_core_inverse(y_sq)
 
@@ -90,9 +102,9 @@ def alphagenome_squash(
     Returns:
         TensorOrArray: Scaled and optionally squashed targets.
     """
-    if isinstance(targets, torch.Tensor):
+    if _is_tensor(targets):
         targets = targets.to(torch.float32)
-        if isinstance(track_means, torch.Tensor):
+        if _is_tensor(track_means):
             track_means = track_means.to(dtype=torch.float32, device=targets.device)
     else:
         targets = np.array(targets, dtype=np.float32)
@@ -118,9 +130,9 @@ def invert_alphagenome_squash(
     Returns:
         TensorOrArray: Reconstructed raw counts.
     """
-    if isinstance(x, torch.Tensor):
+    if _is_tensor(x):
         x = x.to(torch.float32)
-        if isinstance(track_means, torch.Tensor):
+        if _is_tensor(track_means):
             track_means = track_means.to(dtype=torch.float32, device=x.device)
     else:
         x = np.array(x, dtype=np.float32)
@@ -245,11 +257,11 @@ class SelectiveSquashTransform:
     def _format_track_means(self, target_array: TensorOrArray) -> TensorOrArray:
         """Helper to ensure track_means broadcasts against the target array properly."""
         tm = self.track_means
-        is_torch = isinstance(target_array, torch.Tensor)
+        is_torch = _is_tensor(target_array)
         
         # 1. Match type and device
         if is_torch:
-            if not isinstance(tm, torch.Tensor):
+            if not _is_tensor(tm):
                 tm = torch.tensor(tm, dtype=torch.float32, device=target_array.device)
             else:
                 tm = tm.to(dtype=torch.float32, device=target_array.device)
@@ -271,7 +283,7 @@ class SelectiveSquashTransform:
             TensorOrArray: Transformed array or tensor.
         """
         # 1. Cast and clone to avoid modifying original dataloader memory in-place
-        if isinstance(y, torch.Tensor):
+        if _is_tensor(y):
             out = y.clone().to(torch.float32)
         else:
             out = np.array(y, copy=True, dtype=np.float32)

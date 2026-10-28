@@ -59,9 +59,21 @@ benchmarked against measured variant effects.
 
 **Pretrained AlphaGenome.** Through the AlphaGenome API, the pretrained model's
 output tracks are matched to the cardioid data, and the best-matching tracks are
-used for track predictions, variant effect prediction and in silico mutagenesis.
+used for track predictions (evaluated like the fine-tuned model), variant effect
+prediction and in silico mutagenesis.
 
-Borzoi and ChromBPNet analyses are being migrated into the package.
+**Borzoi fine-tuning.** Borzoi is fine-tuned through gReLU in stages (new heads, then
+the decoder), with labels streamed from the BigWigs; it is evaluated on its test
+intervals and used for variant effect prediction with indel stitching.
+
+**ChromBPNet.** Bias-factorized ChromBPNet models are trained per cell type and fold on
+pseudobulk ATAC data and score variants with the Kundaje lab variant-scorer.
+
+**Folds.** The fine-tuned AlphaGenome and Borzoi models in this repository are trained on a
+single data split only: AlphaGenome fold 1 (of four) and the split of the Borzoi replicate
+`human_rep0` (of four, `human_rep0`-`human_rep3`). The fold and replicate are currently fixed in
+the workflows; for final predictions, the training should be repeated for the other folds and
+the predictions averaged. ChromBPNet is trained on all five of its folds.
 
 ## Quick start
 

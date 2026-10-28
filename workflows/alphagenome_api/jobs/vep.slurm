@@ -2,8 +2,8 @@
 # ==============================================================================
 # Code by Jakob Then
 #
-# Purpose: SLURM job for step 03. Runs run_vep_pretrained.py with the arguments passed by
-#          03_vep.sh.
+# Purpose: SLURM job for step 04. Runs run_vep_pretrained.py with the arguments passed by
+#          04_vep.sh.
 # Input:   "$@" - arguments for run_vep_pretrained.py
 # ==============================================================================
 
@@ -12,7 +12,7 @@
 #SBATCH --cpus-per-task=64
 #SBATCH --mem=32G
 
-source "${CS2F_REPO_ROOT:?Submit via workflows/alphagenome_api/03_vep.sh}/workflows/common/load_site_env.sh"
+source "${CS2F_REPO_ROOT:?Submit via workflows/alphagenome_api/04_vep.sh}/workflows/common/load_site_env.sh"
 
 cs2f_activate "$CS2F_ENV_ALPHAGENOME"
 

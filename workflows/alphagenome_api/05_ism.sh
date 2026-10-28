@@ -4,8 +4,8 @@
 #
 # Purpose: In silico mutagenesis with the pretrained AlphaGenome model (API) for
 #          the regions of a BED file: ATAC, plus ChIP-TF (TFS) and RNA-seq (GENES).
-# Usage:   BED=regions.bed CURIES="UBERON:0002078 UBERON:0002079" bash workflows/alphagenome_api/04_ism.sh
-#          BED=regions.bed CURIES="..." TFS="CTCF GATA4" GENES=genes.csv bash workflows/alphagenome_api/04_ism.sh
+# Usage:   BED=regions.bed CURIES="UBERON:0002078 UBERON:0002079" bash workflows/alphagenome_api/05_ism.sh
+#          BED=regions.bed CURIES="..." TFS="CTCF GATA4" GENES=genes.csv bash workflows/alphagenome_api/05_ism.sh
 # Input:   BED (no header; chrom, start, end[, name]), CURIES (ontology CURIEs to average),
 #          optional TFS (names or one .txt file) and GENES (CSV, one row per region)
 # Output:  <ism_dir>/AG_pretrained_ISM_<bed name>.h5 (OUT_PREFIX=...)

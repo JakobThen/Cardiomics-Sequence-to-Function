@@ -5,8 +5,8 @@
 # Purpose: Variant effect prediction with the pretrained AlphaGenome model (API),
 #          aggregated per track group. Interrupted runs resume from the last
 #          finished batch when started again with the same input.
-# Usage:   bash workflows/alphagenome_api/03_vep.sh
-#          INPUT_VCF=/path/to/variants.csv MODALITIES="atac chip_tf" bash workflows/alphagenome_api/03_vep.sh
+# Usage:   bash workflows/alphagenome_api/04_vep.sh
+#          INPUT_VCF=/path/to/variants.csv MODALITIES="atac chip_tf" bash workflows/alphagenome_api/04_vep.sh
 # Input:   INPUT_VCF (CSV/TSV with CHROM, POS, REF, ALT) [default: <vep_input_vcf>],
 #          <ag_track_aggregations> (TRACK_AGGREGATIONS=...)
 # Output:  <vep_dir>/AG_VEP_out/<vcf name>_<group>_aggr.csv

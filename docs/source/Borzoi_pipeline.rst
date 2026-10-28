@@ -12,6 +12,14 @@ squashed scale (:class:`~cardiomics_s2f.io.data_input.SelectiveSquashTransform`)
 streamed from the BigWigs during training
 (:class:`~cardiomics_s2f.finetuning.borzoi.datasets.StreamingBigWigSeqDataset`).
 
+.. note::
+
+   The workflows fine-tune a **single replicate only**: the pretrained ``human_rep0`` model and its
+   data split (``export_borzoi_intervals.py`` and gReLU's ``BorzoiPretrainedModel`` default, fold 0).
+   Borzoi has four replicates (``human_rep0``-``human_rep3``) with different splits; for final results
+   the fine-tuning should be repeated from the other replicates and the predictions averaged. Borzoi and
+   AlphaGenome test intervals differ by design and are not comparable one to one.
+
 All steps live in ``workflows/borzoi/``. Each numbered launcher is run with ``bash`` on the login
 node and submits a GPU job (``jobs/*.slurm``) in the conda environment ``CS2F_ENV_BORZOI``, in which
 ``cardiomics_s2f`` must be installed (``pip install -e ".[borzoi]"``). Logs are written to

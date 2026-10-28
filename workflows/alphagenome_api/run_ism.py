@@ -1,4 +1,4 @@
-"""In silico mutagenesis (ISM) with the pretrained AlphaGenome model (workflow step 04).
+"""In silico mutagenesis (ISM) with the pretrained AlphaGenome model (workflow step 05).
 
 Scores every possible single-nucleotide change in each region of a BED file with
 the AlphaGenome API (ATAC, and optionally ChIP-TF for given transcription factors
@@ -6,7 +6,7 @@ and RNA-seq for given genes), averages the tracks of the given ontology CURIEs
 and saves one ISM matrix per region and modality. The logic lives in
 `cardiomics_s2f.ism`.
 
-Usage (normally via 04_ism.sh):
+Usage (normally via 05_ism.sh):
     python workflows/alphagenome_api/run_ism.py --bed BED --curies UBERON:0002078 UBERON:0002079
         --seq_len 1MB --out_prefix DIR/AG_pretrained_ISM [--tfs CTCF GATA4 | --tfs tfs.txt] [--genes genes.csv]
 

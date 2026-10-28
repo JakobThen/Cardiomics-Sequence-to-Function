@@ -1,4 +1,4 @@
-"""Variant effect prediction with the pretrained AlphaGenome model (workflow step 03).
+"""Variant effect prediction with the pretrained AlphaGenome model (workflow step 04).
 
 Scores variants in batches with the AlphaGenome API (recommended scorers of the
 chosen modalities) and aggregates the scores per variant over each track group of
@@ -6,7 +6,7 @@ the track aggregations config. Finished batches are checkpointed, so an
 interrupted run continues where it stopped. The logic lives in
 `cardiomics_s2f.vep.alphagenome_api`.
 
-Usage (normally via 03_vep.sh):
+Usage (normally via 04_vep.sh):
     python workflows/alphagenome_api/run_vep_pretrained.py --input_file CSV --config YAML
         --output_dir DIR --modalities atac rna_seq chip_histone chip_tf
 
