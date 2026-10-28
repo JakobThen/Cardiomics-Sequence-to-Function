@@ -40,6 +40,7 @@ pip install -e ".[alphagenome]"       # additionally for track_matching/ (AlphaG
 | Notebook | What it does |
 |---|---|
 | `track_benchmark.ipynb` | Compares the models' track predictions on their held-out test intervals: Pearson r per track (ATAC, Cut&Tag, RNA) and gene-level RNA correlations of pretrained AlphaGenome, fine-tuned AlphaGenome (1 bp and 128 bp embeddings) and Borzoi, plus the ChromBPNet peak count correlation (mean over folds). Reads the outputs of the workflows' test-evaluation steps (`model_eval_dir`) and the ChromBPNet evaluation (`chrombpnet_model_dir`). |
+| `sdr_vep_benchmark.ipynb` | Benchmarks the variant effect predictions of pretrained AlphaGenome (cell-type-matched and all heart tracks), fine-tuned AlphaGenome, Borzoi and ChromBPNet against the measured effects of the SDR variants: effect size (score vs log2FC), effect sign (AUROC/AUPRC, contingency tables) and causality, i.e. variants with vs without a measured effect (AUPRC, Mann-Whitney U, bootstrap power analysis), per model and across models; plus the number of affected genes of the Richter-prioritised variants in SDR007. Reads `..._Meta.csv` (`sdr_variant_dataset.ipynb`), the VEP outputs of the four workflows in `vep_dir` and the SDR007 MAST tables (`sdr007_de_dir`). |
 
 ### `model_evaluation/`
 

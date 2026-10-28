@@ -9,6 +9,9 @@ tables and prepares variant effect prediction (VEP) scores for analysis:
   haplotype.
 * `pivot_tf_scores`, `add_abs_score_columns`, `format_chrombpnet_vep`: reshape
   model scores into one column per score.
+* `strip_phasing_suffix`: haplotype suffixes -> one ID per variant.
+* `format_alphagenome_ft_vep_per_gene`, `format_borzoi_vep_per_gene`: long VEP
+  tables of the fine-tuned models -> one row per variant, gene and cell type.
 * `create_tss_stratifications`: variant strata by distance to the target gene TSS.
 """
 import numpy as np
@@ -444,3 +447,217 @@ def create_tss_stratifications(df: pd.DataFrame, tss_col: str = "dist_target_gen
     stratifications[f"TSS Distance > {c_last}kb"] = (abs_dist > c_last * 1000)
 
     return stratifications
+
+def strip_phasing_suffix(variant_ids: pd.Series) -> pd.Series:
+    """Removes the phasing suffixes that `process_row` appends to variant IDs.
+
+    ``-(for)``, ``-(rev)`` and ``-phased`` are removed, so that the scores of both
+    haplotypes of a variant share one ID (e.g. to average them).
+
+    Args:
+        variant_ids (pd.Series): Variant IDs, e.g. ``chr1-100-A-G-(for)``.
+
+    Returns:
+        pd.Series: The IDs without suffix, e.g. ``chr1-100-A-G``.
+    """
+    return (
+        variant_ids
+        .str.replace("-(for)", "", regex=False)
+        .str.replace("-(rev)", "", regex=False)
+        .str.replace("-phased", "", regex=False)
+    )
+
+def _mean_alphagenome_ft_cutntag_days(vep: pd.DataFrame) -> pd.DataFrame:
+    """Averages the fine-tuned AlphaGenome Cut&Tag scores over days, genes and haplotypes.
+
+    Takes the ``CutnTag`` rows of a long fine-tuned AlphaGenome VEP table, removes
+    the day from the track names, harmonises the mark names (``K4``,
+    ``cutntag_4`` -> ``H3K4me3``; ``K27ac`` -> ``H3K27ac``) and returns one row per
+    variant with one score column per mark.
+    """
+    #combine the cnt days by taking the mean
+    cnt = vep[vep.output_type == "CutnTag"].copy()
+    cnt.loc[:,"track_name"] = cnt["track_name"].str.replace(r"Day\d+", "", regex=True)
+    cnt.loc[:,"track_name"] = (
+        cnt["track_name"]
+        .str.replace("K4", "H3K4me3", regex=False)
+        .str.replace("cutntag_4", "H3K4me3", regex=False)
+        .str.replace("K27ac", "H3K27ac", regex=False)
+    )
+    cnt = (
+        cnt.groupby(["variant_id", "track_name", "output_type", "gene_name"], dropna=False)
+          .mean(numeric_only=True)
+          .reset_index()
+    )
+    #make avergge pahsing scores and pivot to histone score columns
+    cnt = cnt.groupby(["variant_id", "output_type", "track_name"], observed=True).agg({
+        "score": "mean"
+    }).reset_index()
+    cnt = cnt.pivot(columns = "track_name", index = "variant_id", values = "score").drop_duplicates().reset_index()
+    return cnt
+
+def format_alphagenome_ft_vep_per_gene(vep: pd.DataFrame, gtf: pd.DataFrame) -> pd.DataFrame:
+    """Formats fine-tuned AlphaGenome VEP scores per variant, gene and cell type (CM, FB).
+
+    For data with cell-type-resolved effects (SDR-seq DE results), so that every
+    variant-gene pair is compared with the prediction of its own cell type:
+
+    * phasing suffixes are removed from ``variant_id`` (`strip_phasing_suffix`);
+    * Cut&Tag: mean over days, haplotypes and genes, one column per mark
+      (``AG_ft_H3K27ac_score``, ``AG_ft_H3K4me3_score``; not cell-type-specific);
+    * ATAC and RNA: only the Cardiomyocytes (``CM``) and Fibroblasts (``FB``) tracks;
+      ATAC -> ``AG_ft_ATAC_score``;
+    * RNA: mean over haplotypes, only the track on the strand of the gene (from
+      ``gtf``) -> ``AG_ft_RNA_score``; all genes of a variant are kept (``Gene``).
+
+    Args:
+        vep (pd.DataFrame): Long VEP table of ``workflows/alphagenome_ft/04_vep.sh``
+            (``variant_id``, ``gene_id``, ``gene_name``, ``output_type``,
+            ``track_name``, ``scored_interval``, ``score``, ...).
+        gtf (pd.DataFrame): Gene annotation with ``gene_id``, ``gene_name`` and
+            ``strand`` (e.g. from `cardiomics_s2f.eval.track_prediction.get_gtf`).
+
+    Returns:
+        pd.DataFrame: One row per variant, cell type and gene (``Gene`` is missing
+        for variants without RNA score) with ``AG_ft_ATAC_score``,
+        ``AG_ft_H3K27ac_score``, ``AG_ft_H3K4me3_score`` and ``AG_ft_RNA_score``.
+    """
+    ag_ft_pred = vep.copy()
+    ag_ft_pred["variant_id"] = strip_phasing_suffix(ag_ft_pred["variant_id"])
+
+    cnt = _mean_alphagenome_ft_cutntag_days(ag_ft_pred)
+
+    # filter ATAC and RNA to the celltypes we have in sdr
+    ag_ft_pred = ag_ft_pred[ag_ft_pred.track_name.str.contains("Cardiomyocytes|Fibroblasts")].copy()
+    assay_type = []
+    for _, r in ag_ft_pred.iterrows():
+        if "ATAC" in r.track_name.upper(): assay_type.append("ATAC")
+        elif "RNA" in r.track_name.upper(): assay_type.append("RNA")
+        else: assay_type.append("misc")
+    ag_ft_pred.loc[:, "output_type"] = assay_type
+    cell_type = []
+    for _, r in ag_ft_pred.iterrows():
+        if "Cardiomyocytes" in r.track_name: cell_type.append("CM")
+        elif "Fibroblasts" in r.track_name: cell_type.append("FB")
+        else: cell_type.append("misc")
+    ag_ft_pred.loc[:, "cell_type"] = cell_type
+
+    #merge wide cnt and atac as neitehr cotain genes
+    atac = ag_ft_pred[ag_ft_pred.output_type == "ATAC"].drop(["gene_id","gene_name", "output_type","track_name", "scored_interval"], axis = 1).drop_duplicates()
+    ag_ft_cnt_atac = pd.merge(atac, cnt, how="outer", on = "variant_id").rename(columns={"score": "AG_ft_ATAC_score", "H3K27ac": "AG_ft_H3K27ac_score", "H3K4me3": "AG_ft_H3K4me3_score"})
+
+    #take rna with genes and merge with strand mathced genes from gtf
+    rna = ag_ft_pred[ag_ft_pred.output_type == "RNA"]
+    rna = rna.rename(columns = {"gene_name":"Gene"})
+    rna = rna.groupby(["variant_id", "gene_id", "Gene", "output_type", "track_name", "cell_type"], observed=True).agg({
+        "score": "mean"
+    }).reset_index()
+    gtf_genes = gtf[["gene_id", "strand", "gene_name"]].drop_duplicates()
+    rna = pd.merge(rna, gtf_genes, how = "left", right_on = "gene_name", left_on = "Gene", suffixes=("", "_gtf")).drop_duplicates()
+    rna = rna[((rna.track_name.str.contains("plus")) & (rna.strand == "+")) |
+        (rna.track_name.str.contains("minus")) & (rna.strand == "-")]
+    rna = rna.drop(["gene_id", "gene_id_gtf", "gene_name", "track_name", "output_type"], axis = 1)
+    rna = rna.rename(columns={"score": "AG_ft_RNA_score"})
+
+    #merge rna atac and cnt
+    return pd.merge(ag_ft_cnt_atac, rna,
+             how = "outer", on = ["variant_id", "cell_type"]).drop_duplicates()
+
+def format_borzoi_vep_per_gene(vep: pd.DataFrame) -> pd.DataFrame:
+    """Formats Borzoi VEP scores per variant, gene and cell type (CM, FB).
+
+    Counterpart of `format_alphagenome_ft_vep_per_gene` for the table of
+    ``workflows/borzoi/04_vep.sh``:
+
+    * Cut&Tag: mean over days, haplotypes and genes; ``SUM``, ``L2`` and ``logSUM``
+      scores per mark (``SUM_score_H3K27ac``, ``L2_score_H3K4me3``, ...;
+      not cell-type-specific);
+    * ATAC and RNA: only the Cardiomyocytes (``CM``) and Fibroblasts (``FB``)
+      tracks, mean over haplotypes (phasing suffixes removed, see
+      `strip_phasing_suffix`); ATAC -> ``*_score_ATAC``; RNA -> ``*_score_RNA``
+      plus the gene-level ``L2ED_score`` and ``logSED_score`` per ``Gene``.
+
+    Args:
+        vep (pd.DataFrame): Long Borzoi VEP table (``variant_id``, ``track``,
+            ``assay_type``, ``gene`` and the ``L2ED``, ``logSED``, ``SUM``, ``L2``,
+            ``logSUM`` scores).
+
+    Returns:
+        pd.DataFrame: One row per variant, cell type and gene with the RNA, ATAC and
+        Cut&Tag score columns.
+    """
+    borzoi_pred = vep.copy()
+
+    #combine the cnt days by taking the mean
+    cnt = borzoi_pred[borzoi_pred.assay_type == "Cut&Tag"].copy()
+    cnt.loc[:,"track"] = cnt["track"].str.replace(r"Day\d+", "", regex=True)
+    cnt = (
+        cnt.groupby(["variant_id", "track", "assay_type", "gene"], dropna=False)
+          .mean(numeric_only=True)
+          .reset_index()
+    )
+
+    # #filteer to the celltypes we have in sdr
+    borzoi_pred = borzoi_pred[borzoi_pred.track.str.contains("Cardiomyocytes|Fibroblasts")].copy()
+    assay_type = []
+    for _, r in borzoi_pred.iterrows():
+        if "ATAC" in r.track.upper(): assay_type.append("ATAC")
+        elif "RNA" in r.track.upper(): assay_type.append("RNA")
+        else: assay_type.append("misc")
+
+    borzoi_pred.loc[:, "assay_type"] = assay_type
+    cell_type = []
+    for _, r in borzoi_pred.iterrows():
+        if "Cardiomyocytes" in r.track: cell_type.append("CM")
+        elif "Fibroblasts" in r.track: cell_type.append("FB")
+        else: cell_type.append("misc")
+    borzoi_pred.loc[:, "cell_type"] = cell_type
+
+    borzoi_pred = pd.concat([cnt, borzoi_pred]).rename(columns={"gene": "Gene"})
+
+    #drop pahsing
+    borzoi_pred["variant_id"] = strip_phasing_suffix(borzoi_pred["variant_id"])
+    #agg pahsing
+    borzoi_pred = borzoi_pred.groupby(["variant_id", "track", "assay_type", "Gene", "cell_type"], observed=True, dropna=False).agg({
+        "L2ED_score": "mean",
+        "logSED_score": "mean",
+        "SUM_score": "mean",
+        "L2_score": "mean",
+        "logSUM_score": "mean",
+    }).reset_index()
+
+    #merge histone mods
+    borzoi_pred_no_genes_cnt = borzoi_pred[borzoi_pred.assay_type== "Cut&Tag"].copy()
+    borzoi_pred_no_genes_cnt['histone_mod'] = borzoi_pred_no_genes_cnt['track'].str.replace('_100M_norm.bw', '', regex=False)
+    borzoi_pred_no_genes_cnt['histone_mod'] = borzoi_pred_no_genes_cnt['histone_mod'].str.replace('cutntag_4', 'H3K4me3', regex=False).replace('K4', 'H3K4me3', regex=False).replace('K27ac', 'H3K27ac', regex=False)
+    borzoi_pred_no_genes_cnt = borzoi_pred_no_genes_cnt.groupby(["variant_id", "histone_mod"], observed=True, dropna=False).agg({
+        "L2ED_score": "mean",
+        "logSED_score": "mean",
+        "SUM_score": "mean",
+        "L2_score": "mean",
+        "logSUM_score": "mean",
+    }).reset_index()
+
+    #pivot cnt
+    borzoi_pred_no_genes_cnt = borzoi_pred_no_genes_cnt.pivot_table(
+        index='variant_id',
+        columns='histone_mod',
+        values=['SUM_score', 'L2_score', 'logSUM_score'],
+        aggfunc='mean'
+    )
+    borzoi_pred_no_genes_cnt.columns = [f"{metric}_{mod}" for metric, mod in borzoi_pred_no_genes_cnt.columns]
+    borzoi_pred_no_genes_cnt = borzoi_pred_no_genes_cnt.reset_index()
+
+    #pivot atac
+    borzoi_pred_no_genes_atac = borzoi_pred[borzoi_pred.assay_type== "ATAC"].drop(
+        ["assay_type", "track", "Gene", "L2ED_score", "logSED_score"], axis = 1
+    ).rename(columns = {"SUM_score": "SUM_score_ATAC", "L2_score": "L2_score_ATAC", "logSUM_score": "logSUM_score_ATAC"}).reset_index(drop = True)
+
+    #privot rna
+    borzoi_pred_rna = borzoi_pred[borzoi_pred.assay_type == "RNA"].drop(
+        ["assay_type", "track"], axis = 1).rename(
+        columns = {"SUM_score": "SUM_score_RNA", "L2_score": "L2_score_RNA", "logSUM_score": "logSUM_score_RNA"})
+
+    #merge back togehter
+    borzoi_pred_cnt_atac = pd.merge(borzoi_pred_no_genes_cnt, borzoi_pred_no_genes_atac, how = "outer", on = ["variant_id"])
+    return pd.merge(borzoi_pred_rna, borzoi_pred_cnt_atac, how = "outer", on = ["variant_id", "cell_type"])

@@ -75,3 +75,11 @@ cardiomics\_s2f.vep.scoring module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.vep.stats module
+--------------------------------
+
+.. automodule:: cardiomics_s2f.vep.stats
+   :members:
+   :show-inheritance:
+   :undoc-members:
