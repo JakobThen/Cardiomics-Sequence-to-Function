@@ -24,6 +24,7 @@ Data-specific inputs are gitignored too; each has a tracked `*.example.*` next t
 | AlphaGenome targets config (`ag_targets_config`, built by step 01) | `alphagenome_ft/configs/targets_config.example.yaml` |
 | Attribution regions (`alphagenome_ft` step 05, e.g. `sdr_amplicons.bed`) | `alphagenome_ft/configs/attribution_regions.example.bed` |
 | Pretrained AlphaGenome track groups (`ag_track_aggregations`) | `alphagenome_api/configs/track_aggregations.example.yaml` |
+| Borzoi stage-1 BigWig folders (`borzoi/configs/bigwig_folders.txt`) | `borzoi/configs/bigwig_folders.example.txt` |
 
 ## How a step runs
 
@@ -83,6 +84,23 @@ Steps 1-3 run on the high-memory partition (`CS2F_SLURM_BIGMEM_PARTITION`).
 The track groups (`ag_track_aggregations`) are chosen from the step 1 results with
 `analysis_notebooks/track_matching/alphagenome_track_matching.ipynb`.
 
+## borzoi (env: `CS2F_ENV_BORZOI`)
+
+Borzoi `human_rep0` fine-tuned through gReLU (`pip install -e ".[borzoi]"`).
+
+| Step | Launcher | Reads | Writes |
+|---|---|---|---|
+| – | `python export_borzoi_intervals.py` (login node; `--overwrite`) | `chrom_sizes`, pretrained Borzoi (downloaded) | `intervals_dir/Borzoi_human_rep0_{train,val,test}_intervals.bed` (524 kbp) |
+| 1 | `01_finetune_heads.sh` (8 GPUs; `FOLDERS_FILE=`, `LR=`, `MAX_EPOCHS=`) | `bigwig_dir/<folders in configs/bigwig_folders.txt>`, Borzoi BEDs | `borzoi_heads_dir` |
+| 2 | `02_finetune_decoder.sh` (4 GPUs; `PREV_CHECKPOINT=`, `UNFREEZE=`) | whole `bigwig_dir`, stage-1 checkpoint, Borzoi BEDs | `borzoi_decoder_dir` |
+| 3 | `03_vep.sh` (1 GPU; `INPUT_VCF=`, `CHECKPOINT=`, `RNA_SCALE=squashed\|linear`) | `borzoi_checkpoint_dir`, `vep_input_vcf`, `gtf`, `chrom_sizes` | `vep_dir/Borzoi_VEP` |
+
+Steps 1-2 stage the BigWigs to `node_tmp_dir` and write the test-interval predictions
+(squashed scale) next to the checkpoints. Step 2 takes its tracks, in order, from the
+checkpoint, so a track file name must occur in only one `*bigwig*` folder of `bigwig_dir`.
+The transformer stage has no launcher; run step 2 with
+`UNFREEZE="transformer_tower unet_tower pointwise_conv" LR=1e-5`.
+
 ## common
 
 - `load_site_env.sh`: sourced by every launcher and job; provides `cs2f_path`,
@@ -90,3 +108,4 @@ The track groups (`ag_track_aggregations`) are chosen from the step 1 results wi
 - `get_path.py`: prints one path from `config/paths.yaml` (used by `cs2f_path`).
 - `stage_to_node.sh`, `stage_to_tmp.py`: copy BigWigs and the genome to the
   node-local disk and write a config that points to the copies.
+- `check_torch_cuda.py`: prints the PyTorch/CUDA setup at the start of PyTorch GPU jobs.

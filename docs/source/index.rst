@@ -26,6 +26,7 @@ The project has two parts:
    input_prep_pipeline
    AlphaGenome_ft_pipeline
    AlphaGenome_api_pipeline
+   Borzoi_pipeline
 
 .. toctree::
    :maxdepth: 2

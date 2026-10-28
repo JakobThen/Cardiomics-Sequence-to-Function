@@ -11,6 +11,7 @@ Helpers for ``workflows/borzoi/finetune_borzoi.py``:
 * :func:`warn_on_deduplicated_folder_pairs` warns when a folder and its
   ``*_deduplicated`` counterpart are staged together.
 * :func:`unfreeze_embedding_layers` unfreezes selected layers of the Borzoi trunk.
+* :func:`find_checkpoint_file` resolves a checkpoint file from a run folder.
 
 Track tables have the columns ``modality`` (folder name up to ``bigwig``, e.g.
 ``multiome_RNA_3prime``), ``file_name`` (used as the task name) and ``path``.
@@ -176,3 +177,37 @@ def unfreeze_embedding_layers(model, layer_substrings):
                 param.requires_grad = False
     else:
         print("No layers specified to unfreeze. Embedding remains frozen.")
+
+
+def find_checkpoint_file(path, pattern="epoch*.ckpt"):
+    """Resolves the checkpoint file of a gReLU training run.
+
+    gReLU (PyTorch Lightning) writes the best checkpoint as
+    ``<save_dir>/<run name>/version_0/checkpoints/epoch=..-step=...ckpt`` next to
+    ``last.ckpt``. A folder must contain exactly one file matching ``pattern``
+    (searched recursively), so a folder with several runs is never resolved silently.
+
+    Args:
+        path (str or Path): A ``.ckpt`` file, or a folder containing one run.
+        pattern (str, optional): File pattern of the checkpoint to use. Defaults to
+            ``"epoch*.ckpt"`` (the best checkpoint, not ``last.ckpt``).
+
+    Returns:
+        Path: The checkpoint file.
+
+    Raises:
+        FileNotFoundError: If ``path`` does not exist or the folder has no match.
+        ValueError: If the folder has more than one match.
+    """
+    path = Path(path)
+    if path.is_file():
+        return path
+    if not path.is_dir():
+        raise FileNotFoundError(f"Checkpoint path not found: {path}")
+    matches = sorted(path.rglob(pattern))
+    if not matches:
+        raise FileNotFoundError(f"No '{pattern}' checkpoint found under {path}")
+    if len(matches) > 1:
+        listing = "\n  ".join(str(m) for m in matches)
+        raise ValueError(f"Several '{pattern}' checkpoints under {path}; pass one file instead:\n  {listing}")
+    return matches[0]

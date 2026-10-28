@@ -122,3 +122,30 @@ def test_drop_intervals_beyond_chrom_ends():
     kept = drop_intervals_beyond_chrom_ends(intervals, sizes)
     assert kept.index.tolist() == [0]
     assert list(kept.columns) == ["chrom", "start", "end"]
+
+
+def test_find_checkpoint_file(tmp_path):
+    from cardiomics_s2f.finetuning.borzoi.training import find_checkpoint_file
+
+    ckpt_dir = tmp_path / "run" / "2026_01_04_17_59" / "version_0" / "checkpoints"
+    _touch(ckpt_dir, "epoch=7-step=100.ckpt", "last.ckpt")
+    best = ckpt_dir / "epoch=7-step=100.ckpt"
+    assert find_checkpoint_file(tmp_path / "run") == best
+    assert find_checkpoint_file(best) == best
+    _touch(tmp_path / "run" / "2026_02_01_10_00" / "version_0" / "checkpoints", "epoch=3-step=40.ckpt")
+    with pytest.raises(ValueError, match="Several"):
+        find_checkpoint_file(tmp_path / "run")
+    with pytest.raises(FileNotFoundError):
+        find_checkpoint_file(tmp_path / "empty_or_missing")
+
+
+def test_write_borzoi_fold_intervals(tmp_path):
+    from cardiomics_s2f.finetuning.borzoi.intervals import write_borzoi_fold_intervals
+
+    df = pd.DataFrame({"chrom": ["chr5"], "start": [41462305], "end": [41986593]})
+    paths = write_borzoi_fold_intervals({"train": df, "val": df, "test": df}, tmp_path)
+    assert paths["test"].name == "Borzoi_human_rep0_test_intervals.bed"
+    assert paths["test"].read_bytes() == b"chrom\tstart\tend\nchr5\t41462305\t41986593\n"
+    with pytest.raises(FileExistsError):
+        write_borzoi_fold_intervals({"train": df, "val": df, "test": df}, tmp_path)
+    write_borzoi_fold_intervals({"train": df, "val": df, "test": df}, tmp_path, overwrite=True)

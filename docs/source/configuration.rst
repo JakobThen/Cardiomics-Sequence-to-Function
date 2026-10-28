@@ -56,7 +56,11 @@ Resolution rules:
    * - ``ag_ft_checkpoint_dir``
      - Checkpoint whose ``best`` subfolder is evaluated (AlphaGenome 3, 4)
    * - ``vep_input_vcf``
-     - Default VEP input: CSV with ``variant_id, CHROM, POS, REF, ALT`` (AlphaGenome 4)
+     - Default VEP input: CSV with ``variant_id, CHROM, POS, REF, ALT`` (AlphaGenome 4, Borzoi 3)
+   * - ``borzoi_heads_dir``, ``borzoi_decoder_dir``
+     - Where Borzoi stage 1 (heads) and stage 2 (decoder) write their runs; stage 2 resumes from ``borzoi_heads_dir``
+   * - ``borzoi_checkpoint_dir``
+     - Borzoi model used for VEP (Borzoi 3): a ``.ckpt`` file or a folder with exactly one ``epoch*.ckpt``
    * - ``model_eval_dir``, ``vep_dir``
      - Outputs of test evaluation and VEP
    * - ``xla_cache_dir``
@@ -66,7 +70,7 @@ Resolution rules:
    * - ``node_tmp_dir``
      - Node-local disk for staging BigWigs on GPU nodes
    * - ``intervals_dir``
-     - AlphaGenome fold intervals (BED; written by ``alphagenome_ft/export_fold_intervals.py``, read by pretrained track prediction)
+     - Interval BEDs: AlphaGenome fold intervals (written by ``alphagenome_ft/export_fold_intervals.py``, read by pretrained track prediction) and the Borzoi ``human_rep0`` windows (written by ``borzoi/export_borzoi_intervals.py``, read by Borzoi 1-2)
    * - ``ag_track_aggregations``
      - Track groups (ontology CURIEs) for pretrained-AlphaGenome track prediction and VEP
    * - ``multiome_gene_counts_csv``, ``multiome_gene_pct_csv``
@@ -111,6 +115,8 @@ quoted.
      - Lean, GPU-free environment (name or prefix) for ``workflows/alphagenome_api``
    * - ``CS2F_ENV_CHROMBPNET``
      - Environment (name or prefix) for ``workflows/input_prep``
+   * - ``CS2F_ENV_BORZOI``
+     - Environment (name or prefix) for ``workflows/borzoi`` (``pip install -e ".[borzoi]"``)
    * - ``CS2F_SLURM_ACCOUNT``
      - ``--account`` for all jobs (empty: omitted)
    * - ``CS2F_SLURM_CPU_PARTITION``

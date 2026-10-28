@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.abspath('../../src'))
 sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_ft'))
 sys.path.insert(0, os.path.abspath('../../workflows/common'))
 sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_api'))
+sys.path.insert(0, os.path.abspath('../../workflows/borzoi'))
 
 
 def _package_version():

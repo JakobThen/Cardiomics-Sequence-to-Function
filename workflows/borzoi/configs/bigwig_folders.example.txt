@@ -1,0 +1,6 @@
+# BigWig folders (inside bigwig_dir) staged for Borzoi stage 1 (01_finetune_heads.sh),
+# one per line; lines starting with # are ignored. All normalised (*100M*) .bw files in
+# these folders become output tracks, sorted by folder and file name.
+CutnTag_bigwig
+multiome_ATAC_bigwig
+multiome_RNA_3prime_bigwig

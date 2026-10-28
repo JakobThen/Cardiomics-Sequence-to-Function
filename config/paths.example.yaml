@@ -52,6 +52,14 @@ ag_ft_checkpoint_dir: models/AlphaGenome_finetuned/heads
 # Persistent XLA autotune cache (speeds up start-up of GPU jobs)
 xla_cache_dir: models/xla_cache
 
+# --- Borzoi fine-tuning (workflows/borzoi/) ------------------------------------
+# Training output of step 01 (heads) and step 02 (decoder); gReLU writes one
+# <run>/version_0/checkpoints/ subfolder per run
+borzoi_heads_dir: models/Borzoi_finetuned/heads
+borzoi_decoder_dir: models/Borzoi_finetuned/decoder
+# Model used for VEP (step 03): a .ckpt file or a folder with exactly one epoch*.ckpt
+borzoi_checkpoint_dir: models/Borzoi_finetuned/heads
+
 # --- Pretrained AlphaGenome (API) ----------------------------------------------
 # Track groups (ontology CURIEs) for track prediction and VEP (gitignored, see configs/README.md)
 ag_track_aggregations: workflows/alphagenome_api/configs/track_aggregations.yaml

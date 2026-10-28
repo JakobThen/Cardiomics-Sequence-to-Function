@@ -30,6 +30,9 @@ workflows/alphagenome_api/configs/*
 workflows/input_prep/configs/*
 !workflows/input_prep/configs/README.md
 !workflows/input_prep/configs/*.example.*
+workflows/borzoi/configs/*
+!workflows/borzoi/configs/README.md
+!workflows/borzoi/configs/*.example.*
 
 # Data, models and results live outside git (only the READMEs are tracked)
 input_data/*

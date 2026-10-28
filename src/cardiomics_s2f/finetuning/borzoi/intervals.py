@@ -12,6 +12,8 @@ chromosome end are dropped, and windows within ``blacklist_window`` bp of an
 ENCODE blacklist region are removed.
 """
 
+from pathlib import Path
+
 import pandas as pd
 
 
@@ -82,3 +84,46 @@ def build_borzoi_fold_intervals(model, chrom_sizes, genome=None, blacklist_windo
             window=blacklist_window,
         )
     return splits
+
+
+def borzoi_interval_bed_paths(out_dir, prefix="Borzoi_human_rep0"):
+    """Returns the BED path of each split.
+
+    Args:
+        out_dir (str or Path): Folder of the BED files (``intervals_dir``).
+        prefix (str, optional): File name prefix. Defaults to "Borzoi_human_rep0".
+
+    Returns:
+        dict: ``{"train": Path, "val": Path, "test": Path}``, named
+        ``<prefix>_<split>_intervals.bed``.
+    """
+    out_dir = Path(out_dir)
+    return {split: out_dir / f"{prefix}_{split}_intervals.bed" for split in ("train", "val", "test")}
+
+
+def write_borzoi_fold_intervals(splits, out_dir, prefix="Borzoi_human_rep0", overwrite=False):
+    """Writes the Borzoi windows as tab-separated BED files with a header line.
+
+    The format (header ``chrom start end``, no index) is what the training script reads.
+
+    Args:
+        splits (dict): ``{"train": df, "val": df, "test": df}`` from
+            :func:`build_borzoi_fold_intervals`.
+        out_dir (str or Path): Output folder (created if needed).
+        prefix (str, optional): File name prefix. Defaults to "Borzoi_human_rep0".
+        overwrite (bool, optional): Replace existing files. Defaults to False.
+
+    Returns:
+        dict: ``{split: Path}`` of the written files.
+
+    Raises:
+        FileExistsError: If a file exists and ``overwrite`` is False (nothing is written).
+    """
+    paths = borzoi_interval_bed_paths(out_dir, prefix)
+    existing = [str(p) for p in paths.values() if p.exists()]
+    if existing and not overwrite:
+        raise FileExistsError(f"BED files already exist (use overwrite): {existing}")
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    for split, path in paths.items():
+        splits[split].to_csv(path, sep="\t", index=False, lineterminator="\n")
+    return paths
