@@ -86,7 +86,35 @@ than the decoder stage):
   ``borzoi_decoder_dir/<prefix>_squashed_predictions.h5``
 
 
-3. Variant Effect Prediction
+3. Test Evaluation
+------------------
+Steps 1 and 2 save the predictions of the best checkpoint on the test intervals (squashed scale).
+This step streams them against the observed BigWig tracks, as the AlphaGenome test evaluation does
+(:func:`~cardiomics_s2f.eval.streamed_correlation_analysis.evaluate_from_h5`): Pearson r per track over
+the concatenated test intervals (squashed scale), coverage QC and gene-level RNA correlations of
+summed exon counts. The BigWigs are taken from the staged paths stored with the predictions
+(:func:`~cardiomics_s2f.finetuning.borzoi.training.resolve_staged_track_paths`), so each track maps to
+the folder it was trained on. The job runs on CPUs only.
+
+* **Input:** ``PREDICTIONS`` (default: the single ``*_predictions.h5`` in ``borzoi_checkpoint_dir``),
+  ``bigwig_dir``, ``gtf``
+* **Output:** ``model_eval_dir/Borzoi/<predictions file name>/`` (``track_correlations.csv``, summary
+  ``.txt``, ``fig/``)
+
+.. code-block:: bash
+
+    bash workflows/borzoi/03_test_eval.sh
+
+.. argparse::
+   :module: evaluate_on_test_borzoi
+   :func: get_parser
+   :prog: evaluate_on_test_borzoi.py
+
+More plots of the same evaluation (per-interval correlations, coverage QC, gene-level scatters) and the
+training curves are in ``analysis_notebooks/model_evaluation/borzoi_test_evaluation.ipynb``.
+
+
+4. Variant Effect Prediction
 ----------------------------
 The fine-tuned model (``borzoi_checkpoint_dir``) scores variants from a VCF-style CSV (columns
 ``variant_id, CHROM, POS, REF, ALT``) on one GPU. SNVs are predicted as REF/ALT pairs; indels and
@@ -103,7 +131,7 @@ the default; ``linear`` for models trained without the squash transform). Scores
 
 .. code-block:: bash
 
-    INPUT_VCF=/path/to/variants.csv bash workflows/borzoi/03_vep.sh
+    INPUT_VCF=/path/to/variants.csv bash workflows/borzoi/04_vep.sh
 
 .. argparse::
    :module: run_vep_borzoi

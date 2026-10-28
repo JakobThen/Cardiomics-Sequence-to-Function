@@ -17,4 +17,5 @@ Submodules:
 * `track_prediction`: Handles loading predictions from HDF5 and GTF extraction of counts.
 * `track_matching`: Compares pretrained AlphaGenome tracks with the cardioid multiome tracks
   and selects the best-matching tracks per cell type.
+* `training_curves`: Plots the per-epoch training and validation loss of gReLU runs.
 """

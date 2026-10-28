@@ -149,3 +149,20 @@ def test_write_borzoi_fold_intervals(tmp_path):
     with pytest.raises(FileExistsError):
         write_borzoi_fold_intervals({"train": df, "val": df, "test": df}, tmp_path)
     write_borzoi_fold_intervals({"train": df, "val": df, "test": df}, tmp_path, overwrite=True)
+
+
+def test_resolve_staged_track_paths(tmp_path):
+    from cardiomics_s2f.finetuning.borzoi.training import resolve_staged_track_paths
+
+    _touch(tmp_path / "multiome_ATAC_bigwig", "ATAC_CM_100M_norm.bw")
+    _touch(tmp_path / "multiome_ATAC_bigwig_deduplicated", "ATAC_CM_100M_norm.bw")
+    tracks = pd.DataFrame({
+        "modality": ["multiome_ATAC"],
+        "file_name": ["ATAC_CM_100M_norm.bw"],
+        "path": ["/tmp/borzoi_bws_123/multiome_ATAC_bigwig_deduplicated/ATAC_CM_100M_norm.bw"],
+    })
+    out = resolve_staged_track_paths(tracks, tmp_path)
+    assert out["path"].tolist() == [str(tmp_path / "multiome_ATAC_bigwig_deduplicated" / "ATAC_CM_100M_norm.bw")]
+    assert out["staged_path"].tolist() == tracks["path"].tolist()
+    with pytest.raises(FileNotFoundError):
+        resolve_staged_track_paths(tracks.assign(file_name=["gone.bw"]), tmp_path)

@@ -7,6 +7,7 @@ Helpers to compare model predictions with observed tracks:
   exon-level counts.
 * `get_counts_from_bw`, `get_counts_from_bws`: observed signal from BigWig files.
 * `load_predictions_from_h5`: predictions and metadata saved as HDF5.
+* `read_h5_track_table`: only the track table of a single-head HDF5 file.
 * `process_track_metadata`: track names, assays and strands from a track table.
 """
 import os
@@ -430,6 +431,26 @@ def _align_prediction_axes(P, num_intervals=None, num_tracks=None, head_name="Si
         P = np.transpose(P, (ax_intervals, ax_tracks, ax_bins))
         
     return P
+
+
+def read_h5_track_table(h5_path):
+    """Reads the track table of a single-head prediction HDF5 file without the predictions.
+
+    Args:
+        h5_path (str or Path): HDF5 file with a top-level ``tracks`` group (e.g. written by
+            :func:`~cardiomics_s2f.io.data_output.save_borzoi_predictions_with_fallback`).
+
+    Returns:
+        pandas.DataFrame: One row per track, in prediction order.
+
+    Raises:
+        ValueError: If the file has no ``tracks`` group.
+    """
+    with h5py.File(h5_path, "r") as f:
+        tracks_df = _extract_h5_group_to_df(f.get("tracks"))
+    if tracks_df is None:
+        raise ValueError(f"No 'tracks' group in {h5_path}")
+    return tracks_df
 
 
 def load_predictions_from_h5(h5_path):

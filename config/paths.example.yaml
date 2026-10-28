@@ -57,7 +57,8 @@ xla_cache_dir: models/xla_cache
 # <run>/version_0/checkpoints/ subfolder per run
 borzoi_heads_dir: models/Borzoi_finetuned/heads
 borzoi_decoder_dir: models/Borzoi_finetuned/decoder
-# Model used for VEP (step 03): a .ckpt file or a folder with exactly one epoch*.ckpt
+# Model used for test evaluation (step 03; its *_predictions.h5) and VEP (step 04):
+# a .ckpt file or a folder with exactly one epoch*.ckpt
 borzoi_checkpoint_dir: models/Borzoi_finetuned/heads
 
 # --- Pretrained AlphaGenome (API) ----------------------------------------------

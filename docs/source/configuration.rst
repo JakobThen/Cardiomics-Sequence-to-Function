@@ -56,11 +56,11 @@ Resolution rules:
    * - ``ag_ft_checkpoint_dir``
      - Checkpoint whose ``best`` subfolder is evaluated (AlphaGenome 3, 4)
    * - ``vep_input_vcf``
-     - Default VEP input: CSV with ``variant_id, CHROM, POS, REF, ALT`` (AlphaGenome 4, Borzoi 3)
+     - Default VEP input: CSV with ``variant_id, CHROM, POS, REF, ALT`` (AlphaGenome 4, Borzoi 4)
    * - ``borzoi_heads_dir``, ``borzoi_decoder_dir``
      - Where Borzoi stage 1 (heads) and stage 2 (decoder) write their runs; stage 2 resumes from ``borzoi_heads_dir``
    * - ``borzoi_checkpoint_dir``
-     - Borzoi model used for VEP (Borzoi 3): a ``.ckpt`` file or a folder with exactly one ``epoch*.ckpt``
+     - Borzoi model for test evaluation (Borzoi 3, its ``*_predictions.h5``) and VEP (Borzoi 4): a ``.ckpt`` file or a folder with exactly one ``epoch*.ckpt``
    * - ``model_eval_dir``, ``vep_dir``
      - Outputs of test evaluation and VEP
    * - ``xla_cache_dir``

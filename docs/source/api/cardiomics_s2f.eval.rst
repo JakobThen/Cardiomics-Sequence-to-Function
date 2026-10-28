@@ -60,3 +60,11 @@ cardiomics_s2f.eval.track\_prediction module
    :members:
    :show-inheritance:
    :undoc-members:
+
+cardiomics\_s2f.eval.training\_curves module
+--------------------------------------------
+
+.. automodule:: cardiomics_s2f.eval.training_curves
+   :members:
+   :show-inheritance:
+   :undoc-members:

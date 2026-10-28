@@ -33,6 +33,12 @@ pip install -e ".[alphagenome]"       # additionally for track_matching/ (AlphaG
 |---|---|
 | `alphagenome_track_matching.ipynb` | Compares the pretrained AlphaGenome RNA and ATAC tracks with the cardioid multiome tracks (outputs of `workflows/alphagenome_api/01_track_matching.sh`) and selects the best-matching AlphaGenome tracks per cell type; the resulting CURIE lists define the track aggregations for pretrained-AlphaGenome VEP. |
 
+### `model_evaluation/`
+
+| Notebook | What it does |
+|---|---|
+| `borzoi_test_evaluation.ipynb` | Evaluates the final fine-tuned Borzoi model (`heads_only_deduplicated_squash`) on its test intervals: training and validation loss per epoch, coverage QC of the observed tracks, Pearson r per track over the concatenated intervals and per interval (heatmap, distributions, best and worst examples), and gene-level RNA correlations of summed exon counts (raw and quantile-normalised). Reads the test predictions and `metrics.csv` in `borzoi_checkpoint_dir` and the BigWigs in `bigwig_dir`; the per-track summary is also written by `workflows/borzoi/03_test_eval.sh`. Needs `pip install -e ".[borzoi]"` for the BigWig reader. |
+
 ### `attribution/`
 
 | Notebook | What it does |

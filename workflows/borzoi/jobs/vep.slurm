@@ -2,7 +2,7 @@
 # ==============================================================================
 # Code by Jakob Then
 #
-# Purpose: SLURM job for step 03. Runs run_vep_borzoi.py on one GPU.
+# Purpose: SLURM job for step 04. Runs run_vep_borzoi.py on one GPU.
 # Input:   "$@" - arguments for run_vep_borzoi.py
 # ==============================================================================
 
@@ -13,7 +13,7 @@
 #SBATCH --mem-per-gpu=256G
 #SBATCH --time=2-00:00:00
 
-source "${CS2F_REPO_ROOT:?Submit via workflows/borzoi/03_vep.sh}/workflows/common/load_site_env.sh"
+source "${CS2F_REPO_ROOT:?Submit via workflows/borzoi/04_vep.sh}/workflows/common/load_site_env.sh"
 
 echo "======================================================"
 echo "Starting Borzoi VEP"

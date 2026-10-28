@@ -4,9 +4,9 @@
 #
 # Purpose: Submits variant effect prediction (VEP) with a fine-tuned Borzoi
 #          model (1 GPU).
-# Usage:   bash workflows/borzoi/03_vep.sh
-#          INPUT_VCF=/path/to/variants.csv bash workflows/borzoi/03_vep.sh
-#          RNA_SCALE=linear CHECKPOINT=/path/to/model.ckpt bash workflows/borzoi/03_vep.sh
+# Usage:   bash workflows/borzoi/04_vep.sh
+#          INPUT_VCF=/path/to/variants.csv bash workflows/borzoi/04_vep.sh
+#          RNA_SCALE=linear CHECKPOINT=/path/to/model.ckpt bash workflows/borzoi/04_vep.sh
 # Input:   INPUT_VCF (CSV with variant_id, CHROM, POS, REF, ALT) [default: <vep_input_vcf>],
 #          CHECKPOINT (.ckpt, or a folder with exactly one epoch*.ckpt) [default: <borzoi_checkpoint_dir>],
 #          <gtf>, <chrom_sizes>

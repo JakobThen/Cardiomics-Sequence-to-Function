@@ -1,4 +1,4 @@
-"""Variant effect prediction (VEP) with a fine-tuned Borzoi model (workflow step 03).
+"""Variant effect prediction (VEP) with a fine-tuned Borzoi model (workflow step 04).
 
 Variants (CSV with ``variant_id, CHROM, POS, REF, ALT``) are restricted to autosomes and
 chrX, filtered against the blacklist (1 kb window) and against chromosome ends. SNVs are

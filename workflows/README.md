@@ -93,7 +93,8 @@ Borzoi `human_rep0` fine-tuned through gReLU (`pip install -e ".[borzoi]"`).
 | – | `python export_borzoi_intervals.py` (login node; `--overwrite`) | `chrom_sizes`, pretrained Borzoi (downloaded) | `intervals_dir/Borzoi_human_rep0_{train,val,test}_intervals.bed` (524 kbp) |
 | 1 | `01_finetune_heads.sh` (8 GPUs; `FOLDERS_FILE=`, `LR=`, `MAX_EPOCHS=`) | `bigwig_dir/<folders in configs/bigwig_folders.txt>`, Borzoi BEDs | `borzoi_heads_dir` |
 | 2 | `02_finetune_decoder.sh` (4 GPUs; `PREV_CHECKPOINT=`, `UNFREEZE=`) | whole `bigwig_dir`, stage-1 checkpoint, Borzoi BEDs | `borzoi_decoder_dir` |
-| 3 | `03_vep.sh` (1 GPU; `INPUT_VCF=`, `CHECKPOINT=`, `RNA_SCALE=squashed\|linear`) | `borzoi_checkpoint_dir`, `vep_input_vcf`, `gtf`, `chrom_sizes` | `vep_dir/Borzoi_VEP` |
+| 3 | `03_test_eval.sh` (CPU; `PREDICTIONS=`, `RNA_SCALE=`) | `borzoi_checkpoint_dir/*_predictions.h5`, `bigwig_dir`, `gtf` | `model_eval_dir/Borzoi/<predictions name>` |
+| 4 | `04_vep.sh` (1 GPU; `INPUT_VCF=`, `CHECKPOINT=`, `RNA_SCALE=squashed\|linear`) | `borzoi_checkpoint_dir`, `vep_input_vcf`, `gtf`, `chrom_sizes` | `vep_dir/Borzoi_VEP` |
 
 Steps 1-2 stage the BigWigs to `node_tmp_dir` and write the test-interval predictions
 (squashed scale) next to the checkpoints. Step 2 takes its tracks, in order, from the

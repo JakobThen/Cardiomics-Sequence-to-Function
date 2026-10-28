@@ -12,6 +12,8 @@ Helpers for ``workflows/borzoi/finetune_borzoi.py``:
   ``*_deduplicated`` counterpart are staged together.
 * :func:`unfreeze_embedding_layers` unfreezes selected layers of the Borzoi trunk.
 * :func:`find_checkpoint_file` resolves a checkpoint file from a run folder.
+* :func:`resolve_staged_track_paths` maps the node-local BigWig paths stored with saved
+  predictions back to ``bigwig_dir``.
 
 Track tables have the columns ``modality`` (folder name up to ``bigwig``, e.g.
 ``multiome_RNA_3prime``), ``file_name`` (used as the task name) and ``path``.
@@ -211,3 +213,37 @@ def find_checkpoint_file(path, pattern="epoch*.ckpt"):
         listing = "\n  ".join(str(m) for m in matches)
         raise ValueError(f"Several '{pattern}' checkpoints under {path}; pass one file instead:\n  {listing}")
     return matches[0]
+
+
+def resolve_staged_track_paths(tracks_df, bigwig_dir):
+    """Maps the staged BigWig paths of a training run back to ``bigwig_dir``.
+
+    The track table saved with the test predictions holds the node-local copies
+    (``<tmp>/<folder>/<file>``). The folder name is kept by the staging, so each track
+    resolves exactly to ``<bigwig_dir>/<folder>/<file>``, also when several folders hold
+    files with the same name.
+
+    Args:
+        tracks_df (pd.DataFrame): Track table with ``file_name`` and ``path`` columns, in
+            prediction order (e.g. from
+            :func:`~cardiomics_s2f.eval.track_prediction.read_h5_track_table`).
+        bigwig_dir (str or Path): Folder containing the ``*bigwig*`` folders.
+
+    Returns:
+        pd.DataFrame: Copy of ``tracks_df`` with ``path`` pointing into ``bigwig_dir`` and
+        the original value in ``staged_path``.
+
+    Raises:
+        FileNotFoundError: If a resolved file does not exist.
+    """
+    bigwig_dir = Path(bigwig_dir)
+    out = tracks_df.copy()
+    out["staged_path"] = out["path"]
+    out["path"] = [
+        str(bigwig_dir / Path(staged).parent.name / file_name)
+        for staged, file_name in zip(out["staged_path"], out["file_name"])
+    ]
+    missing = [p for p in out["path"] if not Path(p).is_file()]
+    if missing:
+        raise FileNotFoundError(f"{len(missing)} BigWig files not found under {bigwig_dir}: {missing}")
+    return out
