@@ -25,6 +25,9 @@ intervals_dir: input_data/AlphaGenome_Borzoi_input/intervals
 # ChromBPNet step 01 output: peaks without blacklist overlap + chr-prefixed blacklist
 chrombpnet_input_dir: input_data/chrombpnet_input
 variant_data_dir: input_data/variant_data
+# SDR-seq differential expression results (DE_test_out folders; sdr_variant_dataset notebook)
+sdr007_de_dir: input_data/sdr/SDR007AB_combined_DLI/DE_test_out
+sdr010_de_dir: input_data/sdr/SDR010ABC_Comb/DE_test_out
 # Default VEP input (CSV with variant_id, CHROM, POS, REF, ALT)
 vep_input_vcf: input_data/variant_data/variants.csv
 nonzero_means_csv: input_data/metadata/bw_nonzero_means.csv

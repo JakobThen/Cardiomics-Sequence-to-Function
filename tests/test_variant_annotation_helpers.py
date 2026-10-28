@@ -19,6 +19,7 @@ from cardiomics_s2f.io.variant_annotation import (  # noqa: E402
     celltype_from_peak_file,
     flag_variants_in_peaks,
     read_narrowpeak,
+    to_vcf_column_names,
 )
 
 
@@ -66,3 +67,12 @@ def test_align_variants_to_reference_strand():
     assert out["variant_id"].tolist() == ["chr1-3-C-T", "chr1-3-C-T"]
     assert out["Alt"].tolist() == ["T", "T"]
     assert "Ref_hg38" not in out.columns
+
+
+def test_to_vcf_column_names():
+    df = pd.DataFrame(columns=["#chrom", "Position", "reference", "Alternative", "Gene", "Start"])
+    assert list(to_vcf_column_names(df).columns) == ["CHROM", "POS", "REF", "ALT", "Gene", "Start"]
+    pyranges_style = pd.DataFrame(columns=["Chromosome", "Pos", "Ref", "Alt"])
+    assert list(to_vcf_column_names(pyranges_style).columns) == ["CHROM", "POS", "REF", "ALT"]
+    untouched = pd.DataFrame(columns=["a", "b"])
+    assert to_vcf_column_names(untouched) is untouched

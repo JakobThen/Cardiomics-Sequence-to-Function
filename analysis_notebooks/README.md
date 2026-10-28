@@ -26,6 +26,8 @@ pip install -e ".[alphagenome]"       # additionally for track_matching/ (AlphaG
 |---|---|
 | `richter_variant_dataset.ipynb` | Builds the annotated de novo variant tables of CHD probands and controls (Richter et al. 2020): exclusion of probands with causal coding variants, annotation with ENCODE4 cCREs, GTF features, phyloP, coding effects, CADD, cardioid ATAC peaks, ABC enhancers and the SDR007 selection, strand alignment to the reference. Writes `VCF_all_Richter_vars.csv`, `VCF_new_enhancer_Richter_vars.csv` and the CRISPRi screen VCF (±5 bp around enhancer SNVs). |
 | `richter_cohort_overview.ipynb` | Descriptive figures comparing CHD and control variants (burden per proband, annotation, conservation, cCREs, ATAC peak and enhancer overlap, QC panels). Reads `VCF_all_Richter_vars.csv`. |
+| `sdr_variant_dataset.ipynb` | Builds the SDR variant tables from the SDR007AB and SDR010ABC differential expression results (positive: adjusted p ≤ 0.05; negative: adjusted p = 1, ≥ 100 cells, \|log2FC\| ≤ 0.1; MAST and Wilcoxon agree; replicates averaged) and annotates the CM/FB variant-gene pairs (ENCODE4 cCREs, phyloP, GTF features and coding effects, distance to the target gene TSS, CADD incl. indels from the CADD website, ABC enhancers, cardioid ATAC peaks). Writes `VCF_SDR007AB_DLI_SDR010ABC_Comb.csv` (VEP input) and `..._Meta.csv`. |
+| `sdr_cohort_overview.ipynb` | Descriptive figure comparing the positive and negative SDR variants (variant types, target genes, annotation, conservation, cCREs, ATAC peak and enhancer overlap). Reads `..._Meta.csv`. |
 
 ### `track_matching/`
 

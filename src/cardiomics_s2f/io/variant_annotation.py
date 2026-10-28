@@ -112,6 +112,36 @@ def standardize_vcf_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def to_vcf_column_names(df: pd.DataFrame) -> pd.DataFrame:
+    """Renames variant columns to the VCF-style names ``CHROM``, ``POS``, ``REF`` and ``ALT``.
+
+    Handles common variations (``#CHROM``, ``Chromosome``, ``chr``, ``seqnames``, ``position``,
+    ``reference``, ``alternate``/``alternative``; case-insensitive). The counterpart of
+    :func:`standardize_vcf_columns`, which renames to ``Chromosome``, ``Pos``, ``Ref``, ``Alt``.
+
+    Args:
+        df (pd.DataFrame): Variant table.
+
+    Returns:
+        pd.DataFrame: The table with renamed columns (unchanged if nothing matches).
+    """
+    rename_dict = {}
+    for col in df.columns:
+        col_upper = col.upper()
+        if col_upper in ['CHROM', '#CHROM', 'CHROMOSOME', 'CHR', 'SEQNAMES']:
+            rename_dict[col] = 'CHROM'
+        elif col_upper in ['POS', 'POSITION']:
+            rename_dict[col] = 'POS'
+        elif col_upper in ['REF', 'REFERENCE']:
+            rename_dict[col] = 'REF'
+        elif col_upper in ['ALT', 'ALTERNATE', 'ALTERNATIVE']: # Added missing comma here
+            rename_dict[col] = 'ALT'
+            
+    if rename_dict:
+        return df.rename(columns=rename_dict)
+    return df
+
+
 def vcf_to_pr(vcf_df: pd.DataFrame) -> pr.PyRanges:
     """
     Converts a VCF-style pandas DataFrame into a PyRanges object.

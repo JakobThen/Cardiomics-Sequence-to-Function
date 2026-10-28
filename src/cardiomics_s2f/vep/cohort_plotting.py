@@ -2,16 +2,21 @@
 Variant Cohort Plotting
 =======================
 
-Descriptive figures comparing the de novo variants (DNVs) of CHD probands and
-controls (Richter et al. 2020): DNV burden, genomic and coding annotation,
-conservation, ENCODE4 cCREs and overlap with cardioid ATAC peaks and ABC
-enhancers.
+Descriptive figures of the variant cohorts:
 
-Inputs are the annotated variant tables written by
-``analysis_notebooks/variant_datasets/richter_variant_dataset.ipynb``. Cohort
+* :func:`plot_richter_cohort_overview`, :func:`plot_richter_cohort_qc`: de novo variants
+  (DNVs) of CHD probands and controls (Richter et al. 2020): DNV burden, genomic and coding
+  annotation, conservation, ENCODE4 cCREs and overlap with cardioid ATAC peaks and ABC enhancers.
+* :func:`plot_sdr_cohort_overview`: positive and negative SDR variants (measured effects):
+  variant types, target genes and the same annotation panels.
+
+Inputs are the annotated variant tables written by the notebooks in
+``analysis_notebooks/variant_datasets/`` (``richter_variant_dataset``, ``sdr_variant_dataset``). Cohort
 numbers taken from the paper (proband counts, gene-list DNV counts) are fixed in
 the figures. The functions use the current matplotlib/seaborn style.
 """
+
+from typing import Any, Dict, List, Optional
 
 import matplotlib.gridspec as gridspec
 import matplotlib.patches as mpatches
@@ -1111,6 +1116,792 @@ def plot_richter_cohort_qc(df_chd, df_ctrl, save_fig=False, filepath='CHD_Extend
     # ==========================================
     # FINALIZE
     # ==========================================   
+    if save_fig:
+        plt.savefig(filepath, dpi=300, bbox_inches='tight')
+        print(f"Figure saved to {filepath}")
+        
+    plt.show()
+
+
+def plot_sdr_cohort_overview(df_chd: pd.DataFrame, df_ctrl: pd.DataFrame, CA_results_dict: Optional[Dict[str, Any]] = None, save_fig: bool = False, filepath: str = 'CHD_Extended_Panel.pdf', celltype_filter: Optional[List[str]] = None) -> None:
+    """Plots the descriptive overview figure of the SDR positive and negative variants.
+
+    Twelve panels comparing the variant cohorts measured in the SDR experiments:
+    (A) variant counts, (B) variant types (SNV, insertion, deletion, MNV), (C) distance
+    to the TSS of the target gene, (D) target genes per variant, (E) CADD, (F) phyloP,
+    (G) GTF features, (H) ENCODE4 cCRE classes, (I) ENCODE4 maxZ signal at cCREs,
+    (J) overlap with cardioid ATAC peaks, (K) cCRE classes of variants inside vs outside
+    ATAC peaks and (L) overlap with ABC candidate enhancers. Cohorts are compared with
+    chi-squared tests (categorical panels) and Mann-Whitney U tests (continuous panels).
+    The cohort-specific panels differ from :func:`plot_richter_cohort_overview`.
+
+    Args:
+        df_chd (pd.DataFrame): Positive variants (measured effect), e.g. the
+            ``var_type == "positive"`` rows of ``VCF_SDR007AB_DLI_SDR010ABC_Comb_Meta.csv``.
+        df_ctrl (pd.DataFrame): Negative variants (no measured effect).
+        CA_results_dict (dict, optional): Per cell type, the variants inside (``"in"``) and
+            outside (``"out"``) the cardioid ATAC peaks, per cohort (``{cell type: {cohort:
+            {"in": df, "out": df}}}``). Defaults to None.
+        save_fig (bool, optional): Save the figure to ``filepath``. Defaults to False.
+        filepath (str, optional): Output file. Defaults to 'CHD_Extended_Panel.pdf'.
+        celltype_filter (list, optional): Cell types to show in the ATAC panels. Defaults to
+            None (all).
+    """
+    # Establish consistent visual identities to prevent reader confusion across panels
+    color_chd = "#E63946"
+    color_ctrl = "#2A9D8F"
+    
+    # Lock the rendering sequence and palette mapping for automated graphing tools
+    cohort_order = ["positive", "negative"]
+    cohort_palette = {"positive": color_chd, "negative": color_ctrl}
+    
+    element_width = 0.6 
+    
+    fig = plt.figure(figsize=(20, 22))
+    
+    # Establish structural grid to independently control spatial relationships of different sub-figures
+    gs = gridspec.GridSpec(5, 3, height_ratios=[0.7, 0.7, 1, 0.1, 1], wspace=0.3, hspace=0.4)
+    ax_j = fig.add_subplot(gs[0, 0])
+    ax_h = fig.add_subplot(gs[0, 1]) 
+    ax_m = fig.add_subplot(gs[0, 2])
+    
+    ax_b = fig.add_subplot(gs[1, 0])
+    ax_a = fig.add_subplot(gs[1, 1])
+    ax_d = fig.add_subplot(gs[1, 2])  
+       
+    ax_e = fig.add_subplot(gs[2, 0])
+    ax_c = fig.add_subplot(gs[2, 1])
+    ax_f = fig.add_subplot(gs[2, 2])
+    
+    #dummyrow
+    
+    ax_k = fig.add_subplot(gs[4, 0])
+    ax_l = fig.add_subplot(gs[4, 1])
+    ax_n = fig.add_subplot(gs[4, 2])
+
+    # ==========================================
+    # DATA PREP
+    # ==========================================
+    df_chd = df_chd.copy()
+    df_ctrl = df_ctrl.copy()
+    df_chd['Cohort'] = 'positive'
+    df_ctrl['Cohort'] = 'negative'
+    df_combined = pd.concat([df_chd, df_ctrl], ignore_index=True)
+
+          
+   # ==========================================
+    # PANEL H: Variant Type Distribution (Percentages)
+    # ==========================================
+    if 'REF' in df_combined.columns and 'ALT' in df_combined.columns:
+        import matplotlib.ticker as ticker
+        
+        # Use vectorized text length comparison to categorize structural variation types efficiently
+        df_vartype = df_combined[['Cohort', "REF", "ALT", "variant_id"]].drop_duplicates()
+
+        ref_len = df_vartype['REF'].astype(str).str.len()
+        alt_len = df_vartype['ALT'].astype(str).str.len()
+        
+        conditions = [
+            (ref_len == 1) & (alt_len == 1),       
+            (ref_len < alt_len),                   
+            (ref_len > alt_len),                   
+            (ref_len == alt_len) & (ref_len > 1)   
+        ]
+        choices = ['SNV', 'Insertion', 'Deletion', 'MNV']
+        df_vartype['Variant_Type'] = np.select(conditions, choices, default='Other')
+        
+        # Eliminate complex or malformed entries that skew standard comparative metrics
+        df_types = df_vartype[df_vartype['Variant_Type'] != 'Other']
+        
+        type_counts = df_types.groupby(['Cohort', 'Variant_Type']).size().reset_index(name='Count')
+        cohort_totals = df_types.groupby('Cohort').size()
+        
+        type_counts['Percentage'] = type_counts.apply(
+            lambda row: (row['Count'] / cohort_totals[row['Cohort']]) * 100, axis=1)
+        
+        sns.barplot(data=type_counts, x='Variant_Type', y='Percentage', hue='Cohort', 
+                    palette=cohort_palette, hue_order=cohort_order, ax=ax_h, edgecolor="black", 
+                    order=['SNV', 'Insertion', 'Deletion', 'MNV'])
+        
+        ax_h.set_title('B) Variant Types', loc='left', fontweight='bold')
+        ax_h.set_ylabel('Proportion of Variants (%)')
+        ax_h.set_xlabel('')
+        ax_h.spines[['top', 'right']].set_visible(False)
+        ax_h.get_legend().remove()
+        
+        ax_h.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+        if 'Variant_Type' in locals().get('df_types', pd.DataFrame()).columns:
+            contingency_table_h = pd.crosstab(df_types['Cohort'], df_types['Variant_Type'])
+            if not contingency_table_h.empty:
+                _, p_val_h, _, _ = chi2_contingency(contingency_table_h)
+                ax_h.text(0.5, 0.85, format_p_value(p_val_h), transform=ax_h.transAxes, 
+                          ha='center', va='bottom', fontweight='bold', fontsize=10)
+    else:
+        ax_h.text(0.5, 0.5, "Missing 'REF' or 'ALT' columns", ha='center', va='center')
+        ax_h.axis('off')
+        
+    # ==========================================
+    # PANEL J: Variant Counts
+    # ==========================================
+    if 'REF' in df_combined.columns and 'ALT' in df_combined.columns:
+        import matplotlib.ticker as ticker
+              
+        df_types = df_combined[['Cohort', "variant_id"]].drop_duplicates()
+
+        type_counts = df_types.groupby(['Cohort']).size().reset_index(name='Count')
+        cohort_totals = df_types.groupby('Cohort').size()
+        
+        # Enforce predefined group mapping to strictly control layout order
+        sns.barplot(data=type_counts, x='Cohort', y='Count', hue='Cohort', 
+                    palette=cohort_palette, order=cohort_order, ax=ax_j, edgecolor="black")        
+        ax_j.set_title('A) Variant Counts', loc='left', fontweight='bold')
+        ax_j.set_ylabel('Number of Variants')
+        ax_j.set_xlabel('')
+        ax_j.spines[['top', 'right']].set_visible(False)
+        
+        ax_j.yaxis.set_major_formatter(ticker.FuncFormatter(lambda y, _: '{:g}'.format(y)))
+    else:
+        ax_j.text(0.5, 0.5, "Missing 'REF' or 'ALT' columns", ha='center', va='center')
+        ax_j.axis('off')
+        
+    
+    # ==========================================
+    # PANEL C: cCRE Class Distribution
+    # ==========================================
+    df_ccre = df_combined[['Cohort', "cCRE_class", "variant_id"]].drop_duplicates()
+    df_ccre["cCRE_class"] = df_ccre["cCRE_class"].fillna("No CRE")
+    
+    # Generate multidimensional feature breakdown across conditions
+    ccre_counts = df_ccre.groupby(['Cohort', 'cCRE_class']).size().unstack(fill_value=0)
+    
+    # Align rows against the standardized cohort index to stabilize plotting order
+    ccre_counts = ccre_counts.reindex(index=cohort_order).fillna(0)
+    
+    full_c_order = CRE_ORDER + ["No CRE"]
+    
+    ccre_counts = ccre_counts.reindex(columns=full_c_order, fill_value=0)
+    ccre_counts = ccre_counts.loc[:, (ccre_counts != 0).any(axis=0)]
+    
+    # Normalize absolute abundances to reveal proportional variations
+    ccre_pct = ccre_counts.div(ccre_counts.sum(axis=1), axis=0) * 100
+    
+    ccre_colors = [CRE_COLORS.get(col, "#CCCCCC") for col in ccre_pct.columns]
+    
+    ccre_pct.plot(kind='bar', stacked=True, color=ccre_colors, ax=ax_c, edgecolor="black", width=element_width, legend=False)
+    
+    ax_c.set_title('H) ENCODE4 cCRE Annotations', loc='left', fontweight='bold')
+    ax_c.set_ylabel('Proportion of Variants (%)')
+    ax_c.set_ylim(0, 110)
+    ax_c.set_xlabel('')
+    ax_c.set_xticklabels(ax_c.get_xticklabels(), rotation=0) 
+    ax_c.spines[['top', 'right']].set_visible(False)
+    
+    legend_labels_c = []
+    for i, col in enumerate(ccre_pct.columns):
+        chd_n = ccre_counts.loc['positive', col] if 'positive' in ccre_counts.index else 0
+        ctrl_n = ccre_counts.loc['negative', col] if 'negative' in ccre_counts.index else 0
+        legend_labels_c.append(f"{col} (n={int(chd_n)} vs {int(ctrl_n)})")
+        
+    handles_c = [plt.Rectangle((0,0),1,1, color=ccre_colors[i], ec="black") for i in range(len(ccre_pct.columns))]
+    
+    # Distribute legend items across two columns positioned underneath the panel to optimize vertical space
+    ax_c.legend(handles_c, legend_labels_c, #title='cCRE Class (CHD vs Ctrl)', 
+                bbox_to_anchor=(0.5, -0.2), loc='upper center', frameon=False, fontsize=9, ncol=2)
+    
+    contingency_table_c = pd.crosstab(df_ccre['Cohort'], df_ccre['cCRE_class'])
+    if not contingency_table_c.empty:
+        _, p_val_c, _, _ = chi2_contingency(contingency_table_c)
+        ax_c.text(0.5, 0.95, format_p_value(p_val_c), transform=ax_c.transAxes, 
+                  ha='center', va='bottom', fontweight='bold', fontsize=10)
+
+    # ==========================================
+    # PANEL D: phyloP_100way Distribution
+    # ==========================================
+    df_phylo = df_combined[['Cohort', "phyloP_100way", "variant_id"]].dropna(subset=['phyloP_100way']).drop_duplicates()
+    
+    # Overlay quartile boundaries directly inside the density representation for rapid assessment
+    sns.violinplot(data=df_phylo, x='Cohort', y='phyloP_100way', hue='Cohort',
+                   palette=cohort_palette, order=cohort_order, ax=ax_d, legend=False, inner="quartile")
+    
+    ax_d.set_title('F) Conservation (phyloP100)', loc='left', fontweight='bold')
+    ax_d.set_ylabel('phyloP Score')
+    ax_d.set_xlabel('')
+    ax_d.spines[['top', 'right']].set_visible(False)
+    
+    scores_chd = df_phylo[df_phylo['Cohort'] == 'positive']['phyloP_100way']
+    scores_ctrl = df_phylo[df_phylo['Cohort'] == 'negative']['phyloP_100way']
+    if len(scores_chd) > 0 and len(scores_ctrl) > 0:
+        _, p_val_mw = mannwhitneyu(scores_chd, scores_ctrl, alternative='two-sided')
+        ax_d.text(0.5, 0.95, format_p_value(p_val_mw), transform=ax_d.transAxes, 
+                  ha='center', va='top', fontweight='bold', fontsize=10)
+        
+    # ==========================================
+    # PANEL A: CADD Distribution
+    # ==========================================
+    df_cadd = df_combined[['Cohort', "CADD_PHRED_score", "variant_id"]].dropna(subset=['CADD_PHRED_score']).drop_duplicates()
+    sns.violinplot(data=df_cadd, x='Cohort', y='CADD_PHRED_score', hue='Cohort',
+                   palette=cohort_palette, order=cohort_order, ax=ax_a, legend=False, inner="quartile")
+    
+    ax_a.set_title('E) CADD Model', loc='left', fontweight='bold')
+    ax_a.set_ylabel('PHRED score')
+    ax_a.set_xlabel('')
+    ax_a.spines[['top', 'right']].set_visible(False)
+    
+    scores_chd = df_cadd[df_cadd['Cohort'] == 'positive']['CADD_PHRED_score']
+    scores_ctrl = df_cadd[df_cadd['Cohort'] == 'negative']['CADD_PHRED_score']
+    if len(scores_chd) > 0 and len(scores_ctrl) > 0:
+        _, p_val_mw = mannwhitneyu(scores_chd, scores_ctrl, alternative='two-sided')
+        ax_a.text(0.5, 0.95, format_p_value(p_val_mw), transform=ax_a.transAxes, 
+                  ha='center', va='top', fontweight='bold', fontsize=10)
+
+   # ==========================================
+    # PANEL E: GTF Feature Distribution (Stacked Bar)
+    # ==========================================
+    if 'gtf_feature' in df_combined.columns:
+        df_gtf = df_combined[['Cohort', "gtf_feature", "variant_id"]].drop_duplicates()
+        df_gtf["gtf_feature"] = df_gtf["gtf_feature"].fillna("Intergenic")
+        
+        feature_order = [
+            'start_codon', 'stop_codon', 'CDS', 'exon', 
+            'UTR', 'intron', 'gene', 'Intergenic'
+        ]
+        
+        feature_colors = {
+            'start_codon':  '#999999',
+            'stop_codon':   '#666666',
+            'CDS':          '#333333',
+            'exon':         '#000000',
+            'UTR':          '#FFB2B2',
+            'intron':       '#FF6666',
+            'gene':         '#CC0000',
+            'Intergenic':    '#8B0000',
+        }
+        
+        gtf_counts = df_gtf.groupby(['Cohort', 'gtf_feature']).size().unstack(fill_value=0)
+        
+        # Secure spatial orientation of test vs reference cohorts
+        gtf_counts = gtf_counts.reindex(index=cohort_order).fillna(0)
+        
+        valid_order = [col for col in feature_order if col in gtf_counts.columns]
+        gtf_counts = gtf_counts.reindex(columns=valid_order, fill_value=0)
+        
+        gtf_pct = gtf_counts.div(gtf_counts.sum(axis=1), axis=0) * 100
+        
+        gtf_colors_mapped = [feature_colors[col] for col in valid_order]
+        
+        gtf_pct.plot(kind='bar', stacked=True, color=gtf_colors_mapped, ax=ax_e, 
+                     edgecolor="black", width=element_width, legend=False)
+        
+        ax_e.set_title('G) GTF Annotations', loc='left', fontweight='bold')
+        ax_e.set_ylabel('Proportion of Variants (%)')
+        ax_e.set_ylim(0, 110)
+        ax_e.set_xlabel('')
+        ax_e.set_xticklabels(ax_e.get_xticklabels(), rotation=0)
+        ax_e.spines[['top', 'right']].set_visible(False)
+        
+        legend_labels_e = []
+        for i, col in enumerate(gtf_pct.columns):
+            chd_n = gtf_counts.loc['positive', col] if 'positive' in gtf_counts.index else 0
+            ctrl_n = gtf_counts.loc['negative', col] if 'negative' in gtf_counts.index else 0
+            legend_labels_e.append(f"{col} (n={int(chd_n)} vs {int(ctrl_n)})")
+            
+        handles_e = [plt.Rectangle((0,0),1,1, color=gtf_colors_mapped[i], ec="black") for i in range(len(gtf_pct.columns))]
+        
+        # Array the legend in a dual-column format below the axis to maintain uniform alignment with adjacent panels
+        ax_e.legend(handles_e, legend_labels_e,# title='Feature (CHD vs Ctrl)', 
+                    bbox_to_anchor=(0.5, -0.2), loc='upper center', frameon=False, fontsize=9, ncol=2)
+        contingency_table_e = pd.crosstab(df_gtf['Cohort'], df_gtf['gtf_feature'])
+        if not contingency_table_e.empty:
+            _, p_val_e, _, _ = chi2_contingency(contingency_table_e)
+            ax_e.text(0.5, 0.95, format_p_value(p_val_e), transform=ax_e.transAxes, 
+                      ha='center', va='bottom', fontweight='bold', fontsize=10)
+    else:
+        ax_e.text(0.5, 0.5, "Missing 'gtf_feature' column", ha='center', va='center')
+        ax_e.axis('off')
+        
+    # ==========================================
+    # PANEL M: Distance to target TSS (Log10 Scale)
+    # ==========================================
+    if 'closest_TSS' in df_combined.columns:
+        import matplotlib.ticker as ticker
+        
+        # Abbreviate large distance numbers heavily to minimize visual label crowding
+        def human_format(x, pos):
+            if x < 1:
+                return '0'
+            elif x < 1000:
+                return f"{int(x)}"
+            elif x < 1_000_000:
+                return f"{int(x/1000)}k"
+            else:
+                return f"{x/1_000_000:g}M"
+                
+        df_tss = df_combined.dropna(subset=['dist_target_gene_TSS']).copy()
+        
+        df_tss['dist_target_gene_TSS_abs'] = df_tss['dist_target_gene_TSS'].abs() + 1
+        
+        sns.histplot(data=df_tss, x='dist_target_gene_TSS_abs', hue='Cohort', element='step', stat='density',
+                     common_norm=False, palette=cohort_palette, hue_order=cohort_order, ax=ax_m, 
+                     log_scale=True, bins=30)
+        
+        ax_m.set_title('C) Distance to Target Gene TSS', loc='left', fontweight='bold')
+        ax_m.set_ylabel('Density')
+        ax_m.set_xlabel('Distance to TSS (bp)')
+        ax_m.spines[['top', 'right']].set_visible(False)
+        
+        ax_m.xaxis.set_major_formatter(ticker.FuncFormatter(human_format))
+        
+        if ax_m.get_legend():
+            ax_m.get_legend().remove()
+        
+        dist_chd = df_tss[df_tss['Cohort'] == 'positive']['closest_TSS']
+        dist_ctrl = df_tss[df_tss['Cohort'] == 'negative']['closest_TSS']
+        
+        if len(dist_chd) > 0 and len(dist_ctrl) > 0:
+            _, p_val_tss = mannwhitneyu(dist_chd, dist_ctrl, alternative='two-sided')
+            ax_m.text(0.2, 0.9, format_p_value(p_val_tss), transform=ax_m.transAxes, 
+                      ha='right', va='top', fontweight='bold', fontsize=10)
+    else:
+        ax_m.text(0.5, 0.5, "Missing 'closest_TSS' column", ha='center', va='center')
+        ax_m.axis('off')
+
+    # ==========================================
+    # PANEL F: Epigenetic Signal (Split Violins)
+    # ==========================================
+    marks = ['DNase_maxZ', 'H3K4me3_maxZ', 'H3K27ac_maxZ', 'CTCF_maxZ']
+    
+    if all(m in df_combined.columns for m in marks):
+        df_epigenetic = df_combined[df_combined['cCRE_class'] != 'No CRE'].dropna(subset=marks)
+        df_epigenetic =  df_epigenetic[['Cohort', "variant_id", *marks]].drop_duplicates()
+
+        
+        # Flatten variables out into identifier columns to leverage Seaborn categorization limits
+        df_melted = df_epigenetic.melt(id_vars=['Cohort'], value_vars=marks, 
+                                       var_name='Mark', value_name='MaxZ')
+        
+        df_melted['Mark'] = df_melted['Mark'].str.replace('_maxZ', '')
+        
+        sns.violinplot(data=df_melted, x='Mark', y='MaxZ', hue='Cohort', split=True,
+                       palette=cohort_palette, hue_order=cohort_order, ax=ax_f, inner="quartile", 
+                       linewidth=1)
+        
+        ax_f.set_title('I) Epigenetic Signal', loc='left', fontweight='bold')
+        ax_f.set_ylabel('ENCODE4 maxZ Score')
+        ax_f.set_xlabel('')
+        ax_f.spines[['top', 'right']].set_visible(False)
+        ax_f.get_legend().remove() 
+        
+        y_max = df_melted['MaxZ'].max()
+        for i, mark in enumerate(marks):
+            chd_vals = df_epigenetic[df_epigenetic['Cohort'] == 'positive'][mark]
+            ctrl_vals = df_epigenetic[df_epigenetic['Cohort'] == 'negative'][mark]
+            
+            if len(chd_vals) > 0 and len(ctrl_vals) > 0:
+                _, p_val = mannwhitneyu(chd_vals, ctrl_vals, alternative='two-sided')
+                
+                ax_f.text(i, y_max * 1.25, format_p_value(p_val), ha='center', va='bottom', 
+                          fontweight='bold', fontsize=9)
+        
+        ax_f.set_ylim(bottom=df_melted['MaxZ'].min() * 1.1, top=y_max * 1.3) 
+    else:
+        ax_f.text(0.5, 0.5, "Missing one or more maxZ columns", ha='center', va='center')
+        ax_f.axis('off')
+   
+    # ==========================================
+    # PANEL N: Enhancer Overlaps by Cell Type
+    # ==========================================
+    color_dict = {
+        'Proximal_ac':   '#F4A261',  
+        'Proximal_nac':  '#FCD5B5',  
+        'Distal_ac':     '#2A9D8F',  
+        'Distal_nac':    '#82C2BA'   
+    }
+
+    df_enh = df_combined[df_combined['in_cardioid_enhancer'] == True].copy()
+    df_enh = df_enh[['Cohort', "celltypes_in_enhancer", 'enhancer_regulatory_position', 'is_cardioid_H3K27ac', "variant_id"]].drop_duplicates()
+
+    
+    # Isolate complex combined entries to properly credit overlaps matching multiple cellular environments
+    df_enh['celltype_list'] = df_enh['celltypes_in_enhancer'].astype(str).str.split(', ')
+    df_exploded = df_enh.explode('celltype_list')
+    
+    df_exploded['celltype_list'] = df_exploded['celltype_list'].str.strip()
+    all_enh_cts = sorted([ct for ct in df_exploded['celltype_list'].unique() if ct != 'nan' and ct != 'None'])
+
+    if celltype_filter is not None:
+        unique_enh_cts = [ct for ct in celltype_filter if ct in all_enh_cts]
+    else:
+        unique_enh_cts = all_enh_cts
+
+    if 'cohort_totals' not in locals():
+        cohort_totals = df_combined['Cohort'].value_counts().to_dict()
+
+    xtick_pos_enh, xtick_label_enh = [], []
+    bar_order_enh = ["positive", "negative"]
+    
+    x_step = 1.0
+    bar_w = 0.35
+    max_pct_total = 0 
+
+    for gi, ct in enumerate(unique_enh_cts):
+        gc = gi * x_step
+        xtick_pos_enh.append(gc)
+        xtick_label_enh.append(ct)
+        
+        df_ct = df_exploded[df_exploded['celltype_list'] == ct]
+
+        for bi, cohort in enumerate(bar_order_enh):
+            x = gc + (bi - 0.5) * bar_w
+            df_cohort = df_ct[df_ct['Cohort'] == cohort]
+            
+            n_in = len(df_cohort)
+            n_total = cohort_totals.get(cohort, 1)
+            
+            if n_in > 0:
+                reg_pos = df_cohort['enhancer_regulatory_position'].astype(str).str.lower()
+                is_ac = df_cohort['is_cardioid_H3K27ac'] == True
+                
+                n_prox_ac  = ((reg_pos == 'proximal') & is_ac).sum()
+                n_prox_nac = ((reg_pos == 'proximal') & ~is_ac).sum()
+                n_dist_ac  = ((reg_pos == 'distal') & is_ac).sum()
+                n_dist_nac = ((reg_pos == 'distal') & ~is_ac).sum()
+                
+                pct_prox_ac  = 100 * n_prox_ac / n_total
+                pct_prox_nac = 100 * n_prox_nac / n_total
+                pct_dist_ac  = 100 * n_dist_ac / n_total
+                pct_dist_nac = 100 * n_dist_nac / n_total
+                
+                pct_total = pct_prox_ac + pct_prox_nac + pct_dist_ac + pct_dist_nac
+                
+                if pct_total > max_pct_total:
+                    max_pct_total = pct_total
+
+                current_bottom = 0
+                
+                # Apply standard solid border geometry parameter to align visuals with upper panel rendering
+                if pct_prox_ac > 0:
+                    ax_n.bar(x, pct_prox_ac, bar_w, bottom=current_bottom, color=color_dict['Proximal_ac'], edgecolor="black", linewidth=1)
+                    current_bottom += pct_prox_ac
+                    
+                if pct_prox_nac > 0:
+                    ax_n.bar(x, pct_prox_nac, bar_w, bottom=current_bottom, color=color_dict['Proximal_nac'], edgecolor="black", linewidth=1)
+                    current_bottom += pct_prox_nac
+                    
+                if pct_dist_ac > 0:
+                    ax_n.bar(x, pct_dist_ac, bar_w, bottom=current_bottom, color=color_dict['Distal_ac'], edgecolor="black", linewidth=1)
+                    current_bottom += pct_dist_ac
+                    
+                if pct_dist_nac > 0:
+                    ax_n.bar(x, pct_dist_nac, bar_w, bottom=current_bottom, color=color_dict['Distal_nac'], edgecolor="black", linewidth=1)
+                    current_bottom += pct_dist_nac
+
+                text_col = color_chd if cohort == "positive" else color_ctrl
+                prefix = "pos" if cohort == "positive" else "neg"
+                
+                ax_n.text(x, pct_total + (max_pct_total * 0.02 if max_pct_total > 0 else 0.1), f"{prefix} ({n_in})",
+                          ha="center", va="bottom", rotation=90, fontsize=8, color=text_col, fontweight="bold")
+
+    ax_n.set_xticks(xtick_pos_enh)
+    ax_n.set_xticklabels(xtick_label_enh, rotation=25, ha="right", fontsize=10)
+    ax_n.set_ylabel("Variants in Enhancers(%)")
+    ax_n.set_title("L) ABC Candidate Enhancers", loc='left', fontweight="bold")
+    
+    if max_pct_total > 0:
+        ax_n.set_ylim(0, max_pct_total * 1.35)
+    ax_n.spines[["top", "right"]].set_visible(False)
+
+    # Standardize patch outlines across legend rendering by enforcing standard edge parameter
+    leg_enh_handles = [
+        mpatches.Patch(facecolor=color_dict['Proximal_ac'], edgecolor='black', linewidth=1, label="Proximal (H3K27ac+)"),
+        mpatches.Patch(facecolor=color_dict['Proximal_nac'], edgecolor='black', linewidth=1, label="Proximal (H3K27ac-)"),
+        mpatches.Patch(facecolor=color_dict['Distal_ac'], edgecolor='black', linewidth=1, label="Distal (H3K27ac+)"),
+        mpatches.Patch(facecolor=color_dict['Distal_nac'], edgecolor='black', linewidth=1, label="Distal (H3K27ac-)")
+    ]
+    
+    # Position the legend underneath the graph in two columns with extra margin to bypass rotated labels
+    ax_n.legend(handles=leg_enh_handles, loc="upper center", bbox_to_anchor=(0.5, -0.35), 
+                frameon=False, fontsize=10, title="Enhancer Annotation", title_fontsize=11, ncol=2)
+    
+    # ==========================================
+    # PANELS K & L: Chromatin Accessibility (from CA_results_dict)
+    # ==========================================
+    def calculate_distribution_pval(table_data: list) -> float:
+        """Computes the Chi-square p-value against empty matrix cases securely.
+        
+        Args:
+            table_data (list): A 2D list layout representing the distribution counts.
+            
+        Returns:
+            float: The statistical evaluation value output.
+        """
+        arr = np.array(table_data)
+        valid_cols = arr.sum(axis=0) > 0
+        arr_filtered = arr[:, valid_cols]
+        
+        if arr_filtered.shape[1] < 2 or arr_filtered.sum(axis=1).min() == 0:
+            return np.nan
+            
+        _, p, _, _ = chi2_contingency(arr_filtered)
+        return p
+
+    if CA_results_dict:
+        if celltype_filter is not None:
+            sorted_cts = [ct for ct in celltype_filter if ct in CA_results_dict]
+        else:
+            sorted_cts = list(CA_results_dict.keys())
+        
+        bar_w   = 0.15
+        group_w = bar_w * 4 + 0.05
+        x_step  = group_w + 0.15
+        
+        cohort_totals = df_combined[['Cohort', "variant_id", "cCRE_class"]].drop_duplicates().groupby("Cohort").size()
+        
+        # ------------------------------------------
+        # PANEL K: Pre-calculate Significance
+        # ------------------------------------------
+        raw_pvals_k = []
+        for ct in sorted_cts:
+            ct_table = []
+            for cohort in ["positive", "negative"]:
+                df_in = CA_results_dict[ct][cohort]["in"]
+                n_total = cohort_totals[cohort]
+                
+                n_ccre = df_in['cCRE_class'].notna().sum()
+                n_non_ccre = df_in['cCRE_class'].isna().sum()
+                
+                # Gauge proportion differences natively over total pool
+                n_out = n_total - (n_ccre + n_non_ccre)
+                ct_table.append([n_ccre, n_non_ccre, n_out])
+                
+            raw_pvals_k.append(calculate_distribution_pval(ct_table))
+
+        valid_k_mask = ~np.isnan(raw_pvals_k)
+        adj_pvals_k = np.full(len(raw_pvals_k), np.nan)
+        if valid_k_mask.sum() > 0:
+            _, adj, _, _ = multipletests(np.array(raw_pvals_k)[valid_k_mask], method="fdr_bh")
+            adj_pvals_k[valid_k_mask] = adj
+        sig_dict_k = dict(zip(sorted_cts, adj_pvals_k))
+
+        # ------------------------------------------
+        # PANEL K: In-peak percentages (Stacked by cCRE status)
+        # ------------------------------------------
+        xtick_pos1, xtick_label1 = [], []
+        # Reverted keys back to valid dictionary keys ("in"), maintaining "peak" strictly for legends
+        bar_order_p1   = [("positive", "in"), ("negative", "in")]
+        bar_colors_p1  = {"positive": color_chd, "negative": color_ctrl}
+
+        global_max_pct_k = 0 
+
+        for gi, ct in enumerate(sorted_cts):
+            gc = gi * x_step
+            xtick_pos1.append(gc)
+            xtick_label1.append(ct)
+            
+            local_max_pct = 0
+
+            for bi, (cohort, kind) in enumerate(bar_order_p1):
+                x       = gc + (bi - 0.5) * bar_w
+                df_in   = CA_results_dict[ct][cohort][kind]
+                
+                n_in    = len(df_in)
+                n_total = cohort_totals[cohort]
+                
+                if n_in > 0:
+                    n_ccre     = df_in['cCRE_class'].notna().sum()
+                    n_non_ccre = df_in['cCRE_class'].isna().sum()
+                    
+                    pct_ccre     = 100 * n_ccre / n_total
+                    pct_non_ccre = 100 * n_non_ccre / n_total
+                    pct_total    = pct_ccre + pct_non_ccre
+                    
+                    local_max_pct = max(local_max_pct, pct_total)
+                    global_max_pct_k = max(global_max_pct_k, pct_total)
+                    
+                    col = bar_colors_p1[cohort]
+
+                    # Uniformly assert line thickness rules 
+                    if pct_ccre > 0:
+                        ax_k.bar(x, pct_ccre, bar_w, color=col, edgecolor="black", linewidth=1)
+                    
+                    if pct_non_ccre > 0:
+                        ax_k.bar(x, pct_non_ccre, bar_w, bottom=pct_ccre, color=col, alpha=0.5, edgecolor="black", linewidth=1)
+
+                    ax_k.text(x, pct_total + 0.1, f"n={n_in}",
+                              ha="center", va="bottom", fontsize=8, color=col, fontweight="bold")
+
+            p_val = sig_dict_k[ct]
+            if not np.isnan(p_val):
+                ax_k.text(gc, local_max_pct + (global_max_pct_k * 0.08), format_p_value(p_val), 
+                          ha="center", va="bottom", fontsize=10, fontweight="bold")
+
+        ax_k.set_xticks(xtick_pos1)
+        ax_k.set_xticklabels(xtick_label1, rotation=20, ha="right", fontsize=10)
+        ax_k.set_ylabel("Proportion of Variants (%)")
+        ax_k.set_title("J) Cardioid ATAC peak Overlap", loc='left', fontweight="bold")
+        
+        ax_k.set_ylim(0, global_max_pct_k * 1.25)
+        ax_k.spines[["top", "right"]].set_visible(False)
+
+        # Inject line border parameters to patch generation to secure uniformity with the bar plots
+        leg1_handles = [
+            mpatches.Patch(facecolor=color_chd, edgecolor="black", linewidth=1, label="positive (cCRE)"),
+            mpatches.Patch(facecolor=color_chd, alpha=0.5, edgecolor="black", linewidth=1, label="positive (No cCRE)"),
+            mpatches.Patch(facecolor=color_ctrl, edgecolor="black", linewidth=1, label="negative (cCRE)"),
+            mpatches.Patch(facecolor=color_ctrl, alpha=0.5, edgecolor="black", linewidth=1, label="negative (No cCRE)")
+        ]
+        
+        # Lower the legend significantly to prevent horizontal collision with the rotated x-axis typography
+        ax_k.legend(handles=leg1_handles, loc="upper center", bbox_to_anchor=(0.5, -0.35), 
+                    frameon=False, fontsize=10, title="Cohort & Annotation", title_fontsize=11, ncol=2)
+        
+        # ==========================================
+        # PANEL B: Genes per Variant
+        # ==========================================
+        df_genes_per_var = df_combined.groupby(['variant_id', 'Cohort'])['Gene'].nunique().reset_index(name='Gene_Count')
+
+        # Control layout parameters directly with our universal cohort variables here
+        sns.violinplot(
+            data=df_genes_per_var, 
+            x='Cohort', 
+            y='Gene_Count', 
+            hue='Cohort',
+            palette=cohort_palette,
+            order=cohort_order,
+            ax=ax_b, 
+            legend=False, 
+            inner="quartile"
+        )
+
+        ax_b.set_title('D) Target Genes per Variant', loc='left', fontweight='bold')
+        ax_b.set_ylabel('Number of Genes')
+        ax_b.set_xlabel('')
+        ax_b.spines[['top', 'right']].set_visible(False)
+
+        counts_chd = df_genes_per_var[df_genes_per_var['Cohort'] == 'positive']['Gene_Count']
+        counts_ctrl = df_genes_per_var[df_genes_per_var['Cohort'] == 'negative']['Gene_Count']
+
+        if len(counts_chd) > 0 and len(counts_ctrl) > 0:
+            _, p_val_mw_genes = mannwhitneyu(counts_chd, counts_ctrl, alternative='two-sided')
+            ax_b.text(
+                0.5, 0.95, 
+                format_p_value(p_val_mw_genes), 
+                transform=ax_b.transAxes, 
+                ha='center', 
+                va='top', 
+                fontweight='bold', 
+                fontsize=10
+            )
+
+        # ------------------------------------------
+        # PANEL L: 100% stacked by CRE type
+        # ------------------------------------------
+        # Reverted back to the original dictionary data keys ("in" and "out")
+        comparisons = {
+            "positive_in_vs_negative_in":   ("positive",     "in",  "negative", "in"),
+            "positive_in_vs_positive_out":   ("positive",     "in",  "positive",     "out"),
+            "negative_in_vs_negative_out": ("negative", "in",  "negative", "out"),
+        }
+        
+        pvals = {ct: {} for ct in sorted_cts}
+        for ct in sorted_cts:
+            for label, (c1, k1, c2, k2) in comparisons.items():
+                pvals[ct][label] = _ccre_class_chi2_pvalue(CA_results_dict[ct][c1][k1], CA_results_dict[ct][c2][k2])
+
+        sig = {ct: {} for ct in sorted_cts}
+        for comp in comparisons:
+            raw = [pvals[ct][comp] for ct in sorted_cts]
+            valid = [(i, p) for i, p in enumerate(raw) if not np.isnan(p)]
+            if valid:
+                idxs, ps = zip(*valid)
+                _, corrected, _, _ = multipletests(ps, method="fdr_bh")
+                for i, p_corr in zip(idxs, corrected):
+                    sig[sorted_cts[i]][comp] = p_corr
+            for ct in sorted_cts:
+                if comp not in sig[ct]:
+                    sig[ct][comp] = np.nan
+
+        xtick_pos2, xtick_label2 = [], []
+        bar_tops = {ct: {} for ct in sorted_cts}
+        y_base    = 103
+        y_bracket = 9 
+        # Reverted back to ("in", "out") sequence for exact dictionary mapping
+        bar_order = [("positive","in"), ("positive","out"), ("negative","in"), ("negative","out")]
+        out_hatch = "///"
+
+        # Reverted naming variables inside the tuples to ensure correct x-coordinate lookup below
+        comp_styles = {
+            "positive_in_vs_negative_in":   ("positive_in",    "negative_in",  0, "#333333"),
+            "positive_in_vs_positive_out":   ("positive_in",    "positive_out",     1, color_chd),
+            "negative_in_vs_negative_out": ("negative_in","negative_out", 1, color_ctrl),
+        }
+
+        for gi, ct in enumerate(sorted_cts):
+            gc = gi * x_step
+            xtick_pos2.append(gc)
+            xtick_label2.append(ct)
+
+            for bi, (cohort, kind) in enumerate(bar_order):
+                x     = gc + (bi - 1.5) * bar_w
+                df    = CA_results_dict[ct][cohort][kind].dropna(subset=["cCRE_class"])
+                total = len(df)
+                bar_tops[ct][f"{cohort}_{kind}"] = x
+
+                if total == 0:
+                    ax_l.bar(x, 100, bar_w, color="#EEEEEE", edgecolor="black", linewidth=1)
+                    continue
+
+                counts = _count_ccre_classes(df)
+                pcts   = counts / total * 100
+                bottom = 0
+                for ci, cre in enumerate(CRE_ORDER):
+                    h = pcts[ci]
+                    if h > 0:
+                        # Reverted hatch condition back to evaluating "out" string key logic
+                        ax_l.bar(x, h, bar_w, bottom=bottom, color=CRE_COLORS[cre],
+                                 edgecolor="black", linewidth=1,
+                                 hatch=out_hatch if kind == "out" else "")
+                        bottom += h
+
+        for ct in sorted_cts:
+            for comp, (bA, bB, yoff, col) in comp_styles.items():
+                label = _significance_stars(sig[ct][comp])
+                if not label: continue 
+                x1, x2 = bar_tops[ct][bA], bar_tops[ct][bB]
+                y  = y_base + yoff * y_bracket
+                _draw_significance_bracket(ax_l, x1, x2, y, label, col)
+
+        ax_l.set_xticks(xtick_pos2)
+        ax_l.set_xticklabels(xtick_label2, rotation=20, ha="right", fontsize=10)
+        ax_l.set_ylim(0, y_base + len(comp_styles) * y_bracket)
+        ax_l.set_ylabel("% Annotated variants")
+        ax_l.set_title("K) CRE-type distribution in ATAC peaks", loc='left', fontweight="bold")
+        ax_l.spines[["top","right"]].set_visible(False)
+        ax_l.axhline(100, color="grey", lw=0.5, ls="--", zorder=0)
+
+        ylim2 = ax_l.get_ylim()
+        yann2 = ylim2[0] - (ylim2[1] - ylim2[0]) * 0.06
+        for gc in xtick_pos2:
+            ax_l.annotate("positive",     (gc - bar_w, yann2), ha="center", fontsize=9, color="#C1121F", annotation_clip=False)
+            ax_l.annotate("negative", (gc + bar_w, yann2), ha="center", fontsize=9, color="#168AAD", annotation_clip=False)
+
+        # Modify all legend components natively calling mpatches.Patch to explicitly construct the stroke parameters
+        cre_patches = [mpatches.Patch(facecolor=CRE_COLORS[c], edgecolor="black", linewidth=1, label=c) for c in CRE_ORDER]
+        style_patches = [
+            mpatches.Patch(facecolor="black", edgecolor="black", linewidth=1, label="solid = in peaks"),
+            mpatches.Patch(facecolor="white", edgecolor="black", linewidth=1, hatch="//", label="hatched = outside peaks"),
+        ]
+        stat_patches = [
+            # Labels strictly adjusted to Peak terminology here, decoupled from underlying dataframe dictionary keys
+            mpatches.Patch(facecolor="#333333", edgecolor="black", linewidth=1, label="positive-peak vs negative-peak"),
+            mpatches.Patch(facecolor=color_chd, edgecolor="black", linewidth=1, label="positive-peak vs positive-no peak"),
+            mpatches.Patch(facecolor=color_ctrl, edgecolor="black", linewidth=1, label="negative-peak vs negative-no peak"),
+            plt.Line2D([0], [0], color="none", label="FDR (BH corrected)"),
+        ]
+        
+        # Relocate the comprehensive combined legend underneath the plot using dual columns to clear complex layout layers
+        ax_l.legend(handles=cre_patches + style_patches + stat_patches, loc="upper center", bbox_to_anchor=(0.5, -0.35),
+                    frameon=False, fontsize=10, title="CRE class / stats", title_fontsize=11, ncol=2)
+        
     if save_fig:
         plt.savefig(filepath, dpi=300, bbox_inches='tight')
         print(f"Figure saved to {filepath}")

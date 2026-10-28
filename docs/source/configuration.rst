@@ -85,6 +85,8 @@ Resolution rules:
      - Outputs of track matching, ISM and fine-tuned AlphaGenome attributions
    * - ``variant_data_dir``, ``motif_meme_file``, ``figures_dir``
      - Variant tables and annotation tracks, motif database and figure folder of the analysis notebooks
+   * - ``sdr007_de_dir``, ``sdr010_de_dir``
+     - SDR-seq differential expression results (MAST and Wilcoxon tables) read by ``sdr_variant_dataset.ipynb``
    * - ``models_dir``, ``results_dir``
      - Not read by the current workflows; available to notebooks via :func:`~cardiomics_s2f.config.load_paths`
 
