@@ -102,6 +102,20 @@ checkpoint, so a track file name must occur in only one `*bigwig*` folder of `bi
 The transformer stage has no launcher; run step 2 with
 `UNFREEZE="transformer_tower unet_tower pointwise_conv" LR=1e-5`.
 
+## chrombpnet (env: `CS2F_ENV_CHROMBPNET`)
+
+ChromBPNet 0.1.7 (TensorFlow 2.8; GPU jobs default to `GPU_CONSTRAINT="gpu=A100"`). VEP uses the
+Kundaje lab variant-scorer as a pinned git checkout: run `bash install_variant_scorer.sh` once.
+
+| Step | Launcher | Reads | Writes |
+|---|---|---|---|
+| 1 | `01_prepare_inputs.sh` (CPU) | `atac_peak_dir` (MACS2), `atac_bam_dir`, `blacklist_bed`, `chrom_sizes` | `chrombpnet_input_dir` (peaks without blacklist overlap, `blacklist.chr.bed`) |
+| 2 | `02_train.sh` (array, 1 task per cell type; `CELL_TYPES=`, `N_CELLS=300`, `N_PEAKS=10000`, `FOLDS=`, `OVERWRITE=1`) | `atac_bam_dir`, `chrombpnet_input_dir`, `chrombpnet_bias_model`, `configs/splits/`, `input_prep/configs/nCells.csv` | `chrombpnet_train_dir/<cell type>_<fold>/` |
+| 3 | `03_vep.sh` (`INPUT_VCF=`, `CELL_TYPES=`, `SHAP=0`) | `chrombpnet_model_dir`, `vep_input_vcf` | `vep_dir/chromBPNet_VEP_out` |
+
+The BAMs are read in place (no copies). Training reruns the BAM-to-BigWig conversion for every fold
+(`chrombpnet pipeline`).
+
 ## common
 
 - `load_site_env.sh`: sourced by every launcher and job; provides `cs2f_path`,

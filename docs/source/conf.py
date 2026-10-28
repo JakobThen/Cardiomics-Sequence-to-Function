@@ -18,6 +18,7 @@ sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_ft'))
 sys.path.insert(0, os.path.abspath('../../workflows/common'))
 sys.path.insert(0, os.path.abspath('../../workflows/alphagenome_api'))
 sys.path.insert(0, os.path.abspath('../../workflows/borzoi'))
+sys.path.insert(0, os.path.abspath('../../workflows/chrombpnet'))
 
 
 def _package_version():
@@ -82,6 +83,8 @@ autodoc_mock_imports = [
     "tangermeme",
     "joblib",
     "pyfaidx",
+    # [chrombpnet] extra
+    "pysam",
     # [borzoi] extra
     "grelu",
     "einops",

@@ -34,6 +34,9 @@ workflows/borzoi/configs/*
 !workflows/borzoi/configs/README.md
 !workflows/borzoi/configs/*.example.*
 
+# Pinned third-party checkouts (workflows/chrombpnet/install_variant_scorer.sh)
+external/
+
 # Data, models and results live outside git (only the READMEs are tracked)
 input_data/*
 !input_data/README.md

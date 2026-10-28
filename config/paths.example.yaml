@@ -22,6 +22,7 @@ rna_bam_dir: input_data/raw_bam/multiome_RNA
 cutntag_bam_input: input_data/raw_bam/CutnTag
 bigwig_dir: input_data/AlphaGenome_Borzoi_input
 intervals_dir: input_data/AlphaGenome_Borzoi_input/intervals
+# ChromBPNet step 01 output: peaks without blacklist overlap + chr-prefixed blacklist
 chrombpnet_input_dir: input_data/chrombpnet_input
 variant_data_dir: input_data/variant_data
 # Default VEP input (CSV with variant_id, CHROM, POS, REF, ALT)
@@ -41,6 +42,8 @@ motif_meme_file: input_data/metadata/HOCOMOCO_H14_CORE.meme.txt
 genome_fasta: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.fa
 chrom_sizes: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genome.chrom.sizes
 gtf: input_data/metadata/GRCh38_gencode_release29_genome_fasta/genes.gtf
+# Genome blacklist regions (BED; chr prefix added if missing; ChromBPNet)
+blacklist_bed: input_data/metadata/GRCh38_gencode_release29_genome_fasta/blacklist.bed
 
 # --- AlphaGenome fine-tuning --------------------------------------------------
 # Targets config written by step 01 and read by steps 02-04
@@ -60,6 +63,14 @@ borzoi_decoder_dir: models/Borzoi_finetuned/decoder
 # Model used for test evaluation (step 03; its *_predictions.h5) and VEP (step 04):
 # a .ckpt file or a folder with exactly one epoch*.ckpt
 borzoi_checkpoint_dir: models/Borzoi_finetuned/heads
+
+# --- ChromBPNet (workflows/chrombpnet/) ----------------------------------------
+# Pretrained ENCODE ATAC bias model (supplied with ChromBPNet by the Kundaje lab)
+chrombpnet_bias_model: models/ChromBPNet/bias/ENCSR868FGK_bias_fold_0.h5
+# Where step 02 writes new models (<cell type>_<fold>/)
+chrombpnet_train_dir: models/ChromBPNet/models
+# Models used for VEP (step 03): <cell type>_<fold>/models/chrombpnet_nobias.h5
+chrombpnet_model_dir: models/ChromBPNet/models
 
 # --- Pretrained AlphaGenome (API) ----------------------------------------------
 # Track groups (ontology CURIEs) for track prediction and VEP (gitignored, see configs/README.md)

@@ -36,6 +36,14 @@ cardiomics\_s2f.vep.borzoi module
    :show-inheritance:
    :undoc-members:
 
+cardiomics\_s2f.vep.chrombpnet module
+-------------------------------------
+
+.. automodule:: cardiomics_s2f.vep.chrombpnet
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 cardiomics\_s2f.vep.cohort\_plotting module
 -------------------------------------------
 

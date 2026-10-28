@@ -76,12 +76,16 @@ Resolution rules:
    * - ``multiome_gene_counts_csv``, ``multiome_gene_pct_csv``
      - Pseudobulk RNA counts and percentage of expressing cells per gene (RNA track matching)
    * - ``abc_enhancer_table``, ``atac_peak_dir``
-     - Cardioid candidate enhancers (ATAC track matching, variant annotation) and pseudobulk ATAC peaks
+     - Cardioid candidate enhancers (ATAC track matching, variant annotation) and pseudobulk ATAC peaks (also ChromBPNet 1)
+   * - ``chrombpnet_input_dir``, ``blacklist_bed``
+     - ChromBPNet inputs written by ChromBPNet 1 (filtered peaks, ``chr`` blacklist) from the genome blacklist
+   * - ``chrombpnet_bias_model``, ``chrombpnet_train_dir``, ``chrombpnet_model_dir``
+     - Pretrained ChromBPNet bias model; where ChromBPNet 2 writes new models; models used by ChromBPNet 3 (VEP)
    * - ``track_matching_dir``, ``ism_dir``, ``attribution_dir``
      - Outputs of track matching, ISM and fine-tuned AlphaGenome attributions
    * - ``variant_data_dir``, ``motif_meme_file``, ``figures_dir``
      - Variant tables and annotation tracks, motif database and figure folder of the analysis notebooks
-   * - ``chrombpnet_input_dir``, ``models_dir``, ``results_dir``
+   * - ``models_dir``, ``results_dir``
      - Not read by the current workflows; available to notebooks via :func:`~cardiomics_s2f.config.load_paths`
 
 .. code-block:: python
@@ -114,7 +118,11 @@ quoted.
    * - ``CS2F_ENV_ALPHAGENOME``
      - Lean, GPU-free environment (name or prefix) for ``workflows/alphagenome_api``
    * - ``CS2F_ENV_CHROMBPNET``
-     - Environment (name or prefix) for ``workflows/input_prep``
+     - Environment (name or prefix) for ``workflows/input_prep`` and ``workflows/chrombpnet`` (Python 3.10,
+       ``pip install chrombpnet==0.1.7`` and ``pip install -e ".[chrombpnet]"``)
+   * - ``CS2F_VARIANT_SCORER_DIR``
+     - Pinned variant-scorer checkout for ChromBPNet VEP (empty: ``<repo>/external/variant-scorer``;
+       ``bash workflows/chrombpnet/install_variant_scorer.sh``)
    * - ``CS2F_ENV_BORZOI``
      - Environment (name or prefix) for ``workflows/borzoi`` (``pip install -e ".[borzoi]"``)
    * - ``CS2F_SLURM_ACCOUNT``

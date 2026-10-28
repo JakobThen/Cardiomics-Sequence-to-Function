@@ -27,6 +27,7 @@ The project has two parts:
    AlphaGenome_ft_pipeline
    AlphaGenome_api_pipeline
    Borzoi_pipeline
+   ChromBPNet_pipeline
 
 .. toctree::
    :maxdepth: 2

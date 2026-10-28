@@ -56,6 +56,14 @@ borzoi = [
     "torch",
     "genomepy",
 ]
+# ChromBPNet training and VEP (workflows/chrombpnet/, vep.chrombpnet); also used by
+# workflows/input_prep. chrombpnet 0.1.7 pins TensorFlow 2.8 (CUDA 11); bedtools,
+# samtools and the UCSC tools come from conda. variant-scorer is a pinned git checkout
+# (workflows/chrombpnet/install_variant_scorer.sh), not a pip package.
+chrombpnet = [
+    "chrombpnet==0.1.7",
+    "pysam",
+]
 # Analysis notebooks (analysis_notebooks/) and the modules they use:
 # vep.cohort_plotting, eval.track_matching, finetuning.alphagenome.attributions
 analysis = [
