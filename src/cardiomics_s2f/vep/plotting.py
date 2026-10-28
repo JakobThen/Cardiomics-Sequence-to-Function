@@ -9,6 +9,7 @@ Figures to benchmark VEP scores against observed variant effects:
   `plot_scatter_panel` (with Spearman correlations).
 * Stratified performance: `plot_stratified_auprc_heatmap` (strata e.g. from
   `cardiomics_s2f.vep.processing.create_tss_stratifications`).
+* Score redundancy: `plot_score_correlation_clustermap`.
 
 All functions show their figure with ``plt.show()``, except
 `plot_contingency_grid`, which returns it.
@@ -16,7 +17,9 @@ All functions show their figure with ``plt.show()``, except
 import math
 import numpy as np
 import pandas as pd
+import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
+import scipy.cluster.hierarchy as sch
 import seaborn as sns
 from sklearn.metrics import (
     average_precision_score,
@@ -777,12 +780,13 @@ def plot_scatter_panel(df, x, y, hue, stratification_dict, cols=3, figsize_per_p
     plt.show()
 
 
-def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alternate_score_names=None, title = None, save_fig=False, fig_path="Causality_AUPRC_heatmap.pdf"):
-    """Plots model AUPRCs per stratum as a three-part heatmap.
+def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alternate_score_names=None, title = None, save_fig=False, fig_path="Causality_AUPRC_heatmap.pdf", metric="AUPRC"):
+    """Plots model AUPRCs (or AUROCs) per stratum as a three-part heatmap.
 
     Each row is a stratum; the panels show (1) the number of labelled variants,
     (2) the baseline AUPRC (positive rate) and (3) for each model
-    ``log2(AUPRC / baseline)`` on a diverging scale centred at 0. Rows with a
+    ``log2(AUPRC / baseline)`` on a diverging scale centred at 0 or, with
+    ``metric="AUROC"``, the AUROC on a scale centred at 0.5. Rows with a
     missing label or score are excluded per model; strata without both classes
     get NaN. Plot styling is applied only within this function.
 
@@ -799,13 +803,17 @@ def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alt
         save_fig (bool, optional): Also save the figure to ``fig_path``. Defaults to False.
         fig_path (str, optional): Output path (300 dpi, transparent background).
             Defaults to ``"Causality_AUPRC_heatmap.pdf"``.
+        metric (str, optional): ``"AUPRC"`` (log2 ratio to the baseline) or
+            ``"AUROC"``. Defaults to ``"AUPRC"``.
 
     Returns:
         pd.DataFrame: Per stratum the sample size ``N``, the ``Baseline`` and the
-        ``log2(AUPRC / baseline)`` of each model (columns named by display name).
+        ``log2(AUPRC / baseline)`` (or AUROC) of each model (columns named by
+        display name).
 
     Raises:
-        ValueError: If ``alternate_score_names`` and ``score_columns`` differ in length.
+        ValueError: If ``alternate_score_names`` and ``score_columns`` differ in
+            length, or ``metric`` is not ``"AUPRC"`` or ``"AUROC"``.
     """
 
     # Validate alternate score names if provided
@@ -816,6 +824,9 @@ def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alt
         name_mapping = dict(zip(score_columns, alternate_score_names))
     else:
         name_mapping = {col: col.replace("_", " ") for col in score_columns}
+
+    if metric not in ["AUPRC", "AUROC"]:
+        raise ValueError(f"Unsupported metric: {metric}. Choose 'AUPRC' or 'AUROC'.")
 
     # Plot styling is applied only inside this function (via rc_context below),
     # so the caller's global matplotlib/seaborn settings are left untouched.
@@ -854,6 +865,8 @@ def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alt
 
             if len(y_true) == 0 or len(y_true.unique()) < 2:
                 pct_delta_auprc = np.nan
+            elif metric == "AUROC":
+                pct_delta_auprc = roc_auc_score(y_true, y_score)
             else:
                 abs_auprc = average_precision_score(y_true, y_score)
 
@@ -874,9 +887,12 @@ def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alt
     # Split Baseline and Models into two separate DataFrames
     df_baseline = df_metrics[['Baseline']]
 
-    # Compute log2 values
+    # Compute log2 values (AUPRC); AUROC is already symmetric around 0.5
     model_cols = [col for col in score_columns if col in df_metrics.columns]
-    df_delta = np.log2(df_metrics[model_cols].copy())
+    if metric == "AUPRC":
+        df_delta = np.log2(df_metrics[model_cols].copy())
+    else:
+        df_delta = df_metrics[model_cols].copy()
 
     # Rename columns using either the alternate names or the fallback space-replacement
     df_delta = df_delta.rename(columns=name_mapping)
@@ -931,26 +947,37 @@ def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alt
         add_border(ax_base)
 
         # --- PLOT 3: The Delta Heatmap ---
-        max_abs_delta = df_delta.abs().max().max()
-        if pd.isna(max_abs_delta) or max_abs_delta < 0.1:
-            vmax_div = 0.1
-        else:
-            vmax_div = max_abs_delta
+        if metric == "AUPRC":
+            max_abs_delta = df_delta.abs().max().max()
+            if pd.isna(max_abs_delta) or max_abs_delta < 0.1:
+                vmax_div = 0.1
+            else:
+                vmax_div = max_abs_delta
 
-        vmin_div = -vmax_div
+            vmin_div = -vmax_div
+            center_val = 0
+            cbar_label = 'log2(AUPRC/Baseline)'
+        else:
+            # Scale by the largest deviation from 0.5 (at least 0.05)
+            max_dev = (df_delta - 0.5).abs().max().max()
+            dev_margin = 0.05 if pd.isna(max_dev) or max_dev < 0.05 else max_dev
+            vmin_div = 0.5 - dev_margin
+            vmax_div = 0.5 + dev_margin
+            center_val = 0.5
+            cbar_label = 'AUROC'
 
         sns.heatmap(
             df_delta,
             annot=True,
             fmt=".2f",
             cmap="icefire",
-            center=0,
+            center=center_val,
             vmin=vmin_div,
             vmax=vmax_div,
             linewidths=0.5,
             linecolor='black',
             annot_kws={"size": 7, "weight": "bold"},
-            cbar_kws={'label': 'log2(AUPRC/Baseline)', 'shrink': 0.6},
+            cbar_kws={'label': cbar_label, 'shrink': 0.6},
             ax=ax_delta
         )
         add_border(ax_delta)
@@ -992,3 +1019,157 @@ def plot_stratified_auprc_heatmap(df, true_label, score_columns, strat_dict, alt
         plt.show()
 
     return results_df_full
+
+
+def plot_score_correlation_clustermap(df, score_cols):
+    """Plots the Pearson correlations between VEP and annotation scores as a clustered heatmap.
+
+    Rows and columns are ordered by average-linkage hierarchical clustering (with
+    optimal leaf ordering) and coloured by the score source, derived from the
+    column name: ``maxZ`` -> ENCODE4 cCRE, ``AG_pre`` -> AG pre, ``AG_ft`` -> AG ft,
+    ``JSD``/``COUNT`` -> chromBPNet, ``CADD``, ``phyloP`` (else "Other"). Axis
+    labels are the column names without model prefixes and score suffixes.
+
+    Args:
+        df (pd.DataFrame): Table with the score columns (e.g. one row per variant).
+        score_cols (list of str): Score columns to correlate.
+    """
+    # We dynamically assign the model categories based on your requested substring rules
+    # to cleanly separate the different modalities into distinct visual groups.
+    model_mapping = {}
+    clean_labels = {}
+
+    for col in score_cols:
+        # Determine the Model Source to assign the correct color annotation
+        if 'maxZ' in col:
+            model = 'ENCODE4 cCRE'
+        elif 'AG_pre' in col:
+            model = 'AG pre'
+        elif 'AG_ft' in col:
+            model = 'AG ft'
+        elif 'JSD' in col or 'COUNT' in col:
+            model = 'chromBPNet'
+        elif 'CADD' in col:
+            model = 'CADD'
+        elif 'phyloP' in col:
+            model = 'phyloP100'
+        else:
+            model = 'Other'
+        
+        model_mapping[col] = model
+
+        # We strip out the directional and pipeline prefixes to isolate the core assay,
+        # ensuring the final axes labels are highly readable.
+        clean_name = col
+        prefixes = ['abs_AG_pre_', 'abs_AG_ft_', 'abs_', 'AG_pre_', 'AG_ft_']
+        for prefix in prefixes:
+            if clean_name.startswith(prefix):
+                clean_name = clean_name[len(prefix):]
+                break
+            
+        # We strip the trailing metric identifiers to leave only the biological feature.
+        suffixes = ['_cPBN_raw_score', '_HIST_raw_score', '_TF_raw_score', '_raw_score', '_score', '_maxZ', '_100way', '_PHRED']
+        for suffix in suffixes:
+            if clean_name.endswith(suffix):
+                clean_name = clean_name[:-len(suffix)]
+                break
+            
+        # We handle hardcoded edge cases specifically to ensure correct formatting.
+        if col == 'CADD_PHRED_score': 
+            clean_name = 'CADD'
+        if col == 'phyloP_100way':
+            clean_name = 'phyloP100'
+        
+        clean_labels[col] = clean_name
+
+    corr_matrix = df[score_cols].corr()
+
+    # We map a distinct color palette to each model category to paint the annotation bars.
+    palette = sns.color_palette("Set2", 6)
+    model_colors_dict = {
+        'ENCODE4 cCRE': palette[0],
+        'AG pre': palette[1],
+        'AG ft': palette[2],
+        'chromBPNet': palette[3],
+        'CADD': palette[4],
+        'phyloP100': palette[5]
+    }
+
+    # We translate the model categories into a Pandas Series of colors, which Seaborn 
+    # uses to draw the colored strips alongside the heatmap columns and rows.
+    color_series = pd.Series(model_mapping).map(model_colors_dict)
+
+    # We compute the linkage matrix with optimal ordering to physically arrange 
+    # the clustered leaves so that similar epigenetic tracks naturally transition 
+    # into one another, creating the requested visual gradient.
+    linkage_matrix = sch.linkage(
+        corr_matrix, 
+        method='average', 
+        optimal_ordering=True
+    )
+
+    # We pass the color annotations and explicitly enable labels so we can replace 
+    # them with our cleaned modality names after the grid is rendered.
+    cluster_grid = sns.clustermap(
+        corr_matrix, 
+        row_linkage=linkage_matrix,
+        col_linkage=linkage_matrix,
+        cmap='Reds', 
+        vmin=0, 
+        vmax=1,
+        annot=False,
+        row_colors=color_series,
+        col_colors=color_series,
+        xticklabels=True,
+        yticklabels=True,
+        square=True,
+        dendrogram_ratio=0.1,
+        cbar_pos=None,
+        figsize=(12, 12)
+    )
+
+    # We iterate through the border spines of the heatmap subplot to explicitly 
+    # turn them on and color them black, providing a strict visual boundary 
+    # around the perimeter of the data matrix.
+    for _, spine in cluster_grid.ax_heatmap.spines.items():
+        spine.set_visible(True)
+        spine.set_color('black')
+        spine.set_linewidth(1.5)
+
+    # We replace the original long column and row labels with the stripped modalities, 
+    # dynamically fetching the correct short name based on the current tick text.
+    ax = cluster_grid.ax_heatmap
+    ax.set_xticklabels([clean_labels[tick.get_text()] for tick in ax.get_xticklabels()], rotation=90)
+    ax.set_yticklabels([clean_labels[tick.get_text()] for tick in ax.get_yticklabels()], rotation=0)
+
+    # We manually add a new axes for the colorbar on the upper right side of the 
+    # figure coordinate space to leave room directly below it for the legend.
+    cbar_ax = cluster_grid.figure.add_axes([0.88, 0.55, 0.02, 0.2])
+    cbar = plt.colorbar(cluster_grid.ax_heatmap.collections[0], cax=cbar_ax)
+
+    # We label the colorbar to clearly indicate the statistical metric being visualized.
+    cbar.set_label('Pearson correlation', rotation=270, labelpad=15)
+
+    # We apply the same black border treatment to the colorbar axes to maintain 
+    # visual consistency with the main heatmap grid.
+    for _, spine in cbar_ax.spines.items():
+        spine.set_visible(True)
+        spine.set_color('black')
+        spine.set_linewidth(1.5)
+
+    # We construct a custom legend for the model color annotations so that you 
+    # can visually map the colored bars back to the originating models.
+    legend_patches = [mpatches.Patch(color=color, label=label) for label, color in model_colors_dict.items()]
+
+    # We attach the legend directly to the figure (rather than the heatmap axes) 
+    # and anchor it just below the colorbar. This guarantees the two elements 
+    # share the exact same horizontal alignment on the right side of the image.
+    cluster_grid.figure.legend(
+        handles=legend_patches, 
+        loc='upper left', 
+        bbox_to_anchor=(0.88, 0.50), 
+        title='Model Source',
+        frameon=False
+    )
+
+    plt.show()

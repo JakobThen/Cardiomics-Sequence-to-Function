@@ -36,6 +36,14 @@ cardiomics\_s2f.vep.borzoi module
    :show-inheritance:
    :undoc-members:
 
+cardiomics\_s2f.vep.causality\_classifier module
+------------------------------------------------
+
+.. automodule:: cardiomics_s2f.vep.causality_classifier
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
 cardiomics\_s2f.vep.chrombpnet module
 -------------------------------------
 
@@ -48,6 +56,14 @@ cardiomics\_s2f.vep.cohort\_plotting module
 -------------------------------------------
 
 .. automodule:: cardiomics_s2f.vep.cohort_plotting
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+cardiomics\_s2f.vep.enrichment module
+-------------------------------------
+
+.. automodule:: cardiomics_s2f.vep.enrichment
    :members:
    :show-inheritance:
    :undoc-members:

@@ -1,6 +1,6 @@
 # models/
 
-Trained / fine-tuned model checkpoints. **Not tracked in git** — only this README is.
+Trained / fine-tuned model checkpoints. **Not tracked in git** only this README is.
 The pipelines locate checkpoints via `config/paths.yaml`.
 
 ```

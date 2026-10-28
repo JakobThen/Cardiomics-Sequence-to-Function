@@ -11,7 +11,11 @@ tables and prepares variant effect prediction (VEP) scores for analysis:
   model scores into one column per score.
 * `strip_phasing_suffix`: haplotype suffixes -> one ID per variant.
 * `format_alphagenome_ft_vep_per_gene`, `format_borzoi_vep_per_gene`: long VEP
-  tables of the fine-tuned models -> one row per variant, gene and cell type.
+  tables of the fine-tuned models -> one row per variant, gene and cell type
+  (cell-type-resolved effects, SDR).
+* `format_alphagenome_ft_vep_top_gene`, `format_pretrained_alphagenome_vep_top_gene`:
+  AlphaGenome VEP tables -> one row per variant with the largest-effect gene
+  (no cell-type-resolved effects, Richter).
 * `create_tss_stratifications`: variant strata by distance to the target gene TSS.
 """
 import numpy as np
@@ -661,3 +665,133 @@ def format_borzoi_vep_per_gene(vep: pd.DataFrame) -> pd.DataFrame:
     #merge back togehter
     borzoi_pred_cnt_atac = pd.merge(borzoi_pred_no_genes_cnt, borzoi_pred_no_genes_atac, how = "outer", on = ["variant_id"])
     return pd.merge(borzoi_pred_rna, borzoi_pred_cnt_atac, how = "outer", on = ["variant_id", "cell_type"])
+
+def format_alphagenome_ft_vep_top_gene(vep: pd.DataFrame, gtf: pd.DataFrame,
+                                       cell_type: str = "Cardiomyocytes") -> pd.DataFrame:
+    """Formats fine-tuned AlphaGenome VEP scores to one row per variant (largest-effect gene).
+
+    For data without cell-type-resolved effects (e.g. the Richter de novo
+    variants), where the RNA effect of a variant is taken as its largest absolute
+    effect on any gene. Counterpart of `format_alphagenome_ft_vep_per_gene`:
+
+    * Cut&Tag: mean over days and genes, one column per mark
+      (``AG_ft_H3K27ac_score``, ``AG_ft_H3K4me3_score``; not cell-type-specific);
+    * ATAC and RNA: only the tracks of ``cell_type``; ATAC -> ``AG_ft_ATAC_score``;
+    * RNA: only the track on the strand of the gene (from ``gtf``); per variant the
+      gene with the largest absolute score -> ``AG_ft_RNA_score`` and ``AG_ft_Gene``.
+
+    Args:
+        vep (pd.DataFrame): Long VEP table of ``workflows/alphagenome_ft/04_vep.sh``
+            (``variant_id``, ``gene_id``, ``gene_name``, ``output_type``
+            (``CutnTag``, ``multiome_ATAC``, ``multiome_RNA``), ``track_name``,
+            ``scored_interval``, ``score``).
+        gtf (pd.DataFrame): Gene annotation with ``gene_id``, ``gene_name`` and
+            ``strand`` (e.g. from `cardiomics_s2f.eval.track_prediction.get_gtf`).
+        cell_type (str, optional): Substring of the ATAC and RNA track names to keep.
+            Defaults to ``"Cardiomyocytes"``.
+
+    Returns:
+        pd.DataFrame: One row per variant with ``AG_ft_ATAC_score``,
+        ``AG_ft_H3K27ac_score``, ``AG_ft_H3K4me3_score``, ``AG_ft_RNA_score`` and
+        ``AG_ft_Gene``.
+    """
+    cnt = _mean_alphagenome_ft_cutntag_days(vep)
+    # filter ATAC and RNA to the cell type
+    vep = vep[vep.track_name.str.contains(cell_type)]
+    #merge wide cnt and atac as neitehr cotain genes
+    atac = vep[vep.output_type == "multiome_ATAC"].drop(["gene_id","gene_name", "output_type","track_name", "scored_interval"], axis = 1).drop_duplicates()
+    ag_ft_cnt_atac = pd.merge(atac, cnt, how="outer", on = "variant_id").rename(columns={"score": "AG_ft_ATAC_score", "H3K27ac": "AG_ft_H3K27ac_score", "H3K4me3": "AG_ft_H3K4me3_score"})
+    #take rna with genes and merge with strand mathced genes from gtf
+    rna = vep[vep.output_type == "multiome_RNA"]
+    rna = rna.rename(columns = {"gene_name":"AG_ft_Gene"})
+    gtf_genes = gtf[["gene_id", "strand", "gene_name"]].drop_duplicates()
+    rna = pd.merge(rna, gtf_genes, how = "left", right_on = "gene_name", left_on = "AG_ft_Gene", suffixes=("", "_gtf")).drop_duplicates()
+    rna = rna[((rna.track_name.str.contains("plus")) & (rna.strand == "+")) |
+        (rna.track_name.str.contains("minus")) & (rna.strand == "-")]
+    rna = rna.drop(["gene_id", "gene_id_gtf", "gene_name", "track_name", "strand", "output_type", "scored_interval"], axis = 1)
+    #take absmax gene
+    idx = rna.groupby(["variant_id"])["score"].apply(lambda x: x.abs().idxmax())
+    rna = rna.loc[idx].reset_index(drop= True)
+    rna = rna.rename(columns={"score": "AG_ft_RNA_score"})
+    #merge rna atac and cnt
+    ret = pd.merge(ag_ft_cnt_atac, rna, how = "outer", on = ["variant_id"]).drop_duplicates()
+    ret = ret.groupby('variant_id', as_index=False).agg({
+        'AG_ft_ATAC_score': 'mean', 'AG_ft_H3K27ac_score': 'mean', 'AG_ft_H3K4me3_score': 'mean', 'AG_ft_RNA_score': 'mean', 'AG_ft_Gene': 'first'})
+
+    return ret
+
+def _pivot_tf_raw_scores_keep_nans(df: pd.DataFrame) -> pd.DataFrame:
+    """Pivots ``TF_raw_score`` to one ``<TF>_TF_raw_score`` column per TF.
+
+    Unlike `pivot_tf_scores`, rows with missing values in the identifying columns
+    are kept (no ``pivot_table``), and only the raw scores are pivoted.
+    """
+    tf_cols = ['transcription_factor', 'TF_raw_score']
+    base_cols = [col for col in df.columns if col not in tf_cols]
+    df_unique = df.drop_duplicates(subset=base_cols + ['transcription_factor'])
+    df_pivoted = (
+        df_unique
+        .set_index(base_cols + ['transcription_factor'])['TF_raw_score']
+        .unstack('transcription_factor')
+    )
+    df_pivoted.columns = [f"{col}_TF_raw_score" for col in df_pivoted.columns]
+    return df_pivoted.reset_index()
+
+def format_pretrained_alphagenome_vep_top_gene(vep: pd.DataFrame) -> pd.DataFrame:
+    """Formats pretrained AlphaGenome VEP scores to one row per variant (largest-effect gene).
+
+    Takes an aggregated track-group table of ``workflows/alphagenome_api/04_vep.sh``
+    (here: the whole-heart group) and keeps, per variant, the rows of the gene with
+    the largest absolute ``RNA_raw_score`` (and variants without RNA score), drops
+    the quantile scores, pivots the TF scores and averages the raw scores per
+    variant. All score columns get the prefix ``AG_pre_``; the gene is
+    ``AG_pre_Gene`` and ``variant_name`` becomes ``variant_id``.
+
+    Note:
+        The table must contain the RNA, ATAC, histone (H3K27ac, H3K27me3, H3K36me3,
+        H3K4me1, H3K4me3, H3K9ac, H3K9me3) and TF (CTCF, POLR2A) scores of the
+        whole-heart track group.
+
+    Args:
+        vep (pd.DataFrame): Aggregated pretrained AlphaGenome VEP table
+            (``variant_name``, ``gene_id``, ``gene_name``, ``CHROM``, ``POS``,
+            ``REF``, ``ALT``, ``transcription_factor`` and the ``*_raw_score`` /
+            ``*_quantile_score`` columns).
+
+    Returns:
+        pd.DataFrame: One row per variant with ``AG_pre_Gene`` and the
+        ``AG_pre_*_raw_score`` columns.
+    """
+    ag_pre_richter = vep
+    #get max rna fast
+    abs_rna = ag_pre_richter['RNA_raw_score'].abs()
+    max_scores = abs_rna.groupby(ag_pre_richter['variant_name']).transform('max')
+    mask_max_score = abs_rna == max_scores
+    mask_nan = ag_pre_richter['RNA_raw_score'].isna()
+
+    ag_pre_richter = ag_pre_richter[mask_max_score | mask_nan]
+
+    ag_pre_richter = ag_pre_richter[[col for col in ag_pre_richter.columns if "quantile" not in col]]
+    ag_pre_richter = ag_pre_richter.drop("gene_id", axis =1)
+    ag_pre_richter = _pivot_tf_raw_scores_keep_nans(ag_pre_richter)
+    ag_pre_richter = ag_pre_richter.rename(columns={"variant_name": "variant_id", "gene_name": "AG_pre_Gene"})
+    ag_pre_richter = ag_pre_richter.groupby('variant_id', as_index=False).agg({
+        'AG_pre_Gene': 'first',
+        'CHROM': 'first',
+        'POS': 'first',
+        'REF': 'first',
+        'ALT': 'first',
+        'RNA_raw_score': 'mean',
+        'H3K27ac_HIST_raw_score': 'mean',
+        'H3K27me3_HIST_raw_score': 'mean',
+        'H3K36me3_HIST_raw_score': 'mean',
+        'H3K4me1_HIST_raw_score': 'mean',
+        'H3K4me3_HIST_raw_score': 'mean',
+        'H3K9ac_HIST_raw_score': 'mean',
+        'H3K9me3_HIST_raw_score': 'mean',
+        'ATAC_raw_score': 'mean',
+        'CTCF_TF_raw_score': 'mean',
+        'POLR2A_TF_raw_score': 'mean'
+    })
+
+    return ag_pre_richter.rename(columns={col: f"AG_pre_{col}" for col in ag_pre_richter.columns if "_score" in col})

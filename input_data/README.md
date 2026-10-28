@@ -1,6 +1,6 @@
 # input_data/
 
-Model inputs. **Not tracked in git** — only this README is. Populate the folders
+Model inputs. **Not tracked in git** only this README is. Populate the folders
 locally (copy or symlink); the pipelines locate them via `config/paths.yaml`.
 
 ```
